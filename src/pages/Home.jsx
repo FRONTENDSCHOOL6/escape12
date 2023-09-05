@@ -1,6 +1,7 @@
+import Logo from '@/components/Logo';
+import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import gsap from 'gsap';
 
 function Home() {
 	const navigate = useNavigate();
@@ -11,7 +12,7 @@ function Home() {
 
 		timeline.to(containerRef.current, {
 			opacity: 0,
-			duration: 1,
+			duration: 0.5,
 			delay: 2,
 			onComplete: () => {
 				navigate('/login');
@@ -29,12 +30,7 @@ function Home() {
 			className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-row-reverse justify-center items-center h-screen m-auto"
 		>
 			<h1 className="font-hob text-6xl">방탈러</h1>
-			<img
-				className="h-[90px] mr-5"
-				src="/로고열쇠.svg"
-				alt="방탈러로고이미지"
-				aria-hidden
-			/>
+			<Logo />
 		</div>
 	);
 }
