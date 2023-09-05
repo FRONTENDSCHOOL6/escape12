@@ -1,5 +1,11 @@
+import PlusButton from '@/components/PlusButton';
+
 function Login() {
-	return <div>Login</div>;
+	return (
+		<div>
+			<PlusButton />
+		</div>
+	);
 }
 
 export default Login;
