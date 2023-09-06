@@ -18,7 +18,7 @@ function Mypage() {
           <p className="p-3">비밀번호| ********</p>
           <p className="p-3">닉네임| </p>
         </div>
-        <Button>정보수정</Button>
+        <Button bg="bg-ec1" text="text-ec4">정보수정</Button>
         <div className="border-2 p-6 text-lg rounded-xl">
           <p className="p-3">내가 작성한 기록 12조 최고 ~ </p>
           <p className="p-3">내가 작성한 글 ********</p>

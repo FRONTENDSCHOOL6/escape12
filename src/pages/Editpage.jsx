@@ -16,7 +16,7 @@ function Editpage() {
           <p className="p-3">비밀번호| ********</p>
           <p className="p-3">닉네임| </p>
         </div>
-        <Button>저장</Button>
+        <Button bg="bg-ec1" text="text-ec4">저장</Button>
 
         <Nav></Nav>
       </div>
