@@ -7,6 +7,8 @@ import Empty from '@/layout/Empty';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
 import LoginSelete from './pages/LoginSelete';
+import Mypage from './pages/MyPage';
+import Editpage from './pages/EditPage';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -14,6 +16,9 @@ const router = createBrowserRouter(
 			<Route index element={<Home />} />
 			<Route path="/loginselete" element={<LoginSelete />} />
 			<Route path="/login" element={<Login />} />
+			<Route path="/mypage" element={<Mypage />} />
+			<Route path="/editpage" element={<Editpage />} />
+
 		</Route>
 	)
 );
