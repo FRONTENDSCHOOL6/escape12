@@ -27,10 +27,10 @@ function Home() {
 	return (
 		<div
 			ref={containerRef}
-			className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-row-reverse justify-center items-center h-screen m-auto"
+			className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col-reverse justify-center items-center h-screen m-auto"
 		>
 			<h1 className="font-hob text-6xl">방탈러</h1>
-			<Logo />
+			<Logo height={150} />
 		</div>
 	);
 }
