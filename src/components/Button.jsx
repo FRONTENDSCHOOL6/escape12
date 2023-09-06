@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import  { string } from 'prop-types';
+import { string } from 'prop-types';
 
 Button.propTypes = {
   path: string.isRequired,
@@ -11,7 +11,7 @@ function Button({ path, children}) {
     <Link to={path}>
       <button
         type="button"
-        className="text-center rounded-lg bg-ec1 text-ec3 w-32 h-8 font-semibold text-lg">
+        className="text-center rounded-lg bg-ec1 text-ec4 w-32 h-8 font-semibold text-lg">
         {children}
       </button>
     </Link>

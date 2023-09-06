@@ -6,7 +6,7 @@ Header.propTypes = {
 
 function Header({ children }) {
   return (
-    <header className="max-w-[600px] py-3 text-center bg-ec2 text-ec1 text-3xl font-bold flex justify-center items-center">
+    <header className="max-w-[600px] min-w-[600px] py-3 text-center bg-ec4 text-ec1 text-2xl font-bold leading-2">
       {children}
     </header>
   );
