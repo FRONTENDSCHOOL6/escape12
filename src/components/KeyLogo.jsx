@@ -1,11 +1,11 @@
 import { number } from 'prop-types';
 
-Logo.propTypes = {
+KeyLogo.propTypes = {
 	width: number,
 	height: number,
 };
 
-function Logo({ width = '70', height = '280' }) {
+function KeyLogo({ width = '70', height = '280' }) {
 	return (
 		<svg
 			width={width}
@@ -39,4 +39,4 @@ function Logo({ width = '70', height = '280' }) {
 	);
 }
 
-export default Logo;
+export default KeyLogo;
