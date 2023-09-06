@@ -50,12 +50,3 @@ function Nav() {
 }
 
 export default Nav;
-
-{
-	/* <NavLink to="/theme" className={({isActive})=>{ isActive ? ' text-ec1' : 'text-ec3'
-}}>테마</NavLink>
-
-const a = ({name}) => {name}
-
-a({name:'tiger'}) */
-}
