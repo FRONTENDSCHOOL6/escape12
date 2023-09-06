@@ -1,4 +1,4 @@
-import Logo from '@/components/Logo';
+import CogiLogo from '@/components/CogiLogo';
 import gsap from 'gsap';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ function Home() {
 			duration: 0.5,
 			delay: 2,
 			onComplete: () => {
-				navigate('/login');
+				navigate('/loginselete');
 			},
 		});
 
@@ -27,10 +27,10 @@ function Home() {
 	return (
 		<div
 			ref={containerRef}
-			className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col-reverse justify-center items-center h-screen m-auto"
+			className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center h-screen m-auto pt-60"
 		>
-			<h1 className="font-hob text-6xl">방탈러</h1>
-			<Logo height={150} />
+			<h1 className="font-hob text-7xl">방탈러</h1>
+			<CogiLogo width={250} />
 		</div>
 	);
 }
