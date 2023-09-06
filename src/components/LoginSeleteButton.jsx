@@ -15,7 +15,7 @@ function LoginSeleteButton({ children, line, text, img }) {
 	return (
 		<button
 			type="button"
-			className={`text-center rounded-3xl border-2 ${line} font-semibold ${text} px-32 py-3 ${img} bg-no-repeat text-lg`}
+			className={`text-center rounded-3xl border-2 ${line} font-semibold ${text} px-32 py-3 ${img} bg-no-repeat`}
 			style={buttonLeft}
 		>
 			{children}
