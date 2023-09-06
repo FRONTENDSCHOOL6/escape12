@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import Button from '@/components/Button';
 import Nav from '@/components/Nav';
-import Headerback from '@/components/Headerback';
+import Headerback from '@/components/HeaderBack';
 
 function Editpage() {
   return (

@@ -6,8 +6,8 @@ import {
 import Empty from '@/layout/Empty';
 import Home from '@/pages/Home';
 import Login from './pages/Login';
-import Mypage from './pages/Mypage';
-import Editpage from './pages/Editpage';
+import Mypage from './pages/MyPage';
+import Editpage from './pages/EditPage';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
