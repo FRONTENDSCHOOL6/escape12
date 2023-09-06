@@ -11,7 +11,7 @@ function Button({ path, children}) {
     <Link to={path}>
       <button
         type="button"
-        className="text-center rounded-lg bg-ec3 text-ec1 w-32 h-8 font-semibold text-sm">
+        className="text-center rounded-lg bg-ec1 text-ec3 w-32 h-8 font-semibold text-lg">
         {children}
       </button>
     </Link>
