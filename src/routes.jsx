@@ -9,6 +9,7 @@ import Login from '@/pages/Login';
 import LoginSelete from './pages/LoginSelete';
 import Mypage from './pages/MyPage';
 import Editpage from './pages/EditPage';
+import PostPage from './pages/PostPage';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -18,7 +19,7 @@ const router = createBrowserRouter(
 			<Route path="/login" element={<Login />} />
 			<Route path="/mypage" element={<Mypage />} />
 			<Route path="/editpage" element={<Editpage />} />
-
+			<Route path="/PostPage" element={<PostPage />} />
 		</Route>
 	)
 );
