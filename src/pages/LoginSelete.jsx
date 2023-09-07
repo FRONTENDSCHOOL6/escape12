@@ -45,6 +45,9 @@ function LoginSelete() {
 						</LoginSeleteButton>
 					</Link>
 				</div>
+				<Link to="" className="text-lg mt-8">
+					회원가입
+				</Link>
 			</div>
 		</>
 	);
