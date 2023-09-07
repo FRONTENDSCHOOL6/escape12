@@ -10,6 +10,7 @@ import LoginSelete from '@/pages/LoginSelete';
 import Mypage from '@/pages/MyPage';
 import Editpage from '@/pages/EditPage';
 import PostPage from '@/pages/PostPage';
+import AddCommunity from '@/pages/AddCommunity';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
 			<Route path="/mypage" element={<Mypage />} />
 			<Route path="/editpage" element={<Editpage />} />
 			<Route path="/PostPage" element={<PostPage />} />
+			<Route path="/addcommunity" element={<AddCommunity />} />
 		</Route>
 	)
 );
