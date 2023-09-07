@@ -6,10 +6,10 @@ import {
 import Empty from '@/layout/Empty';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
-import LoginSelete from './pages/LoginSelete';
-import Mypage from './pages/MyPage';
-import Editpage from './pages/EditPage';
-import PostPage from './pages/PostPage';
+import LoginSelete from '@/pages/LoginSelete';
+import Mypage from '@/pages/MyPage';
+import Editpage from '@/pages/EditPage';
+import PostPage from '@/pages/PostPage';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
