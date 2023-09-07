@@ -14,6 +14,7 @@ export default {
 			ec3: '#5C5470',
 			ec4: '#352F44',
 			ec5: '#F8DE22',
+			red: '#FA0000',
 			kakaoline: '#FFE895',
 			googleline: '#BCF0AB',
 		},
