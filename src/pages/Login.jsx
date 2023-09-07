@@ -78,7 +78,9 @@ function Login() {
 								<FormInputValid>
 									비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다
 								</FormInputValid>
-							) : null}
+							) : (
+								<FormInputValid>　　</FormInputValid>
+							)}
 						</div>
 					</fieldset>
 					<Button type="submit" bg="bg-ec1">
@@ -89,7 +91,7 @@ function Login() {
 					<Link to="" onClick={handleFindUserData} className="text-ec1">
 						아이디/비밀번호 찾기
 					</Link>
-					<Link to="" className="text-ec1">
+					<Link to="/signup" className="text-ec1">
 						회원가입
 					</Link>
 					<Link to="/loginselete" className="text-ec1">
