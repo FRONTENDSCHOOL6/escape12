@@ -2,17 +2,22 @@ import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
 import FormInputValid from '@/components/FormInputValid';
 import KeyLogo from '@/components/KeyLogo';
+import PocketBase from 'pocketbase';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 function SignUp() {
-	const [userId, setUserId] = useState('');
-	const [userPw, setUserPw] = useState('');
-	const [userPwCheck, setUserPwCheck] = useState('');
-	const [userNickName, setUserNickName] = useState('');
+	const pb = new PocketBase('https://refresh.pockethost.io');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [passwordConfirm, setPasswordConfirm] = useState('');
+	const [nickName, setNickName] = useState('');
 	const [isValidId, setIsValidId] = useState(false);
 	const [isValidPw, setIsValidPw] = useState(false);
+
+	const navigate = useNavigate();
 
 	// 아이디 유효성 검사, 이메일 형식
 	const regId =
@@ -27,33 +32,63 @@ function SignUp() {
 	//아이디 정규식 검사
 	const handleIdValid = (e) => {
 		const target = e.target.value;
-		setUserId(target);
+		setEmail(target);
 		setIsValidId(regId.test(target));
 	};
 
 	//비밀번호 정규식 검사
 	const handlePwValid = (e) => {
 		const target = e.target.value;
-		setUserPw(target);
+		setPassword(target);
 		setIsValidPw(regPw.test(target));
 	};
 
 	//비밀번호 일치 검사
 	const handlePwCheck = (e) => {
 		const target = e.target.value;
-		setUserPwCheck(target);
+		setPasswordConfirm(target);
 	};
 
-	//닉네임 2자 이상
+	//닉네임 정규식 검사
 	const handleNickName = (e) => {
 		const target = e.target.value;
-		setUserNickName(target);
+		setNickName(target);
 	};
 
-	//Form 제출
-	const handleUserData = (e) => {
+	//pockethost create
+	const handleUserData = async (e) => {
 		e.preventDefault();
-		console.log('클릭');
+		const data = {
+			email,
+			password,
+			passwordConfirm,
+			nickName,
+		};
+
+		try {
+			if (
+				regId.test(email) &&
+				regPw.test(password) &&
+				password === passwordConfirm &&
+				regNickName.test(nickName)
+			) {
+				await pb.collection('users').create(data);
+
+				toast('가입되었습니다 :)', {
+					icon: '💛',
+				});
+
+				navigate('/login');
+			} else {
+				toast('비밀번호가 일치하지 않습니다.', {
+					icon: '🔐',
+				});
+			}
+		} catch (err) {
+			toast('통신 오류입니다. 다시 시도해주세요.', {
+				icon: '😭',
+			});
+		}
 	};
 
 	return (
@@ -67,7 +102,7 @@ function SignUp() {
 				</Link>
 				<form
 					onSubmit={handleUserData}
-					className="flex flex-col gap-10 items-center py-20"
+					className="flex flex-col gap-10 items-center py-32 s:py-20"
 				>
 					<div className="flex flex-col gap-3">
 						<>
@@ -80,7 +115,7 @@ function SignUp() {
 								아이디(이메일)
 							</FormInput>
 							<FormInputValid color={!isValidId ? 'text-red' : ''}>
-								{!userId
+								{!email
 									? ' '
 									: !isValidId
 									? '이메일 형식으로 입력해주세요'
@@ -97,7 +132,7 @@ function SignUp() {
 								비밀번호
 							</FormInput>
 							<FormInputValid color={!isValidPw ? 'text-red' : ''}>
-								{!userPw
+								{!password
 									? ''
 									: !isValidPw
 									? '비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다'
@@ -114,11 +149,13 @@ function SignUp() {
 								비밀번호 확인
 							</FormInput>
 							<FormInputValid
-								color={userPw === userPwCheck ? 'text-googleline' : 'text-red'}
+								color={
+									password === passwordConfirm ? 'text-googleline' : 'text-red'
+								}
 							>
-								{userPwCheck.length === 0
+								{passwordConfirm.length === 0
 									? ''
-									: userPw === userPwCheck
+									: password === passwordConfirm
 									? '비밀번호가 일치합니다'
 									: '비밀번호가 일치하지 않습니다.'}
 							</FormInputValid>
@@ -134,12 +171,12 @@ function SignUp() {
 							</FormInput>
 							<FormInputValid
 								color={
-									userNickName.length !== 0 && !regNickName.test(userNickName)
+									nickName.length !== 0 && !regNickName.test(nickName)
 										? 'text-red'
 										: ''
 								}
 							>
-								{userNickName.length !== 0 && !regNickName.test(userNickName)
+								{nickName.length !== 0 && !regNickName.test(nickName)
 									? '공백 제외 두 자리 이상입력해주세요'
 									: ''}
 							</FormInputValid>
