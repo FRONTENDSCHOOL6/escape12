@@ -10,19 +10,19 @@ PostList.propTypes = {
 			date: PropTypes.string.isRequired,
 		})
 	).isRequired,
-	onDeletePost: PropTypes.func.isRequired,
+	// onDeletePost: PropTypes.func.isRequired,
 };
 
-function PostList({ posts, onDeletePost }) {
+function PostList({ posts /*onDeletePost*/ }) {
 	return (
-		<div className="">
+		<div>
 			{posts.map((post) => (
 				<Post
 					key={post.id}
 					title={post.title}
 					author={post.author}
 					date={post.date}
-					onDelete={() => onDeletePost(post.id)}
+					// onDelete={() => onDeletePost(post.id)}
 				/>
 			))}
 		</div>
