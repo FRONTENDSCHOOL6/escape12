@@ -1,11 +1,18 @@
 import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
+import FormInputValid from '@/components/FormInputValid';
 import KeyLogo from '@/components/KeyLogo';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 
 function Login() {
+	const [userId, setUserId] = useState('');
+	const [userPw, setUserPw] = useState('');
+	const [isValidId, setIsValidId] = useState(true);
+	const [isValidPw, setIsValidPw] = useState(true);
+
 	// 아이디 유효성 검사, 이메일 형식
 	const regId = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;
 	// 비밀번호 유효성 검사, 최소 8자 이상, 최소 1개의 대소문자, 특수문자 포함
@@ -24,6 +31,20 @@ function Login() {
 		});
 	};
 
+	//아이디 정규식 검사
+	const handleIdValid = (e) => {
+		const target = e.target.value;
+		setUserId(target);
+		setIsValidId(regId.test(target));
+	};
+
+	//비밀번호 정규식 검사
+	const handlePwValid = (e) => {
+		const target = e.target.value;
+		setUserPw(target);
+		setIsValidPw(regPw.test(target));
+	};
+
 	return (
 		<>
 			<Helmet>
@@ -32,13 +53,33 @@ function Login() {
 			<div className="bg-ec4 flex flex-col items-center h-screen m-auto text-lg gap-10 max-w-[600px] mix-w-[320px]">
 				<KeyLogo />
 				<form action="" className="flex flex-col gap-10 items-center py-20">
-					<fieldset className="flex flex-col gap-8">
-						<FormInput type="email" name="id">
-							아이디/이메일
-						</FormInput>
-						<FormInput type="password" name="password">
-							비밀번호
-						</FormInput>
+					<fieldset className="flex flex-col gap-3">
+						<div>
+							<FormInput type="email" name="id" onChange={handleIdValid}>
+								아이디/이메일
+							</FormInput>
+							{!isValidId ? (
+								<FormInputValid>이메일 형식으로 작성해주세요</FormInputValid>
+							) : (
+								<FormInputValid>　　</FormInputValid>
+							)}
+						</div>
+						<div>
+							<FormInput
+								type="password"
+								name="password"
+								onChange={handlePwValid}
+							>
+								비밀번호
+							</FormInput>
+							{!userPw ? (
+								<FormInputValid>　　</FormInputValid>
+							) : !isValidPw ? (
+								<FormInputValid>
+									비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다
+								</FormInputValid>
+							) : null}
+						</div>
 					</fieldset>
 					<Button type="submit" bg="bg-ec1">
 						로그인
