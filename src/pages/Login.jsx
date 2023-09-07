@@ -2,14 +2,17 @@ import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
 import FormInputValid from '@/components/FormInputValid';
 import KeyLogo from '@/components/KeyLogo';
+import PocketBase from 'pocketbase';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
-	const [userId, setUserId] = useState('');
-	const [userPw, setUserPw] = useState('');
+	const pb = new PocketBase('https://refresh.pockethost.io');
+	const navigate = useNavigate();
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 	const [isValidId, setIsValidId] = useState(false);
 	const [isValidPw, setIsValidPw] = useState(false);
 
@@ -23,25 +26,42 @@ function Login() {
 	const handleFindUserData = () => {
 		toast('현재 해당 서비스는 이용불가합니다', {
 			icon: '😭',
-			style: {
-				borderRadius: '10px',
-				background: '#fff',
-				color: '#352F44',
-			},
 		});
+	};
+
+	const handleLogin = async (e) => {
+		e.preventDefault();
+
+		try {
+			const authData = await pb
+				.collection('users')
+				.authWithPassword(email, password);
+
+			console.log(authData);
+			if (authData) {
+				toast('로그인 성공', {
+					icon: '💜',
+				});
+				navigate('/');
+			}
+		} catch (err) {
+			toast('아이디와 비밀번호를 확인해주세요', {
+				icon: '',
+			});
+		}
 	};
 
 	//아이디 정규식 검사
 	const handleIdValid = (e) => {
 		const target = e.target.value;
-		setUserId(target);
+		setEmail(target);
 		setIsValidId(regId.test(target));
 	};
 
 	//비밀번호 정규식 검사
 	const handlePwValid = (e) => {
 		const target = e.target.value;
-		setUserPw(target);
+		setPassword(target);
 		setIsValidPw(regPw.test(target));
 	};
 
@@ -53,7 +73,7 @@ function Login() {
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center h-screen m-auto">
 				<KeyLogo />
 				<form
-					action=""
+					onSubmit={handleLogin}
 					className="flex flex-col gap-10 items-center py-32 s:py-16"
 				>
 					<fieldset className="flex flex-col gap-3">
@@ -62,7 +82,7 @@ function Login() {
 								아이디(이메일)
 							</FormInput>
 							<FormInputValid color={!isValidId ? 'text-red' : ''}>
-								{!userId
+								{!email
 									? ' '
 									: !isValidId
 									? '이메일 형식으로 입력해주세요'
@@ -78,7 +98,7 @@ function Login() {
 								비밀번호
 							</FormInput>
 							<FormInputValid color={!isValidPw ? 'text-red' : ''}>
-								{!userPw
+								{!password
 									? ''
 									: !isValidPw
 									? '비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다'
@@ -90,16 +110,12 @@ function Login() {
 						로그인
 					</Button>
 				</form>
-				<div className="flex flex-col items-center gap-5 flex-1">
-					<Link to="" onClick={handleFindUserData} className="text-ec1">
+				<div className="flex flex-col items-center gap-5 flex-1 text-ec1">
+					<Link to="" onClick={handleFindUserData}>
 						아이디/비밀번호 찾기
 					</Link>
-					<Link to="/signup" className="text-ec1">
-						회원가입
-					</Link>
-					<Link to="/loginselete" className="text-ec1">
-						다른 방법으로 로그인
-					</Link>
+					<Link to="/signup">회원가입</Link>
+					<Link to="/loginselete">다른 방법으로 로그인</Link>
 				</div>
 			</div>
 		</>
