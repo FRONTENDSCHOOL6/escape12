@@ -14,7 +14,7 @@ Currently, two official plugins are available:
 ## 🗓️ 개발 기간
 - 2023.09.04 (MON) ~
 
-##😎‍ 멤버 구성
+## 😎‍ 멤버 구성
 
 <table>
    <tr>
