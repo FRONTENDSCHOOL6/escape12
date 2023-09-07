@@ -58,15 +58,13 @@ function Login() {
 							<FormInput type="email" name="id" onChange={handleIdValid}>
 								아이디(이메일)
 							</FormInput>
-							{!userId ? (
-								<FormInputValid>　　</FormInputValid>
-							) : !isValidId ? (
-								<FormInputValid color="text-red">
-									이메일 형식으로 입력해주세요
-								</FormInputValid>
-							) : (
-								<FormInputValid>　　</FormInputValid>
-							)}
+							<FormInputValid color={!isValidId ? 'text-red' : ''}>
+								{!userId
+									? ' '
+									: !isValidId
+									? '이메일 형식으로 입력해주세요'
+									: ' '}
+							</FormInputValid>
 						</div>
 						<div>
 							<FormInput
@@ -76,15 +74,13 @@ function Login() {
 							>
 								비밀번호
 							</FormInput>
-							{!userPw ? (
-								<FormInputValid>　　</FormInputValid>
-							) : !isValidPw ? (
-								<FormInputValid color="text-red">
-									비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다
-								</FormInputValid>
-							) : (
-								<FormInputValid>　　</FormInputValid>
-							)}
+							<FormInputValid color={!isValidPw ? 'text-red' : ''}>
+								{!userPw
+									? ''
+									: !isValidPw
+									? '비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다'
+									: ''}
+							</FormInputValid>
 						</div>
 					</fieldset>
 					<Button type="submit" bg="bg-ec1">
