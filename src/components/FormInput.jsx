@@ -16,7 +16,7 @@ function FormInput({ children, type, name, onChange = null, ...restProps }) {
 				</label>
 				<input
 					type={type}
-					className="w-[300px] s:w-[200px] pl-2 bg-ec4 border-b-2 border-ec1 focus:outline-none webkit"
+					className="w-[300px] s:w-[200px] bg-ec4 border-b-2 border-ec1 focus:outline-none webkit"
 					name={name}
 					id={name}
 					onChange={onChange}
