@@ -9,19 +9,20 @@ function Editpage() {
       <Helmet>
         <title>정보 수정</title>
       </Helmet>
-      <div className="w-full max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center h-screen m-auto gap-28">
+      <div className="relative w-full max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center h-screen m-auto text-lg gap-10">
         <Headerback>정보 수정</Headerback>
-        <div className="text-xl">
-          <p className="p-3">아이디| 12조 최고 ~ </p>
-          <p className="p-3">비밀번호| ********</p>
-          <p className="p-3">닉네임| </p>
+        <div className="flex flex-col items-center h-screen gap-10">
+          <div className="text-xl mt-14">
+            <p className="p-3">아이디| 12조 최고 ~ </p>
+            <p className="p-3">비밀번호| ********</p>
+            <p className="p-3">닉네임| </p>
+          </div>
+          <Button path="/mypage" bg="bg-ec1" text="text-ec4">저장</Button>
         </div>
-        <Button bg="bg-ec1" text="text-ec4">저장</Button>
-
-        <Nav></Nav>
+        <div className="w-full max-w-[600px] min-w-[320px] m-auto">
+          <Nav></Nav>
+        </div>
       </div>
-
-
     </>
   );
 }
