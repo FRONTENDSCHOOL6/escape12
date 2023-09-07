@@ -1,31 +1,29 @@
-import { Link } from 'react-router-dom';
-import { string } from 'prop-types';
+import { string, func } from 'prop-types';
 
 Button.propTypes = {
-	path: string,
-	type: string,
-	bg: string,
-	text: string,
-	children: string,
+    type: string,
+    bg: string,
+    text: string,
+    children: string,
+    onClick: func,
 };
 
 function Button({
-	path = '',
-	type = 'button',
-	bg = 'bg-ec3',
-	text = 'bg-ec1',
-	children,
+    type = 'button',
+    bg = 'bg-ec3',
+    text = 'bg-ec1',
+    onClick = '',
+    children,
 }) {
-	return (
-		<Link to={path}>
-			<button
-				type={type}
-				className={`text-center rounded-lg ${bg} ${text} w-32 h-8 font-semibold`}
-			>
-				{children}
-			</button>
-		</Link>
-	);
+    return (
+        <button
+            type={type}
+            className={`text-center rounded-lg ${bg} ${text} w-32 h-8 font-semibold`}
+            onClick={onClick}
+        >
+            {children}
+        </button>
+    );
 }
 
 export default Button;
