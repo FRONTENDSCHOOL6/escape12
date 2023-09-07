@@ -22,6 +22,8 @@ export default {
 			kakao: 'url("/src/assets/loginselete-kakao.png")',
 			google: 'url("/src/assets/loginselete-google.png")',
 			key: 'url("/src/assets/loginselete-key.png")',
+			eyetrue: 'url("/src/assets/login-eyetrue.png.png")',
+			eyefalse: 'url("/src/assets/login-eyefalse.png.png")',
 		},
 		extend: {},
 	},
