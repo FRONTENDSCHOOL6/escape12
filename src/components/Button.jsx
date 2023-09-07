@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import { string } from 'prop-types';
 
 Button.propTypes = {
-	path: string.isRequired,
-	type: string.isRequired,
-	bg: string.isRequired,
-	text: string.isRequired,
-	children: string.isRequired,
+	path: string,
+	type: string,
+	bg: string,
+	text: string,
+	children: string,
 };
 
 function Button({
