@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom';
 function Login() {
 	const [userId, setUserId] = useState('');
 	const [userPw, setUserPw] = useState('');
-	const [isValidId, setIsValidId] = useState(true);
-	const [isValidPw, setIsValidPw] = useState(true);
+	const [isValidId, setIsValidId] = useState(false);
+	const [isValidPw, setIsValidPw] = useState(false);
 
 	// 아이디 유효성 검사, 이메일 형식
 	const regId = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;
@@ -56,10 +56,14 @@ function Login() {
 					<fieldset className="flex flex-col gap-3">
 						<div>
 							<FormInput type="email" name="id" onChange={handleIdValid}>
-								아이디/이메일
+								아이디(이메일)
 							</FormInput>
-							{!isValidId ? (
-								<FormInputValid>이메일 형식으로 작성해주세요</FormInputValid>
+							{!userId ? (
+								<FormInputValid>　　</FormInputValid>
+							) : !isValidId ? (
+								<FormInputValid color="text-red">
+									이메일 형식으로 입력해주세요
+								</FormInputValid>
 							) : (
 								<FormInputValid>　　</FormInputValid>
 							)}
@@ -75,7 +79,7 @@ function Login() {
 							{!userPw ? (
 								<FormInputValid>　　</FormInputValid>
 							) : !isValidPw ? (
-								<FormInputValid>
+								<FormInputValid color="text-red">
 									비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다
 								</FormInputValid>
 							) : (
