@@ -10,9 +10,9 @@ function Headerback({ path = "", children }) {
   return (
     <div>
       <header className="py-3 text-center bg-ec4 text-ec1 text-2xl sm:text-xl font-bold leading-2">
-        <div className="absolute left-4 top-7 mx-auto max-w-screen-md flex">
+        <div className="max-w-screen-md mx-auto flex items-center">
           <Link to={path}>
-            <button className='transform -translate-y-1/2 bg-transparent border-none '>
+            <button className='ml-2'>
               &lt;
             </button>
           </Link>
