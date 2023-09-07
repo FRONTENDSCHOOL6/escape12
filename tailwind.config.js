@@ -6,7 +6,9 @@ export default {
 			hob: ['SDSamliphopangche_Outline'],
 		},
 		screens: {
-			width: { min: '320px', max: '600px' },
+			s: { min: '320px', max: '600px' },
+			m: { min: '601px', max: '1279px' },
+			l: { min: '1280px' },
 		},
 		colors: {
 			ec1: '#FAF0E6',
