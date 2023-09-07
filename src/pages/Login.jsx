@@ -17,7 +17,7 @@ function Login() {
 	const regId = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;
 	// 비밀번호 유효성 검사, 최소 8자 이상, 최소 1개의 대소문자, 특수문자 포함
 	const regPw =
-		/(?=(.*[0-9]))(?=.*[\!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/;
+		/(?=(.*[0-9]))(?=.*[!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/;
 
 	//아이디비밀번호 찾기 안내문구
 	const handleFindUserData = () => {
@@ -50,9 +50,12 @@ function Login() {
 			<Helmet>
 				<title>방탈러-로그인</title>
 			</Helmet>
-			<div className="bg-ec4 flex flex-col items-center h-screen m-auto text-lg gap-10 max-w-[600px] mix-w-[320px]">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center h-screen m-auto">
 				<KeyLogo />
-				<form action="" className="flex flex-col gap-10 items-center py-20">
+				<form
+					action=""
+					className="flex flex-col gap-10 items-center py-32 s:py-16"
+				>
 					<fieldset className="flex flex-col gap-3">
 						<div>
 							<FormInput type="email" name="id" onChange={handleIdValid}>
@@ -87,7 +90,7 @@ function Login() {
 						로그인
 					</Button>
 				</form>
-				<div className="flex flex-col items-center gap-5">
+				<div className="flex flex-col items-center gap-5 flex-1">
 					<Link to="" onClick={handleFindUserData} className="text-ec1">
 						아이디/비밀번호 찾기
 					</Link>

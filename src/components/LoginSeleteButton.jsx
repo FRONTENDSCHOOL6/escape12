@@ -1,10 +1,10 @@
 import { string, func } from 'prop-types';
 
 LoginSeleteButton.propTypes = {
-	children: string.isRequired,
-	line: string.isRequired,
-	text: string.isRequired,
-	img: string.isRequired,
+	children: string,
+	line: string,
+	text: string,
+	img: string,
 	onClick: func,
 };
 
@@ -17,7 +17,7 @@ function LoginSeleteButton({ children, line, text, img, onClick = '' }) {
 		<button
 			type="button"
 			onClick={onClick}
-			className={`text-center rounded-3xl border-2 ${line} font-semibold ${text} px-32 py-3 ${img} bg-no-repeat`}
+			className={`text-center rounded-3xl border-2 ${line} font-semibold ${text} px-32 s:px-24 py-3 ${img} bg-no-repeat`}
 			style={buttonLeft}
 		>
 			{children}
