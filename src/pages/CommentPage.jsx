@@ -17,17 +17,33 @@ function CommentPage() {
 			<Helmet>
 				<title>게시글 상세</title>
 			</Helmet>
-
 			{/* 전체 페이지 */}
 
-			<div className="w-full max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center py-20 h-full m-auto gap-10 ">
+			<div className="w-full max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center py-20 h-screen m-auto gap-10 ">
 				<div className="max-w-[600px] min-w-[320px] m-auto fixed top-0 left-0 right-0">
 					<Headerback>게시글</Headerback>
 				</div>
 				{/* 게시글 내용 박스 */}
-				<div className="break-all text-[15px] border p-4 rounded-xl min-w-[400px] min-h-[200px] max-w-[400px]">
-					<p className="font-bold  mb-2 pb-2 border-b-2">프로필 사진+id값</p>
-					<p>게시글 내용 너무 재밌어요~~</p>
+				<div>
+					<div className="break-all text-[15px] border p-4 rounded-xl min-w-[400px] min-h-[200px] max-w-[400px]">
+						<p className="font-bold  mb-2 pb-2 border-b-2">프로필 사진+id값</p>
+						<p>게시글 내용 너무 재밌어요~~</p>
+					</div>
+					{/*수정 삭제 버튼 */}
+					<div className="flex items-center w-[400px] justify-between mt-2">
+						<button
+							className="bg-ec3 text-[15px] w-[40px] h-8 hover:text-ec5 rounded-lg text-ec1"
+							type="button"
+						>
+							수정
+						</button>
+						<button
+							className="bg-ec3 text-[15px] w-[40px] h-8 hover:text-ec5 rounded-lg text-ec1"
+							type="button"
+						>
+							삭제
+						</button>
+					</div>
 				</div>
 				{/* 댓글 작성창 */}
 				<fieldset className="flex flex-col justify-between  items-center text-ec4">
