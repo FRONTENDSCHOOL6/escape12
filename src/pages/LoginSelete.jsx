@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import LoginSeleteButton from './../components/LoginSeleteButton';
+import LoginSeleteButton from '@/components/loginsignup/LoginSeleteButton';
 import KeyLogo from '@/components/KeyLogo';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
