@@ -1,28 +1,30 @@
-import PropTypes from 'prop-types';
+import { string, shape, number, arrayOf } from 'prop-types';
 import Post from './Post';
 
 PostList.propTypes = {
-	posts: PropTypes.arrayOf(
-		PropTypes.shape({
-			id: PropTypes.number.isRequired,
-			title: PropTypes.string.isRequired,
-			author: PropTypes.string.isRequired,
-			date: PropTypes.string.isRequired,
+	posts: arrayOf(
+		shape({
+			id: number,
+			title: string,
+			author: string,
+			date: string,
+			content: string,
 		})
 	).isRequired,
-	onDeletePost: PropTypes.func.isRequired,
+	// onDeletePost: PropTypes.func.isRequired,
 };
 
-function PostList({ posts, onDeletePost }) {
+function PostList({ posts /*onDeletePost*/ }) {
 	return (
-		<div className="">
+		<div>
 			{posts.map((post) => (
 				<Post
 					key={post.id}
 					title={post.title}
 					author={post.author}
 					date={post.date}
-					onDelete={() => onDeletePost(post.id)}
+					content={post.content}
+					// onDelete={() => onDeletePost(post.id)}
 				/>
 			))}
 		</div>
