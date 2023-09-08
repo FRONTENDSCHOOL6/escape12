@@ -1,11 +1,18 @@
 import Header from '@/components/Header';
-import Nav from '@/components/Nav';
-import PlusButton from '@/components/PlusButton';
+import PlusNav from '@/components/PlusNav';
 import SearchInput from '@/components/SearchInput';
 import ThemeItem from '@/components/theme/ThemeItem';
 import { Helmet } from 'react-helmet-async';
+import toast from 'react-hot-toast';
 
 function Theme() {
+	const handleRecordButton = () => {
+		toast('기능 구현중입니다 :)', {
+			icon: '🍮',
+			duration: 2000,
+		});
+	};
+
 	return (
 		<>
 			<Helmet>
@@ -20,8 +27,13 @@ function Theme() {
 					<li>지역별</li>
 				</ul>
 				<ThemeItem />
-				<PlusButton />
-				<Nav />
+				<ThemeItem />
+				<ThemeItem />
+				<ThemeItem />
+				<ThemeItem />
+				<ThemeItem />
+				<ThemeItem />
+				<PlusNav onPlusClick={handleRecordButton} />
 			</div>
 		</>
 	);
