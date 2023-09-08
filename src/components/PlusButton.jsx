@@ -1,20 +1,19 @@
-import { string } from 'prop-types';
-import { Link } from 'react-router-dom';
+import pencil from '@/assets/plusbutton-pencil.png';
+import { object } from 'prop-types';
 
 PlusButton.propTypes = {
-	path: string,
+	onButtonClick: object,
 };
 
-function PlusButton({ path }) {
+function PlusButton(onButtonClick = {}) {
 	return (
-		<Link to={path}>
-			<button
-				type="button"
-				className="text-center bg-ec1 text-ec3 rounded-full text-6xl font-semibold  pb-2 px-1 hover:bg-ec3 hover:text-ec1"
-			>
-				＋
-			</button>
-		</Link>
+		<button
+			type="button"
+			className="s:w-14 w-16 text-center bg-ec1 rounded-full text-6xl font-semibold p-1 absolute right-4 bottom-20"
+			onClick={onButtonClick}
+		>
+			<img src={pencil} alt="테마 기록하기" aria-hidden />
+		</button>
 	);
 }
 
