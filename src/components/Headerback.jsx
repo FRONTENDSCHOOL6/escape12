@@ -13,7 +13,7 @@ function Headerback({
   return (
     <div>
       <header className='py-3 text-center bg-ec4 text-ec1 text-2xl font-bold leading-2'>
-        <div className='mx-auto flex items-center'>
+        <div className='max-w-screen-md mx-auto flex items-center'>
           <button
             className='ml-2'
             onClick={onClick}  >
