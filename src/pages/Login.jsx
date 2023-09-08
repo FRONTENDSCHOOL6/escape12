@@ -1,6 +1,6 @@
 import Button from '@/components/Button';
-import FormInput from '@/components/FormInput';
-import FormInputValid from '@/components/FormInputValid';
+import FormInput from '@/components/loginsignup/FormInput';
+import FormInputValid from '@/components/loginsignup/FormInputValid';
 import KeyLogo from '@/components/KeyLogo';
 import PocketBase from 'pocketbase';
 import { useState } from 'react';
@@ -29,6 +29,7 @@ function Login() {
 		});
 	};
 
+	//로그인 정보 확인 후 이동
 	const handleLogin = async (e) => {
 		e.preventDefault();
 
@@ -37,7 +38,6 @@ function Login() {
 				.collection('users')
 				.authWithPassword(email, password);
 
-			console.log(authData);
 			if (authData) {
 				toast('로그인 성공', {
 					icon: '💜',
@@ -46,7 +46,7 @@ function Login() {
 			}
 		} catch (err) {
 			toast('아이디와 비밀번호를 확인해주세요', {
-				icon: '',
+				icon: '📢',
 			});
 		}
 	};
