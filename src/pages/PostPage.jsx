@@ -6,9 +6,29 @@ import Nav from '@/components/Nav';
 
 function PostPage() {
 	const [posts] = useState([
-		{ id: 1, title: 'First post', author: 'skawls', date: '2023-09-01' },
-		{ id: 2, title: 'Second post', author: 'rjswn', date: '2023-09-02' },
-		{ id: 2, title: 'Third post', author: 'tndus', date: '2023-09-03' },
+		{
+			id: 1,
+			title: '강남에 방탈출 카페 추천해주세요',
+			author: '범쌤',
+			date: '2023-09-01',
+			content:
+				'안녕하세요 주말에 여자친구랑 놀러 갈껀데 방탈출 카페 추천해주세요!',
+		},
+		{
+			id: 2,
+			title: '방탈러 ㅎㅇㅌ',
+			author: '수연',
+			date: '2023-09-02',
+			content: '멋쟁이 사자 프론트엔드6기',
+		},
+		{
+			id: 2,
+			title: '방탈출 후기입니다!',
+			author: '건주',
+			date: '2023-09-03',
+			content:
+				'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
+		},
 		// 추가적으로(?)
 	]);
 
