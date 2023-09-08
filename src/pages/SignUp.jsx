@@ -3,6 +3,7 @@ import KeyLogo from '@/components/KeyLogo';
 import FormInput from '@/components/loginsignup/FormInput';
 import FormInputValid from '@/components/loginsignup/FormInputValid';
 import PocketBase from 'pocketbase';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
@@ -14,14 +15,12 @@ function SignUp() {
 	const [password, setPassword] = useState('');
 	const [passwordConfirm, setPasswordConfirm] = useState('');
 	const [nickName, setNickName] = useState('');
-	const [isValidId, setIsValidId] = useState(false);
+	const [isValidEmail, setIsValidEmail] = useState(false);
 	const [isValidPw, setIsValidPw] = useState(false);
-	const [nickNameValid, setNickNameValid] = useState(false);
-
 	const navigate = useNavigate();
 
 	// 아이디 유효성 검사, 이메일 형식
-	const regId =
+	const regEmail =
 		/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]+$/i;
 	// 비밀번호 유효성 검사, 최소 8자 이상, 최소 1개의 대소문자, 특수문자 포함
 	const regPw =
@@ -31,10 +30,10 @@ function SignUp() {
 		/^(?=.*[a-zA-Z0-9가-힣!@#$%^&*])[a-zA-Z0-9가-힣!@#$%^&*]{2,}$/;
 
 	//아이디 정규식 검사
-	const handleIdValid = (e) => {
+	const handleIdValEmail = (e) => {
 		const target = e.target.value;
 		setEmail(target);
-		setIsValidId(regId.test(target));
+		setIsValidEmail(regEmail.test(target));
 	};
 
 	//비밀번호 정규식 검사
@@ -44,33 +43,42 @@ function SignUp() {
 		setIsValidPw(regPw.test(target));
 	};
 
-	//비밀번호 일치 검사
+	//비밀번호 확인 상태 변경
 	const handlePwCheck = (e) => {
 		const target = e.target.value;
 		setPasswordConfirm(target);
 	};
 
-	//닉네임 정규식 검사
+	//닉네임 상태 변경
 	const handleNickName = (e) => {
 		const target = e.target.value;
 		setNickName(target);
-
-		// const nickNameList = await pb.collection('users').getList(1, 10, {
-		// 	filter: `nickName = ${target}`,
-		// });
-
-		// console.log(nickNameList.items);
-
-		// try {
-		// 	if (nickNameList.items.length > 0) {
-		// 		setNickNameValid(true);
-		// 	}
-		// } catch (err) {
-		// 	console.log(err);
-		// }
+		// console.log(`target값은 ${nickName}`);
 	};
 
-	//pockethost create
+	// 💛 닉네임 중복검사
+	const sameNickName = async (e) => {
+		const target = e.target.value;
+		setNickName(target);
+
+		const nickNameList1 = await pb.collection('users').getList(1, 10, {
+			filter: `nickName = ${nickName}`,
+		});
+
+		try {
+			if (nickNameList1.items.length > 0) {
+				toast('존재하는 닉네임입니다.)', {
+					icon: '💛',
+				});
+			}
+		} catch (err) {
+			toast('에러입니다.)', {
+				icon: '⚠️',
+			});
+		}
+	};
+
+	//회원가입하기
 	const handleUserData = async (e) => {
 		e.preventDefault();
 		const data = {
@@ -80,21 +88,24 @@ function SignUp() {
 			nickName,
 		};
 
+		// email로 정렬
 		const records = await pb.collection('users').getFullList({
 			sort: 'email',
 		});
 
+		// 닉네임 '방탈러' 찾기
 		const nickNameList = await pb.collection('users').getList(1, 10, {
 			filter: 'nickName = "방탈러"',
 		});
 
+		// 이메일 찾기
 		const emailList = await pb.collection('users').getList(1, 10, {
 			filter: 'email = "test@naver.com"',
 		});
 
 		try {
 			if (
-				regId.test(email) &&
+				regEmail.test(email) &&
 				regPw.test(password) &&
 				password === passwordConfirm &&
 				regNickName.test(nickName)
@@ -106,27 +117,29 @@ function SignUp() {
 				});
 
 				navigate('/login');
-			}
-		} catch (err) {
-			if (nickNameList.items.length > 0) {
+			} else if (nickNameList.items.length > 0) {
 				toast('존재하는 닉네임입니다.', {
 					icon: '💛',
 				});
 			} else {
+				toast('가입되었습니다 :)', {
+					icon: '💜',
+				});
+			}
+		} catch (err) {
+			{
 				toast('통신 오류입니다. 다시 시도해주세요.', {
 					icon: '😭',
 				});
 			}
-		} finally {
-			const test = JSON.stringify(records);
-			console.log(test.indexOf('방탈러'));
-			// test.forEach((v) => {
-			// 	console.log(v);
-			// });
-			// console.log(JSON.stringify(resultList));
-			// console.log(emailList);
 		}
 	};
+
+	useEffect(() => {
+		if (nickName.length !== 0 && regNickName.test(nickName)) {
+			sameNickName();
+		}
+	}, [nickName]);
 
 	return (
 		<>
@@ -146,15 +159,15 @@ function SignUp() {
 							<FormInput
 								type="email"
 								name="id"
-								onChange={handleIdValid}
+								onChange={handleIdValEmail}
 								placeholder="example@naver.com"
 							>
 								아이디(이메일)
 							</FormInput>
-							<FormInputValid color={!isValidId ? 'text-red' : ''}>
+							<FormInputValid color={!isValidEmail ? 'text-red' : ''}>
 								{!email
 									? ' '
-									: !isValidId
+									: !isValidEmail
 									? '이메일 형식으로 입력해주세요'
 									: ' '}
 							</FormInputValid>
@@ -208,8 +221,7 @@ function SignUp() {
 							</FormInput>
 							<FormInputValid
 								color={
-									(nickName.length !== 0 && !regNickName.test(nickName)) ||
-									nickNameValid
+									nickName.length !== 0 && !regNickName.test(nickName)
 										? 'text-red'
 										: ''
 								}
