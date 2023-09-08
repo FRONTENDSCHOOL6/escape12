@@ -12,7 +12,7 @@ function Editpage() {
       <Helmet>
         <title>정보 수정</title>
       </Helmet>
-      <div className='w-full max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center justify-center h-screen m-auto text-lg gap-4 min-h-[100vh]'>
+      <div className='w-full max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center justify-center h-full m-auto text-lg gap-4 min-h-[100vh]'>
         {/* header, headerback 맨 위 고정 */}
         <div className='max-w-[600px] min-w-[320px] m-auto fixed top-0 left-0 right-0'>
           <Headerback>정보 수정</Headerback>

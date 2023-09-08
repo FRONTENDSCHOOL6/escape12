@@ -26,7 +26,7 @@ function Nav() {
         </li>
         <li className="hover:text-ec5">
           <NavLink
-            to="community"
+            to="/addcommunity"
             className={({ isActive }) => {
               isActive ? 'text-ec1' : 'text-ec5';
             }}
@@ -36,7 +36,7 @@ function Nav() {
         </li>
         <li className="hover:text-ec5">
           <NavLink
-            to="my"
+            to="/mypage"
             className={({ isActive }) => {
               isActive ? 'text-ec1' : 'text-ec5';
             }}

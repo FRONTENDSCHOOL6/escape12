@@ -6,6 +6,11 @@ import { useNavigate } from 'react-router-dom';
 
 function Mypage() {
   const navigate = useNavigate();
+  //user 정보가 들어왔을 때 로그아웃 기능 구현
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/editpage');
+  };
 
   return (
     <>
@@ -33,7 +38,9 @@ function Mypage() {
             <p className>⭐ 즐겨찾기 </p>
           </div>
           <div className='text-center pt-4'>
-            <Button onClick={() => { navigate('/editpage'); }} bg='bg-ec1' text='text-ec4'>로그아웃</Button>
+            <Button onClick={handleLogout} bg='bg-ec1' text='text-ec4'>
+              로그아웃
+            </Button>
           </div>
         </div>
       </div>
