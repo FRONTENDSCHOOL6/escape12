@@ -1,8 +1,8 @@
 import { string } from 'prop-types';
 
 Comment.propTypes = {
-	author: string.isRequired,
-	content: string.isRequired,
+	author: string,
+	content: string,
 };
 
 function Comment({ author, content }) {
