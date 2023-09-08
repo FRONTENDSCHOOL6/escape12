@@ -5,6 +5,7 @@ import FormInputValid from '@/components/loginsignup/FormInputValid';
 import PocketBase from 'pocketbase';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { findDOMNode } from 'react-dom';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
@@ -17,6 +18,10 @@ function SignUp() {
 	const [nickName, setNickName] = useState('');
 	const [isValidEmail, setIsValidEmail] = useState(false);
 	const [isValidPw, setIsValidPw] = useState(false);
+	const [isValidNickName, setIsValidNickName] = useState(false);
+	const [isSameEmail, setIsSameEmail] = useState(false);
+	const [pwView, setPwView] = useState(false);
+	const [pwConfirmView, setPwConfirmView] = useState(false);
 	const navigate = useNavigate();
 
 	// 아이디 유효성 검사, 이메일 형식
@@ -31,50 +36,67 @@ function SignUp() {
 
 	//아이디 정규식 검사
 	const handleIdValEmail = (e) => {
-		const target = e.target.value;
-		setEmail(target);
-		setIsValidEmail(regEmail.test(target));
+		setEmail(e.target.value);
+		setIsValidEmail(regEmail.test(e.target.value));
 	};
 
 	//비밀번호 정규식 검사
 	const handlePwValid = (e) => {
-		const target = e.target.value;
-		setPassword(target);
-		setIsValidPw(regPw.test(target));
+		setPassword(e.target.value);
+		setIsValidPw(regPw.test(e.target.value));
 	};
 
 	//비밀번호 확인 상태 변경
 	const handlePwCheck = (e) => {
-		const target = e.target.value;
-		setPasswordConfirm(target);
+		setPasswordConfirm(e.target.value);
 	};
 
 	//닉네임 상태 변경
 	const handleNickName = (e) => {
-		const target = e.target.value;
-		setNickName(target);
-		// console.log(`target값은 ${nickName}`);
+		setNickName(e.target.value);
 	};
 
-	// 💛 닉네임 중복검사
-	const sameNickName = async (e) => {
-		const target = e.target.value;
-		setNickName(target);
+	//패스워드 보기
+	const isClickedPwView = () => {
+		pwView === false ? setPwView(true) : setPwView(false);
+	};
 
-		const nickNameList1 = await pb.collection('users').getList(1, 10, {
-			filter: `nickName = ${nickName}`,
-		});
+	//패스워드 확인 보기
+	const isClickedPwConfirmView = () => {
+		pwConfirmView === false ? setPwConfirmView(true) : setPwConfirmView(false);
+	};
 
+	// 닉네임 중복검사
+	const sameNickName = async () => {
 		try {
-			if (nickNameList1.items.length > 0) {
-				toast('존재하는 닉네임입니다.)', {
-					icon: '💛',
-				});
+			const nickNameSameList = await pb.collection('users').getList(1, 10, {
+				filter: `nickName = "${nickName}"`,
+			});
+
+			if (nickNameSameList.items.length > 0) {
+				setIsValidNickName(true);
+			} else {
+				setIsValidNickName(false);
 			}
 		} catch (err) {
-			toast('에러입니다.)', {
-				icon: '⚠️',
+			console.log(`닉네임 중복검사 에러 내용: ${err}`);
+		}
+	};
+
+	// 이메일 중복검사
+	const sameEmail = async () => {
+		try {
+			const emailSameList = await pb.collection('users').getList(1, 10, {
+				filter: `email = "${email}"`,
 			});
+
+			if (emailSameList.items.length > 0) {
+				setIsSameEmail(true);
+			} else {
+				setIsSameEmail(false);
+			}
+		} catch (err) {
+			console.log(`이메일 중복검사 에러 내용: ${err}`);
 		}
 	};
 
@@ -86,60 +108,51 @@ function SignUp() {
 			password,
 			passwordConfirm,
 			nickName,
+			emailVisibility: true,
 		};
-
-		// email로 정렬
-		const records = await pb.collection('users').getFullList({
-			sort: 'email',
-		});
-
-		// 닉네임 '방탈러' 찾기
-		const nickNameList = await pb.collection('users').getList(1, 10, {
-			filter: 'nickName = "방탈러"',
-		});
-
-		// 이메일 찾기
-		const emailList = await pb.collection('users').getList(1, 10, {
-			filter: 'email = "test@naver.com"',
-		});
 
 		try {
 			if (
 				regEmail.test(email) &&
 				regPw.test(password) &&
 				password === passwordConfirm &&
-				regNickName.test(nickName)
+				regNickName.test(nickName) &&
+				!isValidNickName &&
+				!isSameEmail
 			) {
 				await pb.collection('users').create(data);
 
 				toast('가입되었습니다 :)', {
 					icon: '💛',
+					duration: 2000,
 				});
 
 				navigate('/login');
-			} else if (nickNameList.items.length > 0) {
-				toast('존재하는 닉네임입니다.', {
-					icon: '💛',
-				});
 			} else {
-				toast('가입되었습니다 :)', {
-					icon: '💜',
+				toast('존재하는 닉네임 또는 아이디입니다.', {
+					icon: '💛',
+					duration: 2000,
 				});
 			}
 		} catch (err) {
 			{
-				toast('통신 오류입니다. 다시 시도해주세요.', {
-					icon: '😭',
-				});
+				console.log(`회원가입 에러 내용: ${err}`);
 			}
 		}
 	};
 
 	useEffect(() => {
+		// 이러면 이메일 중복검사가 안됨
+		// if (nickName.length !== 0 && regNickName.test(nickName)) {
+		// 	sameNickName();
+		// 	sameEmail();
+		// }
+		//이것도 닉네임 중복검사가 안됨
 		if (nickName.length !== 0 && regNickName.test(nickName)) {
 			sameNickName();
 		}
-	}, [nickName]);
+		sameEmail();
+	}, [nickName, email]);
 
 	return (
 		<>
@@ -160,23 +173,31 @@ function SignUp() {
 								type="email"
 								name="id"
 								onChange={handleIdValEmail}
+								value={email}
 								placeholder="example@naver.com"
 							>
 								아이디(이메일)
 							</FormInput>
-							<FormInputValid color={!isValidEmail ? 'text-red' : ''}>
+							<FormInputValid
+								color={!isValidEmail || isSameEmail === true ? 'text-red' : ''}
+							>
 								{!email
 									? ' '
 									: !isValidEmail
 									? '이메일 형식으로 입력해주세요'
+									: isSameEmail === true
+									? '존재하는 이메일입니다.'
 									: ' '}
 							</FormInputValid>
 						</>
 						<>
 							<FormInput
-								type="password"
+								type={pwView ? 'text' : 'password'}
 								name="password"
+								bg={pwView ? 'bg-eyetrue' : 'bg-eyefalse'}
 								onChange={handlePwValid}
+								onClick={isClickedPwView}
+								value={password}
 								placeholder="example123"
 							>
 								비밀번호
@@ -191,9 +212,12 @@ function SignUp() {
 						</>
 						<>
 							<FormInput
-								type="password"
-								name="password"
+								type={pwConfirmView ? 'text' : 'password'}
+								name="passwordConfirm"
+								bg={pwConfirmView ? 'bg-eyetrue' : 'bg-eyefalse'}
 								onChange={handlePwCheck}
+								onClick={isClickedPwConfirmView}
+								value={passwordConfirm}
 								placeholder="example123"
 							>
 								비밀번호 확인
@@ -215,19 +239,23 @@ function SignUp() {
 								type="text"
 								name="password"
 								onChange={handleNickName}
+								value={nickName}
 								placeholder="방탈러"
 							>
 								닉네임
 							</FormInput>
 							<FormInputValid
 								color={
-									nickName.length !== 0 && !regNickName.test(nickName)
+									(nickName.length !== 0 && !regNickName.test(nickName)) ||
+									isValidNickName
 										? 'text-red'
 										: ''
 								}
 							>
 								{nickName.length !== 0 && !regNickName.test(nickName)
 									? '공백 제외 두 자리 이상입력해주세요'
+									: isValidNickName === true
+									? '존재하는 닉네임입니다.'
 									: ''}
 							</FormInputValid>
 						</>
