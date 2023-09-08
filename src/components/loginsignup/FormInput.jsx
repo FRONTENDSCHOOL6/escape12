@@ -13,7 +13,7 @@ function FormInput({
 	children,
 	type,
 	name,
-	bg = '',
+	bg = 'hidden',
 	onChange = null,
 	onClick = null,
 	...restProps
@@ -31,6 +31,7 @@ function FormInput({
 					id={name}
 					onChange={onChange}
 					required
+					maxLength={30}
 					autoComplete="off"
 					{...restProps}
 				/>
