@@ -5,7 +5,7 @@ KeyLogo.propTypes = {
 	height: number,
 };
 
-function KeyLogo({ width = '70', height = '280' }) {
+function KeyLogo({ width = '80', height = '200' }) {
 	return (
 		<svg
 			width={width}

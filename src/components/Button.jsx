@@ -12,7 +12,7 @@ function Button({
 	type = 'button',
 	bg = 'bg-ec3',
 	text = 'bg-ec1',
-	onClick = '',
+	onClick = null,
 	children,
 }) {
 	return (

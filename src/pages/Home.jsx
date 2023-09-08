@@ -8,9 +8,7 @@ function Home() {
 	const containerRef = useRef(null);
 
 	useEffect(() => {
-		const timeline = gsap.timeline();
-
-		timeline.to(containerRef.current, {
+		const tween = gsap.to(containerRef.current, {
 			opacity: 0,
 			duration: 0.5,
 			delay: 2,
@@ -20,7 +18,7 @@ function Home() {
 		});
 
 		return () => {
-			timeline.kill();
+			tween.kill();
 		};
 	}, [navigate]);
 
