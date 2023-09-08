@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import HeartButton from './Heart';
+import Span from './Span';
 
 function ThemeItem() {
 	const [heart, setHeart] = useState(false);
@@ -24,16 +25,16 @@ function ThemeItem() {
 						<h2 className="text-4xl font-semibold s:text-2xl hover:text-ec5">
 							DONE
 						</h2>
-						<span className="min-w-fit">별점</span>
+						<Span>별점</Span>
 					</section>
 					<section className="flex py-10 gap-3">
 						<h3>제로월드</h3>
-						<span className="min-w-fit">강남점</span>
+						<Span>강남점</Span>
 					</section>
 					<section className="flex gap-7 s:gap-2">
-						<span className="min-w-fit">난이도</span>
-						<span className="min-w-fit">기록하기</span>
-						<span className="min-w-fit">예약하기</span>
+						<Span>난이도</Span>
+						<Span>기록하기</Span>
+						<Span>예약하기</Span>
 					</section>
 				</figcaption>
 				<HeartButton
