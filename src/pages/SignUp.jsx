@@ -1,12 +1,12 @@
 import Button from '@/components/Button';
-import FormInput from '@/components/FormInput';
-import FormInputValid from '@/components/FormInputValid';
 import KeyLogo from '@/components/KeyLogo';
+import FormInput from '@/components/loginsignup/FormInput';
+import FormInputValid from '@/components/loginsignup/FormInputValid';
 import PocketBase from 'pocketbase';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 
 function SignUp() {
 	const pb = new PocketBase('https://refresh.pockethost.io');
@@ -16,6 +16,7 @@ function SignUp() {
 	const [nickName, setNickName] = useState('');
 	const [isValidId, setIsValidId] = useState(false);
 	const [isValidPw, setIsValidPw] = useState(false);
+	const [nickNameValid, setNickNameValid] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -53,6 +54,20 @@ function SignUp() {
 	const handleNickName = (e) => {
 		const target = e.target.value;
 		setNickName(target);
+
+		// const nickNameList = await pb.collection('users').getList(1, 10, {
+		// 	filter: `nickName = ${target}`,
+		// });
+
+		// console.log(nickNameList.items);
+
+		// try {
+		// 	if (nickNameList.items.length > 0) {
+		// 		setNickNameValid(true);
+		// 	}
+		// } catch (err) {
+		// 	console.log(err);
+		// }
 	};
 
 	//pockethost create
@@ -64,6 +79,18 @@ function SignUp() {
 			passwordConfirm,
 			nickName,
 		};
+
+		const records = await pb.collection('users').getFullList({
+			sort: 'email',
+		});
+
+		const nickNameList = await pb.collection('users').getList(1, 10, {
+			filter: 'nickName = "방탈러"',
+		});
+
+		const emailList = await pb.collection('users').getList(1, 10, {
+			filter: 'email = "test@naver.com"',
+		});
 
 		try {
 			if (
@@ -79,15 +106,25 @@ function SignUp() {
 				});
 
 				navigate('/login');
-			} else {
-				toast('비밀번호가 일치하지 않습니다.', {
-					icon: '🔐',
-				});
 			}
 		} catch (err) {
-			toast('통신 오류입니다. 다시 시도해주세요.', {
-				icon: '😭',
-			});
+			if (nickNameList.items.length > 0) {
+				toast('존재하는 닉네임입니다.', {
+					icon: '💛',
+				});
+			} else {
+				toast('통신 오류입니다. 다시 시도해주세요.', {
+					icon: '😭',
+				});
+			}
+		} finally {
+			const test = JSON.stringify(records);
+			console.log(test.indexOf('방탈러'));
+			// test.forEach((v) => {
+			// 	console.log(v);
+			// });
+			// console.log(JSON.stringify(resultList));
+			// console.log(emailList);
 		}
 	};
 
@@ -171,7 +208,8 @@ function SignUp() {
 							</FormInput>
 							<FormInputValid
 								color={
-									nickName.length !== 0 && !regNickName.test(nickName)
+									(nickName.length !== 0 && !regNickName.test(nickName)) ||
+									nickNameValid
 										? 'text-red'
 										: ''
 								}
