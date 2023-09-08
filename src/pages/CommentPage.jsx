@@ -1,9 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import Button from '@/components/Button';
 import Nav from '@/components/Nav';
-import Header from '@/components/Header';
+// import Header from '@/components/Header';
 import CustomInput from '@/components/CustomInput';
 import CommentList from '@/components/CommentList';
+import Headerback from '@/components/Headerback';
 
 function CommentPage() {
 	const dummyComments = [
@@ -18,8 +19,11 @@ function CommentPage() {
 			</Helmet>
 
 			{/* 전체 페이지 */}
-			<div className="w-full max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center h-screen m-auto gap-10 ">
-				<Header>게시글</Header>
+
+			<div className="w-full max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center py-20 h-full m-auto gap-10 ">
+				<div className="max-w-[600px] min-w-[320px] m-auto fixed top-0 left-0 right-0">
+					<Headerback>게시글</Headerback>
+				</div>
 				{/* 게시글 내용 박스 */}
 				<div className="break-all text-[15px] border p-4 rounded-xl min-w-[400px] min-h-[200px] max-w-[400px]">
 					<p className="font-bold  mb-2 pb-2 border-b-2">프로필 사진+id값</p>
