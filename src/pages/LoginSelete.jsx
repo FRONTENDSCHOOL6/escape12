@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import LoginSeleteButton from './../components/LoginSeleteButton';
+import LoginSeleteButton from '@/components/loginsignup/LoginSeleteButton';
 import KeyLogo from '@/components/KeyLogo';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
@@ -18,7 +18,7 @@ function LoginSelete() {
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center h-screen m-auto">
 				<KeyLogo />
-				<div className="flex flex-col gap-7 mt-[20%]">
+				<div className="flex flex-col gap-7 mt-[20%] l:mt-[25%]">
 					<LoginSeleteButton
 						line="border-kakaoline"
 						text="text-kakaoline"

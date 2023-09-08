@@ -2,7 +2,7 @@ import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
 
 PlusButton.propTypes = {
-	path: string.isRequired,
+	path: string,
 };
 
 function PlusButton({ path }) {
