@@ -8,6 +8,7 @@ function LoginSelete() {
 	const handleFindUserData = () => {
 		toast('이메일 로그인만 가능합니다', {
 			icon: '🔐',
+			duration: 2000,
 		});
 	};
 
