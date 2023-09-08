@@ -27,7 +27,20 @@ export default {
 			eyetrue: 'url("/src/assets/login-eyetrue.png.png")',
 			eyefalse: 'url("/src/assets/login-eyefalse.png.png")',
 		},
-		extend: {},
+		extend: {
+			keyframes: {
+				spinner: {
+					'0%': { boxShadow: '-200px 0 #fff inset' },
+					'20%': { boxShadow: '-100px 0 #fff inset' },
+					'50%': { boxShadow: '48px 0 #fff inset' },
+					'70%': { boxShadow: '100px 0 #fff inset' },
+					'100%': { boxShadow: '150px 0 #fff inset' },
+				},
+			},
+			animation: {
+				moon: 'spinner 2s linear infinite',
+			},
+		},
 	},
 	plugins: [],
 };
