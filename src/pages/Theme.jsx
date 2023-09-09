@@ -2,14 +2,32 @@ import Header from '@/components/Header';
 import PlusNav from '@/components/PlusNav';
 import SearchInput from '@/components/SearchInput';
 import ThemeItem from '@/components/theme/ThemeItem';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import PocketBase from 'pocketbase';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 
 function Theme() {
+	const [data, setData] = useState([]);
 	const [scrollY, setScrollY] = useState(0);
 	const [showPlusNav, setShowPlusNav] = useState(false);
+	const pb = new PocketBase('https://refresh.pockethost.io');
+
+	//데이터 불러오기
+	const dataList = async () => {
+		const record = await pb.collection('escapeList').getList(1, 10, {
+			expand: 'store, point, field, grade, level, image, link',
+		});
+
+		try {
+			setData(record.items);
+			console.log('데이터 성공');
+			console.log(data);
+		} catch (err) {
+			console.log(`에러 내용: ${err}`);
+		}
+		// console.log(record.items[0].store);
+	};
 
 	//스크롤 이벤트
 	const handleScroll = () => {
@@ -49,6 +67,10 @@ function Theme() {
 		}
 	}, [scrollY]);
 
+	useEffect(() => {
+		dataList();
+	}, []);
+
 	return (
 		<>
 			<Helmet>
@@ -59,16 +81,23 @@ function Theme() {
 				<SearchInput placeholder="검색어를 입력해주세요 😀">검색</SearchInput>
 				<ul className="text-ec1 text-lg flex justify-end w-full pr-20 s:pr-12 gap-8">
 					<li>인기순</li>
-					<li>테마별</li>
-					<li>지역별</li>
+					<li>지역별(강남/홍대)</li>
 				</ul>
-				<ThemeItem />
-				<ThemeItem />
-				<ThemeItem />
-				<ThemeItem />
-				<ThemeItem />
-				<ThemeItem />
-				<ThemeItem />
+				<ul>
+					{data.map((item) => {
+						<li key={item.id}>
+							<ThemeItem
+								store={item.store}
+								point={item.point}
+								theme={item.theme}
+								grade={item.grade}
+								level={item.level}
+								image={item.image}
+								link={item.link}
+							/>
+						</li>;
+					})}
+				</ul>
 				<PlusNav
 					topClick={handleTopButton}
 					pencilClick={handleRecordButton}
