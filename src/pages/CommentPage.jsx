@@ -7,6 +7,7 @@ import CommentList from '@/components/CommentList';
 import Headerback from '@/components/Headerback';
 
 function CommentPage() {
+	// 서버에서 불러오기
 	const dummyComments = [
 		{ id: 1, author: '작성자1', content: '댓글 내용1' },
 		{ id: 2, author: '작성자2', content: '댓글 내용2' },
@@ -49,8 +50,9 @@ function CommentPage() {
 				<fieldset className="flex flex-col justify-between  items-center text-ec4">
 					<CustomInput
 						type="text"
-						className="flex items-center rounded-lg bg-ec1 h-8"
-						value="댓글을 입력하세요"
+						name="text"
+						className="flex items-center rounded-lg bg-ec1 text-ec4 h-8"
+						placeholder="example@naver.com"
 					></CustomInput>
 				</fieldset>
 				<Button type="submit" bg="bg-ec1" text="text-ec4">
