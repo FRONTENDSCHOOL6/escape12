@@ -10,12 +10,13 @@ CustomInput.propTypes = {
 function CustomInput({ children, type, name, className }) {
 	return (
 		<>
-			<fieldset className="flex justify-between">
+			<fieldset className="flex justify-between text-ec1">
 				<label htmlFor={name} className="text-ec4">
 					{children}
 				</label>
 				<input
 					type={type}
+					placeholder="댓글을 입력하세요😀"
 					className={`w-[320px] ${className}`} // 이름 추가
 					name={name}
 					id={name}
