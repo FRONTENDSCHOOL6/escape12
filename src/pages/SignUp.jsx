@@ -3,9 +3,7 @@ import KeyLogo from '@/components/KeyLogo';
 import FormInput from '@/components/loginsignup/FormInput';
 import FormInputValid from '@/components/loginsignup/FormInputValid';
 import PocketBase from 'pocketbase';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { findDOMNode } from 'react-dom';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
@@ -142,16 +140,32 @@ function SignUp() {
 	};
 
 	useEffect(() => {
-		// 이러면 이메일 중복검사가 안됨
+		//이러면 닉네임 중복검사가 안됨
 		// if (nickName.length !== 0 && regNickName.test(nickName)) {
 		// 	sameNickName();
 		// 	sameEmail();
 		// }
 		//이것도 닉네임 중복검사가 안됨
-		if (nickName.length !== 0 && regNickName.test(nickName)) {
+		// if (nickName.length !== 0 && regNickName.test(nickName)) {
+		// 	sameNickName();
+		// }
+		// sameEmail();
+
+		//닉네임 작성 후 이메일 작성하면 둘다 검사 되지만 닉네임value 빈값으로 변경하면 '존재하는 닉네임입니다'가 안지워지는 오류 발생
+		//이메일 작성 후 닉네임 작성하면 닉네임 검사 안됨
+		if (
+			email.length !== 0 &&
+			regEmail.test(email) &&
+			nickName.length !== 0 &&
+			regNickName.test(nickName)
+		) {
+			sameNickName();
+			sameEmail();
+		} else if (email.length !== 0 && regEmail.test(email)) {
+			sameEmail();
+		} else if (nickName.length !== 0 && regNickName.test(nickName)) {
 			sameNickName();
 		}
-		sameEmail();
 	}, [nickName, email]);
 
 	return (
