@@ -1,18 +1,21 @@
-import pencil from '@/assets/plusbutton-pencil.png';
-import { object } from 'prop-types';
+import { object, string } from 'prop-types';
 
 PlusButton.propTypes = {
-	onButtonClick: object,
+	onClick: object,
+	src: object,
+	alt: string,
+	location: string,
+	hidden: string,
 };
 
-function PlusButton(onButtonClick = {}) {
+function PlusButton({ onClick, src, alt, location, hidden = '' }) {
 	return (
 		<button
 			type="button"
-			className="s:w-14 w-16 text-center bg-ec1 rounded-full text-6xl font-semibold p-1 absolute right-4 bottom-20"
-			onClick={onButtonClick}
+			className={`s:w-14 w-16 text-center bg-ec1 rounded-full text-6xl font-semibold p-1 absolute ${location} ${hidden}`}
+			onClick={onClick}
 		>
-			<img src={pencil} alt="테마 기록하기" aria-hidden />
+			<img src={src} alt={alt} aria-hidden />
 		</button>
 	);
 }
