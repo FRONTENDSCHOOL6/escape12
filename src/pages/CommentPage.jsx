@@ -19,7 +19,7 @@ function CommentPage() {
 			</Helmet>
 			{/* 전체 페이지 */}
 
-			<div className="w-full max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center py-20 h-screen m-auto gap-10 ">
+			<div className="w-full max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center py-20 h-screen m-auto gap-10 overflow-y-auto h-[calc(100vh - 200px)]">
 				<div className="max-w-[600px] min-w-[320px] m-auto fixed top-0 left-0 right-0">
 					<Headerback>게시글</Headerback>
 				</div>
