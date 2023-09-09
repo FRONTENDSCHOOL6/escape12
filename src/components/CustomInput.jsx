@@ -16,7 +16,7 @@ function CustomInput({ children, type, name, className }) {
 				</label>
 				<input
 					type={type}
-					className={`w-[400px] ${className}`} // 이름 추가
+					className={`w-[320px] ${className}`} // 이름 추가
 					name={name}
 					id={name}
 				/>
