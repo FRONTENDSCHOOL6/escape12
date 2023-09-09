@@ -1,7 +1,7 @@
-import { string } from 'prop-types';
+import { object, string } from 'prop-types';
 
 Span.propTypes = {
-	children: string,
+	children: object || string,
 };
 
 function Span({ children }) {
