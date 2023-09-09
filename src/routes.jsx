@@ -13,6 +13,7 @@ import PostPage from '@/pages/PostPage';
 import SignUp from '@/pages/SignUp';
 import AddCommunity from '@/pages/AddCommunity';
 import CommentPage from '@/pages/CommentPage';
+import Theme from './pages/Theme';
 import EmptyPage from '@/pages/EmptyPage';
 
 const router = createBrowserRouter(
@@ -22,6 +23,8 @@ const router = createBrowserRouter(
 			<Route path="/loginselete" element={<LoginSelete />} />
 			<Route path="/login" element={<Login />} />
 			<Route path="/signup" element={<SignUp />} />
+			{/* 로그인 인증해야만 들어갈 수 있는 페이지 */}
+			<Route path="/theme" element={<Theme />} />
 			<Route path="/mypage" element={<Mypage />} />
 			<Route path="/editpage" element={<Editpage />} />
 			<Route path="/PostPage" element={<PostPage />} />

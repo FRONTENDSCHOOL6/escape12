@@ -1,7 +1,7 @@
 import { NavLink, useMatch } from 'react-router-dom';
 
 function Nav() {
-	const isPostPageActive = useMatch('/postpage');
+	const isThemeActive = useMatch('/theme');
 	const isNotePageActive = useMatch('/notepage');
 	const isAddCommunityActive = useMatch('/addcommunity');
 	const isMyPageActive = useMatch('/mypage');
@@ -11,10 +11,10 @@ function Nav() {
 			<ul className="flex justify-around items-center py-5">
 				<li>
 					<NavLink
-						to="/postpage"
+						to="/theme"
 						activeClassName="text-ec5"
 						className={`text-ec1 hover:text-ec5 ${
-							isPostPageActive ? 'text-ec5' : ''
+							isThemeActive ? 'text-ec5' : ''
 						}`}
 					>
 						테마
