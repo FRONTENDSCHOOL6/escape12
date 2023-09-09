@@ -25,7 +25,7 @@ function CommentPage() {
 				</div>
 				{/* 게시글 내용 박스 */}
 				<div>
-					<div className="break-all text-[15px] border p-4 rounded-xl min-w-[400px] min-h-[200px] max-w-[400px]">
+					<div className="break-all text-[15px] w-full border p-4 rounded-xl min-w-[400px] min-h-[200px] max-w-[400px]">
 						<p className="font-bold  mb-2 pb-2 border-b-2">프로필 사진+id값</p>
 						<p>게시글 내용 너무 재밌어요~~</p>
 					</div>
