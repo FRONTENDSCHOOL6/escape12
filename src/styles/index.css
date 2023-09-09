@@ -21,4 +21,9 @@
 body {
 	font-family: 'SUITE-Regular';
 	background-color: #faf0e6;
+	-ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+	display: none;
 }
