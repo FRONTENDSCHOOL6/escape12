@@ -6,14 +6,14 @@ import {
 import Empty from '@/layout/Empty';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
-import LoginSelete from './pages/LoginSelete';
+import LoginSelete from '@/pages/LoginSelete';
 import Mypage from '@/pages/MyPage';
 import Editpage from '@/pages/EditPage';
 import PostPage from '@/pages/PostPage';
 import SignUp from '@/pages/SignUp';
 import AddCommunity from '@/pages/AddCommunity';
 import CommentPage from '@/pages/CommentPage';
-import Theme from './pages/Theme';
+import Theme from '@/pages/Theme';
 import EmptyPage from '@/pages/EmptyPage';
 import NotePage from '@/pages/NotePage';
 
