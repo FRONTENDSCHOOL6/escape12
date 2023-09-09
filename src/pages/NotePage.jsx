@@ -18,11 +18,9 @@ function AddCommunity() {
       <Helmet>
         <title>클리어</title>
       </Helmet>
-      <div className='w-full max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center h-full m-auto text-lg gap-4 min-h-[100vh]'>
+      <div className='w-full max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center m-auto text-lg gap-4 min-h-[100vh] py-20'>
         {/* header, headerback 맨 위 고정 */}
-        <div className='max-w-[600px] min-w-[320px] m-auto fixed top-0 left-0 right-0'>
           <Headerback>클리어</Headerback>
-        </div>
         <div className='flex-1 flex flex-col items-center text-center'>
           <div className='text-xl pt-28 mb-3'>
           <p className='pb-2'>[테마명]</p>
