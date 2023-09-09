@@ -15,9 +15,11 @@ function Login() {
 	const [password, setPassword] = useState('');
 	const [isValidId, setIsValidId] = useState(false);
 	const [isValidPw, setIsValidPw] = useState(false);
+	const [pwView, setPwView] = useState(false);
 
 	// 아이디 유효성 검사, 이메일 형식
-	const regId = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$/;
+	const regEmail =
+		/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]+$/i;
 	// 비밀번호 유효성 검사, 최소 8자 이상, 최소 1개의 대소문자, 특수문자 포함
 	const regPw =
 		/(?=(.*[0-9]))(?=.*[!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/;
@@ -26,7 +28,13 @@ function Login() {
 	const handleFindUserData = () => {
 		toast('현재 해당 서비스는 이용불가합니다', {
 			icon: '😭',
+			duration: 2000,
 		});
+	};
+
+	//패스워드 보기
+	const isClickedPwView = () => {
+		pwView === false ? setPwView(true) : setPwView(false);
 	};
 
 	//로그인 정보 확인 후 이동
@@ -41,12 +49,14 @@ function Login() {
 			if (authData) {
 				toast('로그인 성공', {
 					icon: '💜',
+					duration: 2000,
 				});
-				navigate('/');
+				navigate('/theme');
 			}
 		} catch (err) {
 			toast('아이디와 비밀번호를 확인해주세요', {
 				icon: '📢',
+				duration: 2000,
 			});
 		}
 	};
@@ -55,7 +65,7 @@ function Login() {
 	const handleIdValid = (e) => {
 		const target = e.target.value;
 		setEmail(target);
-		setIsValidId(regId.test(target));
+		setIsValidId(regEmail.test(target));
 	};
 
 	//비밀번호 정규식 검사
@@ -91,9 +101,11 @@ function Login() {
 						</div>
 						<div>
 							<FormInput
-								type="password"
+								type={pwView ? 'text' : 'password'}
 								name="password"
+								bg={pwView ? 'bg-eyetrue' : 'bg-eyefalse'}
 								onChange={handlePwValid}
+								onClick={isClickedPwView}
 							>
 								비밀번호
 							</FormInput>

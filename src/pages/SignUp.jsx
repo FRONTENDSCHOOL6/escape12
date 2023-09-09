@@ -3,7 +3,9 @@ import KeyLogo from '@/components/KeyLogo';
 import FormInput from '@/components/loginsignup/FormInput';
 import FormInputValid from '@/components/loginsignup/FormInputValid';
 import PocketBase from 'pocketbase';
+import { useEffect } from 'react';
 import { useState } from 'react';
+import { findDOMNode } from 'react-dom';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
@@ -14,14 +16,16 @@ function SignUp() {
 	const [password, setPassword] = useState('');
 	const [passwordConfirm, setPasswordConfirm] = useState('');
 	const [nickName, setNickName] = useState('');
-	const [isValidId, setIsValidId] = useState(false);
+	const [isValidEmail, setIsValidEmail] = useState(false);
 	const [isValidPw, setIsValidPw] = useState(false);
-	const [nickNameValid, setNickNameValid] = useState(false);
-
+	const [isValidNickName, setIsValidNickName] = useState(false);
+	const [isSameEmail, setIsSameEmail] = useState(false);
+	const [pwView, setPwView] = useState(false);
+	const [pwConfirmView, setPwConfirmView] = useState(false);
 	const navigate = useNavigate();
 
 	// 아이디 유효성 검사, 이메일 형식
-	const regId =
+	const regEmail =
 		/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]+$/i;
 	// 비밀번호 유효성 검사, 최소 8자 이상, 최소 1개의 대소문자, 특수문자 포함
 	const regPw =
@@ -31,46 +35,72 @@ function SignUp() {
 		/^(?=.*[a-zA-Z0-9가-힣!@#$%^&*])[a-zA-Z0-9가-힣!@#$%^&*]{2,}$/;
 
 	//아이디 정규식 검사
-	const handleIdValid = (e) => {
-		const target = e.target.value;
-		setEmail(target);
-		setIsValidId(regId.test(target));
+	const handleIdValEmail = (e) => {
+		setEmail(e.target.value);
+		setIsValidEmail(regEmail.test(e.target.value));
 	};
 
 	//비밀번호 정규식 검사
 	const handlePwValid = (e) => {
-		const target = e.target.value;
-		setPassword(target);
-		setIsValidPw(regPw.test(target));
+		setPassword(e.target.value);
+		setIsValidPw(regPw.test(e.target.value));
 	};
 
-	//비밀번호 일치 검사
+	//비밀번호 확인 상태 변경
 	const handlePwCheck = (e) => {
-		const target = e.target.value;
-		setPasswordConfirm(target);
+		setPasswordConfirm(e.target.value);
 	};
 
-	//닉네임 정규식 검사
+	//닉네임 상태 변경
 	const handleNickName = (e) => {
-		const target = e.target.value;
-		setNickName(target);
-
-		// const nickNameList = await pb.collection('users').getList(1, 10, {
-		// 	filter: `nickName = ${target}`,
-		// });
-
-		// console.log(nickNameList.items);
-
-		// try {
-		// 	if (nickNameList.items.length > 0) {
-		// 		setNickNameValid(true);
-		// 	}
-		// } catch (err) {
-		// 	console.log(err);
-		// }
+		setNickName(e.target.value);
 	};
 
-	//pockethost create
+	//패스워드 보기
+	const isClickedPwView = () => {
+		pwView === false ? setPwView(true) : setPwView(false);
+	};
+
+	//패스워드 확인 보기
+	const isClickedPwConfirmView = () => {
+		pwConfirmView === false ? setPwConfirmView(true) : setPwConfirmView(false);
+	};
+
+	// 닉네임 중복검사
+	const sameNickName = async () => {
+		try {
+			const nickNameSameList = await pb.collection('users').getList(1, 10, {
+				filter: `nickName = "${nickName}"`,
+			});
+
+			if (nickNameSameList.items.length > 0) {
+				setIsValidNickName(true);
+			} else {
+				setIsValidNickName(false);
+			}
+		} catch (err) {
+			console.log(`닉네임 중복검사 에러 내용: ${err}`);
+		}
+	};
+
+	// 이메일 중복검사
+	const sameEmail = async () => {
+		try {
+			const emailSameList = await pb.collection('users').getList(1, 10, {
+				filter: `email = "${email}"`,
+			});
+
+			if (emailSameList.items.length > 0) {
+				setIsSameEmail(true);
+			} else {
+				setIsSameEmail(false);
+			}
+		} catch (err) {
+			console.log(`이메일 중복검사 에러 내용: ${err}`);
+		}
+	};
+
+	//회원가입하기
 	const handleUserData = async (e) => {
 		e.preventDefault();
 		const data = {
@@ -78,55 +108,51 @@ function SignUp() {
 			password,
 			passwordConfirm,
 			nickName,
+			emailVisibility: true,
 		};
-
-		const records = await pb.collection('users').getFullList({
-			sort: 'email',
-		});
-
-		const nickNameList = await pb.collection('users').getList(1, 10, {
-			filter: 'nickName = "방탈러"',
-		});
-
-		const emailList = await pb.collection('users').getList(1, 10, {
-			filter: 'email = "test@naver.com"',
-		});
 
 		try {
 			if (
-				regId.test(email) &&
+				regEmail.test(email) &&
 				regPw.test(password) &&
 				password === passwordConfirm &&
-				regNickName.test(nickName)
+				regNickName.test(nickName) &&
+				!isValidNickName &&
+				!isSameEmail
 			) {
 				await pb.collection('users').create(data);
 
 				toast('가입되었습니다 :)', {
 					icon: '💛',
+					duration: 2000,
 				});
 
 				navigate('/login');
+			} else {
+				toast('존재하는 닉네임 또는 아이디입니다.', {
+					icon: '💛',
+					duration: 2000,
+				});
 			}
 		} catch (err) {
-			if (nickNameList.items.length > 0) {
-				toast('존재하는 닉네임입니다.', {
-					icon: '💛',
-				});
-			} else {
-				toast('통신 오류입니다. 다시 시도해주세요.', {
-					icon: '😭',
-				});
+			{
+				console.log(`회원가입 에러 내용: ${err}`);
 			}
-		} finally {
-			const test = JSON.stringify(records);
-			console.log(test.indexOf('방탈러'));
-			// test.forEach((v) => {
-			// 	console.log(v);
-			// });
-			// console.log(JSON.stringify(resultList));
-			// console.log(emailList);
 		}
 	};
+
+	useEffect(() => {
+		// 이러면 이메일 중복검사가 안됨
+		// if (nickName.length !== 0 && regNickName.test(nickName)) {
+		// 	sameNickName();
+		// 	sameEmail();
+		// }
+		//이것도 닉네임 중복검사가 안됨
+		if (nickName.length !== 0 && regNickName.test(nickName)) {
+			sameNickName();
+		}
+		sameEmail();
+	}, [nickName, email]);
 
 	return (
 		<>
@@ -146,24 +172,32 @@ function SignUp() {
 							<FormInput
 								type="email"
 								name="id"
-								onChange={handleIdValid}
+								onChange={handleIdValEmail}
+								value={email}
 								placeholder="example@naver.com"
 							>
 								아이디(이메일)
 							</FormInput>
-							<FormInputValid color={!isValidId ? 'text-red' : ''}>
+							<FormInputValid
+								color={!isValidEmail || isSameEmail === true ? 'text-red' : ''}
+							>
 								{!email
 									? ' '
-									: !isValidId
+									: !isValidEmail
 									? '이메일 형식으로 입력해주세요'
+									: isSameEmail === true
+									? '존재하는 이메일입니다.'
 									: ' '}
 							</FormInputValid>
 						</>
 						<>
 							<FormInput
-								type="password"
+								type={pwView ? 'text' : 'password'}
 								name="password"
+								bg={pwView ? 'bg-eyetrue' : 'bg-eyefalse'}
 								onChange={handlePwValid}
+								onClick={isClickedPwView}
+								value={password}
 								placeholder="example123"
 							>
 								비밀번호
@@ -178,9 +212,12 @@ function SignUp() {
 						</>
 						<>
 							<FormInput
-								type="password"
-								name="password"
+								type={pwConfirmView ? 'text' : 'password'}
+								name="passwordConfirm"
+								bg={pwConfirmView ? 'bg-eyetrue' : 'bg-eyefalse'}
 								onChange={handlePwCheck}
+								onClick={isClickedPwConfirmView}
+								value={passwordConfirm}
 								placeholder="example123"
 							>
 								비밀번호 확인
@@ -202,6 +239,7 @@ function SignUp() {
 								type="text"
 								name="password"
 								onChange={handleNickName}
+								value={nickName}
 								placeholder="방탈러"
 							>
 								닉네임
@@ -209,13 +247,15 @@ function SignUp() {
 							<FormInputValid
 								color={
 									(nickName.length !== 0 && !regNickName.test(nickName)) ||
-									nickNameValid
+									isValidNickName
 										? 'text-red'
 										: ''
 								}
 							>
 								{nickName.length !== 0 && !regNickName.test(nickName)
 									? '공백 제외 두 자리 이상입력해주세요'
+									: isValidNickName === true
+									? '존재하는 닉네임입니다.'
 									: ''}
 							</FormInputValid>
 						</>
