@@ -19,10 +19,8 @@ function Mypage() {
       </Helmet>
       <div className='w-full max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center justify-center h-screen m-auto text-lg gap-4 min-h-[100vh]'>
         {/* header, headerback 맨 위 고정 */}
-        <div className='max-w-[600px] min-w-[320px] m-auto fixed top-0 left-0 right-0'>
           <Header>마이페이지</Header>
-        </div>
-        <div className='flex-1 flex flex-col items-center'>
+        <div className='flex-1 flex flex-col items-center text-center'>
           <div className='text-xl pt-40'>
             <p className='pb-2'>아이디| 12조 최고 ~ </p>
             <p className='pb-2'>비밀번호| ********</p>

@@ -15,6 +15,7 @@ import AddCommunity from '@/pages/AddCommunity';
 import CommentPage from '@/pages/CommentPage';
 import Theme from './pages/Theme';
 import EmptyPage from '@/pages/EmptyPage';
+import NotePage from '@/pages/NotePage';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
 			<Route path="/PostPage" element={<PostPage />} />
 			<Route path="/addcommunity" element={<AddCommunity />} />
 			<Route path="/post/:id" element={<CommentPage />} />
+			<Route path="/notepage" element={<NotePage />} />
 			<Route path="/EmptyPage" element={<EmptyPage />} />
 		</Route>
 	)
