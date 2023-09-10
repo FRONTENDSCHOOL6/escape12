@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import PlusNav from '@/components/PlusNav';
 import SearchInput from '@/components/SearchInput';
+import Spinner from '@/components/Spinner';
 import LiButton from '@/components/theme/LiButton';
 import ThemeItem from '@/components/theme/ThemeItem';
 import PocketBase from 'pocketbase';
@@ -12,6 +13,7 @@ function Theme() {
 	const [data, setData] = useState([]);
 	const [levelSort, setLevelSort] = useState(false);
 	const [showPlusNav, setShowPlusNav] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
@@ -57,10 +59,16 @@ function Theme() {
 				expand: 'store, point, field, grade, level, image, link',
 			});
 
+			setIsLoading(true);
+
 			try {
 				setData(record.items);
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
+			} finally {
+				setTimeout(() => {
+					setIsLoading(false);
+				}, 500);
 			}
 		};
 		dataList();
@@ -80,7 +88,18 @@ function Theme() {
 			const up = await pb.collection('escapeList').getFullList({
 				sort: '-grade',
 			});
-			levelSort ? setData(down) : setData(up);
+
+			setIsLoading(true);
+
+			try {
+				levelSort ? setData(down) : setData(up);
+			} catch (err) {
+				console.log(`인기순 정렬 에러: ${err}`);
+			} finally {
+				setTimeout(() => {
+					setIsLoading(false);
+				}, 500);
+			}
 		};
 
 		levelDataSort();
@@ -95,10 +114,16 @@ function Theme() {
 				filter: 'region = "강남"',
 			});
 
+			setIsLoading(true);
+
 			try {
 				setData(gangnam);
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
+			} finally {
+				setTimeout(() => {
+					setIsLoading(false);
+				}, 500);
 			}
 		};
 		regionGangNam();
@@ -113,10 +138,16 @@ function Theme() {
 				filter: 'region = "홍대"',
 			});
 
+			setIsLoading(true);
+
 			try {
 				setData(hongdae);
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
+			} finally {
+				setTimeout(() => {
+					setIsLoading(false);
+				}, 500);
 			}
 		};
 		regionHongDae();
@@ -139,27 +170,34 @@ function Theme() {
 					</li>
 					<li>
 						<LiButton onClick={handleLevelSort}>
-							{levelSort ? '인기순 ↑' : '인기순 ↓'}
+							{!levelSort ? '인기순 ↑' : '인기순 ↓'}
 						</LiButton>
 					</li>
 				</ul>
-				<ul className="w-full px-20 s:px-12">
-					{data.map((item) => {
-						return (
-							<li key={item.id}>
-								<ThemeItem
-									store={item.store}
-									point={item.point}
-									theme={item.theme}
-									grade={item.grade}
-									level={item.level}
-									image={item.image}
-									link={item.link}
-								/>
-							</li>
-						);
-					})}
-				</ul>
+				{isLoading && (
+					<div className="mt-[30%]">
+						<Spinner />
+					</div>
+				)}
+				{!isLoading && (
+					<ul className="w-full px-20 s:px-12">
+						{data.map((item) => {
+							return (
+								<li key={item.id}>
+									<ThemeItem
+										store={item.store}
+										point={item.point}
+										theme={item.theme}
+										grade={item.grade}
+										level={item.level}
+										image={item.image}
+										link={item.link}
+									/>
+								</li>
+							);
+						})}
+					</ul>
+				)}
 				<PlusNav
 					topClick={handleTopButton}
 					pencilClick={handleRecordButton}
