@@ -118,7 +118,7 @@ function PostPage() {
 			<Helmet>
 				<title>게시글 목록</title>
 			</Helmet>
-			<div className="w-full max-w-[600px] min-w-[320px] py-20 bg-ec4 text-ec1 flex flex-col items-center h-full m-auto gap-14">
+			<div className="w-full max-w-[600px] min-w-[320px] py-20 bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto gap-14">
 				<Header>게시글 목록</Header>
 				<div className="text-[15px]">
 					<PostList posts={posts} />
