@@ -1,8 +1,8 @@
 import { string, number } from 'prop-types';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import HeartButton from './Heart';
 import Span from './Span';
-import { Link } from 'react-router-dom';
 
 ThemeItem.propTypes = {
 	store: string,
@@ -12,9 +12,10 @@ ThemeItem.propTypes = {
 	level: number,
 	image: string,
 	link: string,
+	field: string,
 };
 
-function ThemeItem({ store, point, theme, grade, level, image, link }) {
+function ThemeItem({ store, point, theme, grade, level, image, link, field }) {
 	const [heart, setHeart] = useState(false);
 
 	const isClicked = () => {
@@ -36,6 +37,7 @@ function ThemeItem({ store, point, theme, grade, level, image, link }) {
 				<section className="flex gap-3">
 					<h3>{store}</h3>
 					<Span>{point}</Span>
+					<Span>장르: {field}</Span>
 				</section>
 				<section className="flex gap-7 s:gap-2">
 					<Span>난이도 {level}</Span>
