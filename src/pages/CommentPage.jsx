@@ -1,16 +1,21 @@
 import { Helmet } from 'react-helmet-async';
 import Nav from '@/components/Nav';
 import CommentList from '@/components/comment/CommentList';
+import CommentPost from '@/components/comment/CommentPost';
 import Headerback from '@/components/Headerback';
 import SearchInput from '@/components/SearchInput';
-import CommentPost from '@/components/comment/CommentPost';
-import SmallButton from './../components/SmallButton';
+import SmallButton from '@/components/SmallButton';
 
 function CommentPage() {
 	// 서버에서 불러오기
 	const dummyComments = [
 		{ id: 1, author: '작성자1', content: '댓글 내용1' },
-		{ id: 2, author: '작성자2', content: '댓글 내용2' },
+		{
+			id: 2,
+			author: '작성자2',
+			content:
+				'댓글 내용2안ㄴ여하세요안ㄴ여하세요안ㄴ여하세요안ㄴ여하세요안ㄴ여하세요안ㄴ여하세요안ㄴ여하세요안ㄴ여하세요안ㄴ여하세요안ㄴ여하세요안ㄴ여하세요안ㄴ여하세요안ㄴ여하세요안ㄴ여하세요안ㄴ여하세요',
+		},
 	];
 
 	return (
@@ -20,13 +25,13 @@ function CommentPage() {
 			</Helmet>
 			{/* 전체 페이지 */}
 
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center py-20 h-screen m-auto gap-10 px-12 s:px-0">
+			<div className="max-w-[600px] min-w-[320px] text-ec1 bg-ec4 flex flex-col items-center min-h-[100vh] m-auto py-20 gap-10 relative">
 				<Headerback>게시글</Headerback>
-				{/* 게시글 내용 박스 */}
-				<div>
+				<div className="min-w-[300px] w-full s:px-12 px-20">
+					{/* 게시글 내용 박스 */}
 					<CommentPost />
 					{/*수정 삭제 버튼 */}
-					<div className="flex min-w-[320px] justify-between">
+					<div className="flex justify-between m-auto">
 						<SmallButton bg="bg-ec3" text="text-ec1">
 							수정
 						</SmallButton>
@@ -35,6 +40,7 @@ function CommentPage() {
 						</SmallButton>
 					</div>
 				</div>
+
 				{/* 댓글 작성창 */}
 				<SearchInput placeholder="댓글을 입력해주세요😀">등록</SearchInput>
 

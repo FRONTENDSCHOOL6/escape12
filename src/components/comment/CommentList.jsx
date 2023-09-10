@@ -13,7 +13,7 @@ CommentList.propTypes = {
 
 function CommentList({ comments }) {
 	return (
-		<div className="s:min-w-[290px] min-w-[320px]">
+		<div className="w-full s:px-12 px-20">
 			{comments.map((comment) => (
 				<Comment
 					key={comment.id}

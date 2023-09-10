@@ -11,8 +11,7 @@ function PostPage() {
 			title: '강남에 방탈출 카페 추천해주세요',
 			author: '범쌤',
 			date: '2023-09-01',
-			content:
-				'안녕하세요 주말에 여자친구랑 놀러 갈껀데 방탈출 카페 추천해주세요!',
+			content: '안녕하세요 주말에 여자친구랑 놀러 !',
 		},
 		{
 			id: 2,
@@ -21,86 +20,86 @@ function PostPage() {
 			date: '2023-09-02',
 			content: '멋쟁이 사자 프론트엔드6기',
 		},
-		{
-			id: 2,
-			title: '방탈출 후기입니다!',
-			author: '건주',
-			date: '2023-09-03',
-			content:
-				'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
-		},
-		{
-			id: 2,
-			title: '방탈출 후기입니다!',
-			author: '건주',
-			date: '2023-09-03',
-			content:
-				'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
-		},
-		{
-			id: 2,
-			title: '방탈출 후기입니다!',
-			author: '건주',
-			date: '2023-09-03',
-			content:
-				'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
-		},
-		{
-			id: 2,
-			title: '방탈출 후기입니다!',
-			author: '건주',
-			date: '2023-09-03',
-			content:
-				'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
-		},
-		{
-			id: 2,
-			title: '방탈출 후기입니다!',
-			author: '건주',
-			date: '2023-09-03',
-			content:
-				'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
-		},
-		{
-			id: 2,
-			title: '방탈출 후기입니다!',
-			author: '건주',
-			date: '2023-09-03',
-			content:
-				'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
-		},
-		{
-			id: 2,
-			title: '방탈출 후기입니다!',
-			author: '건주',
-			date: '2023-09-03',
-			content:
-				'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
-		},
-		{
-			id: 2,
-			title: '방탈출 후기입니다!',
-			author: '건주',
-			date: '2023-09-03',
-			content:
-				'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
-		},
-		{
-			id: 2,
-			title: '방탈출 후기입니다!',
-			author: '건주',
-			date: '2023-09-03',
-			content:
-				'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
-		},
-		{
-			id: 2,
-			title: '방탈출 후기입니다!',
-			author: '건주',
-			date: '2023-09-03',
-			content:
-				'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
-		},
+		// {
+		// 	id: 2,
+		// 	title: '방탈출 후기입니다!',
+		// 	author: '건주',
+		// 	date: '2023-09-03',
+		// 	content:
+		// 		'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
+		// },
+		// {
+		// 	id: 2,
+		// 	title: '방탈출 후기입니다!',
+		// 	author: '건주',
+		// 	date: '2023-09-03',
+		// 	content:
+		// 		'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
+		// },
+		// {
+		// 	id: 2,
+		// 	title: '방탈출 후기입니다!',
+		// 	author: '건주',
+		// 	date: '2023-09-03',
+		// 	content:
+		// 		'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
+		// },
+		// {
+		// 	id: 2,
+		// 	title: '방탈출 후기입니다!',
+		// 	author: '건주',
+		// 	date: '2023-09-03',
+		// 	content:
+		// 		'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
+		// },
+		// {
+		// 	id: 2,
+		// 	title: '방탈출 후기입니다!',
+		// 	author: '건주',
+		// 	date: '2023-09-03',
+		// 	content:
+		// 		'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
+		// },
+		// {
+		// 	id: 2,
+		// 	title: '방탈출 후기입니다!',
+		// 	author: '건주',
+		// 	date: '2023-09-03',
+		// 	content:
+		// 		'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
+		// },
+		// {
+		// 	id: 2,
+		// 	title: '방탈출 후기입니다!',
+		// 	author: '건주',
+		// 	date: '2023-09-03',
+		// 	content:
+		// 		'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
+		// },
+		// {
+		// 	id: 2,
+		// 	title: '방탈출 후기입니다!',
+		// 	author: '건주',
+		// 	date: '2023-09-03',
+		// 	content:
+		// 		'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
+		// },
+		// {
+		// 	id: 2,
+		// 	title: '방탈출 후기입니다!',
+		// 	author: '건주',
+		// 	date: '2023-09-03',
+		// 	content:
+		// 		'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
+		// },
+		// {
+		// 	id: 2,
+		// 	title: '방탈출 후기입니다!',
+		// 	author: '건주',
+		// 	date: '2023-09-03',
+		// 	content:
+		// 		'긴 게시글 만들기긴 게시글 만들기긴 게시글 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssss만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기 긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기긴 게시글 만들기',
+		// },
 		// 추가적으로(?)
 	]);
 
@@ -118,7 +117,7 @@ function PostPage() {
 			<Helmet>
 				<title>게시글 목록</title>
 			</Helmet>
-			<div className="w-full max-w-[600px] min-w-[320px] py-20 bg-ec4 text-ec1 flex flex-col items-center h-full m-auto gap-14">
+			<div className="w-full max-w-[600px] min-w-[320px] py-20 bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto gap-14">
 				<Header>게시글 목록</Header>
 				<PostList posts={posts} />
 				<Nav />
