@@ -2,6 +2,7 @@ import Button from '@/components/Button';
 import KeyLogo from '@/components/KeyLogo';
 import FormInput from '@/components/loginsignup/FormInput';
 import FormInputValid from '@/components/loginsignup/FormInputValid';
+import debounce from '@/utils/debounce';
 import PocketBase, { ClientResponseError } from 'pocketbase';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -34,26 +35,30 @@ function SignUp() {
 	const navigate = useNavigate();
 
 	//아이디 정규식 검사
-	const handleIdValEmail = (e) => {
+	const handleIdValidEmail = (e) => {
 		setEmail(e.target.value);
 		setIsValidEmail(regEmail.test(e.target.value));
 	};
+	const debounceEmailHandler = debounce((e) => handleIdValidEmail(e));
 
 	//비밀번호 정규식 검사
 	const handlePwValid = (e) => {
 		setPassword(e.target.value);
 		setIsValidPw(regPw.test(e.target.value));
 	};
+	const debouncePwHandler = debounce((e) => handlePwValid(e));
 
 	//비밀번호 확인 상태 변경
 	const handlePwCheck = (e) => {
 		setPasswordConfirm(e.target.value);
 	};
+	const debouncePwConfirmHandler = debounce((e) => handlePwCheck(e));
 
 	//닉네임 상태 변경
 	const handleNickName = (e) => {
 		setNickName(e.target.value);
 	};
+	const debounceNickNameHandler = debounce((e) => handleNickName(e));
 
 	//패스워드 보기
 	const isClickedPwView = () => {
@@ -149,25 +154,17 @@ function SignUp() {
 			}
 		};
 
-		//이메일부터 검사하면 닉네임검사 안해줌
-		//닉네임부터 검사하면 둘다 검사 해줌
-		switch (true) {
-			case email.length !== 0 &&
-				regEmail.test(email) &&
-				nickName.length !== 0 &&
-				regNickName.test(nickName):
-				sameNickName();
-				sameEmail();
-				break;
-			case email.length !== 0 && regEmail.test(email):
-				sameEmail();
-				break;
-			case nickName.length !== 0 && regNickName.test(nickName):
-				sameNickName();
-				break;
-			default:
-				break;
-		}
+		//이메일 , 닉네임 중복검사 동시 진행
+		const checkDuplicates = async () => {
+			if (email.length !== 0 && regEmail.test(email)) {
+				await sameEmail();
+			}
+			if (nickName.length !== 0 && regNickName.test(nickName)) {
+				await sameNickName();
+			}
+		};
+
+		checkDuplicates();
 	}, [nickName, email]);
 
 	return (
@@ -186,8 +183,8 @@ function SignUp() {
 							<FormInput
 								type="email"
 								name="id"
-								onChange={handleIdValEmail}
-								value={email}
+								onChange={debounceEmailHandler}
+								defaultValue={email}
 								placeholder="example@naver.com"
 							>
 								아이디(이메일)
@@ -209,9 +206,9 @@ function SignUp() {
 								type={pwView ? 'text' : 'password'}
 								name="password"
 								bg={pwView ? 'bg-eyetrue' : 'bg-eyefalse'}
-								onChange={handlePwValid}
+								onChange={debouncePwHandler}
 								onClick={isClickedPwView}
-								value={password}
+								defaultValue={password}
 								placeholder="example123"
 							>
 								비밀번호
@@ -229,9 +226,9 @@ function SignUp() {
 								type={pwConfirmView ? 'text' : 'password'}
 								name="passwordConfirm"
 								bg={pwConfirmView ? 'bg-eyetrue' : 'bg-eyefalse'}
-								onChange={handlePwCheck}
+								onChange={debouncePwConfirmHandler}
 								onClick={isClickedPwConfirmView}
-								value={passwordConfirm}
+								defaultValue={passwordConfirm}
 								placeholder="example123"
 							>
 								비밀번호 확인
@@ -252,8 +249,8 @@ function SignUp() {
 							<FormInput
 								type="text"
 								name="nickName"
-								onChange={handleNickName}
-								value={nickName}
+								onChange={debounceNickNameHandler}
+								defaultValue={nickName}
 								placeholder="방탈러"
 							>
 								닉네임

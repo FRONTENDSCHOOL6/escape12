@@ -5,6 +5,7 @@ import SearchInput from '@/components/SearchInput';
 import Spinner from '@/components/Spinner';
 import LiButton from '@/components/theme/LiButton';
 import ThemeItem from '@/components/theme/ThemeItem';
+import debounce from '@/utils/debounce';
 import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -221,6 +222,7 @@ function Theme() {
 
 		escapeSearch();
 	};
+	const debounceSearch = debounce((e) => handleSearch(e));
 
 	return (
 		<>
@@ -232,7 +234,7 @@ function Theme() {
 				<SearchInput
 					placeholder="검색어를 입력해주세요 😀"
 					value={search}
-					onChange={handleSearch}
+					onChange={debounceSearch}
 				>
 					검색
 				</SearchInput>
@@ -278,6 +280,7 @@ function Theme() {
 										level={item.level}
 										image={item.image}
 										link={item.link}
+										field={item.field}
 									/>
 								</li>
 							);
