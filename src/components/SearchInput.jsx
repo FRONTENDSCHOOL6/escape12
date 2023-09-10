@@ -1,4 +1,5 @@
 import { string } from 'prop-types';
+import SmallButton from './SmallButton';
 
 SearchInput.propTypes = {
 	placeholder: string,
@@ -14,12 +15,7 @@ function SearchInput({ placeholder, children }) {
 				maxLength={35}
 				className="pl-3 py-1 rounded-full focus:outline-none flex-1"
 			/>
-			<button
-				type="button"
-				className="text-ec4 bg-ec1 min-w-fit rounded-lg px-2 font-semibold"
-			>
-				{children}
-			</button>
+			<SmallButton>{children}</SmallButton>
 		</div>
 	);
 }
