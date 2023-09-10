@@ -149,14 +149,16 @@ function SignUp() {
 			}
 		};
 
+		//이메일부터 검사하면 닉네임검사 안해줌
+		//닉네임부터 검사하면 둘다 검사 해줌
 		switch (true) {
-			// case email.length !== 0 &&
-			// 	regEmail.test(email) &&
-			// 	nickName.length !== 0 &&
-			// 	regNickName.test(nickName):
-			// 	sameNickName();
-			// 	sameEmail();
-			// 	break;
+			case email.length !== 0 &&
+				regEmail.test(email) &&
+				nickName.length !== 0 &&
+				regNickName.test(nickName):
+				sameNickName();
+				sameEmail();
+				break;
 			case email.length !== 0 && regEmail.test(email):
 				sameEmail();
 				break;
