@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import PostList from '@/components/PostList';
+import PostList from '@/components/post/PostList';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/Header';
 import Nav from '@/components/Nav';

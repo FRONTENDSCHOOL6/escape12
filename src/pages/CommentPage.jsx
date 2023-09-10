@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import Nav from '@/components/Nav';
 // import Header from '@/components/Header';
-import CommentList from '@/components/CommentList';
+import CommentList from '@/components/comment/CommentList';
 import Headerback from '@/components/Headerback';
 import SearchInput from '@/components/SearchInput';
 
