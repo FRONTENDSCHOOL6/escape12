@@ -1,4 +1,4 @@
-function debounce(callback, timeout = 300) {
+function debounce(callback, timeout = 500) {
 	let cleanup;
 	return (...args) => {
 		clearTimeout(cleanup);
