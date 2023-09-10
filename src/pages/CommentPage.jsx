@@ -1,10 +1,9 @@
 import { Helmet } from 'react-helmet-async';
-import Button from '@/components/Button';
 import Nav from '@/components/Nav';
 // import Header from '@/components/Header';
-import CustomInput from '@/components/CustomInput';
 import CommentList from '@/components/CommentList';
 import Headerback from '@/components/Headerback';
+import SearchInput from '@/components/SearchInput';
 
 function CommentPage() {
 	// 서버에서 불러오기
@@ -21,9 +20,7 @@ function CommentPage() {
 			{/* 전체 페이지 */}
 
 			<div className="w-full max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center py-20 h-screen m-auto gap-10 overflow-y-auto h-[calc(100vh - 200px)]">
-				<div className="max-w-[600px] min-w-[320px] m-auto fixed top-0 left-0 right-0">
-					<Headerback>게시글</Headerback>
-				</div>
+				<Headerback>게시글</Headerback>
 				{/* 게시글 내용 박스 */}
 				<div>
 					<div className="break-all s:px-3 text-[15px] w-full border p-4 rounded-xl min-w-[320px] items-center justify-center min-h-[200px] max-w-[320px]">
@@ -48,27 +45,15 @@ function CommentPage() {
 				</div>
 				{/* 댓글 작성창 */}
 				<fieldset className="flex flex-col justify-between  items-center text-ec4">
-					<CustomInput
-						type="text"
-						name="text"
-						className="flex items-center rounded-lg bg-ec1 text-ec4 h-8"
-						placeholder="example@naver.com"
-					></CustomInput>
+					<SearchInput placeholder="댓글을 입력해주세요😀">등록</SearchInput>
 				</fieldset>
-				<Button type="submit" bg="bg-ec1" text="text-ec4">
-					등록
-				</Button>
-
 				{/* 댓글 리스트 */}
 
 				<div className="">
 					{/* 각각의 댓글을 컴포넌트 보여주는 코드 (서버연결?)*/}
 					<CommentList comments={dummyComments} />
 				</div>
-
-				<div className="max-w-[600px] min-w-[320px] m-auto fixed bottom-0 left-0 right-0">
-					<Nav></Nav>
-				</div>
+				<Nav />
 			</div>
 		</>
 	);
