@@ -55,10 +55,9 @@ function AddCommunity() {
 					/>
 				</div>
 				<Button
-					className="text-center pt-4"
 					onClick={handleSaveClick}
-					bg="bg-ec1"
-					text="text-ec4"
+					bg="bg-ec1 text-center"
+					text="text-ec4 mt-4"
 				>
 					등록
 				</Button>

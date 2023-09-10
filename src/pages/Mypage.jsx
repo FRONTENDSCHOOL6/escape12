@@ -26,23 +26,27 @@ function Mypage() {
             <p className='pb-2'>비밀번호| ********</p>
             <p className='pb-2'>닉네임| </p>
           </div>
-          <div className='text-center pt-4'>
-            <Button onClick={() => { navigate('/editpage'); }} bg="bg-ec1" text="text-ec4">정보수정</Button>
-          </div>
-          <div className='border-2 m-4 p-8 text-lg rounded-xl text-center'>
+          <Button
+            onClick={() => { navigate('/editpage'); }} bg="bg-ec1"
+            text="text-ec4 mt-4"
+          >정보수정
+          </Button>
+          <div className="border-2 m-4 p-8 text-lg rounded-xl text-center">
             <p className>내가 작성한 기록: n개 </p>
             <p className>내가 작성한 글: n개</p>
             <p className>내가 작성한 댓글: n개 </p>
             <p className>⭐ 즐겨찾기 </p>
           </div>
-          <div className='text-center pt-4'>
-            <Button onClick={handleLogout} bg='bg-ec1' text='text-ec4'>
-              로그아웃
-            </Button>
-          </div>
+          <Button
+            onClick={handleLogout}
+            bg="bg-ec1 text-center"
+            text="text-ec4 mt-4"
+          >
+            로그아웃
+          </Button>
         </div>
       </div>
-      <Nav/>
+      <Nav />
     </>
   );
 }

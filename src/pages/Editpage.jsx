@@ -23,12 +23,12 @@ function Editpage() {
             <p className='pb-2'>비밀번호| ********</p>
             <p className='pb-2'>닉네임| </p>
           </div>
-          <div className='text-center pt-4'>
-            <Button onClick={() => { navigate('/mypage'); }} bg='bg-ec1' text='text-ec4'>저장</Button>
-          </div>
+            <Button 
+            onClick={() => { navigate('/mypage'); }} bg='bg-ec1' 
+            text='text-ec4 mt-4'>저장</Button>
         </div>
       </div>
-      <Nav/>
+      <Nav />
     </>
   );
 }
