@@ -2,14 +2,25 @@ import Button from '@/components/Button';
 import KeyLogo from '@/components/KeyLogo';
 import FormInput from '@/components/loginsignup/FormInput';
 import FormInputValid from '@/components/loginsignup/FormInputValid';
-import PocketBase from 'pocketbase';
+import PocketBase, { ClientResponseError } from 'pocketbase';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+// 아이디 유효성 검사, 이메일 형식
+const regEmail =
+	/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]+$/i;
+// 비밀번호 유효성 검사, 최소 8자 이상, 최소 1개의 대소문자, 특수문자 포함
+const regPw =
+	/(?=(.*[0-9]))(?=.*[!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/;
+// 닉네임 유효성 검사
+const regNickName =
+	/^(?=.*[a-zA-Z0-9가-힣!@#$%^&*])[a-zA-Z0-9가-힣!@#$%^&*]{2,}$/;
+//포켓호스트
+const pb = new PocketBase('https://refresh.pockethost.io');
 
 function SignUp() {
-	const pb = new PocketBase('https://refresh.pockethost.io');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -21,16 +32,6 @@ function SignUp() {
 	const [pwView, setPwView] = useState(false);
 	const [pwConfirmView, setPwConfirmView] = useState(false);
 	const navigate = useNavigate();
-
-	// 아이디 유효성 검사, 이메일 형식
-	const regEmail =
-		/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]+$/i;
-	// 비밀번호 유효성 검사, 최소 8자 이상, 최소 1개의 대소문자, 특수문자 포함
-	const regPw =
-		/(?=(.*[0-9]))(?=.*[!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/;
-	// 닉네임 유효성 검사
-	const regNickName =
-		/^(?=.*[a-zA-Z0-9가-힣!@#$%^&*])[a-zA-Z0-9가-힣!@#$%^&*]{2,}$/;
 
 	//아이디 정규식 검사
 	const handleIdValEmail = (e) => {
@@ -62,40 +63,6 @@ function SignUp() {
 	//패스워드 확인 보기
 	const isClickedPwConfirmView = () => {
 		pwConfirmView === false ? setPwConfirmView(true) : setPwConfirmView(false);
-	};
-
-	// 닉네임 중복검사
-	const sameNickName = async () => {
-		try {
-			const nickNameSameList = await pb.collection('users').getList(1, 10, {
-				filter: `nickName = "${nickName}"`,
-			});
-
-			if (nickNameSameList.items.length > 0) {
-				setIsValidNickName(true);
-			} else {
-				setIsValidNickName(false);
-			}
-		} catch (err) {
-			console.log(`닉네임 중복검사 에러 내용: ${err}`);
-		}
-	};
-
-	// 이메일 중복검사
-	const sameEmail = async () => {
-		try {
-			const emailSameList = await pb.collection('users').getList(1, 10, {
-				filter: `email = "${email}"`,
-			});
-
-			if (emailSameList.items.length > 0) {
-				setIsSameEmail(true);
-			} else {
-				setIsSameEmail(false);
-			}
-		} catch (err) {
-			console.log(`이메일 중복검사 에러 내용: ${err}`);
-		}
 	};
 
 	//회원가입하기
@@ -140,19 +107,49 @@ function SignUp() {
 	};
 
 	useEffect(() => {
-		//이러면 닉네임 중복검사가 안됨
-		// if (nickName.length !== 0 && regNickName.test(nickName)) {
-		// 	sameNickName();
-		// 	sameEmail();
-		// }
-		//이것도 닉네임 중복검사가 안됨
-		// if (nickName.length !== 0 && regNickName.test(nickName)) {
-		// 	sameNickName();
-		// }
-		// sameEmail();
+		// 닉네임 중복검사
+		const sameNickName = async () => {
+			try {
+				const nickNameSameList = await pb.collection('users').getList(1, 10, {
+					filter: `(nickName='${nickName}')`,
+				});
 
-		//닉네임 작성 후 이메일 작성하면 둘다 검사 되지만 닉네임value 빈값으로 변경하면 '존재하는 닉네임입니다'가 안지워지는 오류 발생
-		//이메일 작성 후 닉네임 작성하면 닉네임 검사 안됨
+				console.log('닉네임 중복 검사 결과:', nickNameSameList);
+
+				if (nickNameSameList.items.length > 0) {
+					setIsValidNickName(true);
+				} else {
+					setIsValidNickName(false);
+				}
+			} catch (err) {
+				if (!(err instanceof ClientResponseError)) {
+					console.log(`닉네임 중복검사 에러 내용: ${err}`);
+				}
+			}
+		};
+
+		// 이메일 중복검사
+		const sameEmail = async () => {
+			try {
+				const emailSameList = await pb.collection('users').getList(1, 10, {
+					filter: `(email='${email}')`,
+				});
+
+				console.log('이메일 중복 검사 결과:', emailSameList);
+
+				if (emailSameList.items.length > 0) {
+					setIsSameEmail(true);
+				} else {
+					setIsSameEmail(false);
+				}
+			} catch (err) {
+				if (!(err instanceof ClientResponseError)) {
+					console.log(`이메일 중복검사 에러 내용: ${err}`);
+				}
+			}
+		};
+
+		//닉네임 중복검사 안됨
 		if (
 			email.length !== 0 &&
 			regEmail.test(email) &&
@@ -174,9 +171,7 @@ function SignUp() {
 				<title>방탈러-회원가입</title>
 			</Helmet>
 			<div className="text-lg max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center h-screen m-auto">
-				<Link to="/loginselete">
-					<KeyLogo />
-				</Link>
+				<KeyLogo path="/loginselete" />
 				<form
 					onSubmit={handleUserData}
 					className="flex flex-col gap-10 items-center py-32 s:py-20"
@@ -251,7 +246,7 @@ function SignUp() {
 						<>
 							<FormInput
 								type="text"
-								name="password"
+								name="nickName"
 								onChange={handleNickName}
 								value={nickName}
 								placeholder="방탈러"
@@ -268,7 +263,7 @@ function SignUp() {
 							>
 								{nickName.length !== 0 && !regNickName.test(nickName)
 									? '공백 제외 두 자리 이상입력해주세요'
-									: isValidNickName === true
+									: nickName.length !== 0 && isValidNickName === true
 									? '존재하는 닉네임입니다.'
 									: ''}
 							</FormInputValid>
