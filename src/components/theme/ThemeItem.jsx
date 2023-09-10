@@ -22,12 +22,12 @@ function ThemeItem({ store, point, theme, grade, level, image, link }) {
 	};
 
 	return (
-		<figure className="my-4 border-2 border-ec1 p-6 s:p-3 rounded-xl flex gap-3 text-ec1 text-lg s:text-base relative max-h-[180px]">
+		<figure className="my-4 border-2 border-ec1 p-6 s:p-3 rounded-xl flex gap-3 text-ec1 text-lg s:text-base relative h-[180px]">
 			<div className=" bg-ec4 flex w-[25%]">
 				<img src={image} alt={theme} aria-hidden className="w-full" />
 			</div>
 			<figcaption className="flex flex-col justify-between">
-				<section className="flex items-end gap-2 s:gap-2">
+				<section className="flex items-end gap-4 s:gap-2">
 					<h2 className="s:max-w-[90px] max-w-[170px] whitespace-nowrap overflow-hidden text-ellipsis text-2xl s:text-lg font-semibold">
 						{theme}
 					</h2>
