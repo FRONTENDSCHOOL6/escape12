@@ -1,6 +1,7 @@
 import Header from '@/components/Header';
 import PlusNav from '@/components/PlusNav';
 import SearchInput from '@/components/SearchInput';
+import LiButton from '@/components/theme/LiButton';
 import ThemeItem from '@/components/theme/ThemeItem';
 import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
@@ -9,30 +10,8 @@ import toast from 'react-hot-toast';
 
 function Theme() {
 	const [data, setData] = useState([]);
-	const [scrollY, setScrollY] = useState(0);
+	const [levelSort, setLevelSort] = useState(false);
 	const [showPlusNav, setShowPlusNav] = useState(false);
-	const pb = new PocketBase('https://refresh.pockethost.io');
-
-	//데이터 불러오기
-	const dataList = async () => {
-		const record = await pb.collection('escapeList').getList(1, 10, {
-			expand: 'store, point, field, grade, level, image, link',
-		});
-
-		try {
-			setData(record.items);
-			console.log('데이터 성공');
-			console.log(data);
-		} catch (err) {
-			console.log(`에러 내용: ${err}`);
-		}
-		// console.log(record.items[0].store);
-	};
-
-	//스크롤 이벤트
-	const handleScroll = () => {
-		setScrollY(window.scrollY);
-	};
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
@@ -52,24 +31,96 @@ function Theme() {
 
 	//스크롤 이벤트 감지
 	useEffect(() => {
+		const handleScroll = () => {
+			const currentScrollY = window.scrollY;
+			if (
+				(currentScrollY >= 500 && !showPlusNav) ||
+				(currentScrollY < 500 && showPlusNav)
+			) {
+				setShowPlusNav(currentScrollY >= 500);
+			}
+		};
+
 		window.addEventListener('scroll', handleScroll);
+
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
 		};
-	}, []);
+	}, [showPlusNav]);
 
-	// plusNav의 topButton 보이기 감지
+	//데이터 불러오기
 	useEffect(() => {
-		if (scrollY < 500) {
-			setShowPlusNav(true);
-		} else {
-			setShowPlusNav(false);
-		}
-	}, [scrollY]);
+		const pb = new PocketBase('https://refresh.pockethost.io');
 
-	useEffect(() => {
+		const dataList = async () => {
+			const record = await pb.collection('escapeList').getList(1, 200, {
+				expand: 'store, point, field, grade, level, image, link',
+			});
+
+			try {
+				setData(record.items);
+			} catch (err) {
+				console.log(`에러 내용: ${err}`);
+			}
+		};
 		dataList();
 	}, []);
+
+	//인기순 정렬하기
+	const handleLevelSort = () => {
+		levelSort ? setLevelSort(false) : setLevelSort(true);
+
+		const pb = new PocketBase('https://refresh.pockethost.io');
+
+		const levelDataSort = async () => {
+			const down = await pb.collection('escapeList').getFullList({
+				sort: 'grade',
+			});
+
+			const up = await pb.collection('escapeList').getFullList({
+				sort: '-grade',
+			});
+			levelSort ? setData(down) : setData(up);
+		};
+
+		levelDataSort();
+	};
+
+	//지역별 강남 정렬하기
+	const handleGangnam = () => {
+		const pb = new PocketBase('https://refresh.pockethost.io');
+
+		const regionGangNam = async () => {
+			const gangnam = await pb.collection('escapeList').getFullList({
+				filter: 'region = "강남"',
+			});
+
+			try {
+				setData(gangnam);
+			} catch (err) {
+				console.log(`에러 내용: ${err}`);
+			}
+		};
+		regionGangNam();
+	};
+
+	//지역별 홍대 정렬하기
+	const handleHongDae = () => {
+		const pb = new PocketBase('https://refresh.pockethost.io');
+
+		const regionHongDae = async () => {
+			const hongdae = await pb.collection('escapeList').getFullList({
+				filter: 'region = "홍대"',
+			});
+
+			try {
+				setData(hongdae);
+			} catch (err) {
+				console.log(`에러 내용: ${err}`);
+			}
+		};
+		regionHongDae();
+	};
 
 	return (
 		<>
@@ -80,28 +131,39 @@ function Theme() {
 				<Header>인기 테마</Header>
 				<SearchInput placeholder="검색어를 입력해주세요 😀">검색</SearchInput>
 				<ul className="text-ec1 text-lg flex justify-end w-full pr-20 s:pr-12 gap-8">
-					<li>인기순</li>
-					<li>지역별(강남/홍대)</li>
+					<li>
+						<LiButton onClick={handleGangnam}>강남</LiButton>
+					</li>
+					<li>
+						<LiButton onClick={handleHongDae}>홍대</LiButton>
+					</li>
+					<li>
+						<LiButton onClick={handleLevelSort}>
+							{levelSort ? '인기순 ↑' : '인기순 ↓'}
+						</LiButton>
+					</li>
 				</ul>
-				<ul>
+				<ul className="w-full px-20 s:px-12">
 					{data.map((item) => {
-						<li key={item.id}>
-							<ThemeItem
-								store={item.store}
-								point={item.point}
-								theme={item.theme}
-								grade={item.grade}
-								level={item.level}
-								image={item.image}
-								link={item.link}
-							/>
-						</li>;
+						return (
+							<li key={item.id}>
+								<ThemeItem
+									store={item.store}
+									point={item.point}
+									theme={item.theme}
+									grade={item.grade}
+									level={item.level}
+									image={item.image}
+									link={item.link}
+								/>
+							</li>
+						);
 					})}
 				</ul>
 				<PlusNav
 					topClick={handleTopButton}
 					pencilClick={handleRecordButton}
-					hidden={showPlusNav ? 'hidden' : ''}
+					hidden={!showPlusNav ? 'hidden' : ''}
 				/>
 			</div>
 		</>
