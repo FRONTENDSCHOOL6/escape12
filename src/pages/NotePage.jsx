@@ -20,10 +20,10 @@ function AddCommunity() {
       </Helmet>
       <div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
         {/* header, headerback 맨 위 고정 */}
-          <Headerback>클리어</Headerback>
-        <div className='flex-1 flex flex-col items-center text-center'>
+        <Headerback onClick={() => { navigate('/theme'); }}>클리어</Headerback>
+        <div className='flex-1 flex flex-col items-center text-center s:px-12 px-14 w-full'>
           <div className='text-xl pt-28 mb-3'>
-          <p className='pb-2'>[테마명]</p>
+            <p className='pb-2'>[테마명]</p>
             <p className='pb-2'>난이도| [난이도]</p>
             <p className='pb-2'>업체명| [업체명]</p>
             <p className='pb-2'>날짜| [00-00-00]</p>
@@ -35,19 +35,17 @@ function AddCommunity() {
             value={content}
             onChange={handleContentChange}
             placeholder='글을 입력해주세요.'
-            className='w-80 h-20 p-4 text-ec4 border rounded-lg'
+            className='w-full h-20 p-4 text-ec4 border rounded-lg'
           ></textarea>
-          <div className='text-center pt-4'>
-          <Button onClick={() => { navigate('/editpage'); }}  bg='bg-ec1' text='text-ec4'>
+          <Button
+            onClick={() => { navigate('/editpage'); }}
+            bg="bg-ec1 text-center"
+            text="text-ec4 mt-4">
             등록
           </Button>
         </div>
-        </div>
       </div>
-      {/* nav 맨 밑 고정 */}
-      <div className='max-w-[600px] min-w-[320px] m-auto fixed bottom-0 left-0 right-0'>
-        <Nav></Nav>
-      </div>
+      <Nav/>
     </>
   );
 }

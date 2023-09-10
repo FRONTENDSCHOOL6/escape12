@@ -36,9 +36,7 @@ function AddCommunity() {
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
 				{/* header, headerback 맨 위 고정 */}
-				<div className="max-w-[600px] min-w-[320px] m-auto fixed top-0 left-0 right-0">
-					<Headerback>글 작성</Headerback>
-				</div>
+				<Headerback onClick={() => { navigate('/postpage'); }}>글 작성</Headerback>
 				<div className="text-xl pt-28 s:px-12 px-14">
 					<p className="flex justify-end mb-3 text-lg">
 						작성 날짜: {currentDate.toLocaleDateString()}
@@ -47,7 +45,7 @@ function AddCommunity() {
 						value={content}
 						onChange={handleContentChange}
 						placeholder="글을 입력해주세요."
-						className="w-full p-4 text-ec4 border rounded-lg"
+						className="w-full h-80 p-4 text-ec4 border rounded-lg"
 					/>
 					{/* 파일 업로드 추가 */}
 					<input
@@ -65,8 +63,7 @@ function AddCommunity() {
 					등록
 				</Button>
 			</div>
-			{/* nav 맨 밑 고정 */}
-			<Nav />
+			<Nav/>
 		</>
 	);
 }
