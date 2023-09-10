@@ -149,19 +149,22 @@ function SignUp() {
 			}
 		};
 
-		//닉네임 중복검사 안됨
-		if (
-			email.length !== 0 &&
-			regEmail.test(email) &&
-			nickName.length !== 0 &&
-			regNickName.test(nickName)
-		) {
-			sameNickName();
-			sameEmail();
-		} else if (email.length !== 0 && regEmail.test(email)) {
-			sameEmail();
-		} else if (nickName.length !== 0 && regNickName.test(nickName)) {
-			sameNickName();
+		switch (true) {
+			// case email.length !== 0 &&
+			// 	regEmail.test(email) &&
+			// 	nickName.length !== 0 &&
+			// 	regNickName.test(nickName):
+			// 	sameNickName();
+			// 	sameEmail();
+			// 	break;
+			case email.length !== 0 && regEmail.test(email):
+				sameEmail();
+				break;
+			case nickName.length !== 0 && regNickName.test(nickName):
+				sameNickName();
+				break;
+			default:
+				break;
 		}
 	}, [nickName, email]);
 
