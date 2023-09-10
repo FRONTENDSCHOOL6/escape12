@@ -17,7 +17,7 @@ function Mypage() {
       <Helmet>
         <title>마이페이지</title>
       </Helmet>
-      <div className='w-full max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center justify-center h-screen m-auto text-lg gap-4 min-h-[100vh]'>
+      <div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
         {/* header, headerback 맨 위 고정 */}
           <Header>마이페이지</Header>
         <div className='flex-1 flex flex-col items-center text-center'>
