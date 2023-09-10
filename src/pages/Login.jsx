@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
+import debounce from '@/utils/debounce';
 
 function Login() {
 	const pb = new PocketBase('https://refresh.pockethost.io');
@@ -62,11 +63,12 @@ function Login() {
 	};
 
 	//아이디 정규식 검사
-	const handleIdValid = (e) => {
+	const handleIdValidEmail = (e) => {
 		const target = e.target.value;
 		setEmail(target);
 		setIsValidId(regEmail.test(target));
 	};
+	const debounceEmailHandler = debounce((e) => handleIdValidEmail(e));
 
 	//비밀번호 정규식 검사
 	const handlePwValid = (e) => {
@@ -74,6 +76,7 @@ function Login() {
 		setPassword(target);
 		setIsValidPw(regPw.test(target));
 	};
+	const debouncePwHandler = debounce((e) => handlePwValid(e));
 
 	return (
 		<>
@@ -88,7 +91,12 @@ function Login() {
 				>
 					<fieldset className="flex flex-col gap-3">
 						<div>
-							<FormInput type="email" name="id" onChange={handleIdValid}>
+							<FormInput
+								type="email"
+								name="id"
+								onChange={debounceEmailHandler}
+								defaultValue={email}
+							>
 								아이디(이메일)
 							</FormInput>
 							<FormInputValid color={!isValidId ? 'text-red' : ''}>
@@ -104,8 +112,9 @@ function Login() {
 								type={pwView ? 'text' : 'password'}
 								name="password"
 								bg={pwView ? 'bg-eyetrue' : 'bg-eyefalse'}
-								onChange={handlePwValid}
+								onChange={debouncePwHandler}
 								onClick={isClickedPwView}
+								defaultValue={password}
 							>
 								비밀번호
 							</FormInput>
