@@ -254,7 +254,7 @@ function Theme() {
 						</LiButton>
 					</li>
 				</ul>
-				{emptyData && (
+				{!isLoading && emptyData && (
 					<div className="absolute top-1/2 -translate-y-1/2">
 						<EmptyContents>검색결과가 없습니다 : &#40;</EmptyContents>
 					</div>
