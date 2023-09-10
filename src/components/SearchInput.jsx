@@ -16,7 +16,7 @@ function SearchInput({ placeholder, children, value = '', onChange }) {
 				placeholder={placeholder}
 				onChange={onChange}
 				maxLength={35}
-				value={value}
+				defaultValue={value}
 				className="pl-3 py-1 rounded-full focus:outline-none flex-1"
 			/>
 			<SmallButton>{children}</SmallButton>
