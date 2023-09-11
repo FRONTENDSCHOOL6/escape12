@@ -78,6 +78,7 @@ function SignUp() {
 			passwordConfirm,
 			nickName,
 			emailVisibility: true,
+			admin: false,
 		};
 
 		try {
