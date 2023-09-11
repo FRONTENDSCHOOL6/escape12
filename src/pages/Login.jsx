@@ -1,16 +1,15 @@
+import pb from '@/api/pocketbase';
 import Button from '@/components/Button';
+import KeyLogo from '@/components/KeyLogo';
 import FormInput from '@/components/loginsignup/FormInput';
 import FormInputValid from '@/components/loginsignup/FormInputValid';
-import KeyLogo from '@/components/KeyLogo';
-import PocketBase from 'pocketbase';
+import debounce from '@/utils/debounce';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
-import debounce from '@/utils/debounce';
 
 function Login() {
-	const pb = new PocketBase('https://refresh.pockethost.io');
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');

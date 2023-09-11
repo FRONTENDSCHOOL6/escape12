@@ -1,9 +1,10 @@
+import pb from '@/api/pocketbase';
 import Button from '@/components/Button';
 import KeyLogo from '@/components/KeyLogo';
 import FormInput from '@/components/loginsignup/FormInput';
 import FormInputValid from '@/components/loginsignup/FormInputValid';
 import debounce from '@/utils/debounce';
-import PocketBase, { ClientResponseError } from 'pocketbase';
+import { ClientResponseError } from 'pocketbase';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
@@ -18,8 +19,6 @@ const regPw =
 // 닉네임 유효성 검사
 const regNickName =
 	/^(?=.*[a-zA-Z0-9가-힣!@#$%^&*])[a-zA-Z0-9가-힣!@#$%^&*]{2,}$/;
-//포켓호스트
-const pb = new PocketBase('https://refresh.pockethost.io');
 
 function SignUp() {
 	const [email, setEmail] = useState('');

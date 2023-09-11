@@ -1,3 +1,4 @@
+import pb from '@/api/pocketbase';
 import EmptyContents from '@/components/EmptyContents';
 import Header from '@/components/Header';
 import PlusNav from '@/components/PlusNav';
@@ -6,12 +7,9 @@ import Spinner from '@/components/Spinner';
 import LiButton from '@/components/theme/LiButton';
 import ThemeItem from '@/components/theme/ThemeItem';
 import debounce from '@/utils/debounce';
-import PocketBase from 'pocketbase';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
-
-const pb = new PocketBase('https://refresh.pockethost.io');
 
 function Theme() {
 	const [data, setData] = useState([]);
