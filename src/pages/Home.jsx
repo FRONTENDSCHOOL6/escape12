@@ -25,10 +25,10 @@ function Home() {
 	return (
 		<div
 			ref={containerRef}
-			className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center h-screen m-auto pt-60"
+			className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col justify-center items-center h-screen m-auto gap-28"
 		>
 			<h1 className="font-hob text-7xl">방탈러</h1>
-			<CogiLogo width={250} />
+			<CogiLogo />
 		</div>
 	);
 }

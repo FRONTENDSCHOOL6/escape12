@@ -16,6 +16,9 @@ import CommentPage from '@/pages/CommentPage';
 import Theme from '@/pages/Theme';
 import EmptyPage from '@/pages/EmptyPage';
 import NotePage from '@/pages/NotePage';
+import CreateTheme from '@/pages/CreateTheme';
+import Test from './pages/Test';
+import ThemeRecord from './pages/ThemeRecord';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -33,6 +36,10 @@ const router = createBrowserRouter(
 			<Route path="/post/:id" element={<CommentPage />} />
 			<Route path="/notepage" element={<NotePage />} />
 			<Route path="/emptypage" element={<EmptyPage />} />
+			{/* 데이터 등록을 위한 임시페이지 */}
+			<Route path="/createtheme" element={<CreateTheme />} />
+			<Route path="/test" element={<Test />} />
+			<Route path="/theme/:dataId" element={<ThemeRecord />} />
 		</Route>
 	)
 );

@@ -30,7 +30,6 @@ export default {
 			eyefalse: 'url("/src/assets/login-eyefalse.png")',
 			hearttrue: 'url("/src/assets/theme-hearttrue.png")',
 			heartfalse: 'url("/src/assets/theme-heartfalse.png")',
-			pencil: 'url("/src/assets/plusbutton-pencil.png")',
 		},
 		extend: {
 			keyframes: {

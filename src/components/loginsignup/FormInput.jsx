@@ -20,13 +20,13 @@ function FormInput({
 }) {
 	return (
 		<>
-			<fieldset className="flex gap-5 justify-between text-ec1 relative">
-				<label htmlFor={name} className="w-32 s:w-28">
+			<fieldset className="flex gap-5 justify-between text-ec1 relative px-2">
+				<label htmlFor={name} className="w-32 s:min-w-fit">
 					{children}
 				</label>
 				<input
 					type={type}
-					className="w-[300px] s:w-[200px] bg-opacity border-b-2 border-ec1 focus:outline-none"
+					className="w-[300px] s:w-[90%] bg-opacity border-b-2 border-ec1 focus:outline-none"
 					name={name}
 					id={name}
 					onChange={onChange}

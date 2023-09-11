@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import Nav from '@/components/Nav';
+import CommentList from '@/components/CommentList';
 import CommentList from '@/components/comment/CommentList';
 import CommentPost from '@/components/comment/CommentPost';
 import Headerback from '@/components/Headerback';
