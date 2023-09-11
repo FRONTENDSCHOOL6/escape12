@@ -1,4 +1,4 @@
-import pb from '@/api/pocketbase';
+import pb from '@/api/pockethost';
 import Header from '@/components/Header';
 import Nav from '@/components/Nav';
 import { Helmet } from 'react-helmet-async';
