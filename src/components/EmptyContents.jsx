@@ -8,7 +8,7 @@ EmptyContents.propTypes = {
 function EmptyContents({ children }) {
 	return (
 		<>
-			<NotCogi />
+			<NotCogi alt="검색결과가 없습니다" />
 			<p className="text-center text-[30px] text-ec1 text-xl mt-6">
 				{children}
 			</p>
