@@ -1,11 +1,9 @@
+import pb from '@/api/pocketbase';
 import Header from '@/components/Header';
 import Nav from '@/components/Nav';
-import PocketBase from 'pocketbase';
 import { Helmet } from 'react-helmet-async';
 
 function CreateTheme() {
-	const pb = new PocketBase('https://refresh.pockethost.io');
-
 	const handleCreateData = async () => {
 		const data = [];
 		try {
