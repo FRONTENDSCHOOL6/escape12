@@ -1,8 +1,8 @@
-import { string, number } from 'prop-types';
-import { useState } from 'react';
+import { func, number, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import HeartButton from './Heart';
 import Span from './Span';
+import { useState } from 'react';
 
 ThemeItem.propTypes = {
 	store: string,
@@ -13,15 +13,22 @@ ThemeItem.propTypes = {
 	image: string,
 	link: string,
 	field: string,
+	onClick: func,
+	checked: string,
 };
 
-function ThemeItem({ store, point, theme, grade, level, image, link, field }) {
-	const [heart, setHeart] = useState(false);
-
-	const isClicked = () => {
-		heart === false ? setHeart(true) : setHeart(false);
-	};
-
+function ThemeItem({
+	store,
+	point,
+	theme,
+	grade,
+	level,
+	image,
+	link,
+	field,
+	onClick,
+	checked,
+}) {
 	return (
 		<figure className="my-4 border-2 border-ec1 p-6 s:p-3 rounded-xl flex gap-3 text-ec1 text-lg s:text-base relative h-[180px]">
 			<div className=" bg-ec4 flex w-[25%]">
@@ -47,10 +54,7 @@ function ThemeItem({ store, point, theme, grade, level, image, link, field }) {
 					</Link>
 				</section>
 			</figcaption>
-			<HeartButton
-				onClick={isClicked}
-				checked={!heart ? 'bg-heartfalse' : 'bg-hearttrue'}
-			/>
+			<HeartButton onClick={onClick} checked={checked} />
 		</figure>
 	);
 }
