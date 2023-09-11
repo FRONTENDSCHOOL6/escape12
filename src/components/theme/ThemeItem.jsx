@@ -2,7 +2,6 @@ import { func, number, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import HeartButton from './Heart';
 import Span from './Span';
-import { useState } from 'react';
 
 ThemeItem.propTypes = {
 	store: string,
