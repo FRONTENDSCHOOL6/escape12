@@ -19,8 +19,6 @@ function Theme() {
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [emptyData, setEmptyData] = useState(false);
-	const [heart, setHeart] = useState(false);
-	const [themeHearts, setThemeHearts] = useState({});
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
@@ -56,24 +54,6 @@ function Theme() {
 			window.removeEventListener('scroll', handleScroll);
 		};
 	}, [showPlusNav]);
-
-	//즐겨찾기 등록
-	const updateThemeHeart = (themeId) => {
-		// heart === false ? setHeart(true) : setHeart(false);
-
-		if (heart) {
-			setHeart(false);
-			setThemeHearts({});
-		} else {
-			setHeart(true);
-			setThemeHearts((prevHearts) => ({
-				...prevHearts,
-				[themeId]: !prevHearts[themeId],
-			}));
-		}
-
-		console.log(themeHearts);
-	};
 
 	//데이터 불러오기
 	useEffect(() => {
@@ -299,8 +279,7 @@ function Theme() {
 										image={item.image}
 										link={item.link}
 										field={item.field}
-										onClick={() => updateThemeHeart(item.id)}
-										checked={!heart ? 'bg-heartfalse' : 'bg-hearttrue'}
+										dataid={item.id}
 									/>
 								</li>
 							);
