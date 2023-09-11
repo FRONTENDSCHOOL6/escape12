@@ -12,7 +12,7 @@ function Nav() {
 				<li>
 					<NavLink
 						to="/theme"
-						activeClassName="text-ec5"
+						// activeClassName="text-ec5"
 						className={`text-ec1 hover:text-ec5 ${
 							isThemeActive ? 'text-ec5' : ''
 						}`}
@@ -23,7 +23,7 @@ function Nav() {
 				<li>
 					<NavLink
 						to="/notepage"
-						activeClassName="text-ec5"
+						// activeClassName="text-ec5"
 						className={`text-ec1 hover:text-ec5 ${
 							isNotePageActive ? 'text-ec5' : ''
 						}`}
@@ -34,7 +34,7 @@ function Nav() {
 				<li>
 					<NavLink
 						to="/addcommunity"
-						activeClassName="text-ec5"
+						// activeClassName="text-ec5"
 						className={`text-ec1 hover:text-ec5 ${
 							isAddCommunityActive ? 'text-ec5' : ''
 						}`}
@@ -45,7 +45,7 @@ function Nav() {
 				<li>
 					<NavLink
 						to="/mypage"
-						activeClassName="text-ec5"
+						// activeClassName="text-ec5"
 						className={`text-ec1 hover:text-ec5 ${
 							isMyPageActive ? 'text-ec5' : ''
 						}`}
