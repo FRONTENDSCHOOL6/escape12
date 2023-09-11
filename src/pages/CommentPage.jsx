@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import Nav from '@/components/Nav';
-import CommentList from '@/components/CommentList';
+// import CommentList from '@/components/CommentList';
 import CommentList from '@/components/comment/CommentList';
 import CommentPost from '@/components/comment/CommentPost';
 import Headerback from '@/components/Headerback';
@@ -80,7 +80,7 @@ function CommentPage() {
 			</Helmet>
 			{/* 전체 페이지 */}
 
-			<div className="max-w-[600px] min-w-[320px] text-ec1 bg-ec4 flex flex-col items-center min-h-[100vh] m-auto py-20 gap-10 relative">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center min-h-[100vh] m-auto py-20 gap-10 relative">
 				<Headerback>게시글</Headerback>
 				<div className="min-w-[300px] w-full s:px-12 px-20">
 					<form ref={formRef} onSubmit={handleComment} onReset={handleReset}>
