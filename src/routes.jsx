@@ -16,6 +16,7 @@ import CommentPage from '@/pages/CommentPage';
 import Theme from '@/pages/Theme';
 import EmptyPage from '@/pages/EmptyPage';
 import NotePage from '@/pages/NotePage';
+import Test from '@/pages/Test';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -33,6 +34,8 @@ const router = createBrowserRouter(
 			<Route path="/post/:id" element={<CommentPage />} />
 			<Route path="/notepage" element={<NotePage />} />
 			<Route path="/EmptyPage" element={<EmptyPage />} />
+			<Route path="/test" element={<Test />} />
+			
 		</Route>
 	)
 );
