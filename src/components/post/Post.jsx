@@ -21,7 +21,7 @@ function Post({ id, title, author, content /*onDelete*/ }) {
 
 	return (
 		<Link to={`/post/${id}`}>
-			<div className="text-[15px] border  max-h-[105px] p-4 mb-2 rounded-xl flex flex-col m-auto">
+			<div className="text-ec1 border  max-h-[105px] p-4 mb-6 rounded-xl flex flex-col m-auto">
 				<div className="flex justify-between border-b-[1px] mb-4 pb-2">
 					<p className="whitespace-nowrap overflow-hidden text-ellipsis">
 						{title}
