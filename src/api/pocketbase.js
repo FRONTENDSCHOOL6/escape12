@@ -1,4 +1,4 @@
-import { PocketBase } from 'pocketbase';
+import PocketBase from 'pocketbase';
 
 function pb() {
 	return new PocketBase('https://refresh.pockethost.io');
