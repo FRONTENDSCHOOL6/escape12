@@ -4,6 +4,7 @@ import Button from '@/components/Button';
 import Nav from '@/components/Nav';
 import Headerback from '@/components/Headerback';
 import FormInput from '@/components/loginsignup/FormInput';
+import Sup from '@/components/record/Sup';
 import { useNavigate } from 'react-router-dom';
 
 function AddCommunity() {
@@ -34,8 +35,9 @@ function AddCommunity() {
               type="text"
               name="title"
               placeholder="제목을 입력해주세요."
+              required
             >
-              제목<sup className="text-red"> *</sup>
+              <Sup>제목</Sup>
             </FormInput>
             <p className="flex justify-end mb-3 text-lg">
               {currentDate.toLocaleDateString()}
