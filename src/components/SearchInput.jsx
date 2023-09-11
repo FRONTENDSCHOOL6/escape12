@@ -10,7 +10,7 @@ SearchInput.propTypes = {
 
 function SearchInput({ placeholder, children, value = '', onChange }) {
 	return (
-		<div className="flex gap-4 w-full px-20 justify-center text-lg pb-4 s:px-12">
+		<div className="flex gap-4 w-full px-20 justify-center text-lg pb-4 ">
 			<input
 				type="text"
 				placeholder={placeholder}

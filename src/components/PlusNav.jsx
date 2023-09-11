@@ -3,8 +3,14 @@ import top from '@/assets/plusbutton-top.png';
 import { func, string } from 'prop-types';
 import Nav from './Nav';
 import PlusButton from './PlusButton';
+import pencil from '@/assets/plusbutton-pencil.png';
+import top from '@/assets/plusbutton-top.png';
+import { useMatch } from 'react-router-dom';
 
 PlusNav.propTypes = {
+	topClick: func,
+	pencilClick: func,
+	hidden: string,
 	topClick: func,
 	pencilClick: func,
 	hidden: string,

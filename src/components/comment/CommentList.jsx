@@ -1,5 +1,5 @@
 import { arrayOf, shape, number, string } from 'prop-types';
-import Comment from '@/components/Comment';
+import Comment from '@/components/comment/Comment';
 
 CommentList.propTypes = {
 	comments: arrayOf(
