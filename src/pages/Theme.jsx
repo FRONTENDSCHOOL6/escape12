@@ -189,7 +189,7 @@ function Theme() {
 
 		const escapeSearch = async () => {
 			const resultList = await pb.collection('escapeList').getList(1, 200, {
-				filter: `(store ~ "${e.target.value}" || theme ~ "${e.target.value}")`,
+				filter: `(store ~ "${e.target.value}" || theme ~ "${e.target.value}" || field ~ "${e.target.value}")`,
 			});
 
 			const data = await pb.collection('escapeList').getList(1, 200, {
