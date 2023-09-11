@@ -1,29 +1,64 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import Button from '@/components/Button';
+import Nav from '@/components/Nav';
+import Headerback from '@/components/Headerback';
+import FormInput from '@/components/loginsignup/FormInput';
+import { useNavigate } from 'react-router-dom';
 
-@font-face {
-    font-family: 'SDSamliphopangche_Outline';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff')
-        format('woff');
-    font-weight: normal;
-    font-style: normal;
+function AddCommunity() {
+  const [content, setContent] = useState('');
+  const currentDate = new Date();
+  const navigate = useNavigate();
+
+  const handleContentChange = (e) => {
+    setContent(e.target.value);
+  };
+
+  const handleSaveClick = () => {
+    navigate('/mypage');
+  };
+
+  return (
+    <>
+      <Helmet>
+        <title>글 작성</title>
+      </Helmet>
+      <div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
+        {/* Header */}
+        <Headerback onClick={() => { navigate('/postpage'); }}>글 작성</Headerback>
+        <div className="text-xl pt-28 s:px-12 px-14">
+          {/* Title, Content */}
+          <div className="flex flex-col space-y-2 text-center">
+            <FormInput
+              type="text"
+              name="title"
+              placeholder="제목을 입력해주세요."
+            >
+              제목<sup className="text-red"> *</sup>
+            </FormInput>
+            <p className="flex justify-end mb-3 text-lg">
+              {currentDate.toLocaleDateString()}
+            </p>
+            <textarea
+              value={content}
+              onChange={handleContentChange}
+              placeholder="작성해주세요."
+              className="w-full h-80 p-4 text-ec4 border rounded-lg"
+            />
+          </div>
+        </div>
+        <Button
+          onClick={handleSaveClick}
+          bg="bg-ec1 text-center"
+          text="text-ec4 mt-4"
+        >
+          등록
+        </Button>
+      </div>
+      <Nav />
+    </>
+  );
 }
 
-@font-face {
-    font-family: 'SUITE-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2')
-        format('woff2');
-    font-weight: 400;
-    font-style: normal;
-}
-
-body {
-    font-family: 'SUITE-Regular';
-    background-color: #faf0e6;
-    -ms-overflow-style: none;
-}
-
-body::-webkit-scrollbar {
-    display: none;
-}
+export default AddCommunity;
