@@ -2,6 +2,7 @@ import { func, number, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import HeartButton from './Heart';
 import Span from './Span';
+import { useState } from 'react';
 
 ThemeItem.propTypes = {
 	store: string,
@@ -14,6 +15,7 @@ ThemeItem.propTypes = {
 	field: string,
 	onClick: func,
 	checked: string,
+	dataid: string,
 };
 
 function ThemeItem({
@@ -25,9 +27,13 @@ function ThemeItem({
 	image,
 	link,
 	field,
-	onClick,
-	checked,
+	dataid,
 }) {
+	const [heart, setHeart] = useState(false);
+
+	const isClickHeart = () => {
+		heart === false ? setHeart(true) : setHeart(false);
+	};
 	return (
 		<figure className="my-4 border-2 border-ec1 p-6 s:p-3 rounded-xl flex gap-3 text-ec1 text-lg s:text-base relative h-[180px]">
 			<div className=" bg-ec4 flex w-[25%]">
@@ -47,13 +53,18 @@ function ThemeItem({
 				</section>
 				<section className="flex gap-7 s:gap-2">
 					<Span>난이도 {level}</Span>
-					<Span>기록하기</Span>
+					<Link to={dataid}>
+						<Span>기록하기</Span>
+					</Link>
 					<Link to={link} target="_blank">
 						<Span>예약하기</Span>
 					</Link>
 				</section>
 			</figcaption>
-			<HeartButton onClick={onClick} checked={checked} />
+			<HeartButton
+				onClick={isClickHeart}
+				checked={!heart ? 'bg-heartfalse' : 'bg-hearttrue'}
+			/>
 		</figure>
 	);
 }
