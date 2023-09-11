@@ -1,8 +1,8 @@
 import { string, func } from 'prop-types';
 
 Headerback.propTypes = {
-    children: string,
-    onClick: func,
+	children: string,
+	onClick: func,
 };
 
 function Headerback({

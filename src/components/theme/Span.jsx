@@ -5,7 +5,7 @@ Span.propTypes = {
 };
 
 function Span({ children }) {
-	return <span className="min-w-fit">{children}</span>;
+	return <span className="whitespace-nowrap">{children}</span>;
 }
 
 export default Span;
