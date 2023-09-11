@@ -16,7 +16,7 @@ PostList.propTypes = {
 
 function PostList({ posts /*onDeletePost*/ }) {
 	return (
-		<div>
+		<div className="s:px-12">
 			{posts.map((post) => (
 				<Post
 					key={post.id}
