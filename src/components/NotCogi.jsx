@@ -2,13 +2,12 @@ import { string } from 'prop-types';
 import notCogi from '@/assets/notCogi.png';
 
 NotCogi.propTypes = {
-	width: string,
+    width: string,
+    alt: string,
 };
 
-function NotCogi({ width = 'w-72' }) {
-	return (
-		<img className={`${width}`} src={notCogi} alt="게시글없음" aria-hidden />
-	);
+function NotCogi({ width = 'w-72', alt = '' }) {
+    return <img className={`${width}`} src={notCogi} alt={alt} aria-hidden />;
 }
 
 export default NotCogi;
