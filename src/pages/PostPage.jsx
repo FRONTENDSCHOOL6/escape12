@@ -1,47 +1,89 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PostList from '@/components/post/PostList';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/Header';
 import Nav from '@/components/Nav';
 import SearchInput from '@/components/SearchInput';
+import pb from '@/api/pockethost';
+
+pb.autoCancellation(false);
 
 function PostPage() {
-	const [posts] = useState([
-		{
-			id: 1,
-			title: '강남에 방탈출 카페 추천해주세요',
-			author: '범쌤',
-			date: '2023-09-01',
-			content:
-				'안녕하세요 주말에 여자친구랑 놀러 갈껀데 추천해주세요추천해주세요추천해주세요추천해주세요추천해주세요추천해주세요!!',
-		},
-		{
-			id: 2,
-			title: '방탈러 ㅎㅇㅌ',
-			author: '수연',
-			date: '2023-09-02',
-			content: '멋쟁이 사자 프론트엔드6기',
-		},
-	]);
+	const [posts, setPosts] = useState([]);
+	const [search, setSearch] = useState('');
+	const [IsLoading, setIsLoading] = useState(false);
 
-	/*const handleDeletePost = (postId) => {
-		게시글 삭제 로직 구현
-		삭제된 게시글을 제외한 새로운 게시글 목록 생성
-		const updatedPosts = posts.filter((post) => post.id !== postId);
+	useEffect(() => {
+		const Snslist = async () => {
+			const communitypost = await pb.collection('community').getList(1, 200, {
+				expand: 'comment,author',
+			});
+			setIsLoading(true);
 
-		setPosts를 사용하여 상태 값 업데이트
-		setPosts(updatedPosts);
-	};*/
+			try {
+				setPosts(communitypost.items);
+			} catch (err) {
+				console.log(`에러 내용: ${err}`);
+			} finally {
+				setTimeout(() => {
+					setIsLoading(false);
+				}, 500);
+			}
+		};
+
+		Snslist();
+	}, []);
+
+	const handleSearch = async (e) => {
+		if (e.target.value.length !== 0) {
+			setSearch(e.target.value);
+		} else {
+			setSearch('');
+		}
+
+		setIsLoading(true);
+
+		try {
+			const resultList = await pb.collection('community').getList(1, 200, {
+				filter: `(author ~ "${e.target.value}" || content ~ "${e.target.value}")`,
+			});
+
+			if (resultList.items.length > 0) {
+				setPosts(resultList.items);
+			} else if (e.target.value === '') {
+				const data = await pb.collection('community').getList(1, 200);
+
+				setPosts(data.items);
+			}
+		} catch (err) {
+			console.log(`검색 에러 내용 : ${err}`);
+		} finally {
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 500);
+		}
+	};
 
 	return (
 		<>
 			<Helmet>
 				<title>게시글 목록</title>
 			</Helmet>
+
 			<div className="w-full max-w-[600px] min-w-[320px] py-20 bg-ec4 flex flex-col items-center min-h-[100vh] m-auto gap-14">
 				<Header>게시글 목록</Header>
-				<SearchInput placeholder="검색어를 입력해주세요😀">검색</SearchInput>
+
+				<SearchInput
+					placeholder="검색어를 입력해주세요😀"
+					value={search}
+					onChange={handleSearch}
+				>
+					검색
+				</SearchInput>
 				<PostList posts={posts} />
+				{/* {!isLoading &&
+					posts.map((post) => <PostList key={post.id} post={post} />)} */}
+
 				<Nav />
 			</div>
 		</>

@@ -11,6 +11,14 @@ import { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+FormInput.propTypes = {
+	children: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.node),
+		PropTypes.node,
+	]),
+};
 
 function NotePage() {
 	const navigate = useNavigate();

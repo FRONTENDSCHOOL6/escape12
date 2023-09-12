@@ -6,13 +6,20 @@ SearchInput.propTypes = {
 	children: string,
 	value: string,
 	onChange: func,
+	type: string,
 };
 
-function SearchInput({ placeholder, children, value = '', onChange }) {
+function SearchInput({
+	placeholder,
+	children,
+	type = 'text',
+	value = '',
+	onChange,
+}) {
 	return (
 		<div className="flex gap-4 w-full px-20 justify-center text-lg pb-4 ">
 			<input
-				type="text"
+				type={type}
 				placeholder={placeholder}
 				onChange={onChange}
 				maxLength={35}
