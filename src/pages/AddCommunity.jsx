@@ -43,47 +43,54 @@ function AddCommunity() {
 			<Helmet>
 				<title>글 작성</title>
 			</Helmet>
-			<form
-						onSubmit={handleDateCrate}
-					>
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
 				{/* Header */}
-				<Headerback onClick={() => { navigate('/postpage'); }}>글 작성</Headerback>
-				<div className="text-lg pt-28 s:px-12 px-14">
-					{/* Title, Content */}
+				<Headerback
+					onClick={() => {
+						navigate('/postpage');
+					}}
+				>
+					글 작성
+				</Headerback>
+				<form
+					className="text-center"
+					onSubmit={handleDateCrate}>
+					<div className="text-lg pt-28 s:px-12 px-14">
+						{/* Title, Content */}
 						<div className="flex flex-col space-y-2 text-center">
-							<FormInput
-								type="text"
-								id='title'
-								name="title"
-								onChange={handleTitle}
-								placeholder="제목을 입력해주세요."
-							>
-								제목<sup className="text-red"> *</sup>
-							</FormInput>
+							<div className="mr-5">
+								<FormInput
+									type="text"
+									id="title"
+									name="title"
+									onChange={handleTitle}
+									placeholder="제목을 입력해주세요."
+
+								>
+									제목<sup className="text-red"> *</sup>
+								</FormInput>
+							</div>
 							<p className="flex justify-end mb-3 text-lg">
 								{currentDate.toLocaleDateString()}
 							</p>
 							<textarea
 								value={content}
-								id='content'
+								id="content"
 								onChange={handleContent}
 								placeholder="작성해주세요.🤩"
 								className="w-full h-80 p-4 text-ec4 border rounded-lg"
 							/>
 						</div>
-				</div>
-				
-				<Button
-					type='submit'
-					bg="bg-ec1 text-center"
-					text="text-ec4 m-auto"
-				>
-					등록
-				</Button>
+					</div>
+					<Button
+						type="submit"
+						bg="bg-ec1 text-center"
+						text="text-ec4 mt-4">
+						등록
+					</Button>
+				</form>
 			</div>
 			<Nav />
-			</form>
 		</>
 	);
 }
