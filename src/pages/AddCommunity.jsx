@@ -38,6 +38,7 @@ function AddCommunity() {
 				icon: '💛',
 				duration: 2000,
 			});
+			navigate('/postpage');
 		} catch (err) {
 			console.log(err);
 		}

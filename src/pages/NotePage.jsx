@@ -98,6 +98,7 @@ function NotePage() {
 				icon: '💛',
 				duration: 2000,
 			});
+			navigate('/theme');
 		} catch (err) {
 			console.log(`등록하기 에러: ${err}`);
 		}
