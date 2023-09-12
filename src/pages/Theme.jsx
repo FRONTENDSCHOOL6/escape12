@@ -9,7 +9,7 @@ import ThemeItem from '@/components/theme/ThemeItem';
 import debounce from '@/utils/debounce';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 function Theme() {
 	const [data, setData] = useState([]);
@@ -19,13 +19,11 @@ function Theme() {
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [emptyData, setEmptyData] = useState(false);
+	const navigate = useNavigate();
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
-		toast('기능 구현중입니다 :)', {
-			icon: '🍮',
-			duration: 2000,
-		});
+		navigate('/notepage');
 	};
 
 	//스크롤탑 버튼 이벤트
@@ -225,7 +223,7 @@ function Theme() {
 	return (
 		<>
 			<Helmet>
-				<title>방탈러-인기 테마</title>
+				<title>인기 테마</title>
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
 				<Header>인기 테마</Header>
