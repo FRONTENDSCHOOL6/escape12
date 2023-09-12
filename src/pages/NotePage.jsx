@@ -30,31 +30,31 @@ function NotePage() {
 	const handleTheme = (e) => {
 		setTheme(e.target.value);
 	};
-	const debounceTheme = debounce((e) => handleTheme(e), 20000);
+	const debounceTheme = debounce((e) => handleTheme(e), 2000);
 
 	// 업체명 상태 관리
 	const handleStore = (e) => {
 		setStore(e.target.value);
 	};
-	const debounceStore = debounce((e) => handleStore(e), 20000);
+	const debounceStore = debounce((e) => handleStore(e), 2000);
 
 	// 날짜 상태 관리
 	const handleDateChange = (e) => {
 		setDate(e.target.value);
 	};
-	const debounceDate = debounce((e) => handleDateChange(e), 10000);
+	const debounceDate = debounce((e) => handleDateChange(e), 1000);
 
 	// 평점 상태 관리
 	const handleRatingChange = (e) => {
 		setGrade(e.target.value);
 	};
-	const debounceRating = debounce((e) => handleRatingChange(e), 10000);
+	const debounceRating = debounce((e) => handleRatingChange(e), 1000);
 
 	// 남은시간 - Hour 상태 관리
 	const handleRemainingTimeChange = (e) => {
 		setTime(e.target.value);
 	};
-	const debounceHour = debounce((e) => handleRemainingTimeChange(e), 5000);
+	const debounceHour = debounce((e) => handleRemainingTimeChange(e), 1000);
 
 	// 남은시간 - Minute 상태 관리
 	const handleRemainingTimeMinuteChange = (e) => {

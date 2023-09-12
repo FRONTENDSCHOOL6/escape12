@@ -13,38 +13,40 @@ import PostPage from './pages/PostPage';
 import NotePage from './pages/NotePage';
 import CommentPage from './pages/CommentPage';
 import ProtectRoute from './components/ProtectRoute';
+import AddCommunity from './pages/AddCommunity';
 
 const router = createBrowserRouter([
-	{
-		path: '',
-		element: <Empty />,
-		children: [
-			{ path: '', element: <Home /> },
-			{ path: '/loginselete', element: <LoginSelete /> },
-			{ path: '/login', element: <Login /> },
-			{ path: '/signup', element: <SignUp /> },
-		],
-	},
-	{
-		path: '',
-		element: (
-			<ProtectRoute>
-				<Escape />
-			</ProtectRoute>
-		),
-		children: [
-			{ path: '/theme', element: <Theme /> },
-			{ path: '/theme/:dataId', element: <ThemeRecord /> },
-			{ path: '/mypage', element: <Mypage /> },
-			{ path: '/postpage', element: <Editpage /> },
-			{ path: '/addcommunity', element: <PostPage /> },
-			{ path: '/post/:dataId', element: <CommentPage /> },
-			{ path: '/notepage', element: <NotePage /> },
-		],
-	},
+    {
+        path: '',
+        element: <Empty />,
+        children: [
+            { path: '', element: <Home /> },
+            { path: '/loginselete', element: <LoginSelete /> },
+            { path: '/login', element: <Login /> },
+            { path: '/signup', element: <SignUp /> },
+        ],
+    },
+    {
+        path: '',
+        element: (
+            <ProtectRoute>
+                <Escape />
+            </ProtectRoute>
+        ),
+        children: [
+            { path: '/theme', element: <Theme /> },
+            { path: '/theme/:dataId', element: <ThemeRecord /> },
+            { path: '/mypage', element: <Mypage /> },
+            { path: '/postpage', element: <PostPage /> },
+            { path: '/addcommunity', element: <AddCommunity /> },
+            { path: '/edit', element: <Editpage /> },
+            { path: '/post/:dataId', element: <CommentPage /> },
+            { path: '/notepage', element: <NotePage /> },
+        ],
+    },
 ]);
 
-// 			<Route path="/emptypage" element={<EmptyPage />} />
-// 			<Route path="/createtheme" element={<CreateTheme />} />
+//             <Route path="/emptypage" element={<EmptyPage />} />
+//             <Route path="/createtheme" element={<CreateTheme />} />
 
 export default router;

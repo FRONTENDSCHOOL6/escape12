@@ -5,6 +5,7 @@ import Nav from '@/components/Nav';
 import Headerback from '@/components/Headerback';
 import FormInput from '@/components/loginsignup/FormInput';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import pb from '@/api/pockethost';
 
 function AddCommunity() {
@@ -32,6 +33,11 @@ function AddCommunity() {
 
 		try {
 			await pb.collection('community').create(data);
+
+			toast('등록되었습니다 :)', {
+				icon: '💛',
+				duration: 2000,
+			});
 		} catch (err) {
 			console.log(err);
 		}
