@@ -9,6 +9,7 @@ import Sup from '@/components/record/Sup';
 import debounce from '@/utils/debounce';
 import { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 function NotePage() {
@@ -79,12 +80,26 @@ function NotePage() {
 	// 기록 등록하기 이벤트
 	const handleSubmitRecord = async (e) => {
 		e.preventDefault();
-		const data = {
-			author: '',
-			record: '',
+		const userRecord = {
+			theme: theme,
+			store: store,
+			date: date,
+			grade: Number(grade),
+			hour: Number(time),
+			minute: Number(minute),
+			content: content,
 		};
 
-		await pb.collection('test').create(data);
+		try {
+			await pb.collection('record').create(userRecord);
+
+			toast('등록되었습니다 :)', {
+				icon: '💛',
+				duration: 2000,
+			});
+		} catch (err) {
+			console.log(`등록하기 에러: ${err}`);
+		}
 	};
 
 	return (
@@ -144,9 +159,10 @@ function NotePage() {
 							<Select
 								id="grade"
 								name="grade"
-								value={grade}
 								onChange={debounceRating}
 								max={10}
+								defaultValue={grade}
+								required
 							/>
 							<span className="s:min-w-fit">/ 10</span>
 						</div>
@@ -158,7 +174,7 @@ function NotePage() {
 								<Select
 									id="clearTime"
 									name="hour"
-									value={time}
+									defaultValue={time}
 									onChange={debounceHour}
 									max={1}
 								/>
@@ -166,7 +182,7 @@ function NotePage() {
 								<Select
 									id="clearTime"
 									name="minute"
-									value={minute}
+									defaultValue={minute}
 									onChange={debounceMinute}
 									max={59}
 								/>
@@ -184,7 +200,7 @@ function NotePage() {
 								type="file"
 								name="image"
 								id="image"
-								required
+								// required
 								accept="*.jpg,*.png,*.webp,*.avif"
 								multiple
 							/>
@@ -209,10 +225,10 @@ function NotePage() {
 						/>
 						<p className="text-right">{length}/ 250</p>
 					</div>
+					<Button bg="bg-ec1 text-center" text="text-ec4 m-auto" type="submit">
+						등록
+					</Button>
 				</form>
-				<Button bg="bg-ec1 text-center" text="text-ec4 m-auto" type="submit">
-					등록
-				</Button>
 			</div>
 			<Nav />
 		</>
