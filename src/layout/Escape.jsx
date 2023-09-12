@@ -1,7 +1,11 @@
+import { Outlet } from 'react-router-dom';
+
 function Escape() {
-  return (
-    <div>Escape</div>
-  )
+	return (
+		<div>
+			<Outlet />
+		</div>
+	);
 }
 
-export default Escape
+export default Escape;

@@ -52,9 +52,7 @@ function AddCommunity() {
 				>
 					글 작성
 				</Headerback>
-				<form
-					className="text-center"
-					onSubmit={handleDateCrate}>
+				<form className="text-center" onSubmit={handleDateCrate}>
 					<div className="text-lg pt-28 s:px-12 px-14">
 						{/* Title, Content */}
 						<div className="flex flex-col space-y-2 text-center">
@@ -65,7 +63,6 @@ function AddCommunity() {
 									name="title"
 									onChange={handleTitle}
 									placeholder="제목을 입력해주세요."
-
 								>
 									제목<sup className="text-red"> *</sup>
 								</FormInput>
@@ -82,10 +79,7 @@ function AddCommunity() {
 							/>
 						</div>
 					</div>
-					<Button
-						type="submit"
-						bg="bg-ec1 text-center"
-						text="text-ec4 mt-4">
+					<Button type="submit" bg="bg-ec1 text-center" text="text-ec4 mt-4">
 						등록
 					</Button>
 				</form>
