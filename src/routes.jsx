@@ -39,7 +39,7 @@ const router = createBrowserRouter([
             { path: '/mypage', element: <Mypage /> },
             { path: '/postpage', element: <PostPage /> },
             { path: '/addcommunity', element: <AddCommunity /> },
-            { path: '/edit', element: <Editpage /> },
+            { path: '/editpage', element: <Editpage /> },
             { path: '/post/:dataId', element: <CommentPage /> },
             { path: '/notepage', element: <NotePage /> },
         ],
