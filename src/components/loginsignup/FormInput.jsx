@@ -1,10 +1,14 @@
-import { string, func } from 'prop-types';
+import { func, string } from 'prop-types';
+import PropTypes from 'prop-types';
 
 FormInput.propTypes = {
 	type: string,
 	name: string,
 	bg: string,
-	children: string,
+	children: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.node),
+		PropTypes.node,
+	]),
 	onChange: func,
 	onClick: func,
 };
