@@ -78,20 +78,15 @@ function AddCommunity() {
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
 				{/* header, headerback 맨 위 고정 */}
-        <div className='max-w-[600px] min-w-[320px] m-auto fixed top-0 left-0 right-0'>
-				<Headerback
-					onClick={() => {
+				<Headerback onClick={() => {
 						navigate('/theme');
 					}}
-				>
-					클리어
-				</Headerback>
-        </div>
+				>클리어</Headerback>
 				<form
 					className="flex flex-col gap-6 py-5 s:py-2"
 					onSubmit={handleSubmitRecord}
 				>
-					<fieldset className="flex flex-col gap-7 px-20 s:px-12">
+					<fieldset className="flex flex-col gap-7">
 						<FormInput
 							name="theme"
 							placeholder="테마명"
@@ -189,7 +184,7 @@ function AddCommunity() {
 							</div>
 						</div>
 					</fieldset>
-					<div className="px-20 s:px-12">
+					<div>
 						<textarea
 							value={content}
 							onChange={handleContentChange}
@@ -199,11 +194,12 @@ function AddCommunity() {
 							required
 						/>
 						<p className="text-right">{length}/ 250</p>
+						
 					</div>
+					</form>
 					<Button bg="bg-ec1 text-center" text="text-ec4 m-auto" type="submit">
 						등록
 					</Button>
-				</form>
 			</div>
       <Nav />
 		</>
