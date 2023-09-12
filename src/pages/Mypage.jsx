@@ -28,10 +28,10 @@ function Mypage() {
           </div>
           <Button
             onClick={() => { navigate('/editpage'); }} bg="bg-ec1"
-            text="text-ec4 mt-4"
+            text="text-ec4 mt-8"
           >정보수정
           </Button>
-          <div className="border-2 m-4 p-8 text-xl rounded-xl text-center">
+          <div className="border-2 p-8 mt-32 text-xl rounded-xl text-center">
             <p className>내가 작성한 기록: n개 </p>
             <p className>내가 작성한 글: n개</p>
             <p className>내가 작성한 댓글: n개 </p>
@@ -39,8 +39,8 @@ function Mypage() {
           </div>
           <Button
             onClick={handleLogout}
-            bg="bg-ec1 text-center"
-            text="text-ec4 mt-4"
+            bg="bg-ec1 text-center mt-8"
+            text="text-ec4"
           >
             로그아웃
           </Button>

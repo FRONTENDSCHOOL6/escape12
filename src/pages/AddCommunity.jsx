@@ -27,7 +27,7 @@ function AddCommunity() {
       <div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
         {/* Header */}
         <Headerback onClick={() => { navigate('/postpage'); }}>글 작성</Headerback>
-        <div className="text-xl pt-28 s:px-12 px-14">
+        <div className="text-lg pt-28 s:px-12 px-14">
           {/* Title, Content */}
           <div className="flex flex-col space-y-2 text-center">
             <FormInput
@@ -43,7 +43,7 @@ function AddCommunity() {
             <textarea
               value={content}
               onChange={handleContentChange}
-              placeholder="작성해주세요."
+              placeholder="작성해주세요.🤩"
               className="w-full h-80 p-4 text-ec4 border rounded-lg"
             />
           </div>
@@ -51,7 +51,7 @@ function AddCommunity() {
         <Button
           onClick={handleSaveClick}
           bg="bg-ec1 text-center"
-          text="text-ec4 mt-4"
+          text="text-ec4 m-auto"
         >
           등록
         </Button>
