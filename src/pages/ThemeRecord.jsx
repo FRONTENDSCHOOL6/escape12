@@ -29,19 +29,19 @@ function ThemeRecord() {
 	const handleDateChange = (e) => {
 		setDate(e.target.value);
 	};
-	const debounceDate = debounce((e) => handleDateChange(e), 10000);
+	const debounceDate = debounce((e) => handleDateChange(e), 1000);
 
 	// 평점 상태 관리
 	const handleRatingChange = (e) => {
 		setGrade(e.target.value);
 	};
-	const debounceRating = debounce((e) => handleRatingChange(e), 10000);
+	const debounceRating = debounce((e) => handleRatingChange(e), 1000);
 
 	// 남은시간 - Hour 상태 관리
 	const handleRemainingTimeChange = (e) => {
 		setTime(e.target.value);
 	};
-	const debounceHour = debounce((e) => handleRemainingTimeChange(e), 5000);
+	const debounceHour = debounce((e) => handleRemainingTimeChange(e), 1000);
 
 	// 남은시간 - Minute 상태 관리
 	const handleRemainingTimeMinuteChange = (e) => {
@@ -49,7 +49,7 @@ function ThemeRecord() {
 	};
 	const debounceMinute = debounce(
 		(e) => handleRemainingTimeMinuteChange(e),
-		5000
+		1000
 	);
 
 	// 후기 상태 관리
