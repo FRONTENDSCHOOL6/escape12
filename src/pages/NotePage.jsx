@@ -109,7 +109,7 @@ function NotePage() {
 			<Helmet>
 				<title>클리어</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto text-lg py-16 relative">
 				{/* header, headerback 맨 위 고정 */}
 				<Headerback
 					onClick={() => {
