@@ -1,4 +1,5 @@
 import pb from '@/api/pockethost';
+import userUId from '@/api/userUid';
 import Button from '@/components/Button';
 import Headerback from '@/components/Headerback';
 import Nav from '@/components/Nav';
@@ -75,12 +76,12 @@ function ThemeRecord() {
 		e.preventDefault();
 		const themeRecord = {
 			date: date,
-			grade: grade,
-			hour: time,
-			minute: minute,
+			grade: Number(grade),
+			hour: Number(time),
+			minute: Number(minute),
 			content: content,
-			author: `${data.theme}`,
-			theme: `${data.id}`,
+			author: `${userUId.id}`,
+			escapeList: `${data.id}`,
 		};
 
 		console.log(themeRecord);
@@ -94,8 +95,6 @@ function ThemeRecord() {
 			});
 		} catch (err) {
 			console.log(`등록하기 에러: ${err}`);
-		} finally {
-			console.log('왜안돼');
 		}
 	};
 
