@@ -13,6 +13,7 @@ import PostPage from './pages/PostPage';
 import NotePage from './pages/NotePage';
 import CommentPage from './pages/CommentPage';
 import ProtectRoute from './components/ProtectRoute';
+import AddCommunity from './pages/AddCommunity';
 
 const router = createBrowserRouter([
 	{
@@ -36,15 +37,16 @@ const router = createBrowserRouter([
 			{ path: '/theme', element: <Theme /> },
 			{ path: '/theme/:dataId', element: <ThemeRecord /> },
 			{ path: '/mypage', element: <Mypage /> },
-			{ path: '/postpage', element: <Editpage /> },
-			{ path: '/addcommunity', element: <PostPage /> },
+			{ path: '/postpage', element: <PostPage /> },
+			{ path: '/addcommunity', element: <AddCommunity /> },
+			{ path: '/editpage', element: <Editpage /> },
 			{ path: '/post/:dataId', element: <CommentPage /> },
 			{ path: '/notepage', element: <NotePage /> },
 		],
 	},
 ]);
 
-// 			<Route path="/emptypage" element={<EmptyPage />} />
-// 			<Route path="/createtheme" element={<CreateTheme />} />
+//             <Route path="/emptypage" element={<EmptyPage />} />
+//             <Route path="/createtheme" element={<CreateTheme />} />
 
 export default router;
