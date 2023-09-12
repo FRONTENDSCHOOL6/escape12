@@ -1,5 +1,5 @@
 import { string, shape, arrayOf } from 'prop-types';
-import Post from './Post';
+import PostItem from './PostItem';
 
 PostList.propTypes = {
 	posts: arrayOf(
@@ -18,8 +18,9 @@ function PostList({ posts /*onDeletePost*/ }) {
 	return (
 		<div className="min-w-[300px] w-full s:px-12 px-20">
 			{posts.map((post) => (
-				<Post
+				<PostItem
 					key={post.id}
+					id={post.id}
 					title={post.title}
 					author={post.author}
 					date={post.date}
