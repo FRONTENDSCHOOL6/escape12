@@ -1,10 +1,11 @@
-import { string } from 'prop-types';
+import { object, string } from 'prop-types';
 
 Span.propTypes = {
-	children: string,
+	children: string || object,
 };
 
 function Span({ children }) {
+	console.log(typeof children);
 	return <span className="whitespace-nowrap">{children}</span>;
 }
 
