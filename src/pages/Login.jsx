@@ -1,4 +1,5 @@
 import pb from '@/api/pockethost';
+import userUId from '@/api/userUid';
 import Button from '@/components/Button';
 import KeyLogo from '@/components/KeyLogo';
 import FormInput from '@/components/loginsignup/FormInput';
@@ -9,6 +10,13 @@ import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 
+// 아이디 유효성 검사, 이메일 형식
+const regEmail =
+	/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]+$/i;
+// 비밀번호 유효성 검사, 최소 8자 이상, 최소 1개의 대소문자, 특수문자 포함
+const regPw =
+	/(?=(.*[0-9]))(?=.*[!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/;
+
 function Login() {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
@@ -16,13 +24,6 @@ function Login() {
 	const [isValidId, setIsValidId] = useState(false);
 	const [isValidPw, setIsValidPw] = useState(false);
 	const [pwView, setPwView] = useState(false);
-
-	// 아이디 유효성 검사, 이메일 형식
-	const regEmail =
-		/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]+$/i;
-	// 비밀번호 유효성 검사, 최소 8자 이상, 최소 1개의 대소문자, 특수문자 포함
-	const regPw =
-		/(?=(.*[0-9]))(?=.*[!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/;
 
 	//아이디비밀번호 찾기 안내문구
 	const handleFindUserData = () => {
@@ -47,7 +48,7 @@ function Login() {
 				.authWithPassword(email, password);
 
 			if (authData) {
-				toast('로그인 성공', {
+				toast(`${userUId.nickName}님 환영합니다`, {
 					icon: '💜',
 					duration: 2000,
 				});
@@ -80,7 +81,7 @@ function Login() {
 	return (
 		<>
 			<Helmet>
-				<title>방탈러-로그인</title>
+				<title>로그인</title>
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center h-screen m-auto">
 				<KeyLogo />

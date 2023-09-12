@@ -170,7 +170,7 @@ function SignUp() {
 	return (
 		<>
 			<Helmet>
-				<title>방탈러-회원가입</title>
+				<title>회원가입</title>
 			</Helmet>
 			<div className="text-lg max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center h-screen m-auto">
 				<KeyLogo path="/loginselete" />

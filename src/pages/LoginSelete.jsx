@@ -15,7 +15,7 @@ function LoginSelete() {
 	return (
 		<>
 			<Helmet>
-				<title>방탈러-로그인선택</title>
+				<title>로그인선택</title>
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center h-screen m-auto">
 				<KeyLogo />
