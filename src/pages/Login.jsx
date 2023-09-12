@@ -1,4 +1,5 @@
 import pb from '@/api/pockethost';
+import userUId from '@/api/userUid';
 import Button from '@/components/Button';
 import KeyLogo from '@/components/KeyLogo';
 import FormInput from '@/components/loginsignup/FormInput';
@@ -15,9 +16,6 @@ const regEmail =
 // 비밀번호 유효성 검사, 최소 8자 이상, 최소 1개의 대소문자, 특수문자 포함
 const regPw =
 	/(?=(.*[0-9]))(?=.*[!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/;
-
-// 닉네임 가지고 오기
-const user = JSON.parse(localStorage.getItem('pocketbase_auth'));
 
 function Login() {
 	const navigate = useNavigate();
@@ -50,7 +48,7 @@ function Login() {
 				.authWithPassword(email, password);
 
 			if (authData) {
-				toast(`${user.model.nickName}님 환영합니다`, {
+				toast(`${userUId.nickName}님 환영합니다`, {
 					icon: '💜',
 					duration: 2000,
 				});
