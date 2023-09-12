@@ -5,60 +5,88 @@ import Nav from '@/components/Nav';
 import Headerback from '@/components/Headerback';
 import FormInput from '@/components/loginsignup/FormInput';
 import { useNavigate } from 'react-router-dom';
+import pb from '@/api/pockethost';
 
 function AddCommunity() {
-  const [content, setContent] = useState('');
-  const currentDate = new Date();
-  const navigate = useNavigate();
+	const [title, setTitle] = useState('');
+	const [content, setContent] = useState('');
+	const currentDate = new Date();
+	const navigate = useNavigate();
 
-  const handleContentChange = (e) => {
-    setContent(e.target.value);
-  };
+	//제목 상태 변경
+	const handleTitle = (e) => {
+		setTitle(e.target.value);
+	};
+	//내용 상태 변경
+	const handleContent = (e) => {
+		setContent(e.target.value);
+	};
 
-  const handleSaveClick = () => {
-    navigate('/mypage');
-  };
+	//등록 이벤트
+	const handleDateCrate = async (e) => {
+		e.preventDefault();
+		const data = {
+			title,
+			content,
+		};
 
-  return (
-    <>
-      <Helmet>
-        <title>글 작성</title>
-      </Helmet>
-      <div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
-        {/* Header */}
-        <Headerback onClick={() => { navigate('/postpage'); }}>글 작성</Headerback>
-        <div className="text-xl pt-28 s:px-12 px-14">
-          {/* Title, Content */}
-          <div className="flex flex-col space-y-2 text-center">
-            <FormInput
-              type="text"
-              name="title"
-              placeholder="제목을 입력해주세요."
-            >
-              제목<sup className="text-red"> *</sup>
-            </FormInput>
-            <p className="flex justify-end mb-3 text-lg">
-              {currentDate.toLocaleDateString()}
-            </p>
-            <textarea
-              value={content}
-              onChange={handleContentChange}
-              placeholder="작성해주세요."
-              className="w-full h-80 p-4 text-ec4 border rounded-lg"
-            />
-          </div>
-        </div>
-        <Button
-          onClick={handleSaveClick}
-          bg="bg-ec1 text-center"
-          text="text-ec4 mt-4"
-        >
-          등록
-        </Button>
-      </div>
-      <Nav />
-    </>
-  );
+		try {
+			await pb.collection('community').create(data);
+		} catch (err) {
+			console.log(err);
+		}
+		// navigate('/mypage');
+	};
+
+	return (
+		<>
+			<Helmet>
+				<title>글 작성</title>
+			</Helmet>
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
+				{/* Header */}
+				<Headerback
+					onClick={() => {
+						navigate('/postpage');
+					}}
+				>
+					글 작성
+				</Headerback>
+				<form className="text-center" onSubmit={handleDateCrate}>
+					<div className="text-lg pt-28 s:px-12 px-14">
+						{/* Title, Content */}
+						<div className="flex flex-col space-y-2 text-center">
+							<div className="mr-5">
+								<FormInput
+									type="text"
+									id="title"
+									name="title"
+									onChange={handleTitle}
+									placeholder="제목을 입력해주세요."
+								>
+									제목<sup className="text-red"> *</sup>
+								</FormInput>
+							</div>
+							<p className="flex justify-end mb-3 text-lg">
+								{currentDate.toLocaleDateString()}
+							</p>
+							<textarea
+								value={content}
+								id="content"
+								onChange={handleContent}
+								placeholder="작성해주세요.🤩"
+								className="w-full h-80 p-4 text-ec4 border rounded-lg"
+							/>
+						</div>
+					</div>
+					<Button type="submit" bg="bg-ec1 text-center" text="text-ec4 mt-4">
+						등록
+					</Button>
+				</form>
+			</div>
+			<Nav />
+		</>
+	);
 }
 
 export default AddCommunity;
