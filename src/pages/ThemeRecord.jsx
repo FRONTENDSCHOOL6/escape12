@@ -80,11 +80,9 @@ function ThemeRecord() {
 			hour: Number(time),
 			minute: Number(minute),
 			content: content,
-			author: `${userUId.id}`,
+			author: `${userUId.model.id}`,
 			escapeList: `${data.id}`,
 		};
-
-		console.log(themeRecord);
 
 		try {
 			await pb.collection('record').create(themeRecord);

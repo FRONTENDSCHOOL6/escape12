@@ -48,7 +48,7 @@ function Login() {
 				.authWithPassword(email, password);
 
 			if (authData) {
-				toast(`${userUId.nickName}님 환영합니다`, {
+				toast(`${userUId.model.nickName}님 환영합니다`, {
 					icon: '💜',
 					duration: 2000,
 				});
