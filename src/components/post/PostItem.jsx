@@ -8,16 +8,11 @@ Post.propTypes = {
 	date: string,
 	id: string,
 	content: string,
-	// onDelete: PropTypes.func.isRequired,
 };
 
-function Post({ id, title, author, content /*onDelete*/ }) {
+function Post({ id, title, author, content }) {
 	const shortContent =
 		content.length > 85 ? `${content.substring(0, 85)}...` : content;
-	// const [isClicked, setIsClicked] = useState(false);
-	// const handleDelete = () => {
-	//     onDelete();
-	// };
 
 	return (
 		<Link to={`/post/${id}`}>
