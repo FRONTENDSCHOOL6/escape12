@@ -1,28 +1,26 @@
-import { func, string, object, number } from 'prop-types';
+import { string, func } from 'prop-types';
 
 FormInput.propTypes = {
 	type: string,
 	name: string,
 	bg: string,
-	value: string || number,
-	children: object,
+	children: string,
 	onChange: func,
 	onClick: func,
 };
 
 function FormInput({
 	children,
-	type = 'text',
+	type,
 	name,
 	bg = 'hidden',
-	value = '',
-	onChange = () => {},
-	onClick = () => {},
+	onChange = null,
+	onClick = null,
 	...restProps
 }) {
 	return (
 		<>
-			<div className="flex gap-5 justify-between text-ec1 relative px-2">
+			<fieldset className="flex gap-5 justify-between text-ec1 relative px-2">
 				<label htmlFor={name} className="w-32 s:min-w-fit">
 					{children}
 				</label>
@@ -35,7 +33,6 @@ function FormInput({
 					required
 					maxLength={30}
 					autoComplete="off"
-					value={value}
 					{...restProps}
 				/>
 				<button
@@ -43,7 +40,7 @@ function FormInput({
 					className={`${bg} bg-cover w-5 h-5 absolute right-0 top-0`}
 					onClick={onClick}
 				/>
-			</div>
+			</fieldset>
 		</>
 	);
 }
