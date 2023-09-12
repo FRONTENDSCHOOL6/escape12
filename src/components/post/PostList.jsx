@@ -1,10 +1,10 @@
-import { string, shape, number, arrayOf } from 'prop-types';
+import { string, shape, arrayOf } from 'prop-types';
 import Post from './Post';
 
 PostList.propTypes = {
 	posts: arrayOf(
 		shape({
-			id: number,
+			id: string,
 			title: string,
 			author: string,
 			date: string,
