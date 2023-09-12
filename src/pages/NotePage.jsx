@@ -91,8 +91,6 @@ function NotePage() {
 			content: content,
 		};
 
-		console.log(userRecord);
-
 		try {
 			await pb.collection('record').create(userRecord);
 

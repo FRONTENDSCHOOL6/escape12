@@ -3,12 +3,11 @@ import { string, number, func } from 'prop-types';
 Select.propTypes = {
     id: string,
     name: string,
-    value: string,
     onChange: func,
     max: number,
 };
 
-function Select({ id, name, value, onChange, max }) {
+function Select({ id, name, onChange, max, ...restProps }) {
     const options = [];
     for (let i = 0; i <= max; i++) {
         options.push(
@@ -22,10 +21,9 @@ function Select({ id, name, value, onChange, max }) {
         <select
             name={name}
             id={id}
-            defaultValue={value}
             onChange={onChange}
-            required
             className="w-[100px] s:w-[50%] text-ec4 text-center"
+            {...restProps}
         >
             <option value="">선택</option>
             {options}
