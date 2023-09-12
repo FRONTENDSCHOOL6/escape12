@@ -1,5 +1,5 @@
 import { string } from 'prop-types';
-import cogiLogo from '/cogiLogo.png';
+import cogiLogo from '@/assets/cogiLogo.png';
 
 CogiLogo.propTypes = {
 	width: string,
