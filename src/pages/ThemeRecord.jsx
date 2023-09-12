@@ -29,19 +29,19 @@ function ThemeRecord() {
 	const handleDateChange = (e) => {
 		setDate(e.target.value);
 	};
-	const debounceDate = debounce((e) => handleDateChange(e), 10000);
+	const debounceDate = debounce((e) => handleDateChange(e), 1000);
 
 	// 평점 상태 관리
 	const handleRatingChange = (e) => {
 		setGrade(e.target.value);
 	};
-	const debounceRating = debounce((e) => handleRatingChange(e), 10000);
+	const debounceRating = debounce((e) => handleRatingChange(e), 1000);
 
 	// 남은시간 - Hour 상태 관리
 	const handleRemainingTimeChange = (e) => {
 		setTime(e.target.value);
 	};
-	const debounceHour = debounce((e) => handleRemainingTimeChange(e), 5000);
+	const debounceHour = debounce((e) => handleRemainingTimeChange(e), 1000);
 
 	// 남은시간 - Minute 상태 관리
 	const handleRemainingTimeMinuteChange = (e) => {
@@ -49,7 +49,7 @@ function ThemeRecord() {
 	};
 	const debounceMinute = debounce(
 		(e) => handleRemainingTimeMinuteChange(e),
-		5000
+		1000
 	);
 
 	// 후기 상태 관리
@@ -58,6 +58,7 @@ function ThemeRecord() {
 		setLength(e.target.value.length);
 	};
 
+	//테마 데이터 불러오기
 	useEffect(() => {
 		const dataList = async () => {
 			const record = await pb.collection('escapeList').getOne(`${dataId}`);
@@ -101,7 +102,7 @@ function ThemeRecord() {
 			<Helmet>
 				<title>테마 클리어</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto relative py-16 text-lg">
 				<Headerback
 					onClick={() => {
 						navigate('/theme');
@@ -174,7 +175,7 @@ function ThemeRecord() {
 							<label htmlFor="image">
 								<Sup>사진</Sup>
 							</label>
-							<div className="h-[140px] bg-opacity p-2 rounded-lg border border-ec1">
+							<div className="h-[140px] bg-opacity p-2 rounded-lg border-2 border-ec1">
 								<img className="h-full" src={data.image} alt={data.theme} />
 							</div>
 						</div>
