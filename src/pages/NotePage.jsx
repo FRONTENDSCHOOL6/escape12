@@ -1,23 +1,25 @@
-import { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
-import Button from '@/components/Button';
-import Nav from '@/components/Nav';
-import Headerback from '@/components/Headerback';
-import FormInput from '@/components/loginsignup/FormInput';
-import { useNavigate } from 'react-router-dom';
-import thumnail from '@/assets/notepage-thumbnail.png';
-import Sup from '@/components/record/Sup';
-import { useRef } from 'react';
 import pb from '@/api/pockethost';
+import thumnail from '@/assets/notepage-thumbnail.png';
+import Button from '@/components/Button';
+import Headerback from '@/components/Headerback';
+import Nav from '@/components/Nav';
+import FormInput from '@/components/loginsignup/FormInput';
+import Select from '@/components/record/Select';
+import Sup from '@/components/record/Sup';
+import debounce from '@/utils/debounce';
+import { useRef, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 
-function AddCommunity() {
+function NotePage() {
 	const navigate = useNavigate();
 	const [length, setLength] = useState(0);
 	const [theme, setTheme] = useState('');
 	const [store, setStore] = useState('');
 	const [date, setDate] = useState('');
 	const [grade, setGrade] = useState(0);
-	const [time, setTime] = useState('01:00');
+	const [time, setTime] = useState('');
+	const [minute, setMinute] = useState('');
 	const [content, setContent] = useState('');
 	const photoRef = useRef(null);
 	const uploadPhotoRef = useRef(null);
@@ -26,26 +28,40 @@ function AddCommunity() {
 	const handleTheme = (e) => {
 		setTheme(e.target.value);
 	};
+	const debounceTheme = debounce((e) => handleTheme(e), 20000);
 
 	// 업체명 상태 관리
 	const handleStore = (e) => {
 		setStore(e.target.value);
 	};
+	const debounceStore = debounce((e) => handleStore(e), 20000);
 
 	// 날짜 상태 관리
 	const handleDateChange = (e) => {
 		setDate(e.target.value);
 	};
+	const debounceDate = debounce((e) => handleDateChange(e), 10000);
 
 	// 평점 상태 관리
 	const handleRatingChange = (e) => {
 		setGrade(e.target.value);
 	};
+	const debounceRating = debounce((e) => handleRatingChange(e), 10000);
 
-	// 남은 시간 상태 관리
+	// 남은시간 - Hour 상태 관리
 	const handleRemainingTimeChange = (e) => {
 		setTime(e.target.value);
 	};
+	const debounceHour = debounce((e) => handleRemainingTimeChange(e), 5000);
+
+	// 남은시간 - Minute 상태 관리
+	const handleRemainingTimeMinuteChange = (e) => {
+		setMinute(e.target.value);
+	};
+	const debounceMinute = debounce(
+		(e) => handleRemainingTimeMinuteChange(e),
+		5000
+	);
 
 	// 사진 상태 관리
 	const handleUploadPhoto = (e) => {
@@ -78,10 +94,13 @@ function AddCommunity() {
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
 				{/* header, headerback 맨 위 고정 */}
-				<Headerback onClick={() => {
+				<Headerback
+					onClick={() => {
 						navigate('/theme');
 					}}
-				>클리어</Headerback>
+				>
+					클리어
+				</Headerback>
 				<form
 					className="flex flex-col gap-6 py-5 s:py-2"
 					onSubmit={handleSubmitRecord}
@@ -91,8 +110,8 @@ function AddCommunity() {
 							name="theme"
 							placeholder="테마명"
 							maxLength="20"
-							value={theme}
-							onChange={handleTheme}
+							defaultValue={theme}
+							onChange={debounceTheme}
 						>
 							<Sup>테마명</Sup>
 						</FormInput>
@@ -100,8 +119,8 @@ function AddCommunity() {
 							name="store"
 							placeholder="업체명"
 							maxLength="20"
-							value={store}
-							onChange={handleStore}
+							defaultValue={store}
+							onChange={debounceStore}
 						>
 							<Sup>업체명</Sup>
 						</FormInput>
@@ -113,8 +132,8 @@ function AddCommunity() {
 							<input
 								type="date"
 								id="date"
-								value={date}
-								onChange={handleDateChange}
+								defaultValue={date}
+								onChange={debounceDate}
 								className="w-[200px] s:w-[90%] text-ec4 text-center"
 							/>
 						</div>
@@ -122,42 +141,37 @@ function AddCommunity() {
 							<label htmlFor="grade" className="w-32 s:min-w-fit">
 								<Sup>평점</Sup>
 							</label>
-							<select
-								name="grade"
+							<Select
 								id="grade"
+								name="grade"
 								value={grade}
-								onChange={handleRatingChange}
-								required
-								className="w-[100px] s:w-[50%] text-ec4 text-center "
-							>
-								<option value="">0</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
-							</select>
+								onChange={debounceRating}
+								max={10}
+							/>
 							<span className="s:min-w-fit">/ 10</span>
 						</div>
 						<div className="flex gap-5 text-ec1 relative px-2">
 							<label htmlFor="clearTime" className="w-32 s:min-w-fit">
 								남은 시간
 							</label>
-							<input
-								type="time"
-								id="clearTime"
-								min="00:00"
-								max="01:00"
-								value={time}
-								onChange={handleRemainingTimeChange}
-								className="w-[200px] s:w-[50%] text-ec4 text-center"
-							/>
-							LEFT
+							<div className="flex gap-2">
+								<Select
+									id="clearTime"
+									name="hour"
+									value={time}
+									onChange={debounceHour}
+									max={1}
+								/>
+								:
+								<Select
+									id="clearTime"
+									name="minute"
+									value={minute}
+									onChange={debounceMinute}
+									max={59}
+								/>
+								LEFT
+							</div>
 						</div>
 						<div className="flex flex-col gap-5 text-ec1 relative px-2">
 							<label htmlFor="image">
@@ -194,16 +208,15 @@ function AddCommunity() {
 							required
 						/>
 						<p className="text-right">{length}/ 250</p>
-						
 					</div>
-					</form>
-					<Button bg="bg-ec1 text-center" text="text-ec4 m-auto" type="submit">
-						등록
-					</Button>
+				</form>
+				<Button bg="bg-ec1 text-center" text="text-ec4 m-auto" type="submit">
+					등록
+				</Button>
 			</div>
-      <Nav />
+			<Nav />
 		</>
 	);
 }
 
-export default AddCommunity;
+export default NotePage;
