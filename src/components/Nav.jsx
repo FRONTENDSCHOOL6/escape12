@@ -31,7 +31,7 @@ function Nav() {
 				</li>
 				<li>
 					<NavLink
-						to="/addcommunity"
+						to="/postpage"
 						className={`text-ec1 hover:text-ec5 ${
 							isAddCommunityActive ? 'text-ec5' : ''
 						}`}
