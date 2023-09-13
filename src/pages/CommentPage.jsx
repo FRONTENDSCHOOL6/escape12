@@ -10,7 +10,6 @@ import pb from '@/api/pockethost';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import PostItem from '@/components/post/PostItem';
 
 function CommentPage() {
 	const [data, setData] = useState(null);

@@ -5,6 +5,10 @@ function Nav() {
 	const isNotePageActive = useMatch('/notepage');
 	const isAddCommunityActive = useMatch('/addcommunity');
 	const isMyPageActive = useMatch('/mypage');
+	const isThemeRecordActive = useMatch('/theme/:dataId');
+	const isUploadRecordActive = useMatch('/upload');
+	const isMyRecordActive = useMatch('/myrecord');
+	const isBookMarkActive = useMatch('/bookmark');
 
 	return (
 		<nav className="text-center bg-ec3 text-ec1 font-bold max-w-[600px] min-w-[320px] m-auto fixed bottom-0 left-0 right-0">
@@ -23,7 +27,9 @@ function Nav() {
 					<NavLink
 						to="/notepage"
 						className={`text-ec1 hover:text-ec5 ${
-							isNotePageActive ? 'text-ec5' : ''
+							isNotePageActive || isThemeRecordActive || isUploadRecordActive
+								? 'text-ec5'
+								: ''
 						}`}
 					>
 						기록
@@ -43,7 +49,9 @@ function Nav() {
 					<NavLink
 						to="/mypage"
 						className={`text-ec1 hover:text-ec5 ${
-							isMyPageActive ? 'text-ec5' : ''
+							isMyPageActive || isMyRecordActive || isBookMarkActive
+								? 'text-ec5'
+								: ''
 						}`}
 					>
 						마이

@@ -56,6 +56,7 @@ function PostPage() {
 			});
 			setIsLoading(true);
 
+			console.log(communitypost.items);
 			try {
 				setPosts(communitypost.items);
 			} catch (err) {

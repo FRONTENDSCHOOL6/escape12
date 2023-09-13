@@ -7,6 +7,7 @@ SearchInput.propTypes = {
 	value: string,
 	onChange: func,
 	type: string,
+	text: string,
 };
 
 function SearchInput({
@@ -15,9 +16,12 @@ function SearchInput({
 	type = 'text',
 	value = '',
 	onChange,
+	text = '',
 }) {
 	return (
-		<div className="flex gap-4 w-full px-20 justify-center text-lg pb-4 ">
+		<div
+			className={`flex gap-4 w-full px-20 justify-center text-lg pb-4 ${text}`}
+		>
 			<input
 				type={type}
 				placeholder={placeholder}
