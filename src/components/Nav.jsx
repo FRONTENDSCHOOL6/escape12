@@ -8,20 +8,6 @@ function Nav() {
 	const isThemeRecordActive = useMatch('/theme/:dataId');
 	const isUploadRecordActive = useMatch('/upload');
 	const isMyRecordActive = useMatch('/myrecord');
-	const isThemeActive = useMatch('/theme');
-	const isNotePageActive = useMatch('/notepage');
-	const isAddCommunityActive = useMatch('/addcommunity');
-	const isMyPageActive = useMatch('/mypage');
-	const isThemeRecordActive = useMatch('/theme/:dataId');
-	const isUploadRecordActive = useMatch('/upload');
-	const isMyRecordActive = useMatch('/myrecord');
-	const isThemeActive = useMatch('/theme');
-	const isNotePageActive = useMatch('/notepage');
-	const isAddCommunityActive = useMatch('/addcommunity');
-	const isMyPageActive = useMatch('/mypage');
-	const isThemeRecordActive = useMatch('/theme/:dataId');
-	const isUploadRecordActive = useMatch('/upload');
-	const isMyRecordActive = useMatch('/myrecord');
 	const isBookMarkActive = useMatch('/bookmark');
 
 	return (
@@ -41,7 +27,7 @@ function Nav() {
 					<NavLink
 						to="/recordpage"
 						className={`text-ec1 hover:text-ec5 ${
-							isNotePageActive || isThemeRecordActive || isUploadRecordActive
+							isRecordPageActive || isThemeRecordActive || isUploadRecordActive
 								? 'text-ec5'
 								: ''
 						}`}
