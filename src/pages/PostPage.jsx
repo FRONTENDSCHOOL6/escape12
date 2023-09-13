@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import PostList from '@/components/post/PostList';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/Header';
-import Nav from '@/components/Nav';
 import SearchInput from '@/components/SearchInput';
 import pb from '@/api/pockethost';
+import PlusNav from '@/components/PlusNav';
+import { useNavigate } from 'react-router-dom';
 
 pb.autoCancellation(false);
 
@@ -12,11 +13,46 @@ function PostPage() {
 	const [posts, setPosts] = useState([]);
 	const [search, setSearch] = useState('');
 	const [IsLoading, setIsLoading] = useState(false);
+	const [showPlusNav, setShowPlusNav] = useState(false);
+	const navigate = useNavigate();
 
+	//기록하기 버튼 이벤트
+	const handleRecordButton = () => {
+		navigate('/addcommunity');
+	};
+
+	//스크롤탑 버튼 이벤트
+	const handleTopButton = () => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
+	};
+
+	//스크롤 이벤트 감지
+	useEffect(() => {
+		const handleScroll = () => {
+			const currentScrollY = window.scrollY;
+			if (
+				(currentScrollY >= 500 && !showPlusNav) ||
+				(currentScrollY < 500 && showPlusNav)
+			) {
+				setShowPlusNav(currentScrollY >= 500);
+			}
+		};
+
+		window.addEventListener('scroll', handleScroll);
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, [showPlusNav]);
+	// 포켓호스트 가져오기
 	useEffect(() => {
 		const Snslist = async () => {
 			const communitypost = await pb.collection('community').getList(1, 200, {
 				expand: 'comment,author',
+				sort: '-created',
 			});
 			setIsLoading(true);
 
@@ -34,6 +70,7 @@ function PostPage() {
 		Snslist();
 	}, []);
 
+	//검색 기능
 	const handleSearch = async (e) => {
 		if (e.target.value.length !== 0) {
 			setSearch(e.target.value);
@@ -84,7 +121,11 @@ function PostPage() {
 				{/* {!isLoading &&
 					posts.map((post) => <PostList key={post.id} post={post} />)} */}
 
-				<Nav />
+				<PlusNav
+					topClick={handleTopButton}
+					pencilClick={handleRecordButton}
+					hidden={!showPlusNav ? 'hidden' : ''}
+				/>
 			</div>
 		</>
 	);
