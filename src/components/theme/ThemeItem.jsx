@@ -39,8 +39,8 @@ function ThemeItem({
 	};
 
 	return (
-		<figure className="my-4 border-2 border-ec1 p-6 s:p-3 rounded-xl flex gap-3 text-ec1 text-lg s:text-base relative h-[180px]">
-			<div className=" bg-ec4 flex w-[25%]">
+		<figure className="my-4 border-2 border-ec1 p-6 s:p-3 rounded-xl flex gap-3 s:gap-[5%] text-ec1 text-lg s:text-base relative h-[180px]">
+			<div className=" bg-ec4 flex min-w-[25%] s:min-w-0 s:max-w-[25%]">
 				<img src={image} alt={theme} aria-hidden className="w-full" />
 			</div>
 			<figcaption className="flex flex-col justify-between s:justify-around">
@@ -52,20 +52,27 @@ function ThemeItem({
 				</section>
 				<section className="flex gap-3">
 					<div className="flex gap-1">
-						<h3>{store}</h3>
-						<Span>{point}점</Span>
+						<h3>
+							{store} <Span>{point}점</Span>
+						</h3>
 					</div>
 					<Span>장르: {field}</Span>
 				</section>
-				<section className="flex gap-7 s:gap-2">
-					<Span>난이도 {level}</Span>
+				<section className="flex gap-7 s:gap-[2%]">
+					{level === 1 || level === 2 || level === 3 ? (
+						<SmallButton bg="bg-googleline s:p-1 s:text-xs">♣ 쉬움</SmallButton>
+					) : level === 4 || level === 5 || level === 6 || level === 7 ? (
+						<SmallButton bg="bg-kakaoline s:p-1 s:text-xs">♣ 보통</SmallButton>
+					) : (
+						<SmallButton bg="bg-sweetred s:p-1 s:text-xs">♣ 어려움</SmallButton>
+					)}
 					<Link to={dataid}>
-						<SmallButton bg="bg-ec3" text="text-ec1">
+						<SmallButton bg="bg-ec3" text="text-ec1 s:text-xs s:p-1">
 							기록하기
 						</SmallButton>
 					</Link>
 					<Link to={link} target="_blank">
-						<SmallButton>예약하기</SmallButton>
+						<SmallButton bg="bg-ec1 s:text-xs s:p-1">예약하기</SmallButton>
 					</Link>
 				</section>
 			</figcaption>

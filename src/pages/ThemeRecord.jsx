@@ -6,6 +6,7 @@ import Nav from '@/components/Nav';
 import FormInput from '@/components/loginsignup/FormInput';
 import Select from '@/components/record/Select';
 import Sup from '@/components/record/Sup';
+import TextArea from '@/components/record/TextArea';
 import debounce from '@/utils/debounce';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -75,23 +76,25 @@ function ThemeRecord() {
 	// 기록 등록하기 이벤트
 	const handleSubmitRecord = async (e) => {
 		e.preventDefault();
-		const themeRecord = {
-			date: date,
-			grade: Number(grade),
-			hour: Number(time),
-			minute: Number(minute),
-			content: content,
-			author: `${userUId.model.id}`,
-			escapeList: `${data.id}`,
-		};
 
 		try {
+			const themeRecord = {
+				date: date,
+				grade: Number(grade),
+				hour: Number(time),
+				minute: Number(minute),
+				content: content,
+				author: `${userUId?.model.id}`,
+				escapeList: `${data.id}`,
+			};
+
 			await pb.collection('record').create(themeRecord);
 
 			toast('등록되었습니다 :)', {
 				icon: '💛',
 				duration: 2000,
 			});
+			// navigate(`/upload/:dataId`);
 		} catch (err) {
 			console.log(`등록하기 에러: ${err}`);
 		}
@@ -181,13 +184,10 @@ function ThemeRecord() {
 						</div>
 					</fieldset>
 					<div>
-						<textarea
+						<TextArea
 							value={content}
 							onChange={handleContentChange}
 							placeholder="후기를 작성해주세요 😀"
-							className="w-full h-40 p-4 text-ec4 border rounded-lg"
-							maxLength={250}
-							required
 						/>
 						<p className="text-right">{length}/ 250</p>
 					</div>
