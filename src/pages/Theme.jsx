@@ -23,7 +23,7 @@ function Theme() {
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
-		navigate('/notepage');
+		navigate('/recordpage');
 	};
 
 	//스크롤탑 버튼 이벤트
