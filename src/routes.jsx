@@ -14,6 +14,8 @@ import NotePage from './pages/NotePage';
 import CommentPage from './pages/CommentPage';
 import ProtectRoute from './components/ProtectRoute';
 import AddCommunity from './pages/AddCommunity';
+import MyCommunity from './pages/MyCommunity';
+import MyComment from './pages/MyComment';
 
 const router = createBrowserRouter([
 	{
@@ -39,8 +41,10 @@ const router = createBrowserRouter([
 			{ path: '/mypage', element: <Mypage /> },
 			{ path: '/postpage', element: <PostPage /> },
 			{ path: '/addcommunity', element: <AddCommunity /> },
+			{ path: '/Mycommunity', element: <MyCommunity /> },
+			{ path: '/MyComment', element: <MyComment /> },
 			{ path: '/editpage', element: <Editpage /> },
-			{ path: '/post/:dataId', element: <CommentPage /> },
+			{ path: '/postpage/:dataId', element: <CommentPage /> },
 			{ path: '/notepage', element: <NotePage /> },
 		],
 	},
