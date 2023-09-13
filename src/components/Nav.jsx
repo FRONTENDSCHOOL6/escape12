@@ -2,7 +2,7 @@ import { NavLink, useMatch } from 'react-router-dom';
 
 function Nav() {
 	const isThemeActive = useMatch('/theme');
-	const isNotePageActive = useMatch('/notepage');
+	const isRecordPageActive = useMatch('/recordpage');
 	const isAddCommunityActive = useMatch('/addcommunity');
 	const isMyPageActive = useMatch('/mypage');
 
@@ -21,9 +21,9 @@ function Nav() {
 				</li>
 				<li>
 					<NavLink
-						to="/notepage"
+						to="/recordpage"
 						className={`text-ec1 hover:text-ec5 ${
-							isNotePageActive ? 'text-ec5' : ''
+							isRecordPageActive ? 'text-ec5' : ''
 						}`}
 					>
 						기록
