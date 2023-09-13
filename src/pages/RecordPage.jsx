@@ -1,5 +1,5 @@
 import pb from '@/api/pockethost';
-import thumnail from '@/assets/notepage-thumbnail.png';
+import thumnail from '@/assets/recordpage-thumbnail.png';
 import Button from '@/components/Button';
 import Headerback from '@/components/Headerback';
 import Nav from '@/components/Nav';
@@ -7,12 +7,14 @@ import FormInput from '@/components/loginsignup/FormInput';
 import Select from '@/components/record/Select';
 import Sup from '@/components/record/Sup';
 import debounce from '@/utils/debounce';
+import TextArea from '@/components/record/TextArea';
 import { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-function NotePage() {
+
+function RecordPage() {
 	const navigate = useNavigate();
 	const [length, setLength] = useState(0);
 	const [theme, setTheme] = useState('');
@@ -97,6 +99,7 @@ function NotePage() {
 				icon: '💛',
 				duration: 2000,
 			});
+			navigate('/theme');
 		} catch (err) {
 			console.log(`등록하기 에러: ${err}`);
 		}
@@ -107,7 +110,7 @@ function NotePage() {
 			<Helmet>
 				<title>클리어</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto relative py-16 text-lg">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto text-lg py-16 relative">
 				{/* header, headerback 맨 위 고정 */}
 				<Headerback
 					onClick={() => {
@@ -215,13 +218,10 @@ function NotePage() {
 						</div>
 					</fieldset>
 					<div>
-						<textarea
+						<TextArea
 							value={content}
 							onChange={handleContentChange}
 							placeholder="후기를 작성해주세요 😀"
-							className="w-full h-40 p-4 text-ec4 border rounded-lg"
-							maxLength={250}
-							required
 						/>
 						<p className="text-right">{length}/ 250</p>
 					</div>
@@ -235,4 +235,4 @@ function NotePage() {
 	);
 }
 
-export default NotePage;
+export default RecordPage;

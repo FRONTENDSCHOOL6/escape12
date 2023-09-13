@@ -12,7 +12,7 @@ import MyComment from '@/pages/MyComment';
 import MyCommunity from '@/pages/MyCommunity';
 import MyRecord from '@/pages/MyRecord';
 import Mypage from '@/pages/Mypage';
-import NotePage from '@/pages/NotePage';
+import RecordPage from '@/pages/RecordPage';
 import PostPage from '@/pages/PostPage';
 import SignUp from '@/pages/SignUp';
 import Theme from '@/pages/Theme';
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
 			{ path: '/theme/:dataId', element: <ThemeRecord /> },
 			{ path: '/Mycommunity', element: <MyCommunity /> },
 			{ path: '/MyComment', element: <MyComment /> },
-			{ path: '/notepage', element: <NotePage /> },
+			{ path: '/recordpage', element: <RecordPage /> },
 			{ path: '/upload/:dataId', element: <UploadRecord /> },
 			{ path: '/mypage', element: <Mypage /> },
 			{ path: '/postpage', element: <PostPage /> },
