@@ -3,6 +3,7 @@ import Button from '@/components/Button';
 import Nav from '@/components/Nav';
 import Header from '@/components/Header';
 import { useNavigate, Link } from 'react-router-dom';
+import Spinner from '@/components/Spinner';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import pb from '@/api/pockethost';
@@ -11,7 +12,7 @@ function Mypage() {
   const navigate = useNavigate();
   const [data, setData] = useState('')
   const [records, setRecords] = useState([])
-
+	const [isLoading, setIsLoading] = useState(false);
   //user 정보가 들어왔을 때 로그아웃 기능 구현
   const handleLogout = () => {
     localStorage.removeItem('user');
@@ -20,28 +21,29 @@ function Mypage() {
 
   useEffect(() => {
     const getrecord = async () => {
-      const recordlist = await pb.collection('record').getFullList()
+      const recordlist = await pb.collection('record').getFullList();
+      
       try {
-        setRecords(recordlist)
+        setRecords(recordlist);
+        setIsLoading(true);
       } catch (error) {
         console.log(error)
-      }
+        }
     }
     const datalist = async () => {
       const resultList = await pb.collection('users').getOne('b73e9sjwiu6hglx', {
         expand: 'email',
       });
-
       try {
-        setData(resultList)
+        setData(resultList);
+        setIsLoading(true);
       } catch (error) {
         console.log(error)
       }
 
-
     }
     getrecord(),
-      datalist()
+    datalist()
   }, [])
 
 
@@ -53,7 +55,13 @@ function Mypage() {
       <div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
         {/* header, headerback 맨 위 고정 */}
         <Header>마이페이지</Header>
+        {!isLoading && (
+					<div className="absolute top-1/2 -translate-y-1/2">
+						<Spinner />
+					</div>
+				)}
 
+        {isLoading && (
         <div className="flex-1 flex flex-col items-center">
         <img
 						className="w-[30%] mx-auto rounded-full"
@@ -96,7 +104,7 @@ function Mypage() {
             로그아웃
           </Button>
         </div>
-      </div>
+        )}</div>
       <Nav />
     </>
   );
