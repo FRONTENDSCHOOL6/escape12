@@ -6,6 +6,7 @@ import Nav from '@/components/Nav';
 import FormInput from '@/components/loginsignup/FormInput';
 import Select from '@/components/record/Select';
 import Sup from '@/components/record/Sup';
+import TextArea from '@/components/record/TextArea';
 import debounce from '@/utils/debounce';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -29,19 +30,19 @@ function ThemeRecord() {
 	const handleDateChange = (e) => {
 		setDate(e.target.value);
 	};
-	const debounceDate = debounce((e) => handleDateChange(e), 10000);
+	const debounceDate = debounce((e) => handleDateChange(e), 1000);
 
 	// 평점 상태 관리
 	const handleRatingChange = (e) => {
 		setGrade(e.target.value);
 	};
-	const debounceRating = debounce((e) => handleRatingChange(e), 10000);
+	const debounceRating = debounce((e) => handleRatingChange(e), 1000);
 
 	// 남은시간 - Hour 상태 관리
 	const handleRemainingTimeChange = (e) => {
 		setTime(e.target.value);
 	};
-	const debounceHour = debounce((e) => handleRemainingTimeChange(e), 5000);
+	const debounceHour = debounce((e) => handleRemainingTimeChange(e), 1000);
 
 	// 남은시간 - Minute 상태 관리
 	const handleRemainingTimeMinuteChange = (e) => {
@@ -49,7 +50,7 @@ function ThemeRecord() {
 	};
 	const debounceMinute = debounce(
 		(e) => handleRemainingTimeMinuteChange(e),
-		5000
+		1000
 	);
 
 	// 후기 상태 관리
@@ -58,6 +59,7 @@ function ThemeRecord() {
 		setLength(e.target.value.length);
 	};
 
+	//테마 데이터 불러오기
 	useEffect(() => {
 		const dataList = async () => {
 			const record = await pb.collection('escapeList').getOne(`${dataId}`);
@@ -74,23 +76,25 @@ function ThemeRecord() {
 	// 기록 등록하기 이벤트
 	const handleSubmitRecord = async (e) => {
 		e.preventDefault();
-		const themeRecord = {
-			date: date,
-			grade: Number(grade),
-			hour: Number(time),
-			minute: Number(minute),
-			content: content,
-			author: `${userUId.model.id}`,
-			escapeList: `${data.id}`,
-		};
 
 		try {
+			const themeRecord = {
+				date: date,
+				grade: Number(grade),
+				hour: Number(time),
+				minute: Number(minute),
+				content: content,
+				author: `${userUId?.model.id}`,
+				escapeList: `${data.id}`,
+			};
+
 			await pb.collection('record').create(themeRecord);
 
 			toast('등록되었습니다 :)', {
 				icon: '💛',
 				duration: 2000,
 			});
+			// navigate(`/upload/:dataId`);
 		} catch (err) {
 			console.log(`등록하기 에러: ${err}`);
 		}
@@ -101,7 +105,7 @@ function ThemeRecord() {
 			<Helmet>
 				<title>테마 클리어</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto relative py-16 text-lg">
 				<Headerback
 					onClick={() => {
 						navigate('/theme');
@@ -174,19 +178,16 @@ function ThemeRecord() {
 							<label htmlFor="image">
 								<Sup>사진</Sup>
 							</label>
-							<div className="h-[140px] bg-opacity p-2 rounded-lg border border-ec1">
+							<div className="h-[140px] bg-opacity p-2 rounded-lg border-2 border-ec1">
 								<img className="h-full" src={data.image} alt={data.theme} />
 							</div>
 						</div>
 					</fieldset>
 					<div>
-						<textarea
+						<TextArea
 							value={content}
 							onChange={handleContentChange}
 							placeholder="후기를 작성해주세요 😀"
-							className="w-full h-40 p-4 text-ec4 border rounded-lg"
-							maxLength={250}
-							required
 						/>
 						<p className="text-right">{length}/ 250</p>
 					</div>

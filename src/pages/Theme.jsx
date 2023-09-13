@@ -60,16 +60,11 @@ function Theme() {
 				expand: 'store, point, field, grade, level, image, link',
 			});
 
-			setIsLoading(true);
-
 			try {
 				setData(record.items);
+				setIsLoading(true);
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
-			} finally {
-				setTimeout(() => {
-					setIsLoading(false);
-				}, 500);
 			}
 		};
 		dataList();
@@ -77,6 +72,7 @@ function Theme() {
 
 	//인기순 정렬하기
 	const handleGradeSort = () => {
+		setIsLoading(false);
 		gradeSort ? setGradeSort(false) : setGradeSort(true);
 
 		const gradeDataSort = async () => {
@@ -88,16 +84,13 @@ function Theme() {
 				sort: '-grade',
 			});
 
-			setIsLoading(true);
-
 			try {
-				levelSort ? setData(down) : setData(up);
+				setTimeout(() => {
+					levelSort ? setData(down) : setData(up);
+					setIsLoading(true);
+				});
 			} catch (err) {
 				console.log(`인기순 정렬 에러: ${err}`);
-			} finally {
-				setTimeout(() => {
-					setIsLoading(false);
-				}, 500);
 			}
 		};
 
@@ -106,6 +99,7 @@ function Theme() {
 
 	//난이도별 정리하기
 	const handleLevelSort = () => {
+		setIsLoading(false);
 		levelSort ? setLevelSort(false) : setLevelSort(true);
 
 		const levelDataSort = async () => {
@@ -117,16 +111,13 @@ function Theme() {
 				sort: '-level',
 			});
 
-			setIsLoading(true);
-
 			try {
-				levelSort ? setData(down) : setData(up);
+				setTimeout(() => {
+					levelSort ? setData(down) : setData(up);
+					setIsLoading(true);
+				});
 			} catch (err) {
 				console.log(`난이도순 정렬 에러: ${err}`);
-			} finally {
-				setTimeout(() => {
-					setIsLoading(false);
-				}, 500);
 			}
 		};
 
@@ -135,21 +126,20 @@ function Theme() {
 
 	//지역별 강남 정렬하기
 	const handleGangnam = () => {
+		setIsLoading(false);
+
 		const regionGangNam = async () => {
 			const gangnam = await pb.collection('escapeList').getFullList({
 				filter: 'region = "강남"',
 			});
 
-			setIsLoading(true);
-
 			try {
-				setData(gangnam);
+				setTimeout(() => {
+					setData(gangnam);
+					setIsLoading(true);
+				});
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
-			} finally {
-				setTimeout(() => {
-					setIsLoading(false);
-				}, 500);
 			}
 		};
 		regionGangNam();
@@ -157,21 +147,20 @@ function Theme() {
 
 	//지역별 홍대 정렬하기
 	const handleHongDae = () => {
+		setIsLoading(false);
+
 		const regionHongDae = async () => {
 			const hongdae = await pb.collection('escapeList').getFullList({
 				filter: 'region = "홍대"',
 			});
 
-			setIsLoading(true);
-
 			try {
-				setData(hongdae);
+				setTimeout(() => {
+					setData(hongdae);
+					setIsLoading(true);
+				});
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
-			} finally {
-				setTimeout(() => {
-					setIsLoading(false);
-				}, 500);
 			}
 		};
 		regionHongDae();
@@ -179,6 +168,7 @@ function Theme() {
 
 	//검색 기능
 	const handleSearch = (e) => {
+		setIsLoading(false);
 		if (e.target.value.length !== 0) {
 			setSearch(e.target.value);
 		} else {
@@ -198,21 +188,26 @@ function Theme() {
 
 			try {
 				if (resultList.items.length > 0) {
-					setData(resultList.items);
-					setEmptyData(false);
+					setTimeout(() => {
+						setData(resultList.items);
+						setEmptyData(false);
+						setIsLoading(true);
+					});
 				} else if (e.target.value === 0) {
-					setData(data.items);
-					setEmptyData(false);
+					setTimeout(() => {
+						setData(data.items);
+						setEmptyData(false);
+						setIsLoading(true);
+					});
 				} else {
-					setEmptyData(true);
-					setData([]);
+					setTimeout(() => {
+						setEmptyData(true);
+						setData([]);
+						setIsLoading(true);
+					});
 				}
 			} catch (err) {
 				console.log(`검색 에러 내용 : ${err}`);
-			} finally {
-				setTimeout(() => {
-					setIsLoading(false);
-				}, 500);
 			}
 		};
 
@@ -252,18 +247,18 @@ function Theme() {
 						</LiButton>
 					</li>
 				</ul>
-				{!isLoading && emptyData && (
+				{isLoading && emptyData && (
 					<div className="absolute top-1/2 -translate-y-1/2">
 						<EmptyContents>검색결과가 없습니다 : &#40;</EmptyContents>
 					</div>
 				)}
 
-				{isLoading && (
+				{!isLoading && (
 					<div className="absolute top-1/2 -translate-y-1/2">
 						<Spinner />
 					</div>
 				)}
-				{!isLoading && (
+				{isLoading && (
 					<ul className="w-full px-20 s:px-12">
 						{data.map((item) => {
 							return (

@@ -1,5 +1,4 @@
 import pb from '@/api/pockethost';
-import userUId from '@/api/userUid';
 import Button from '@/components/Button';
 import KeyLogo from '@/components/KeyLogo';
 import FormInput from '@/components/loginsignup/FormInput';
@@ -38,30 +37,6 @@ function Login() {
 		pwView === false ? setPwView(true) : setPwView(false);
 	};
 
-	//로그인 정보 확인 후 이동
-	const handleLogin = async (e) => {
-		e.preventDefault();
-
-		try {
-			const authData = await pb
-				.collection('users')
-				.authWithPassword(email, password);
-
-			if (authData) {
-				toast(`${userUId.model.nickName}님 환영합니다`, {
-					icon: '💜',
-					duration: 2000,
-				});
-				navigate('/theme');
-			}
-		} catch (err) {
-			toast('아이디와 비밀번호를 확인해주세요', {
-				icon: '📢',
-				duration: 2000,
-			});
-		}
-	};
-
 	//아이디 정규식 검사
 	const handleIdValidEmail = (e) => {
 		const target = e.target.value;
@@ -77,6 +52,30 @@ function Login() {
 		setIsValidPw(regPw.test(target));
 	};
 	const debouncePwHandler = debounce((e) => handlePwValid(e));
+
+	//로그인 정보 확인 후 이동
+	const handleLogin = async (e) => {
+		e.preventDefault();
+
+		try {
+			const authData = await pb
+				.collection('users')
+				.authWithPassword(email, password);
+
+			if (authData) {
+				toast(`${authData.record.nickName}님 환영합니다`, {
+					icon: '💜',
+					duration: 2000,
+				});
+				navigate('/theme');
+			}
+		} catch (error) {
+			toast(`아이디와 비밀번호를 확인해주세요`, {
+				icon: '📢',
+				duration: 2000,
+			});
+		}
+	};
 
 	return (
 		<>

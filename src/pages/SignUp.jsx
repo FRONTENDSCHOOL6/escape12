@@ -1,11 +1,13 @@
 import pb from '@/api/pockethost';
+import thumnail from '@/assets/login-thumnail.png';
 import Button from '@/components/Button';
 import KeyLogo from '@/components/KeyLogo';
 import FormInput from '@/components/loginsignup/FormInput';
 import FormInputValid from '@/components/loginsignup/FormInputValid';
+import Sup from '@/components/record/Sup';
 import debounce from '@/utils/debounce';
 import { ClientResponseError } from 'pocketbase';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -31,6 +33,8 @@ function SignUp() {
 	const [isSameEmail, setIsSameEmail] = useState(false);
 	const [pwView, setPwView] = useState(false);
 	const [pwConfirmView, setPwConfirmView] = useState(false);
+	const photoRef = useRef(null);
+	const uploadPhotoRef = useRef(null);
 	const navigate = useNavigate();
 
 	//아이디 정규식 검사
@@ -69,6 +73,13 @@ function SignUp() {
 		pwConfirmView === false ? setPwConfirmView(true) : setPwConfirmView(false);
 	};
 
+	// 사진 상태 관리
+	const handleUploadPhoto = (e) => {
+		const photoFile = e.target.files[0];
+		const photoUrl = URL.createObjectURL(photoFile);
+		uploadPhotoRef.current.setAttribute('src', photoUrl);
+	};
+
 	//회원가입하기
 	const handleUserData = async (e) => {
 		e.preventDefault();
@@ -77,6 +88,7 @@ function SignUp() {
 			password,
 			passwordConfirm,
 			nickName,
+			avatar: photoRef.current.files[0],
 			emailVisibility: true,
 			admin: false,
 		};
@@ -119,8 +131,6 @@ function SignUp() {
 					filter: `(nickName='${nickName}')`,
 				});
 
-				console.log('닉네임 중복 검사 결과:', nickNameSameList);
-
 				if (nickNameSameList.items.length > 0) {
 					setIsValidNickName(true);
 				} else {
@@ -139,8 +149,6 @@ function SignUp() {
 				const emailSameList = await pb.collection('users').getList(1, 10, {
 					filter: `(email='${email}')`,
 				});
-
-				console.log('이메일 중복 검사 결과:', emailSameList);
 
 				if (emailSameList.items.length > 0) {
 					setIsSameEmail(true);
@@ -172,13 +180,13 @@ function SignUp() {
 			<Helmet>
 				<title>회원가입</title>
 			</Helmet>
-			<div className="text-lg max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center h-screen m-auto">
+			<div className="text-lg max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center min-h-screen m-auto">
 				<KeyLogo path="/loginselete" />
 				<form
 					onSubmit={handleUserData}
-					className="flex flex-col gap-10 items-center py-32 s:py-20"
+					className="flex flex-col gap-10 items-center mt-14"
 				>
-					<div className="flex flex-col gap-3">
+					<fieldset className="flex flex-col gap-3">
 						<>
 							<FormInput
 								type="email"
@@ -187,7 +195,7 @@ function SignUp() {
 								defaultValue={email}
 								placeholder="example@naver.com"
 							>
-								아이디(이메일)
+								<Sup>아이디(이메일)</Sup>
 							</FormInput>
 							<FormInputValid
 								color={!isValidEmail || isSameEmail === true ? 'text-red' : ''}
@@ -211,7 +219,7 @@ function SignUp() {
 								defaultValue={password}
 								placeholder="example123"
 							>
-								비밀번호
+								<Sup>비밀번호</Sup>
 							</FormInput>
 							<FormInputValid color={!isValidPw ? 'text-red' : ''}>
 								{!password
@@ -231,7 +239,7 @@ function SignUp() {
 								defaultValue={passwordConfirm}
 								placeholder="example123"
 							>
-								비밀번호 확인
+								<Sup>비밀번호 확인</Sup>
 							</FormInput>
 							<FormInputValid
 								color={
@@ -253,7 +261,7 @@ function SignUp() {
 								defaultValue={nickName}
 								placeholder="방탈러"
 							>
-								닉네임
+								<Sup>닉네임</Sup>
 							</FormInput>
 							<FormInputValid
 								color={
@@ -269,9 +277,33 @@ function SignUp() {
 									? '존재하는 닉네임입니다.'
 									: ''}
 							</FormInputValid>
+							<div className="flex justify-between text-ec1 relative px-2 gap-5">
+								<label htmlFor="image" className="whitespace-nowrap">
+									<Sup>사진</Sup>
+								</label>
+								<input
+									ref={photoRef}
+									onChange={handleUploadPhoto}
+									className="cursor-pointer absolute w-full h-full opacity-0 z-10"
+									type="file"
+									name="image"
+									id="image"
+									required
+									accept="*.jpg,*.png,*.webp,*.avif"
+									multiple
+								/>
+								<div className="h-[140px] min-w-[70%]">
+									<img
+										ref={uploadPhotoRef}
+										className="h-full rounded-full -translate-x-1/5 m-auto"
+										src={thumnail}
+										alt="썸네일"
+									/>
+								</div>
+							</div>
 						</>
-					</div>
-					<Button type="submit" bg="bg-ec1">
+					</fieldset>
+					<Button type="submit" bg="bg-ec1 mb-10">
 						가입하기
 					</Button>
 				</form>

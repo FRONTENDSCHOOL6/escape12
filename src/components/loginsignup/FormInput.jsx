@@ -41,7 +41,7 @@ function FormInput({
 				/>
 				<button
 					type="button"
-					className={`${bg} bg-cover w-5 h-5 absolute right-0 top-0`}
+					className={`${bg} bg-cover w-5 h-5 absolute right-1 top-0`}
 					onClick={onClick}
 				/>
 			</fieldset>
