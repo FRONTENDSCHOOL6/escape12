@@ -1,18 +1,38 @@
+import pb from '@/api/pockethost';
 import Button from '@/components/Button';
 import Headerback from '@/components/Headerback';
 import Nav from '@/components/Nav';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 function UploadRecord() {
+	const { dataId } = useParams();
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		const handleRecordData = async () => {
+			const test = await pb.collection('escapeList').getOne(`${dataId}`, {
+				expand: 'record',
+			});
+			console.log(test);
+		};
+
+		try {
+			alert('데이터 불러오기성공');
+		} catch (err) {
+			console.log(`에러 내용: ${err}`);
+		}
+		handleRecordData();
+	}, []);
 
 	return (
 		<div>
 			<Helmet>
 				<title>업로드 기록</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center justify-center min-h-[100vh] m-auto relative s:py-20 text-lg gap-6 px-20 s:px-12">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center justify-center min-h-[100vh] m-auto relative py-20 text-lg gap-6 px-20 s:px-12">
 				<Headerback
 					onClick={() => {
 						navigate('/theme');
@@ -42,7 +62,7 @@ function UploadRecord() {
 						<li>⭐ 8</li>
 						<li>2: 00 LEFT</li>
 					</ul>
-					<p className="min-h-[160px] bg-opacity border-2 p-4 rounded-lg">
+					<div className="min-h-[160px] bg-opacity border-2 p-4 rounded-lg">
 						테마가 귀엽고 재밌다🌸테마가 귀엽고 재밌다🌸테마가 귀엽고
 						재밌다🌸테마가 귀엽고 재밌다🌸테마가 귀엽고 재밌다🌸테마가 귀엽고
 						재밌다🌸테마가 귀엽고 재밌다🌸테마가 귀엽고 재밌다🌸테마가 귀엽고
@@ -52,7 +72,7 @@ function UploadRecord() {
 						재밌다🌸테마가 귀엽고 재밌다🌸테마가 귀엽고 재밌다🌸테마가 귀엽고
 						재밌다🌸테마가 귀엽고 재밌다🌸테마가 귀엽고 재밌다🌸테마가 귀엽고
 						재밌다🌸
-					</p>
+					</div>
 				</section>
 				<section className="w-full flex justify-between">
 					<Button bg="bg-ec1" text="text-ec4">

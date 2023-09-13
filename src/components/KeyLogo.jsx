@@ -1,6 +1,6 @@
 import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
-import key from '/public/KeyLogo.png';
+import key from '/keyLogo.png';
 
 KeyLogo.propTypes = {
 	path: string,
