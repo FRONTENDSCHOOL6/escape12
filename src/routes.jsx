@@ -8,6 +8,8 @@ import Editpage from '@/pages/Editpage';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
 import LoginSelete from '@/pages/LoginSelete';
+import MyComment from '@/pages/MyComment';
+import MyCommunity from '@/pages/MyCommunity';
 import MyRecord from '@/pages/MyRecord';
 import Mypage from '@/pages/Mypage';
 import NotePage from '@/pages/NotePage';
@@ -39,6 +41,8 @@ const router = createBrowserRouter([
 		children: [
 			{ path: '/theme', element: <Theme /> },
 			{ path: '/theme/:dataId', element: <ThemeRecord /> },
+			{ path: '/Mycommunity', element: <MyCommunity /> },
+			{ path: '/MyComment', element: <MyComment /> },
 			{ path: '/notepage', element: <NotePage /> },
 			{ path: '/upload/:dataId', element: <UploadRecord /> },
 			{ path: '/mypage', element: <Mypage /> },
@@ -52,7 +56,7 @@ const router = createBrowserRouter([
 	},
 ]);
 
-// 			<Route path="/emptypage" element={<EmptyPage />} />
-// 			<Route path="/createtheme" element={<CreateTheme />} />
+//             <Route path="/emptypage" element={<EmptyPage />} />
+//             <Route path="/createtheme" element={<CreateTheme />} />
 
 export default router;

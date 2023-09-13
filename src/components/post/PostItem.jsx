@@ -8,20 +8,15 @@ PostItem.propTypes = {
 	date: string,
 	id: string,
 	content: string,
-	// onDelete: PropTypes.func.isRequired,
 };
 
-function PostItem({ id, title, author, content /*onDelete*/ }) {
+function PostItem({ id, title, author, content }) {
 	const shortContent =
 		content.length > 85 ? `${content.substring(0, 85)}...` : content;
-	// const [isClicked, setIsClicked] = useState(false);
-	// const handleDelete = () => {
-	//     onDelete();
-	// };
 
 	return (
 		<Link to={id}>
-			<div className="text-ec1 border  max-h-[105px] p-4 mb-6 rounded-xl flex flex-col m-auto">
+			<div className="text-ec1 border-2  max-h-[105px] p-4 mb-6 rounded-xl flex flex-col m-auto">
 				<div className="flex justify-between border-b-[1px] mb-4 pb-2">
 					<p className="whitespace-nowrap overflow-hidden text-ellipsis">
 						{title}
