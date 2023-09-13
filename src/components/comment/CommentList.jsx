@@ -12,7 +12,6 @@ CommentList.propTypes = {
 };
 
 function CommentList({ comments }) {
-	console.log(comments);
 	return (
 		<div className="w-full s:px-12 px-20">
 			{comments.map((comment) => (
