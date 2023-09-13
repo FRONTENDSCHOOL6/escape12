@@ -1,4 +1,3 @@
-```
 import Button from '@/components/Button';
 import Headerback from '@/components/Headerback';
 import Nav from '@/components/Nav';
@@ -70,4 +69,3 @@ function UploadRecord() {
 }
 
 export default UploadRecord;
-```
