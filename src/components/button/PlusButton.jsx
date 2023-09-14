@@ -12,10 +12,10 @@ function PlusButton({ onClick, src, alt, location, hidden = {} }) {
 	return (
 		<button
 			type="button"
-			className={`s:w-14 w-16 h-16 text-center bg-ec1 rounded-full text-6xl font-semibold p-1 absolute ${location} ${hidden}`}
+			className={`s:w-14 w-14 h-14 flex items-center justify-center bg-ec1 border-1 rounded-full text-6xl font-semibold absolute ${location} ${hidden}`}
 			onClick={onClick}
 		>
-			<img src={src} alt={alt} aria-hidden />
+			<img className="w-8" src={src} alt={alt} aria-hidden />
 		</button>
 	);
 }

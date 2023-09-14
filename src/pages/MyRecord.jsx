@@ -1,7 +1,7 @@
 import pb from '@/api/pockethost';
-import Headerback from '@/components/Headerback';
-import SearchInput from '@/components/SearchInput';
-import UpNav from '@/components/UpNav';
+import Headerback from '@/components/header/Headerback';
+import SearchInput from '@/components/input/SearchInput';
+import UpNav from '@/components/nav/UpNav';
 import MyRecordItem from '@/components/mypage/MyRecordItem';
 import debounce from '@/utils/debounce';
 import { useEffect, useState } from 'react';

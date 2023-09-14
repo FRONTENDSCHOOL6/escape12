@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import PostList from '@/components/post/PostList';
 import { Helmet } from 'react-helmet-async';
-import Header from '@/components/Header';
-import SearchInput from '@/components/SearchInput';
+import Header from '@/components/header/Header';
+import SearchInput from '@/components/input/SearchInput';
 import pb from '@/api/pockethost';
-import PlusNav from '@/components/PlusNav';
+import PlusNav from '@/components/nav/PlusNav';
 import { useNavigate } from 'react-router-dom';
 
 pb.autoCancellation(false);

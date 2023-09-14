@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async';
-import Nav from '@/components/Nav';
+import Nav from '@/components/nav/Nav';
 // import CommentList from '@/components/CommentList';
 import CommentList from '@/components/comment/CommentList';
 import Post from '@/components/comment/Post';
-import Headerback from '@/components/Headerback';
-import SmallButton from '@/components/SmallButton';
+import Headerback from '@/components/header/Headerback';
+import SmallButton from '@/components/button/SmallButton';
 import { useRef } from 'react';
 import pb from '@/api/pockethost';
 import { useState } from 'react';

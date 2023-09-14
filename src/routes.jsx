@@ -1,4 +1,4 @@
-import ProtectRoute from '@/components/ProtectRoute';
+import ProtectRoute from '@/contexts/ProtectRoute';
 import Empty from '@/layout/Empty';
 import Escape from '@/layout/Escape';
 import AddCommunity from '@/pages/AddCommunity';

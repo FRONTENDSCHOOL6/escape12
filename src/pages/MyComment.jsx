@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import Header from '@/components/Header';
+import Header from '@/components/header/Header';
 import pb from '@/api/pockethost';
-import PlusNav from '@/components/PlusNav';
+import PlusNav from '@/components/nav/PlusNav';
 import { useNavigate } from 'react-router-dom';
 import CommentItem from '@/components/mycomment/CommentItem';
 

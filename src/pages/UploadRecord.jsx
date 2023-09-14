@@ -1,7 +1,7 @@
 import pb from '@/api/pockethost';
-import Button from '@/components/Button';
-import Headerback from '@/components/Headerback';
-import Nav from '@/components/Nav';
+import Button from '@/components/button/Button';
+import Headerback from '@/components/header/Headerback';
+import Nav from '@/components/nav/Nav';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';

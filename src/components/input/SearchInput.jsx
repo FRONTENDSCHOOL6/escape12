@@ -1,5 +1,5 @@
 import { string, func } from 'prop-types';
-import SmallButton from './SmallButton';
+import SmallButton from '../button/SmallButton';
 
 SearchInput.propTypes = {
 	placeholder: string,
