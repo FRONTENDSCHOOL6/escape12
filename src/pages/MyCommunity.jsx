@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
-import Header from '@/components/header/Header';
 import pb from '@/api/pockethost';
-import PlusNav from '@/components/nav/PlusNav';
-import { useNavigate } from 'react-router-dom';
+import HeaderRecord from '@/components/header/HeaderRecord';
 import Community from '@/components/mycommunity/CommunityItem';
+import UpNav from '@/components/nav/UpNav';
+import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 
 pb.autoCancellation(false);
 
@@ -75,14 +75,15 @@ function Mycommunity() {
 			</Helmet>
 
 			<div className="w-full max-w-[600px] min-w-[320px] py-20 bg-ec4 flex flex-col items-center min-h-[100vh] m-auto gap-14">
-				<Header>내가쓴커뮤글</Header>
+				<HeaderRecord pencilClick={handleRecordButton}>
+					나의 커뮤니티
+				</HeaderRecord>
 
 				<div className="min-w-[300px] w-full s:px-12 px-20">
 					<Community />
 				</div>
-				<PlusNav
+				<UpNav
 					topClick={handleTopButton}
-					pencilClick={handleRecordButton}
 					hidden={!showPlusNav ? 'hidden' : ''}
 				/>
 			</div>
