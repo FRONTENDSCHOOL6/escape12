@@ -48,7 +48,13 @@ function ThemeItem({
 					<h2 className="s:max-w-[90px] max-w-[170px] whitespace-nowrap overflow-hidden text-ellipsis text-2xl s:text-lg font-semibold">
 						{theme}
 					</h2>
-					<Span>평점 ⭐{grade}</Span>
+					<Span>
+						{grade === 0 || grade === 1 || grade === 2 || grade === 3
+							? '😱흙길'
+							: grade === 4 || grade === 5 || grade === 6 || grade === 7
+							? '🌿풀길'
+							: '🌸꽃길'}
+					</Span>
 				</section>
 				<section className="flex gap-3">
 					<div className="flex gap-1">
