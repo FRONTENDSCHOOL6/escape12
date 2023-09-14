@@ -3,6 +3,7 @@ import Button from '@/components/Button';
 import Nav from '@/components/Nav';
 import Headerback from '@/components/HeaderBack';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import FormInput from '@/components/loginsignup/FormInput';
 
 function Editpage() {
@@ -53,8 +54,7 @@ function Editpage() {
             onClick={() => { navigate('/mypage'); }} bg='bg-ec1'
             text='text-ec4 mt-4'>저장</Button>
           <footer className='mt-auto py-1'>
-            <em><a href="https://github.com/FRONTENDSCHOOL6/escape12">Copyright &copy; 2023 김건주, 김남진, 조수연
-            </a></em>
+            <em><Link to="https://github.com/FRONTENDSCHOOL6/escape12/"target="_blank" rel="noopenner noreferrer">Copyright &copy; 2023 김건주, 김남진, 조수연</Link></em>
           </footer>
         </div>
       </div>
@@ -64,3 +64,4 @@ function Editpage() {
 }
 
 export default Editpage;
+
