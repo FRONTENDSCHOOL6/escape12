@@ -12,8 +12,8 @@ import MyComment from '@/pages/MyComment';
 import MyCommunity from '@/pages/MyCommunity';
 import MyRecord from '@/pages/MyRecord';
 import Mypage from '@/pages/Mypage';
-import RecordPage from '@/pages/RecordPage';
 import PostPage from '@/pages/PostPage';
+import RecordPage from '@/pages/RecordPage';
 import SignUp from '@/pages/SignUp';
 import Theme from '@/pages/Theme';
 import ThemeRecord from '@/pages/ThemeRecord';
@@ -40,23 +40,20 @@ const router = createBrowserRouter([
 		),
 		children: [
 			{ path: '/theme', element: <Theme /> },
-			{ path: '/theme/:dataId', element: <ThemeRecord /> },
-			{ path: '/Mycommunity', element: <MyCommunity /> },
-			{ path: '/MyComment', element: <MyComment /> },
 			{ path: '/recordpage', element: <RecordPage /> },
+			{ path: '/theme/:dataId', element: <ThemeRecord /> },
 			{ path: '/upload/:dataId', element: <UploadRecord /> },
-			{ path: '/mypage', element: <Mypage /> },
 			{ path: '/postpage', element: <PostPage /> },
 			{ path: '/addcommunity', element: <AddCommunity /> },
-			{ path: '/editpage', element: <Editpage /> },
 			{ path: '/postpage/:dataId', element: <CommentPage /> },
+			{ path: '/mypage', element: <Mypage /> },
+			{ path: '/editpage', element: <Editpage /> },
 			{ path: '/myrecord', element: <MyRecord /> },
+			{ path: '/mycommunity', element: <MyCommunity /> },
+			{ path: '/mycomment', element: <MyComment /> },
 			{ path: '/bookmark', element: <BookMark /> },
 		],
 	},
 ]);
-
-//             <Route path="/emptypage" element={<EmptyPage />} />
-//             <Route path="/createtheme" element={<CreateTheme />} />
 
 export default router;

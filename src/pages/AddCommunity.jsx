@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Button from '@/components/Button';
 import Nav from '@/components/Nav';
+import Sup from '@/components/record/Sup';
 import Headerback from '@/components/Headerback';
 import FormInput from '@/components/loginsignup/FormInput';
 import { useNavigate } from 'react-router-dom';
@@ -59,11 +60,9 @@ function AddCommunity() {
 				>
 					글 작성
 				</Headerback>
-				<form className="text-center" onSubmit={handleDateCrate}>
+				<form onSubmit={handleDateCrate} className="flex flex-col items-center">
 					<div className="text-lg pt-28 s:px-12 px-14">
 						{/* Title, Content */}
-						<div className="flex flex-col space-y-2 text-center">
-							<div className="mr-5">
 								<FormInput
 									type="text"
 									id="title"
@@ -71,9 +70,8 @@ function AddCommunity() {
 									onChange={handleTitle}
 									placeholder="제목을 입력해주세요."
 								>
-									제목<sup className="text-red"> *</sup>
+									<Sup>제목</Sup>
 								</FormInput>
-							</div>
 							<p className="flex justify-end mb-3 text-lg">
 								{currentDate.toLocaleDateString()}
 							</p>
@@ -85,7 +83,6 @@ function AddCommunity() {
 								className="w-full h-80 p-4 text-ec4 border rounded-lg"
 							/>
 						</div>
-					</div>
 					<Button type="submit" bg="bg-ec1 text-center" text="text-ec4 mt-4">
 						등록
 					</Button>

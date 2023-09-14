@@ -18,13 +18,13 @@ function PlusNav({ topClick, pencilClick, hidden }) {
 				src={top}
 				alt="위로가기"
 				hidden={hidden}
-				location="right-4 bottom-40"
+				location="right-4 bottom-44"
 			/>
 			<PlusButton
 				onClick={pencilClick}
 				src={pencil}
 				alt="기록하기"
-				location="right-4 bottom-20"
+				location="right-4 bottom-24"
 			/>
 			<Nav />
 		</div>

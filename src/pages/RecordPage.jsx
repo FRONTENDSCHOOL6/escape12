@@ -110,7 +110,7 @@ function RecordPage() {
 			<Helmet>
 				<title>클리어</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto text-lg py-16 relative">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto text-lg pt-16">
 				{/* header, headerback 맨 위 고정 */}
 				<Headerback
 					onClick={() => {
@@ -145,13 +145,14 @@ function RecordPage() {
 						{/* 날짜, 평점, 남은시간 정렬 */}
 						<div className="flex text-ec1 px-2 gap-5">
 							<label htmlFor="date" className="w-32 s:min-w-fit">
-								날짜
+								<Sup>날짜</Sup>
 							</label>
 							<input
 								type="date"
 								id="date"
 								defaultValue={date}
 								onChange={debounceDate}
+								required
 								className="w-[200px] s:w-[90%] text-ec4 text-center"
 							/>
 						</div>
@@ -217,13 +218,15 @@ function RecordPage() {
 							</div>
 						</div>
 					</fieldset>
-					<div>
+					<div className="relative">
 						<TextArea
 							value={content}
 							onChange={handleContentChange}
 							placeholder="후기를 작성해주세요 😀"
 						/>
-						<p className="text-right">{length}/ 250</p>
+						<p className="text-right absolute -bottom-5 right-0">
+							{length}/ 250
+						</p>
 					</div>
 					<Button bg="bg-ec1 text-center" text="text-ec4 m-auto" type="submit">
 						등록
