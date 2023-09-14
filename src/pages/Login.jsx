@@ -82,7 +82,7 @@ function Login() {
 			<Helmet>
 				<title>로그인</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center h-screen m-auto">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center h-screen m-auto text-lg">
 				<KeyLogo />
 				<form
 					onSubmit={handleLogin}
