@@ -115,7 +115,7 @@ function RecordPage() {
 					클리어
 				</Headerback>
 				<form
-					className="flex flex-col gap-6 py-5 s:py-2"
+					className="flex flex-col gap-6 py-5 s:py-2 mb-24"
 					onSubmit={handleSubmitRecord}
 				>
 					<fieldset className="flex flex-col gap-7">
@@ -203,7 +203,7 @@ function RecordPage() {
 								accept="*.jpg,*.png,*.webp,*.avif"
 								multiple
 							/>
-							<div className="h-[140px] bg-opacity p-2 rounded-lg border border-ec1">
+							<div className="h-[140px] bg-opacity p-2 rounded-lg border-2 border-ec1">
 								<img
 									ref={uploadPhotoRef}
 									className="h-full"
@@ -227,8 +227,8 @@ function RecordPage() {
 						등록
 					</Button>
 				</form>
+				<Nav />
 			</div>
-			<Nav />
 		</>
 	);
 }

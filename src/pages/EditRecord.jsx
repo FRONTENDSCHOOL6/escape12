@@ -161,7 +161,7 @@ function EditRecord() {
 				)}
 				{isLoading && (
 					<form
-						className="flex flex-col gap-6 py-5 s:py-2"
+						className="flex flex-col gap-6 py-10 s:mx-5 mb-12 mt-2"
 						onSubmit={handleEditRecord}
 					>
 						<fieldset className="flex flex-col gap-7">

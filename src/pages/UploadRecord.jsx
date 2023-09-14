@@ -134,7 +134,7 @@ function UploadRecord() {
 						<section className="w-full">
 							<ul className="flex justify-between pb-4 font-semibold">
 								<li>
-									⭐{' '}
+									⭐
 									{!data.grade && data.grade !== 0
 										? data.expand?.escapeList.grade
 										: data.grade}
