@@ -35,7 +35,7 @@ function Nav() {
 				</li>
 				<li>
 					<NavLink
-						to="/recordpage"
+						to="/myrecord"
 						className={`text-ec1 hover:text-ec5 ${
 							isRecordPageActive || isThemeRecordActive || isUploadRecordActive
 								? 'text-ec5'
