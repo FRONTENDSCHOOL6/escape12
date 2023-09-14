@@ -71,7 +71,7 @@ function ThemeItem({
 							기록하기
 						</SmallButton>
 					</Link>
-					<Link to={link} target="_blank">
+					<Link to={link} target="_blank" rel="noopenner noreferrer">
 						<SmallButton bg="bg-ec1 s:text-xs s:p-1">예약하기</SmallButton>
 					</Link>
 				</section>
