@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Span from './Span';
 import HeartButton from './HeartButton';
+import MedalButton from '../button/MedalButton';
 
 ThemeItem.propTypes = {
 	store: string,
@@ -19,6 +20,8 @@ ThemeItem.propTypes = {
 	dataid: string,
 	heart: bool,
 	toggleHeart: func,
+	clear: bool,
+	record: string,
 };
 
 function ThemeItem({
@@ -31,6 +34,8 @@ function ThemeItem({
 	link,
 	field,
 	dataid,
+	clear,
+	record,
 }) {
 	const [heart, setHeart] = useState(false);
 
@@ -72,11 +77,17 @@ function ThemeItem({
 					) : (
 						<SmallButton bg="bg-sweetred s:p-1 s:text-xs">♣ 어려움</SmallButton>
 					)}
-					<Link to={dataid}>
-						<SmallButton bg="bg-ec3" text="text-ec1 s:text-xs s:p-1">
-							기록하기
-						</SmallButton>
-					</Link>
+					{!clear ? (
+						<Link to={dataid}>
+							<SmallButton bg="bg-ec3" text="text-ec1 s:text-xs s:p-1">
+								기록하기
+							</SmallButton>
+						</Link>
+					) : (
+						<Link to={`/upload/${record}`}>
+							<MedalButton theme={theme} />
+						</Link>
+					)}
 					<Link to={link} target="_blank" rel="noopenner noreferrer">
 						<SmallButton bg="bg-ec1 s:text-xs s:p-1">예약하기</SmallButton>
 					</Link>

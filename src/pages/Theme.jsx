@@ -312,6 +312,8 @@ function Theme() {
 										link={item.link}
 										field={item.field}
 										dataid={item.id}
+										clear={item.clear}
+										record={item.record}
 									/>
 								</li>
 							);

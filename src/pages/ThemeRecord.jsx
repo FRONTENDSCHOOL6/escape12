@@ -92,8 +92,9 @@ function ThemeRecord() {
 			const result = await pb.collection('record').create(themeRecord);
 
 			const themeClear = {
-				record: `${result.id}`,
+				record: [`${result.id}`],
 				clear: true,
+				users: [`${userUId?.model.id}`],
 			};
 
 			await pb.collection('escapeList').update(`${dataId}`, themeClear);
