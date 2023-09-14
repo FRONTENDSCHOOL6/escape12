@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 function CommentPage() {
-	const [data, setData] = useState(null);
+	const [data, setData] = useState([]);
 	const { dataId } = useParams();
 
 	const formRef = useRef(null);
@@ -27,8 +27,6 @@ function CommentPage() {
 	const handleComment = async (e) => {
 		e.preventDefault();
 
-		// const authorValue = authorRef.current.value;
-
 		// console.log(contentValue);
 		// 	// if (!authorValue && contentValue) {
 		// 	// 	toast('작성자, 댓글을 입력해주세요😀', {
@@ -41,9 +39,10 @@ function CommentPage() {
 
 		// 	// return;
 		// 	// }
+		const authorValue = authorRef.current.value;
 		const contentValue = contentRef.current.value;
 
-		// formData.append('author', authorValue);
+		formData.append('author', authorValue);
 		formData.append('content', contentValue);
 
 		try {
@@ -64,7 +63,6 @@ function CommentPage() {
 			const record = await pb.collection('community').getOne(`${dataId}`, {
 				expand: 'comment,author',
 			});
-
 			try {
 				setData(record);
 			} catch (err) {
@@ -74,6 +72,7 @@ function CommentPage() {
 		dataList();
 	}, [dataId]);
 
+	console.log(data);
 	return (
 		<>
 			<Helmet>
@@ -88,7 +87,7 @@ function CommentPage() {
 					{data && (
 						<Post
 							title={data.title}
-							author={data.expand.author.nickName}
+							author={data.expand?.author?.nickName}
 							content={data.content}
 						/>
 					)}
@@ -130,7 +129,7 @@ function CommentPage() {
 				</form>
 				{/* 댓글 리스트 */}
 				{/* 각각의 댓글을 컴포넌트 보여주는 코드 (서버연결?)*/}
-				{data && <CommentList comments={data.expand?.comment} />}
+				{data && <CommentList comments={data} />}
 				<Nav />
 			</div>
 		</>
