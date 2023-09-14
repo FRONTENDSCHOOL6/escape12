@@ -166,6 +166,27 @@ function Theme() {
 		regionHongDae();
 	};
 
+	//지역별 건대 정렬하기
+	const handleKonkuk = () => {
+		setIsLoading(false);
+
+		const regionHongDae = async () => {
+			const konkuk = await pb.collection('escapeList').getFullList({
+				filter: 'region = "건대"',
+			});
+
+			try {
+				setTimeout(() => {
+					setData(konkuk);
+					setIsLoading(true);
+				});
+			} catch (err) {
+				console.log(`에러 내용: ${err}`);
+			}
+		};
+		regionHongDae();
+	};
+
 	//검색 기능
 	const handleSearch = (e) => {
 		setIsLoading(false);
@@ -229,12 +250,15 @@ function Theme() {
 				>
 					검색
 				</SearchInput>
-				<ul className="text-ec1 text-lg flex justify-end w-full pr-20 gap-8 s:justify-center s:pr-0 s:gap-5">
+				<ul className="text-ec1 text-lg flex justify-center w-full gap-8 s:justify-center s:pr-0 s:gap-5">
 					<li>
 						<LiButton onClick={handleGangnam}>강남</LiButton>
 					</li>
 					<li>
 						<LiButton onClick={handleHongDae}>홍대</LiButton>
+					</li>
+					<li>
+						<LiButton onClick={handleKonkuk}>건대</LiButton>
 					</li>
 					<li>
 						<LiButton onClick={handleLevelSort}>
