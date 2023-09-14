@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-import Button from '@/components/Button';
-import Nav from '@/components/Nav';
-import Header from '@/components/Header';
+import Button from '@/components/button/Button';
+import Nav from '@/components/nav/Nav';
+import Header from '@/components/header/Header';
 import { useNavigate, Link } from 'react-router-dom';
 import Spinner from '@/components/Spinner';
 import { useState } from 'react';

@@ -1,6 +1,6 @@
 import pb from '@/api/pockethost';
-import Header from '@/components/Header';
-import Nav from '@/components/Nav';
+import Header from '@/components/header/Header';
+import Nav from '@/components/nav/Nav';
 import { Helmet } from 'react-helmet-async';
 
 function CreateTheme() {

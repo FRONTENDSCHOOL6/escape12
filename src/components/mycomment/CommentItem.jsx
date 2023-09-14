@@ -1,5 +1,5 @@
 import { string } from 'prop-types';
-import SmallButton from '../SmallButton';
+import SmallButton from '../button/SmallButton';
 
 CommentItem.propTypes = {
 	content: string,

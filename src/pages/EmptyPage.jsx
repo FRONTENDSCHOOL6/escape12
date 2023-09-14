@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import Header from '@/components/Header';
-import Nav from '@/components/Nav';
+import Header from '@/components/header/Header';
+import Nav from '@/components/nav/Nav';
 import EmptyContents from '@/components/EmptyContents';
 
 function Empty() {
