@@ -18,6 +18,7 @@ import SignUp from '@/pages/SignUp';
 import Theme from '@/pages/Theme';
 import ThemeRecord from '@/pages/ThemeRecord';
 import UploadRecord from '@/pages/UploadRecord';
+import EditRecord from '@/pages/EditRecord';
 import { createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
 			{ path: '/recordpage', element: <RecordPage /> },
 			{ path: '/theme/:dataId', element: <ThemeRecord /> },
 			{ path: '/upload/:dataId', element: <UploadRecord /> },
+			{ path: '/theme/edit/:dataId', element: <EditRecord /> },
 			{ path: '/postpage', element: <PostPage /> },
 			{ path: '/addcommunity', element: <AddCommunity /> },
 			{ path: '/postpage/:dataId', element: <CommentPage /> },
