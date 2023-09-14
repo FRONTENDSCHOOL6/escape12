@@ -198,14 +198,22 @@ function Theme() {
 
 		const escapeSearch = async () => {
 			const resultList = await pb.collection('escapeList').getList(1, 200, {
-				filter: `(store ~ "${e.target.value}" || theme ~ "${e.target.value}" || field ~ "${e.target.value}")`,
+				filter: `(store ~ "${e.target.value}" || theme ~ "${
+					e.target.value
+				}" || field ~ "${e.target.value}" || grade ~ "${
+					e.target.value === '꽃길'
+						? 8 || 9 || 10
+						: e.target.value === '풀길'
+						? 4 && 5 && 6 && 7
+						: e.target.value === '흙길'
+						? 1 && 2 && 3
+						: '없음'
+				}")`,
 			});
 
 			const data = await pb.collection('escapeList').getList(1, 200, {
 				expand: 'store, point, field, grade, level, image, link',
 			});
-
-			setIsLoading(true);
 
 			try {
 				if (resultList.items.length > 0) {
@@ -236,6 +244,11 @@ function Theme() {
 	};
 	const debounceSearch = debounce((e) => handleSearch(e));
 
+	// 검색 버튼
+	const handleSubmitButton = (e) => {
+		e.preventDefault();
+	};
+
 	return (
 		<>
 			<Helmet>
@@ -247,6 +260,7 @@ function Theme() {
 					placeholder="검색어를 입력해주세요 😀"
 					value={search}
 					onChange={debounceSearch}
+					onSubmit={handleSubmitButton}
 				>
 					검색
 				</SearchInput>
