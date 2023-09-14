@@ -20,10 +20,11 @@ function EditRecord() {
 	const [store, setStore] = useState('');
 	const [date, setDate] = useState('');
 	const [grade, setGrade] = useState(0);
-	const [hour, setHour] = useState('');
-	const [minute, setMinute] = useState('');
-	const [content, setContent] = useState('');
+	const [hour, setHour] = useState(0);
+	const [minute, setMinute] = useState(0);
 	const [length, setLength] = useState(0);
+	const [content, setContent] = useState('');
+	const [escapeList, setEscapeList] = useState(false);
 	const photoRef = useRef(`${data.expand?.escapeList?.image}`);
 	const uploadPhotoRef = useRef(null);
 
@@ -88,6 +89,11 @@ function EditRecord() {
 				setHour(Number(record.hour));
 				setMinute(Number(record.minute));
 				setContent(record.content);
+				{
+					record.expand?.escapeList
+						? setEscapeList(true)
+						: setEscapeList(false);
+				}
 			} catch (err) {
 				console.log(`불러오기에러: ${err}`);
 			}
@@ -103,13 +109,13 @@ function EditRecord() {
 			theme: theme,
 			store: store,
 			date: date,
-			grade: Number(grade),
-			hour: Number(hour),
-			minute: Number(minute),
+			grade: grade,
+			hour: hour,
+			minute: minute,
 			content: content,
-			image: photoRef.current.files,
+			image: photoRef.current.files[0],
 			author: `${data.expand?.author?.id}`,
-			escapeList: `${data.expand?.escapeList?.id}`,
+			escapeList: escapeList ? `${data.expand?.escapeList?.id}` : '',
 		};
 
 		try {
@@ -124,13 +130,16 @@ function EditRecord() {
 			navigate(`/upload/${result.id}`);
 		} catch (err) {
 			console.log(`등록하기 에러: ${err}`);
+			console.log(userRecord);
 		}
 	};
 
 	return (
 		<>
 			<Helmet>
-				<title>기록 수정</title>
+				<title>
+					{!data.theme ? data.expand?.escapeList?.theme : data.theme} 기록 수정
+				</title>
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto text-lg py-16 relative">
 				<Headerback
@@ -229,7 +238,11 @@ function EditRecord() {
 								<img
 									ref={uploadPhotoRef}
 									className="h-full"
-									src={data.expand?.escapeList?.image}
+									src={
+										!data.image
+											? data.expand?.escapeList?.image
+											: `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.image}`
+									}
 									alt={data.theme}
 								/>
 							</div>

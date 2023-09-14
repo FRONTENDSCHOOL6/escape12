@@ -7,7 +7,6 @@ import FormInput from '@/components/loginsignup/FormInput';
 import Select from '@/components/record/Select';
 import Sup from '@/components/record/Sup';
 import TextArea from '@/components/record/TextArea';
-import debounce from '@/utils/debounce';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
@@ -20,38 +19,31 @@ function ThemeRecord() {
 	const { dataId } = useParams();
 	const [data, setData] = useState([]);
 	const [date, setDate] = useState('');
-	const [grade, setGrade] = useState('');
+	const [grade, setGrade] = useState(0);
 	const [length, setLength] = useState(0);
-	const [time, setTime] = useState('');
-	const [minute, setMinute] = useState('');
+	const [hour, setHour] = useState(0);
+	const [minute, setMinute] = useState(0);
 	const [content, setContent] = useState('');
 
 	// 날짜 상태 관리
 	const handleDateChange = (e) => {
 		setDate(e.target.value);
 	};
-	const debounceDate = debounce((e) => handleDateChange(e), 1000);
 
 	// 평점 상태 관리
 	const handleRatingChange = (e) => {
 		setGrade(e.target.value);
 	};
-	const debounceRating = debounce((e) => handleRatingChange(e), 1000);
 
 	// 남은시간 - Hour 상태 관리
 	const handleRemainingTimeChange = (e) => {
-		setTime(e.target.value);
+		setHour(e.target.value);
 	};
-	const debounceHour = debounce((e) => handleRemainingTimeChange(e), 1000);
 
 	// 남은시간 - Minute 상태 관리
 	const handleRemainingTimeMinuteChange = (e) => {
 		setMinute(e.target.value);
 	};
-	const debounceMinute = debounce(
-		(e) => handleRemainingTimeMinuteChange(e),
-		1000
-	);
 
 	// 후기 상태 관리
 	const handleContentChange = (e) => {
@@ -82,9 +74,9 @@ function ThemeRecord() {
 				theme: `${data.theme}`,
 				store: `${data.store}`,
 				date: date,
-				grade: Number(grade),
-				hour: Number(time),
-				minute: Number(minute),
+				grade: grade,
+				hour: hour,
+				minute: minute,
 				content: content,
 				author: `${userUId?.model.id}`,
 				escapeList: `${dataId}`,
@@ -136,7 +128,7 @@ function ThemeRecord() {
 								type="date"
 								id="date"
 								defaultValue={date}
-								onChange={debounceDate}
+								onChange={handleDateChange}
 								required
 								className="w-[200px] s:w-[90%] text-ec4 text-center"
 							/>
@@ -148,7 +140,7 @@ function ThemeRecord() {
 							<Select
 								id="grade"
 								name="grade"
-								onChange={debounceRating}
+								onChange={handleRatingChange}
 								max={10}
 								defaultValue={grade}
 								required
@@ -163,8 +155,8 @@ function ThemeRecord() {
 								<Select
 									id="clearTime"
 									name="hour"
-									defaultValue={time}
-									onChange={debounceHour}
+									defaultValue={hour}
+									onChange={handleRemainingTimeChange}
 									max={1}
 								/>
 								:
@@ -172,7 +164,7 @@ function ThemeRecord() {
 									id="clearTime"
 									name="minute"
 									defaultValue={minute}
-									onChange={debounceMinute}
+									onChange={handleRemainingTimeMinuteChange}
 									max={59}
 								/>
 								LEFT
