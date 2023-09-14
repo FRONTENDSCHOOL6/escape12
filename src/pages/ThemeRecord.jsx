@@ -1,17 +1,19 @@
 import pb from '@/api/pockethost';
 import userUId from '@/api/userUid';
+import Spinner from '@/components/Spinner';
 import Button from '@/components/button/Button';
 import Headerback from '@/components/header/Headerback';
 import Nav from '@/components/nav/Nav';
-import FormInput from '@/components/loginsignup/FormInput';
-import Select from '@/components/record/Select';
-import Sup from '@/components/record/Sup';
+import Date from '@/components/record/Date';
+import Grade from '@/components/record/Grade';
+import PhotoImage from '@/components/record/PhotoImage';
+import RemainingTime from '@/components/record/RemainingTime';
 import TextArea from '@/components/record/TextArea';
+import ValueThemeStore from '@/components/record/ValueThemeStore';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
-import Spinner from '@/components/Spinner';
 
 pb.autoCancellation(false);
 
@@ -20,10 +22,10 @@ function ThemeRecord() {
 	const { dataId } = useParams();
 	const [data, setData] = useState([]);
 	const [date, setDate] = useState('');
-	const [grade, setGrade] = useState(0);
-	const [length, setLength] = useState(0);
-	const [hour, setHour] = useState(0);
-	const [minute, setMinute] = useState(0);
+	const [grade, setGrade] = useState('');
+	const [length, setLength] = useState('');
+	const [hour, setHour] = useState('');
+	const [minute, setMinute] = useState('');
 	const [content, setContent] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -122,82 +124,24 @@ function ThemeRecord() {
 						onSubmit={handleSubmitRecord}
 					>
 						<fieldset className="flex flex-col gap-7">
-							<FormInput name="theme" value={data.theme} maxLength="20">
-								<Sup>테마명</Sup>
-							</FormInput>
-							<FormInput name="store" value={data.store} maxLength="20">
-								<Sup>업체명</Sup>
-							</FormInput>
-							{/* 날짜, 평점, 남은시간 정렬 */}
-							<div className="flex text-ec1 px-2 gap-5">
-								<label htmlFor="date" className="w-32 s:min-w-fit">
-									<Sup>날짜</Sup>
-								</label>
-								<input
-									type="date"
-									id="date"
-									defaultValue={date}
-									onChange={handleDateChange}
-									required
-									className="w-[200px] s:w-[90%] text-ec4 text-center"
-								/>
-							</div>
-							<div className="flex gap-5 text-ec1 relative px-2">
-								<label htmlFor="grade" className="w-32 s:min-w-fit">
-									<Sup>평점</Sup>
-								</label>
-								<Select
-									id="grade"
-									name="grade"
-									onChange={handleRatingChange}
-									max={10}
-									defaultValue={grade}
-									required
-								/>
-								<span className="s:min-w-fit">/ 10</span>
-							</div>
-							<div className="flex gap-5 text-ec1 relative px-2">
-								<label htmlFor="clearTime" className="w-32 s:min-w-fit">
-									남은 시간
-								</label>
-								<div className="flex gap-2">
-									<Select
-										id="clearTime"
-										name="hour"
-										defaultValue={hour}
-										onChange={handleRemainingTimeChange}
-										max={1}
-									/>
-									:
-									<Select
-										id="clearTime"
-										name="minute"
-										defaultValue={minute}
-										onChange={handleRemainingTimeMinuteChange}
-										max={59}
-									/>
-									LEFT
-								</div>
-							</div>
-							<div className="flex flex-col gap-5 text-ec1 relative px-2">
-								<label htmlFor="image">
-									<Sup>사진</Sup>
-								</label>
-								<div className="h-[140px] bg-opacity p-2 rounded-lg border-2 border-ec1">
-									<img className="h-full" src={data.image} alt={data.theme} />
-								</div>
-							</div>
-						</fieldset>
-						<div className="relative">
-							<TextArea
-								value={content}
-								onChange={handleContentChange}
-								placeholder="후기를 작성해주세요 😀"
+							<ValueThemeStore theme={data.theme} store={data.store} />
+							<Date dateValue={date} onChange={handleDateChange} />
+							<Grade grade={grade} onChange={handleRatingChange} />
+							<RemainingTime
+								hour={hour}
+								hourEvent={handleRemainingTimeChange}
+								minute={minute}
+								minuteEvent={handleRemainingTimeMinuteChange}
 							/>
-							<p className="text-right absolute -bottom-5 right-0">
-								{length}/ 250
-							</p>
-						</div>
+							<PhotoImage src={data.image} alt={data.theme} />
+						</fieldset>
+						<TextArea
+							value={content}
+							onChange={handleContentChange}
+							placeholder="후기를 작성해주세요 😀"
+						>
+							{length}
+						</TextArea>
 						<Button
 							bg="bg-ec1 text-center"
 							text="text-ec4 m-auto"

@@ -100,7 +100,7 @@ function UploadRecord() {
 											: data.point}
 									</span>
 								</h3>
-								<p className="flex justify-between">
+								<div className="flex justify-between">
 									<span>
 										{!data.date ? data.expand?.escapeList.created : data.date}
 									</span>
@@ -113,7 +113,7 @@ function UploadRecord() {
 										/>
 										{data.expand?.author?.nickName}
 									</p>
-								</p>
+								</div>
 							</div>
 							<img
 								className="w-[20%] rounded-full"
@@ -123,7 +123,7 @@ function UploadRecord() {
 							/>
 						</section>
 						<img
-							className="w-[70%]"
+							className="w-[50%]"
 							src={
 								!data.image
 									? data.expand?.escapeList?.image
