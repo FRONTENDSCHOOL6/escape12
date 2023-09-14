@@ -1,5 +1,5 @@
-import Headerback from '@/components/Headerback';
-import UpNav from '@/components/UpNav';
+import Headerback from '@/components/header/Headerback';
+import UpNav from '@/components/nav/UpNav';
 import ThemeItem from '@/components/theme/ThemeItem';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';

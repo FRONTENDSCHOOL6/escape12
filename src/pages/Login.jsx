@@ -1,5 +1,5 @@
 import pb from '@/api/pockethost';
-import Button from '@/components/Button';
+import Button from '@/components/button/Button';
 import KeyLogo from '@/components/KeyLogo';
 import FormInput from '@/components/loginsignup/FormInput';
 import FormInputValid from '@/components/loginsignup/FormInputValid';

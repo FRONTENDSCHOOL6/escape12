@@ -1,9 +1,9 @@
-import SmallButton from '@/components/SmallButton';
+import SmallButton from '@/components/button/SmallButton';
 import { bool, func, number, string } from 'prop-types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import HeartButton from './Heart';
 import Span from './Span';
+import HeartButton from './HeartButton';
 
 ThemeItem.propTypes = {
 	store: string,

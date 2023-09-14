@@ -1,8 +1,8 @@
 import pb from '@/api/pockethost';
 import thumnail from '@/assets/recordpage-thumbnail.png';
-import Button from '@/components/Button';
-import Headerback from '@/components/Headerback';
-import Nav from '@/components/Nav';
+import Button from '@/components/button/Button';
+import Headerback from '@/components/header/Headerback';
+import Nav from '@/components/nav/Nav';
 import FormInput from '@/components/loginsignup/FormInput';
 import Select from '@/components/record/Select';
 import Sup from '@/components/record/Sup';
@@ -12,7 +12,7 @@ import { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-
+import userUId from '@/api/userUid';
 
 function RecordPage() {
 	const navigate = useNavigate();
@@ -21,7 +21,7 @@ function RecordPage() {
 	const [store, setStore] = useState('');
 	const [date, setDate] = useState('');
 	const [grade, setGrade] = useState(0);
-	const [time, setTime] = useState('');
+	const [hour, setHour] = useState('');
 	const [minute, setMinute] = useState('');
 	const [content, setContent] = useState('');
 	const photoRef = useRef(null);
@@ -43,28 +43,21 @@ function RecordPage() {
 	const handleDateChange = (e) => {
 		setDate(e.target.value);
 	};
-	const debounceDate = debounce((e) => handleDateChange(e), 1000);
 
 	// 평점 상태 관리
 	const handleRatingChange = (e) => {
 		setGrade(e.target.value);
 	};
-	const debounceRating = debounce((e) => handleRatingChange(e), 1000);
 
 	// 남은시간 - Hour 상태 관리
 	const handleRemainingTimeChange = (e) => {
-		setTime(e.target.value);
+		setHour(e.target.value);
 	};
-	const debounceHour = debounce((e) => handleRemainingTimeChange(e), 1000);
 
 	// 남은시간 - Minute 상태 관리
 	const handleRemainingTimeMinuteChange = (e) => {
 		setMinute(e.target.value);
 	};
-	const debounceMinute = debounce(
-		(e) => handleRemainingTimeMinuteChange(e),
-		5000
-	);
 
 	// 사진 상태 관리
 	const handleUploadPhoto = (e) => {
@@ -87,19 +80,21 @@ function RecordPage() {
 			store: store,
 			date: date,
 			grade: Number(grade),
-			hour: Number(time),
+			hour: Number(hour),
 			minute: Number(minute),
 			content: content,
+			image: photoRef.current.files[0],
+			author: `${userUId?.model.id}`,
 		};
 
 		try {
-			await pb.collection('record').create(userRecord);
+			const result = await pb.collection('record').create(userRecord);
 
 			toast('등록되었습니다 :)', {
 				icon: '💛',
 				duration: 2000,
 			});
-			navigate('/theme');
+			navigate(`/upload/${result.id}`);
 		} catch (err) {
 			console.log(`등록하기 에러: ${err}`);
 		}
@@ -151,7 +146,7 @@ function RecordPage() {
 								type="date"
 								id="date"
 								defaultValue={date}
-								onChange={debounceDate}
+								onChange={handleDateChange}
 								required
 								className="w-[200px] s:w-[90%] text-ec4 text-center"
 							/>
@@ -163,7 +158,7 @@ function RecordPage() {
 							<Select
 								id="grade"
 								name="grade"
-								onChange={debounceRating}
+								onChange={handleRatingChange}
 								max={10}
 								defaultValue={grade}
 								required
@@ -178,8 +173,8 @@ function RecordPage() {
 								<Select
 									id="clearTime"
 									name="hour"
-									defaultValue={time}
-									onChange={debounceHour}
+									defaultValue={hour}
+									onChange={handleRemainingTimeChange}
 									max={1}
 								/>
 								:
@@ -187,7 +182,7 @@ function RecordPage() {
 									id="clearTime"
 									name="minute"
 									defaultValue={minute}
-									onChange={debounceMinute}
+									onChange={handleRemainingTimeMinuteChange}
 									max={59}
 								/>
 								LEFT

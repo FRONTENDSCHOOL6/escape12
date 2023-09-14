@@ -3,7 +3,7 @@ import { element } from 'prop-types';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Spinner from './Spinner';
+import Spinner from '../components/Spinner';
 
 function ProtectRoute({ children }) {
 	const { isAuth } = useAuth();
