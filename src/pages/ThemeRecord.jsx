@@ -70,6 +70,8 @@ function ThemeRecord() {
 		dataList();
 	}, [dataId]);
 
+	console.log(data);
+
 	// 기록 등록하기 이벤트
 	const handleSubmitRecord = async (e) => {
 		e.preventDefault();
@@ -88,6 +90,13 @@ function ThemeRecord() {
 			};
 
 			const result = await pb.collection('record').create(themeRecord);
+
+			const themeClear = {
+				record: `${result.id}`,
+				clear: true,
+			};
+
+			await pb.collection('escapeList').update(`${dataId}`, themeClear);
 
 			toast('등록되었습니다 :)', {
 				icon: '💛',
