@@ -156,7 +156,7 @@ function MyRecord() {
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-screen m-auto relative pt-20 pb-28 text-lg gap-6">
 				<HeaderBackRecord
 					onClick={() => {
-						navigate('-1');
+						navigate(-1);
 					}}
 					pencilClick={handleRecordButton}
 				>
