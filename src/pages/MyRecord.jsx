@@ -133,6 +133,7 @@ function MyRecord() {
 			const records = await pb.collection('record').getFullList({
 				filter: `author = "${userUId?.model.id}"`,
 				expand: 'escapeList',
+				sort: '-created',
 			});
 
 			try {

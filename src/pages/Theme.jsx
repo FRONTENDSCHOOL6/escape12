@@ -58,6 +58,7 @@ function Theme() {
 		const dataList = async () => {
 			const record = await pb.collection('escapeList').getList(1, 200, {
 				expand: 'store, point, field, grade, level, image, link',
+				sort: 'theme',
 			});
 
 			try {
