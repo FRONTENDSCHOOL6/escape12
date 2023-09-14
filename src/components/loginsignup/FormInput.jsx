@@ -1,5 +1,6 @@
 import { func, string } from 'prop-types';
 import PropTypes from 'prop-types';
+import Sup from '../record/Sup';
 
 FormInput.propTypes = {
 	type: string,
@@ -26,7 +27,7 @@ function FormInput({
 		<>
 			<fieldset className="flex gap-5 justify-between text-ec1 relative px-2">
 				<label htmlFor={name} className="w-32 s:min-w-fit">
-					{children}
+					<Sup>{children}</Sup>
 				</label>
 				<input
 					type={type}
