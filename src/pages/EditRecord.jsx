@@ -25,7 +25,7 @@ function EditRecord() {
 	const [grade, setGrade] = useState('');
 	const [hour, setHour] = useState('');
 	const [minute, setMinute] = useState('');
-	const [length, setLength] = useState('');
+	const [length, setLength] = useState(0);
 	const [content, setContent] = useState('');
 	const [escapeList, setEscapeList] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);

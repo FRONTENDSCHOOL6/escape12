@@ -18,7 +18,7 @@ import { useNavigate } from 'react-router-dom';
 
 function RecordPage() {
 	const navigate = useNavigate();
-	const [length, setLength] = useState('');
+	const [length, setLength] = useState(0);
 	const [theme, setTheme] = useState('');
 	const [store, setStore] = useState('');
 	const [date, setDate] = useState('');

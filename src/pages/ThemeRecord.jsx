@@ -23,7 +23,7 @@ function ThemeRecord() {
 	const [data, setData] = useState([]);
 	const [date, setDate] = useState('');
 	const [grade, setGrade] = useState('');
-	const [length, setLength] = useState('');
+	const [length, setLength] = useState(0);
 	const [hour, setHour] = useState('');
 	const [minute, setMinute] = useState('');
 	const [content, setContent] = useState('');
