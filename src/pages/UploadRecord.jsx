@@ -72,14 +72,14 @@ function UploadRecord() {
 						navigate('/theme');
 					}}
 				>
-					{data.expand?.escapeList.theme || data.store}
+					{!data.store ? data.expand?.escapeList.theme : data.store}
 				</Headerback>
 				<section className="flex flex-row-reverse items-center gap-4">
 					<div className="flex flex-col flex-1 gap-3 s:gap-1">
 						<h3 className="text-2xl">
-							{data.expand?.escapeList.store || data.store}
+							{!data.store ? data.expand?.escapeList?.store : data.store}
 							<span className="ml-3 s:ml-2">
-								{data.expand?.escapeList.point}
+								{data.point ? data.expand?.escapeList.point : data.point}
 							</span>
 							점
 						</h3>
