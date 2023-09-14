@@ -16,8 +16,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 pb.autoCancellation(false);
 
 function ThemeRecord() {
-	const { dataId } = useParams();
 	const navigate = useNavigate();
+	const { dataId } = useParams();
 	const [data, setData] = useState([]);
 	const [date, setDate] = useState('');
 	const [grade, setGrade] = useState('');
@@ -63,7 +63,7 @@ function ThemeRecord() {
 	useEffect(() => {
 		const dataList = async () => {
 			const record = await pb.collection('escapeList').getOne(`${dataId}`);
-			pb.autoCancellation(false);
+
 			try {
 				setData(record);
 			} catch (err) {
@@ -79,22 +79,25 @@ function ThemeRecord() {
 
 		try {
 			const themeRecord = {
+				theme: `${data.theme}`,
+				store: `${data.store}`,
 				date: date,
 				grade: Number(grade),
 				hour: Number(time),
 				minute: Number(minute),
 				content: content,
 				author: `${userUId?.model.id}`,
-				escapeList: `${data.id}`,
+				escapeList: `${dataId}`,
 			};
 
-			await pb.collection('record').create(themeRecord);
+			const result = await pb.collection('record').create(themeRecord);
 
 			toast('등록되었습니다 :)', {
 				icon: '💛',
 				duration: 2000,
 			});
-			// navigate(`/upload/:dataId`);
+
+			navigate(`/upload/${result.id}`);
 		} catch (err) {
 			console.log(`등록하기 에러: ${err}`);
 		}
@@ -105,7 +108,7 @@ function ThemeRecord() {
 			<Helmet>
 				<title>테마 클리어</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto relative py-16 text-lg">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto relative pt-16 text-lg">
 				<Headerback
 					onClick={() => {
 						navigate('/theme');
@@ -127,13 +130,14 @@ function ThemeRecord() {
 						{/* 날짜, 평점, 남은시간 정렬 */}
 						<div className="flex text-ec1 px-2 gap-5">
 							<label htmlFor="date" className="w-32 s:min-w-fit">
-								날짜
+								<Sup>날짜</Sup>
 							</label>
 							<input
 								type="date"
 								id="date"
 								defaultValue={date}
 								onChange={debounceDate}
+								required
 								className="w-[200px] s:w-[90%] text-ec4 text-center"
 							/>
 						</div>
@@ -183,13 +187,15 @@ function ThemeRecord() {
 							</div>
 						</div>
 					</fieldset>
-					<div>
+					<div className="relative">
 						<TextArea
 							value={content}
 							onChange={handleContentChange}
 							placeholder="후기를 작성해주세요 😀"
 						/>
-						<p className="text-right">{length}/ 250</p>
+						<p className="text-right absolute -bottom-5 right-0">
+							{length}/ 250
+						</p>
 					</div>
 					<Button bg="bg-ec1 text-center" text="text-ec4 m-auto" type="submit">
 						등록
