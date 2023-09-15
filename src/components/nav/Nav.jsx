@@ -9,6 +9,7 @@ function Nav() {
 	const isRecordPageActive = useMatch('/recordpage');
 	const isThemeRecordActive = useMatch('/theme/:dataId');
 	const isUploadRecordActive = useMatch('/upload/:dataId');
+	const isRecordCommunityActive = useMatch('/recordcommunity');
 	const isPostPageActive = useMatch('/postpage');
 	const isAddCommunityActive = useMatch('/addcommunity');
 	const isCommentPageActive = useMatch('/postpage/:dataId');
@@ -35,9 +36,12 @@ function Nav() {
 				</li>
 				<li>
 					<NavLink
-						to="/myrecord"
+						to="/recordcommunity"
 						className={`text-ec1 hover:text-ec5 ${
-							isRecordPageActive || isThemeRecordActive || isUploadRecordActive
+							isRecordPageActive ||
+							isThemeRecordActive ||
+							isUploadRecordActive ||
+							isRecordCommunityActive
 								? 'text-ec5'
 								: ''
 						}`}
