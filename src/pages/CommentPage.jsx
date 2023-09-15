@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import Nav from '@/components/nav/Nav';
 // import CommentList from '@/components/CommentList';
-import CommentList from '@/components/comment/CommentList';
 import Post from '@/components/comment/Post';
 import Headerback from '@/components/header/Headerback';
 import SmallButton from '@/components/button/SmallButton';
@@ -124,7 +123,7 @@ function CommentPage() {
 				</form>
 				{/* 댓글 리스트 */}
 
-				{data && (
+				{comment && (
 					<div className="w-full flex flex-col pt-10 px-[15%]">
 						{comment.map((item) => {
 							return (
