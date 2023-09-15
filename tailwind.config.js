@@ -6,8 +6,8 @@ export default {
 			hob: ['SDSamliphopangche_Outline'],
 		},
 		screens: {
-			s: { min: '320px', max: '600px' },
-			m: { min: '601px', max: '1279px' },
+			s: { min: '375px', max: '640px' },
+			m: { min: '641px', max: '1279px' },
 			l: { min: '1280px' },
 		},
 		colors: {
