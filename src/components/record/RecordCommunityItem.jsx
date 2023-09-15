@@ -50,11 +50,11 @@ function RecordCommunityItem({
 				</section>
 				<section className="flex justify-between">
 					<span>
-						{record.length < 11
-							? `🫘${author}`
-							: record.length > 10 && record.length < 21
-							? `🌱${author}`
-							: `🌻${author}`}
+						{record.length < 5
+							? `🥚${author}`
+							: record.length > 6 && record.length < 11
+							? `🐤${author}`
+							: `🐔${author}`}
 					</span>
 					<Button bg="bg-ec1" text="text-ec4" onClick={handleLink}>
 						보러가기

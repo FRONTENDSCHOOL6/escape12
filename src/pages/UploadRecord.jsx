@@ -1,7 +1,6 @@
 import pb from '@/api/pockethost';
 import userUId from '@/api/userUid';
 import noImage from '@/assets/noImage.png';
-import clover from '@/assets/upload-clover.png';
 import Spinner from '@/components/Spinner';
 import Button from '@/components/button/Button';
 import CommentItem from '@/components/comment/Commentitem';
@@ -122,7 +121,7 @@ function UploadRecord() {
 		handleRecordData();
 	}, [dataId]);
 
-	console.log(comment);
+	console.log(data);
 
 	return (
 		<div>
@@ -162,13 +161,12 @@ function UploadRecord() {
 								</h3>
 								<div className="flex justify-between">
 									<p className="flex">
-										{data.expand?.author?.nickName}
-										<img
-											className="w-6 mr-1"
-											src={clover}
-											alt="회원등급"
-											aria-hidden
-										/>
+										{data.expand?.author?.record.length < 6
+											? `🥚${data.expand?.author?.nickName}`
+											: data.expand?.author?.record.length > 5 &&
+											data.expand?.author?.record.length < 11
+											? `🐤${data.expand?.author?.nickName}`
+											: `🐔${data.expand?.author?.nickName}`}
 									</p>
 									<span>
 										{!data.date ? data.expand?.escapeList.created : data.date}
