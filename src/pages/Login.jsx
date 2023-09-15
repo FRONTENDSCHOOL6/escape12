@@ -95,6 +95,7 @@ function Login() {
 								name="id"
 								onChange={debounceEmailHandler}
 								defaultValue={email}
+								hidden="text-opacity"
 							>
 								아이디(이메일)
 							</FormInput>
@@ -114,6 +115,7 @@ function Login() {
 								onChange={debouncePwHandler}
 								onClick={isClickedPwView}
 								defaultValue={password}
+								hidden="text-opacity"
 							>
 								비밀번호
 							</FormInput>

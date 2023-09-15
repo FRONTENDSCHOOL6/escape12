@@ -58,6 +58,7 @@ function Theme() {
 		const dataList = async () => {
 			const record = await pb.collection('escapeList').getList(1, 200, {
 				expand: 'store, point, field, grade, level, image, link',
+				sort: 'theme',
 			});
 
 			try {
@@ -166,6 +167,27 @@ function Theme() {
 		regionHongDae();
 	};
 
+	//지역별 건대 정렬하기
+	const handleKonkuk = () => {
+		setIsLoading(false);
+
+		const regionHongDae = async () => {
+			const konkuk = await pb.collection('escapeList').getFullList({
+				filter: 'region = "건대"',
+			});
+
+			try {
+				setTimeout(() => {
+					setData(konkuk);
+					setIsLoading(true);
+				});
+			} catch (err) {
+				console.log(`에러 내용: ${err}`);
+			}
+		};
+		regionHongDae();
+	};
+
 	//검색 기능
 	const handleSearch = (e) => {
 		setIsLoading(false);
@@ -177,14 +199,22 @@ function Theme() {
 
 		const escapeSearch = async () => {
 			const resultList = await pb.collection('escapeList').getList(1, 200, {
-				filter: `(store ~ "${e.target.value}" || theme ~ "${e.target.value}" || field ~ "${e.target.value}")`,
+				filter: `(store ~ "${e.target.value}" || theme ~ "${
+					e.target.value
+				}" || field ~ "${e.target.value}" || grade ~ "${
+					e.target.value === '꽃길'
+						? 8 || 9 || 10
+						: e.target.value === '풀길'
+						? 4 && 5 && 6 && 7
+						: e.target.value === '흙길'
+						? 1 && 2 && 3
+						: '없음'
+				}")`,
 			});
 
 			const data = await pb.collection('escapeList').getList(1, 200, {
 				expand: 'store, point, field, grade, level, image, link',
 			});
-
-			setIsLoading(true);
 
 			try {
 				if (resultList.items.length > 0) {
@@ -215,6 +245,11 @@ function Theme() {
 	};
 	const debounceSearch = debounce((e) => handleSearch(e));
 
+	// 검색 버튼
+	const handleSubmitButton = (e) => {
+		e.preventDefault();
+	};
+
 	return (
 		<>
 			<Helmet>
@@ -226,15 +261,19 @@ function Theme() {
 					placeholder="검색어를 입력해주세요 😀"
 					value={search}
 					onChange={debounceSearch}
+					onSubmit={handleSubmitButton}
 				>
 					검색
 				</SearchInput>
-				<ul className="text-ec1 text-lg flex justify-end w-full pr-20 gap-8 s:justify-center s:pr-0 s:gap-5">
+				<ul className="text-ec1 text-lg flex justify-center w-full gap-8 s:justify-center s:pr-0 s:gap-5">
 					<li>
 						<LiButton onClick={handleGangnam}>강남</LiButton>
 					</li>
 					<li>
 						<LiButton onClick={handleHongDae}>홍대</LiButton>
+					</li>
+					<li>
+						<LiButton onClick={handleKonkuk}>건대</LiButton>
 					</li>
 					<li>
 						<LiButton onClick={handleLevelSort}>
@@ -273,6 +312,8 @@ function Theme() {
 										link={item.link}
 										field={item.field}
 										dataid={item.id}
+										clear={item.clear}
+										record={item.record}
 									/>
 								</li>
 							);

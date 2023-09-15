@@ -10,6 +10,7 @@ import { ClientResponseError } from 'pocketbase';
 import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 // 아이디 유효성 검사, 이메일 형식
@@ -195,7 +196,7 @@ function SignUp() {
 								defaultValue={email}
 								placeholder="example@naver.com"
 							>
-								<Sup>아이디(이메일)</Sup>
+								아이디(이메일)
 							</FormInput>
 							<FormInputValid
 								color={!isValidEmail || isSameEmail === true ? 'text-red' : ''}
@@ -219,7 +220,7 @@ function SignUp() {
 								defaultValue={password}
 								placeholder="example123"
 							>
-								<Sup>비밀번호</Sup>
+								비밀번호
 							</FormInput>
 							<FormInputValid color={!isValidPw ? 'text-red' : ''}>
 								{!password
@@ -239,7 +240,7 @@ function SignUp() {
 								defaultValue={passwordConfirm}
 								placeholder="example123"
 							>
-								<Sup>비밀번호 확인</Sup>
+								비밀번호 확인
 							</FormInput>
 							<FormInputValid
 								color={
@@ -261,7 +262,7 @@ function SignUp() {
 								defaultValue={nickName}
 								placeholder="방탈러"
 							>
-								<Sup>닉네임</Sup>
+								닉네임
 							</FormInput>
 							<FormInputValid
 								color={
@@ -303,9 +304,14 @@ function SignUp() {
 							</div>
 						</>
 					</fieldset>
-					<Button type="submit" bg="bg-ec1 mb-10">
-						가입하기
-					</Button>
+					<div className="flex flex-col justify-center items-center">
+						<Button type="submit" bg="bg-ec1 mb-4">
+							가입하기
+						</Button>
+						<Link to="/login" className="text-ec1">
+							뒤로가기
+						</Link>
+					</div>
 				</form>
 			</div>
 		</>
