@@ -95,10 +95,10 @@ function Mypage() {
         )}
         {isLoading && (
           <div className="flex-1 flex flex-col items-center">
-            <div><img
+            <div className="w-40 h-40"><img
                 src={`https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.avatar}`}
                 alt={data.nickName} aria-hidden
-                className="w-[30%] mx-auto rounded-full"></img>
+                className="w-full h-full rounded-full"></img>
               </div>
             <ul className="s:px-12 p-8 text-xl space-y-4">
               <li>아이디 | {data.email} </li>
