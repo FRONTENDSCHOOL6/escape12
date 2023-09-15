@@ -93,7 +93,6 @@ function Mypage() {
             <Spinner />
           </div>
         )}
-
         {isLoading && (
           <div className="flex-1 flex flex-col items-center">
             <div><img
@@ -101,7 +100,7 @@ function Mypage() {
                 alt={data.nickName} aria-hidden
                 className="w-[30%] mx-auto rounded-full"></img>
               </div>
-            <ul className="s:px-12 p-12 text-xl space-y-4">
+            <ul className="s:px-12 p-8 text-xl space-y-4">
               <li>아이디 | {data.email} </li>
               <li>비밀번호 | ******** </li>
               <li>닉네임 | {data.nickName} </li>
