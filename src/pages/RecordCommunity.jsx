@@ -58,74 +58,77 @@ function RecordCommunity() {
 	}, [showPlusNav]);
 
 	// 검색 기능
-	const handleSearch = useCallback((e) => {
-		setIsLoading(false);
-		if (e.target.value.length !== 0) {
-			setSearch(e.target.value);
-		} else {
-			setSearch('');
-		}
+	const handleSearch = useCallback(
+		(e) => {
+			setIsLoading(false);
+			if (e.target.value.length !== 0) {
+				setSearch(e.target.value);
+			} else {
+				setSearch('');
+			}
 
-		const recordSearch = async () => {
-			const recordList = await pb.collection('record').getList(1, 200, {
-				sort: '-created',
-				expand: 'escapeList,author',
-				filter: `theme ~ "${e.target.value}" || author = "${
-					data.expand?.author?.nickName === e.target.value
-						? data.expand?.author?.id
-						: ''
-				}" || store ~ "${e.target.value}"|| grade = "${
-					e.target.value === '꽃길'
-						? 8 && 9 && 10
-						: e.target.value === '풀길'
-						? 4 && 5 && 6 && 7
-						: e.target.value === '흙길'
-						? 0 && 1 && 2 && 3
-						: '없음'
-				}" || grade = "${
-					e.target.value === '꽃'
-						? 8 && 9 && 10
-						: e.target.value === '풀'
-						? 4 && 5 && 6 && 7
-						: e.target.value === '흙'
-						? 0 && 1 && 2 && 3
-						: '없음'
-				}"`,
-			});
+			const recordSearch = async () => {
+				const recordList = await pb.collection('record').getList(1, 200, {
+					sort: '-created',
+					expand: 'escapeList,author',
+					filter: `theme ~ "${e.target.value}" || author = "${
+						data.expand?.author?.nickName === e.target.value
+							? data.expand?.author?.id
+							: ''
+					}" || store ~ "${e.target.value}"|| grade = "${
+						e.target.value === '꽃길'
+							? 8 && 9 && 10
+							: e.target.value === '풀길'
+							? 4 && 5 && 6 && 7
+							: e.target.value === '흙길'
+							? 0 && 1 && 2 && 3
+							: '없음'
+					}" || grade = "${
+						e.target.value === '꽃'
+							? 8 && 9 && 10
+							: e.target.value === '풀'
+							? 4 && 5 && 6 && 7
+							: e.target.value === '흙'
+							? 0 && 1 && 2 && 3
+							: '없음'
+					}"`,
+				});
 
-			const records = await pb.collection('record').getFullList({
-				sort: '-created',
-				expand: 'author, escapeList',
-			});
+				const records = await pb.collection('record').getFullList({
+					sort: '-created',
+					expand: 'author, escapeList',
+				});
 
-			try {
-				if (recordList) {
-					setData(recordList.items);
-					setEmptyData(false);
-					setIsLoading(true);
-					setNoResult(false);
-				} else if (e.target.value === 0) {
-					setTimeout(() => {
-						setData(records);
+				try {
+					if (recordList) {
+						setData(recordList.items);
 						setEmptyData(false);
 						setIsLoading(true);
 						setNoResult(false);
-					});
-				} else {
-					setTimeout(() => {
-						setEmptyData(true);
-						setData([]);
-						setIsLoading(true);
-						setNoResult(true);
-					});
+					} else if (e.target.value === 0) {
+						setTimeout(() => {
+							setData(records);
+							setEmptyData(false);
+							setIsLoading(true);
+							setNoResult(false);
+						});
+					} else {
+						setTimeout(() => {
+							setEmptyData(true);
+							setData([]);
+							setIsLoading(true);
+							setNoResult(true);
+						});
+					}
+				} catch (err) {
+					console.log(`검색 에러: ${err}`);
 				}
-			} catch (err) {
-				console.log(`검색 에러: ${err}`);
-			}
-		};
+			};
 
-		recordSearch();
-	});
+			recordSearch();
+		},
+		[data.expand?.author?.id, data.expand?.author?.nickName]
+	);
 	const debounceSearch = useMemo(
 		() => debounce((e) => handleSearch(e), 500),
 		[handleSearch]

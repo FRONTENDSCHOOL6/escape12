@@ -259,6 +259,9 @@ function Theme() {
 		e.preventDefault();
 	};
 
+
+  console.log(data);
+
 	return (
 		<>
 			<Helmet>

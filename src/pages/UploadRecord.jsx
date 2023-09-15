@@ -55,7 +55,6 @@ function UploadRecord() {
 	// 댓글 입력하기
 	const handleComment = async (e) => {
 		setCommentInput(e.target.value);
-		debounce((e) => e.target.value);
 	};
 
 	// 등록 버튼

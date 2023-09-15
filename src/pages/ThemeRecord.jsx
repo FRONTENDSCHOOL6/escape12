@@ -31,6 +31,7 @@ function ThemeRecord() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [record, setRecord] = useState([]);
 	const [escapeList, setEscapeList] = useState([]);
+	const [escapeListRecord, setEscapeListRecord] = useState([]);
 
 	// 날짜 상태 관리
 	const handleDateChange = (e) => {
@@ -62,7 +63,7 @@ function ThemeRecord() {
 	useEffect(() => {
 		const dataList = async () => {
 			const record = await pb.collection('escapeList').getOne(`${dataId}`, {
-				expand: 'users',
+				expand: 'users,record',
 			});
 
 			const userRecord = await pb
@@ -82,6 +83,7 @@ function ThemeRecord() {
 				setUsers(record.users);
 				setRecord(userRecord.record);
 				setEscapeList(userEscapeList.escapeList);
+				setEscapeListRecord(record.record);
 				setIsLoading(true);
 			} catch (err) {
 				console.log(`불러오기 내용: ${err}`);
@@ -111,6 +113,7 @@ function ThemeRecord() {
 
 			const themeClear = {
 				users: [...users, `${userUId?.model.id}`],
+				record: [...escapeListRecord, `${result.id}`],
 			};
 
 			await pb.collection('escapeList').update(`${dataId}`, themeClear);
