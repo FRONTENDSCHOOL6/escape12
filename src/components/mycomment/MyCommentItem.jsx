@@ -1,11 +1,11 @@
 import { string } from 'prop-types';
 import SmallButton from '../button/SmallButton';
 
-CommentItem.propTypes = {
+MyCommentItem.propTypes = {
 	content: string,
 };
 
-function CommentItem({ content }) {
+function MyCommentItem({ content }) {
 	const shortContent =
 		content && content.length > 8 ? `${content.substring(0, 8)}...` : content;
 
@@ -25,4 +25,4 @@ function CommentItem({ content }) {
 	);
 }
 
-export default CommentItem;
+export default MyCommentItem;

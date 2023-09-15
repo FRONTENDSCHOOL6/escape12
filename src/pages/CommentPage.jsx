@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import Nav from '@/components/nav/Nav';
 // import CommentList from '@/components/CommentList';
-import CommentList from '@/components/comment/CommentList';
 import Post from '@/components/comment/Post';
 import Headerback from '@/components/header/Headerback';
 import SmallButton from '@/components/button/SmallButton';
@@ -11,39 +10,29 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-function CommentPage() {
-	const [data, setData] = useState(null);
-	const { dataId } = useParams();
+import Commentitem from '@/components/comment/Commentitem';
 
+function CommentPage() {
+	const [data, setData] = useState([]);
+	const { dataId } = useParams();
+	const [comment, setComment] = useState([]);
+	const [nickName, setNickName] = useState(null);
 	const formRef = useRef(null);
 	const authorRef = useRef(null);
 	const contentRef = useRef(null);
 
 	// // const [author, setAuthor] = useState([]);
-	// // const [content, setContent] = useState([]);
-	const formData = new FormData();
+	// const [content, setContent] = useState([]);
 
 	// // 서버에서 불러오기
 	const handleComment = async (e) => {
 		e.preventDefault();
 
-		// const authorValue = authorRef.current.value;
-
-		// console.log(contentValue);
-		// 	// if (!authorValue && contentValue) {
-		// 	// 	toast('작성자, 댓글을 입력해주세요😀', {
-		// 	// 		icon: '📢',
-		// 	// 		// 	ariaProps: {
-		// 	// 		// 		role: 'status',
-		// 	// 		// 		'aria-live': 'polite',
-		// 	// 		//   },
-		// 	// 	});
-
-		// 	// return;
-		// 	// }
+		const authorValue = authorRef.current.value;
 		const contentValue = contentRef.current.value;
+		const formData = new FormData();
 
-		// formData.append('author', authorValue);
+		formData.append('author', authorValue);
 		formData.append('content', contentValue);
 
 		try {
@@ -53,20 +42,18 @@ function CommentPage() {
 		}
 	};
 
-	const handleReset = () => {
-		authorRef.current.value = '';
-		contentRef.current.value = '';
-		// setFileImages([]);
-	};
 	//게시글 불러오기
+	//게시글 및 댓글 정보 불러오기
 	useEffect(() => {
 		const dataList = async () => {
 			const record = await pb.collection('community').getOne(`${dataId}`, {
-				expand: 'comment,author',
+				expand: 'author,commentid',
 			});
-
+			console.log(record);
 			try {
 				setData(record);
+				setComment(record?.expand?.commentid);
+				setNickName(record?.expand?.author);
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
 			}
@@ -74,6 +61,12 @@ function CommentPage() {
 		dataList();
 	}, [dataId]);
 
+	console.log(data);
+	const handleReset = () => {
+		authorRef.current.value = '';
+		contentRef.current.value = '';
+		// setFileImages([]);
+	};
 	return (
 		<>
 			<Helmet>
@@ -88,7 +81,7 @@ function CommentPage() {
 					{data && (
 						<Post
 							title={data.title}
-							author={data.expand.author.nickName}
+							author={data.expand?.author?.nickName}
 							content={data.content}
 						/>
 					)}
@@ -129,8 +122,21 @@ function CommentPage() {
 					</button>
 				</form>
 				{/* 댓글 리스트 */}
-				{/* 각각의 댓글을 컴포넌트 보여주는 코드 (서버연결?)*/}
-				{data && <CommentList comments={data.expand?.comment} />}
+
+				{comment && (
+					<div className="w-full flex flex-col pt-10 px-[15%]">
+						{comment.map((item) => {
+							return (
+								<Commentitem
+									key={item.id}
+									author={nickName?.nickName}
+									content={item?.content}
+								/>
+							);
+						})}
+					</div>
+				)}
+
 				<Nav />
 			</div>
 		</>
@@ -138,3 +144,5 @@ function CommentPage() {
 }
 
 export default CommentPage;
+
+//data.comment && data.comment.length !== 0 &&
