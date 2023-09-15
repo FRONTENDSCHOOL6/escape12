@@ -44,10 +44,10 @@ function Nav() {
 							isRecordCommunityActive
 								? 'text-ec5'
 								: ''
-						}`}
+						} flex flex-col items-center`}
 					>
 						<img className="w-12" src={list3} alt="기록" />
-						기록
+						기록창고
 					</NavLink>
 				</li>
 				<li>
