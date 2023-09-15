@@ -28,7 +28,7 @@ function FormInput({
 	return (
 		<>
 			<fieldset className="flex gap-5 justify-between text-ec1 relative px-2">
-				<label htmlFor={name} className="w-32 s:min-w-fit">
+				<label htmlFor={name} className="w-34 s:min-w-fit">
 					<Sup hidden={hidden}>{children}</Sup>
 				</label>
 				<input
