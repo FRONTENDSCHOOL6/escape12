@@ -22,7 +22,7 @@ function UploadRecord() {
 	const [commentInput, setCommentInput] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
-	//삭제 기능
+	//게시글 삭제 기능
 	const handleDeleteRecord = async () => {
 		const deleteConfirm = confirm('정말로 삭제하시겠습니까?');
 
@@ -42,7 +42,7 @@ function UploadRecord() {
 		}
 	};
 
-	//수정 기능
+	//게시글 수정 기능
 	const handleEditRecord = () => {
 		try {
 			navigate(`/theme/edit/${dataId}`);
@@ -66,6 +66,12 @@ function UploadRecord() {
 			record: `${dataId}`,
 		};
 
+		const againCommentData = await pb.collection('comment').getList(1, 200, {
+			filter: `record = "${dataId}"`,
+			sort: '-created',
+			expand: 'author, record',
+		});
+
 		try {
 			const resultCommentData = await pb
 				.collection('comment')
@@ -84,6 +90,8 @@ function UploadRecord() {
 			});
 
 			setCommentInput('');
+			setComment(againCommentData.items);
+			location.reload();
 		} catch (err) {
 			console.log(`댓글 등록 에러: ${err}`);
 		}
@@ -93,11 +101,12 @@ function UploadRecord() {
 	useEffect(() => {
 		const handleRecordData = async () => {
 			const recordData = await pb.collection('record').getOne(`${dataId}`, {
-				expand: 'escapeList, author, comment, commentAuthor',
+				expand: 'escapeList, author',
 			});
 
 			const commentData = await pb.collection('comment').getList(1, 200, {
 				filter: `record = "${dataId}"`,
+				sort: '-created',
 				expand: 'author, record',
 			});
 
@@ -113,7 +122,7 @@ function UploadRecord() {
 		handleRecordData();
 	}, [dataId]);
 
-	console.log(data);
+	console.log(comment);
 
 	return (
 		<div>
@@ -184,7 +193,7 @@ function UploadRecord() {
 							}
 							alt={data.expand?.escapeList?.theme}
 						/>
-						<section className="w-full">
+						<section className="w-full py-2">
 							<ul className="flex justify-between pb-4 font-semibold">
 								<li>
 									⭐
@@ -205,14 +214,20 @@ function UploadRecord() {
 								{data.content}
 							</div>
 						</section>
-						<section className="w-full flex justify-between pb-3">
-							<Button bg="bg-ec1" text="text-ec4" onClick={handleDeleteRecord}>
-								삭제
-							</Button>
-							<Button bg="bg-ec1" text="text-ec4" onClick={handleEditRecord}>
-								수정
-							</Button>
-						</section>
+						{data.expand?.author?.id === `${userUId?.model.id}` && (
+							<section className="w-full flex justify-between pb-3">
+								<Button
+									bg="bg-ec1"
+									text="text-ec4"
+									onClick={handleDeleteRecord}
+								>
+									삭제
+								</Button>
+								<Button bg="bg-ec1" text="text-ec4" onClick={handleEditRecord}>
+									수정
+								</Button>
+							</section>
+						)}
 						<div className="w-full pt-4 border-t-2">
 							<SubmitInput
 								placeholder="댓글을 입력해주세요 ☺️"
@@ -228,6 +243,16 @@ function UploadRecord() {
 								{isLoading &&
 									comment &&
 									comment.map((item) => {
+										// 댓글 삭제하기
+										const handleDeleteComment = async () => {
+											const result = confirm('댓글을 삭제하시겠습니까?');
+
+											if (result) {
+												await pb.collection('comment').delete(`${item.id}`);
+												location.reload();
+											}
+										};
+
 										return (
 											<li key={item.id} className="w-full flex gap-3">
 												<CommentItem
@@ -235,6 +260,9 @@ function UploadRecord() {
 													alt={item.expand?.author?.nickName}
 													nickName={item.expand?.author?.nickName}
 													comment={item.content}
+													userId={item.expand?.author?.id}
+													id={item.id}
+													onClick={handleDeleteComment}
 												/>
 											</li>
 										);
