@@ -2,12 +2,13 @@ import { string } from 'prop-types';
 
 Sup.propTypes = {
 	children: string,
+	hidden: string,
 };
 
-function Sup({ children }) {
+function Sup({ children, hidden = 'text-red' }) {
 	return (
 		<p>
-			{children} <sup className="text-red text-lg"> *</sup>
+			{children} <sup className={`${hidden} text-lg`}> *</sup>
 		</p>
 	);
 }

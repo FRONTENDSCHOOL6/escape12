@@ -18,7 +18,7 @@ function Button({
 	return (
 		<button
 			type={type}
-			className={`text-center rounded-lg ${bg} ${text} w-32 h-8 font-semibold`}
+			className={`text-center rounded-lg ${bg} ${text} px-[10%] h-8 font-semibold`}
 			onClick={onClick}
 		>
 			{children}

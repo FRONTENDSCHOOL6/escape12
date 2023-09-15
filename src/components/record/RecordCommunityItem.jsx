@@ -1,31 +1,30 @@
 import { number, string } from 'prop-types';
-import { useNavigate } from 'react-router-dom';
 import Button from '../button/Button';
 import Span from '../theme/Span';
+import { useNavigate } from 'react-router-dom';
 
-MyRecordItem.propTypes = {
-	link: string,
-	src: string,
-	alt: string,
-	theme: string,
+RecordCommunityItem.propTypes = {
 	store: string,
+	theme: string,
 	grade: number,
+	image: string,
+	author: string,
+	link: string,
 };
 
-function MyRecordItem({ link, src, alt, theme, store, grade }) {
+function RecordCommunityItem({ store, theme, grade, image, author, link }) {
 	const navigate = useNavigate();
 
 	const handleLink = () => {
 		navigate(`/upload/${link}`);
 	};
-
 	return (
-		<figure className="mb-5 border-2 border-ec1 p-4 s:p-3 rounded-xl flex gap-3 text-ec1 text-lg s:text-base relative h-[180px]">
-			<div className=" bg-ec4 flex w-[200px]">
-				<img src={src} alt={alt} aria-hidden className="w-full" />
+		<figure className="my-4 border-2 border-ec1 p-4 s:p-3 rounded-xl flex gap-3 s:gap-[5%] text-ec1 text-lg s:text-base relative h-[180px]">
+			<div className=" bg-ec4 flex w-[50%]">
+				<img src={image} alt={theme} aria-hidden className="w-full" />
 			</div>
 			<figcaption className="flex flex-col justify-between s:justify-around w-full">
-				<section className="flex justify-between">
+				<section className="flex w-full justify-between">
 					<h2 className="s:max-w-[90px] max-w-[170px] whitespace-nowrap overflow-hidden text-ellipsis text-2xl s:text-lg font-semibold">
 						{theme}
 					</h2>
@@ -37,10 +36,11 @@ function MyRecordItem({ link, src, alt, theme, store, grade }) {
 							: '🌸꽃길'}
 					</Span>
 				</section>
-				<section className="flex justify-between">
-					<h3 className="whitespace-nowrap">{store}</h3>
+				<section className="flex gap-3">
+					<h3>{store}</h3>
 				</section>
-				<section className="text-right">
+				<section className="flex justify-between">
+					<span>{author}</span>
 					<Button bg="bg-ec1" text="text-ec4" onClick={handleLink}>
 						보러가기
 					</Button>
@@ -50,4 +50,4 @@ function MyRecordItem({ link, src, alt, theme, store, grade }) {
 	);
 }
 
-export default MyRecordItem;
+export default RecordCommunityItem;

@@ -1,28 +1,34 @@
 import pb from '@/api/pockethost';
-import userUId from '@/api/userUid';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
-import HeaderBackRecord from '@/components/header/HeaderBackRecord';
+import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
-import MyRecordItem from '@/components/mypage/MyRecordItem';
 import UpNav from '@/components/nav/UpNav';
-import debounce from '@/utils/debounce';
-import { useEffect, useState } from 'react';
+import RecordCommunityItem from '@/components/record/RecordCommunityItem';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
+import noImage from '@/assets/noImage.png';
+import debounce from '@/utils/debounce';
 
-function MyRecord() {
+function RecordCommunity() {
+	const navigate = useNavigate();
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [emptyData, setEmptyData] = useState(false);
 	const [noResult, setNoResult] = useState(false);
 	const [data, setData] = useState([]);
 	const [search, setSearch] = useState('');
-	const navigate = useNavigate();
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
 		navigate('/recordpage');
+	};
+
+	// 검색 버튼 누르기
+	const handleSubmitButton = (e) => {
+		e.preventDefault();
 	};
 
 	//스크롤탑 버튼 이벤트
@@ -63,11 +69,10 @@ function MyRecord() {
 
 		const recordSearch = async () => {
 			const recordList = await pb.collection('record').getList(1, 200, {
-				filter: `(author = "${userUId?.model.id}" && theme ~ "${
+				expand: 'escapeList,author',
+				filter: `theme ~ "${e.target.value}" || store ~ "${
 					e.target.value
-				}") || (author = "${userUId?.model.id}" && store ~ "${
-					e.target.value
-				}") || (author = "${userUId?.model.id}" && grade = "${
+				}"|| grade = "${
 					e.target.value === '꽃길'
 						? 8 && 9 && 10
 						: e.target.value === '풀길'
@@ -75,7 +80,7 @@ function MyRecord() {
 						: e.target.value === '흙길'
 						? 0 && 1 && 2 && 3
 						: '없음'
-				}") || (author = "${userUId?.model.id}" && grade = "${
+				}" || grade = "${
 					e.target.value === '꽃'
 						? 8 && 9 && 10
 						: e.target.value === '풀'
@@ -83,13 +88,12 @@ function MyRecord() {
 						: e.target.value === '흙'
 						? 0 && 1 && 2 && 3
 						: '없음'
-				}")`,
-				expand: 'escapeList',
+				}"`,
 			});
 
-			const data = await pb.collection('record').getFullList({
-				filter: `author = "${userUId?.model.id}"`,
-				expand: 'escapeList',
+			const records = await pb.collection('record').getFullList({
+				sort: '-created',
+				expand: 'author, escapeList',
 			});
 
 			try {
@@ -100,7 +104,7 @@ function MyRecord() {
 					setNoResult(false);
 				} else if (e.target.value === 0) {
 					setTimeout(() => {
-						setData(data.items);
+						setData(records);
 						setEmptyData(false);
 						setIsLoading(true);
 						setNoResult(false);
@@ -122,46 +126,41 @@ function MyRecord() {
 	};
 	const debounceSearch = debounce((e) => handleSearch(e), 500);
 
-	// 검색 버튼 누르기
-	const handleSubmitButton = (e) => {
-		e.preventDefault();
-	};
-
-	//데이터 불러오기
+	// 데이터 불러오기
 	useEffect(() => {
-		const myRecord = async () => {
+		const allRecord = async () => {
 			const records = await pb.collection('record').getFullList({
-				filter: `author = "${userUId?.model.id}"`,
-				expand: 'escapeList',
 				sort: '-created',
+				expand: 'author, escapeList',
 			});
 
 			try {
 				setData(records);
 				setIsLoading(true);
-				// console.log(records);
 			} catch (err) {
-				console.log(`데이터 불러오기 에러 : ${err}`);
+				console.log(`에러 내용: ${err}`);
 			}
 		};
 
-		myRecord();
+		allRecord();
 	}, []);
+
+	console.log(data);
 
 	return (
 		<div>
 			<Helmet>
-				<title>나의 기록</title>
+				<title>방탈러 기록</title>
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-screen m-auto relative pt-20 pb-28 text-lg gap-6">
-				<HeaderBackRecord
+				<HeaderRecord
 					onClick={() => {
 						navigate(-1);
 					}}
 					pencilClick={handleRecordButton}
 				>
-					나의 기록
-				</HeaderBackRecord>
+					방탈러 기록
+				</HeaderRecord>
 				<SearchInput
 					placeholder="검색어를 입력해주세요 😀"
 					value={search}
@@ -188,18 +187,20 @@ function MyRecord() {
 							!noResult &&
 							data.map((item) => {
 								return (
-									<li key={item.id}>
-										<MyRecordItem
-											link={item.id}
-											src={
+									<li key={item.id} className="w-full">
+										<RecordCommunityItem
+											store={item.store}
+											theme={item.theme}
+											grade={Number(item.grade)}
+											image={
 												item.image
 													? `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
 													: item.expand?.escapeList?.image
+													? item.expand?.escapeList?.image
+													: `${noImage}`
 											}
-											alt={item.theme}
-											theme={item.theme}
-											store={item.store}
-											grade={item.grade}
+											author={item.expand?.author?.nickName}
+											link={item.id}
 										/>
 									</li>
 								);
@@ -215,4 +216,4 @@ function MyRecord() {
 	);
 }
 
-export default MyRecord;
+export default RecordCommunity;

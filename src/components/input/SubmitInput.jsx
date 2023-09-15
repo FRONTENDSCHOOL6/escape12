@@ -1,7 +1,7 @@
 import { string, func } from 'prop-types';
 import SmallButton from '../button/SmallButton';
 
-SearchInput.propTypes = {
+SubmitInput.propTypes = {
 	placeholder: string,
 	children: string,
 	value: string,
@@ -11,7 +11,7 @@ SearchInput.propTypes = {
 	onSubmit: func,
 };
 
-function SearchInput({
+function SubmitInput({
 	placeholder,
 	children,
 	type = 'text',
@@ -30,7 +30,7 @@ function SearchInput({
 				placeholder={placeholder}
 				onChange={onChange}
 				maxLength={35}
-				defaultValue={value}
+				value={value}
 				required
 				className="pl-3 py-1 rounded-full focus:outline-none flex-1"
 			/>
@@ -39,4 +39,4 @@ function SearchInput({
 	);
 }
 
-export default SearchInput;
+export default SubmitInput;
