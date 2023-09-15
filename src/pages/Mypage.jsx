@@ -80,7 +80,7 @@ function Mypage() {
       <Helmet>
         <title>마이페이지</title>
       </Helmet>
-      <div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
+      <div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative mb-4">
         {/* header, headerback 맨 위 고정 */}
         <Header>마이페이지</Header>
         {!isLoading && (
@@ -108,7 +108,7 @@ function Mypage() {
               text="text-ec4"
             >정보수정
             </Button>
-            <ul className="w-80 s:px-12 border-2 p-12 text-xl space-y-4 mt-8 text-center">
+            <ul className="w-80 s:px-12 rounded-lg border-2 p-12 text-xl space-y-4 mt-8 text-center">
               <li>
                 내가 작성한 기록 :
                 <Link to="/recordpage" className="hover:text-ec5"> {records.length} 개</Link>

@@ -115,7 +115,7 @@ function RecordPage() {
 					클리어
 				</Headerback>
 				<form
-					className="flex flex-col gap-6 py-5 s:py-2"
+					className="flex flex-col gap-6 py-5 s:py-2 mb-24"
 					onSubmit={handleSubmitRecord}
 				>
 					<fieldset className="flex flex-col gap-7">
