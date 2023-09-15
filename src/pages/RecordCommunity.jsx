@@ -1,16 +1,15 @@
 import pb from '@/api/pockethost';
+import noImage from '@/assets/noImage.png';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
 import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
 import RecordCommunityItem from '@/components/record/RecordCommunityItem';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import debounce from '@/utils/debounce';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import noImage from '@/assets/noImage.png';
-import debounce from '@/utils/debounce';
 
 function RecordCommunity() {
 	const navigate = useNavigate();
@@ -59,7 +58,7 @@ function RecordCommunity() {
 	}, [showPlusNav]);
 
 	// 검색 기능
-	const handleSearch = (e) => {
+	const handleSearch = useCallback((e) => {
 		setIsLoading(false);
 		if (e.target.value.length !== 0) {
 			setSearch(e.target.value);
@@ -126,9 +125,11 @@ function RecordCommunity() {
 		};
 
 		recordSearch();
-	};
-	const debounceSearch = debounce((e) => handleSearch(e), 500);
-
+	});
+	const debounceSearch = useMemo(
+		() => debounce((e) => handleSearch(e), 500),
+		[handleSearch]
+	);
 	// 데이터 불러오기
 	useEffect(() => {
 		const allRecord = async () => {
