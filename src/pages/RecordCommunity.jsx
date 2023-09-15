@@ -185,7 +185,7 @@ function RecordCommunity() {
 							<Spinner />
 						</div>
 					)}
-					<ul className="w-full px-20">
+					<ul className="w-full px-20 s:px-12">
 						{!emptyData &&
 							isLoading &&
 							!noResult &&

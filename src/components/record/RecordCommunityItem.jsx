@@ -50,9 +50,9 @@ function RecordCommunityItem({
 				</section>
 				<section className="flex justify-between">
 					<span>
-						{record.length < 5
+						{record.length < 6
 							? `🥚${author}`
-							: record.length > 6 && record.length < 11
+							: record.length > 5 && record.length < 11
 							? `🐤${author}`
 							: `🐔${author}`}
 					</span>

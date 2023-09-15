@@ -72,16 +72,7 @@ function UploadRecord() {
 		});
 
 		try {
-			const resultCommentData = await pb
-				.collection('comment')
-				.create(commentData);
-
-			const recordComment = {
-				comment: [`${resultCommentData.id}`],
-				commentAuthor: [`${userUId?.model.id}`],
-			};
-
-			await pb.collection('record').update(`${dataId}`, recordComment);
+			await pb.collection('comment').create(commentData);
 
 			toast('등록되었습니다 :)', {
 				icon: '💛',
@@ -130,7 +121,7 @@ function UploadRecord() {
 					{`${!data.theme ? data.expand?.escapeList?.theme : data.theme} 기록`}
 				</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center justify-center min-h-[100vh] m-auto relative py-24 text-lg gap-5 px-20 s:px-12">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center justify-center min-h-[100vh] m-auto relative pt-20 pb-28 text-lg gap-5 px-20 s:px-12">
 				<Headerback
 					onClick={() => {
 						navigate(-1);
@@ -151,7 +142,7 @@ function UploadRecord() {
 					<>
 						<section className="flex flex-row-reverse items-center gap-4 w-full">
 							<div className="flex flex-col gap-3 s:gap-1 whitespace-nowrap flex-1">
-								<h3 className="text-2xl">
+								<h3 className="text-2xl font-semibold">
 									{!data.store ? data.expand?.escapeList?.store : data.store}
 									<span className="ml-3 s:ml-2">
 										{data.point
@@ -164,7 +155,7 @@ function UploadRecord() {
 										{data.expand?.author?.record.length < 6
 											? `🥚${data.expand?.author?.nickName}`
 											: data.expand?.author?.record.length > 5 &&
-											data.expand?.author?.record.length < 11
+											  data.expand?.author?.record.length < 11
 											? `🐤${data.expand?.author?.nickName}`
 											: `🐔${data.expand?.author?.nickName}`}
 									</p>
@@ -226,7 +217,7 @@ function UploadRecord() {
 								</Button>
 							</section>
 						)}
-						<div className="w-full pt-4 border-t-2">
+						<div className="w-full pt-3 border-t-2">
 							<SubmitInput
 								placeholder="댓글을 입력해주세요 ☺️"
 								value={commentInput}
