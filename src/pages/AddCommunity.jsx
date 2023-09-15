@@ -8,6 +8,7 @@ import FormInput from '@/components/loginsignup/FormInput';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import pb from '@/api/pockethost';
+import userUId from '@/api/userUid';
 
 function AddCommunity() {
 	const [title, setTitle] = useState('');
@@ -28,8 +29,9 @@ function AddCommunity() {
 	const handleDateCrate = async (e) => {
 		e.preventDefault();
 		const data = {
-			title,
-			content,
+			title:title,
+			content:content,
+			author:`${userUId?.model.id}`
 		};
 
 		try {
@@ -43,7 +45,6 @@ function AddCommunity() {
 		} catch (err) {
 			console.log(err);
 		}
-		// navigate('/mypage');
 	};
 
 	return (
