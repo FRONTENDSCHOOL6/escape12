@@ -19,6 +19,7 @@ function Nav() {
 	const isMyCommunityActive = useMatch('/mycommunity');
 	const isMyCommentActive = useMatch('/mycomment');
 	const isBookMarkActive = useMatch('/bookmark');
+	const isEditRecordActive = useMatch('//theme/edit/:dataId');
 
 	return (
 		<nav className="text-center bg-ec3 text-ec1 font-bold pb-2 pt-1 max-w-[600px] min-w-[320px] m-auto fixed bottom-0 left-0 right-0">
@@ -41,7 +42,8 @@ function Nav() {
 							isRecordPageActive ||
 							isThemeRecordActive ||
 							isUploadRecordActive ||
-							isRecordCommunityActive
+							isRecordCommunityActive ||
+							isEditRecordActive
 								? 'text-ec5'
 								: ''
 						} flex flex-col items-center`}
