@@ -95,7 +95,7 @@ function UploadRecord() {
 			});
 
 			const commentData = await pb.collection('comment').getList(1, 200, {
-				filter: `author = "${userUId?.model.id}" && record = "${dataId}"`,
+				filter: `record = "${dataId}"`,
 				expand: 'author, record',
 			});
 
