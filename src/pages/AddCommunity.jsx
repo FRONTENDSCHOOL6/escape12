@@ -35,7 +35,7 @@ function AddCommunity() {
 		try {
 			await pb.collection('community').create(data);
 
-			toast('등록되었습니다 :)', {
+			toast('글이 등록되었습니다 :)', {
 				icon: '💛',
 				duration: 2000,
 			});

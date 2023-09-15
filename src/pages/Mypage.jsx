@@ -7,6 +7,7 @@ import Spinner from '@/components/Spinner';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import pb from '@/api/pockethost';
+import { toast } from 'react-hot-toast';
 import userUId from '@/api/userUid';
 
 function Mypage() {
@@ -20,7 +21,12 @@ function Mypage() {
   //로그아웃
   const handleLogout = () => {
     pb.authStore.clear();
+    toast('로그아웃이 완료되었습니다', {
+			icon: '⭕',
+			duration: 2000,
+		});
   };
+
   //작성 기록 갯수
   useEffect(() => {
     const getrecord = async () => {
