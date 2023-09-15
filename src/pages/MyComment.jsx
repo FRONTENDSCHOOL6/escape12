@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import Header from '@/components/header/Header';
 import pb from '@/api/pockethost';
 import { useNavigate } from 'react-router-dom';
-import CommentItem from '@/components/mycomment/CommentItem';
+import CommentItem from '@/components/mycomment/MyCommentItem';
 import UpNav from '@/components/nav/UpNav';
 
 pb.autoCancellation(false);
