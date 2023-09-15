@@ -109,7 +109,7 @@ function RecordPage() {
 				{/* header, headerback 맨 위 고정 */}
 				<Headerback
 					onClick={() => {
-						navigate('/theme');
+						navigate(-1);
 					}}
 				>
 					클리어

@@ -55,7 +55,7 @@ function AddCommunity() {
 				{/* Header */}
 				<Headerback
 					onClick={() => {
-						navigate('/postpage');
+						navigate(-1);
 					}}
 				>
 					글 작성

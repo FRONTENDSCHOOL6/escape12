@@ -18,7 +18,7 @@ function Editpage() {
 				{/* header, headerback 맨 위 고정 */}
 				<Headerback
 					onClick={() => {
-						navigate('/mypage');
+						navigate(-1);
 					}}
 				>
 					정보 수정
