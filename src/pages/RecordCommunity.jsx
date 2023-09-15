@@ -71,10 +71,8 @@ function RecordCommunity() {
 				const recordList = await pb.collection('record').getList(1, 200, {
 					sort: '-created',
 					expand: 'escapeList,author',
-					filter: `theme ~ "${e.target.value}" || author = "${
-						data.expand?.author?.nickName === e.target.value
-							? data.expand?.author?.id
-							: ''
+					filter: `theme ~ "${e.target.value}" || nickName = "${
+						e.target.value
 					}" || store ~ "${e.target.value}"|| grade = "${
 						e.target.value === '꽃길'
 							? 8 && 9 && 10

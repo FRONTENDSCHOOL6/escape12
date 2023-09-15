@@ -89,6 +89,7 @@ function RecordPage() {
 			content: content,
 			image: photoRef.current.files[0],
 			author: `${userUId?.model.id}`,
+			nickName: `${userUId?.model.nickName}`,
 		};
 
 		try {

@@ -107,6 +107,7 @@ function ThemeRecord() {
 				content: content,
 				author: `${userUId?.model.id}`,
 				escapeList: `${dataId}`,
+				nickName: `${userUId?.model.nickName}`,
 			};
 
 			const result = await pb.collection('record').create(themeRecord);
