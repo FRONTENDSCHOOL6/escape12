@@ -237,7 +237,7 @@ function Theme() {
 					});
 				}
 			} catch (err) {
-				console.log(`검색 에러 내용 : ${err}`);
+				console.log(`검색 에러 내용 : ${err}`); 
 			}
 		};
 
