@@ -1,9 +1,9 @@
-import SmallButton from '@/components/SmallButton';
+import SmallButton from '@/components/button/SmallButton';
 import { bool, func, number, string } from 'prop-types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import HeartButton from './Heart';
 import Span from './Span';
+import HeartButton from './HeartButton';
 
 ThemeItem.propTypes = {
 	store: string,
@@ -71,7 +71,7 @@ function ThemeItem({
 							기록하기
 						</SmallButton>
 					</Link>
-					<Link to={link} target="_blank">
+					<Link to={link} target="_blank" rel="noopenner noreferrer">
 						<SmallButton bg="bg-ec1 s:text-xs s:p-1">예약하기</SmallButton>
 					</Link>
 				</section>

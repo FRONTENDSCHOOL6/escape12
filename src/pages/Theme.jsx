@@ -1,9 +1,9 @@
 import pb from '@/api/pockethost';
 import EmptyContents from '@/components/EmptyContents';
-import Header from '@/components/Header';
-import PlusNav from '@/components/PlusNav';
-import SearchInput from '@/components/SearchInput';
 import Spinner from '@/components/Spinner';
+import HeaderRecord from '@/components/header/HeaderRecord';
+import SearchInput from '@/components/input/SearchInput';
+import UpNav from '@/components/nav/UpNav';
 import LiButton from '@/components/theme/LiButton';
 import ThemeItem from '@/components/theme/ThemeItem';
 import debounce from '@/utils/debounce';
@@ -221,7 +221,7 @@ function Theme() {
 				<title>인기 테마</title>
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
-				<Header>인기 테마</Header>
+				<HeaderRecord pencilClick={handleRecordButton}>인기 테마</HeaderRecord>
 				<SearchInput
 					placeholder="검색어를 입력해주세요 😀"
 					value={search}
@@ -279,9 +279,8 @@ function Theme() {
 						})}
 					</ul>
 				)}
-				<PlusNav
+				<UpNav
 					topClick={handleTopButton}
-					pencilClick={handleRecordButton}
 					hidden={!showPlusNav ? 'hidden' : ''}
 				/>
 			</div>

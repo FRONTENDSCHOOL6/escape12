@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import Button from '@/components/Button';
-import Nav from '@/components/Nav';
-import Headerback from '@/components/Headerback';
+import Button from '@/components/button/Button';
+import Nav from '@/components/nav/Nav';
+import Sup from '@/components/record/Sup';
+import Headerback from '@/components/header/Headerback';
 import FormInput from '@/components/loginsignup/FormInput';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -59,32 +60,28 @@ function AddCommunity() {
 				>
 					글 작성
 				</Headerback>
-				<form className="text-center" onSubmit={handleDateCrate}>
+				<form onSubmit={handleDateCrate} className="flex flex-col items-center">
 					<div className="text-lg pt-28 s:px-12 px-14">
 						{/* Title, Content */}
-						<div className="flex flex-col space-y-2 text-center">
-							<div className="mr-5">
-								<FormInput
-									type="text"
-									id="title"
-									name="title"
-									onChange={handleTitle}
-									placeholder="제목을 입력해주세요."
-								>
-									제목<sup className="text-red"> *</sup>
-								</FormInput>
-							</div>
-							<p className="flex justify-end mb-3 text-lg">
-								{currentDate.toLocaleDateString()}
-							</p>
-							<textarea
-								value={content}
-								id="content"
-								onChange={handleContent}
-								placeholder="작성해주세요.🤩"
-								className="w-full h-80 p-4 text-ec4 border rounded-lg"
-							/>
-						</div>
+						<FormInput
+							type="text"
+							id="title"
+							name="title"
+							onChange={handleTitle}
+							placeholder="제목을 입력해주세요."
+						>
+							<Sup>제목</Sup>
+						</FormInput>
+						<p className="flex justify-end mb-3 text-lg">
+							{currentDate.toLocaleDateString()}
+						</p>
+						<textarea
+							value={content}
+							id="content"
+							onChange={handleContent}
+							placeholder="작성해주세요.🤩"
+							className="w-full h-80 p-4 text-ec4 border rounded-lg"
+						/>
 					</div>
 					<Button type="submit" bg="bg-ec1 text-center" text="text-ec4 mt-4">
 						등록

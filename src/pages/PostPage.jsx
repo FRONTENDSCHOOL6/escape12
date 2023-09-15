@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import PostList from '@/components/post/PostList';
-import { Helmet } from 'react-helmet-async';
-import Header from '@/components/Header';
-import SearchInput from '@/components/SearchInput';
 import pb from '@/api/pockethost';
-import PlusNav from '@/components/PlusNav';
+import HeaderRecord from '@/components/header/HeaderRecord';
+import SearchInput from '@/components/input/SearchInput';
+import UpNav from '@/components/nav/UpNav';
+import PostList from '@/components/post/PostList';
+import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 pb.autoCancellation(false);
@@ -109,7 +109,9 @@ function PostPage() {
 			</Helmet>
 
 			<div className="w-full max-w-[600px] min-w-[320px] py-20 bg-ec4 flex flex-col items-center min-h-[100vh] m-auto gap-14">
-				<Header>게시글 목록</Header>
+				<HeaderRecord pencilClick={handleRecordButton}>
+					게시글 목록
+				</HeaderRecord>
 
 				<SearchInput
 					placeholder="검색어를 입력해주세요😀"
@@ -122,9 +124,8 @@ function PostPage() {
 				{/* {!isLoading &&
 					posts.map((post) => <PostList key={post.id} post={post} />)} */}
 
-				<PlusNav
+				<UpNav
 					topClick={handleTopButton}
-					pencilClick={handleRecordButton}
 					hidden={!showPlusNav ? 'hidden' : ''}
 				/>
 			</div>

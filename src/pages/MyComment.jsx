@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import Header from '@/components/header/Header';
 import pb from '@/api/pockethost';
-import PlusNav from '@/components/PlusNav';
 import { useNavigate } from 'react-router-dom';
 import CommentItem from '@/components/mycomment/CommentItem';
-import Headerback from '@/components/Headerback';
+import UpNav from '@/components/nav/UpNav';
 
 pb.autoCancellation(false);
 
@@ -80,9 +80,8 @@ function MyComment() {
 				<div className="min-w-[300px] w-full s:px-12 px-20">
 					<CommentItem />
 				</div>
-				<PlusNav
+				<UpNav
 					topClick={handleTopButton}
-					pencilClick={handleRecordButton}
 					hidden={!showPlusNav ? 'hidden' : ''}
 				/>
 			</div>

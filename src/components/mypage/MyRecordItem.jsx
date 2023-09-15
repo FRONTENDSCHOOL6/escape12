@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Span from '../theme/Span';
-import Button from '../Button';
+import Button from '../button/Button';
 
 function MyRecordItem() {
 	return (
