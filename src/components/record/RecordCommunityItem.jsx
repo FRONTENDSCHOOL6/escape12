@@ -1,4 +1,4 @@
-import { number, string } from 'prop-types';
+import { number, string, array } from 'prop-types';
 import Button from '../button/Button';
 import Span from '../theme/Span';
 import { useNavigate } from 'react-router-dom';
@@ -10,9 +10,18 @@ RecordCommunityItem.propTypes = {
 	image: string,
 	author: string,
 	link: string,
+	record: array,
 };
 
-function RecordCommunityItem({ store, theme, grade, image, author, link }) {
+function RecordCommunityItem({
+	store,
+	theme,
+	grade,
+	image,
+	author,
+	link,
+	record = [],
+}) {
 	const navigate = useNavigate();
 
 	const handleLink = () => {
@@ -40,7 +49,13 @@ function RecordCommunityItem({ store, theme, grade, image, author, link }) {
 					<h3>{store}</h3>
 				</section>
 				<section className="flex justify-between">
-					<span>{author}</span>
+					<span>
+						{record.length < 11
+							? `🫘${author}`
+							: record.length > 10 && record.length < 21
+							? `🌱${author}`
+							: `🌻${author}`}
+					</span>
 					<Button bg="bg-ec1" text="text-ec4" onClick={handleLink}>
 						보러가기
 					</Button>

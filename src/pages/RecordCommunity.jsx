@@ -205,6 +205,7 @@ function RecordCommunity() {
 											}
 											author={item.expand?.author?.nickName}
 											link={item.id}
+											record={item.expand?.author?.record}
 										/>
 									</li>
 								);
