@@ -101,7 +101,7 @@ function PostPage() {
 			}, 500);
 		}
 	};
-
+	console.log(posts);
 	return (
 		<>
 			<Helmet>

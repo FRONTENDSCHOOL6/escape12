@@ -22,7 +22,7 @@ function PostList({ posts /*onDeletePost*/ }) {
 					id={post.id}
 					key={post.id}
 					title={post.title}
-					author={post.author}
+					author={post.expand?.author?.nickName}
 					date={post.date}
 					content={post.content}
 					// onDelete={() => onDeletePost(post.id)}
