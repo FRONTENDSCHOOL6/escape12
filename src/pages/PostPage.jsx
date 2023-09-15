@@ -83,7 +83,7 @@ function PostPage() {
 
 		try {
 			const resultList = await pb.collection('community').getList(1, 200, {
-				filter: `(author ~ "${e.target.value}" || content ~ "${e.target.value}")`,
+				filter: `(author ~ "${e.target.value}" || content ~ "${e.target.value}" || title ~ "${e.target.value}")`,
 			});
 
 			if (resultList.items.length > 0) {
@@ -101,7 +101,7 @@ function PostPage() {
 			}, 500);
 		}
 	};
-
+	console.log(posts);
 	return (
 		<>
 			<Helmet>

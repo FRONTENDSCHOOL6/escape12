@@ -1,14 +1,20 @@
 import { string } from 'prop-types';
 
 SmallButton.propTypes = {
+	type: string,
 	children: string,
 	bg: string,
 	text: string,
 };
-function SmallButton({ children, bg = 'bg-ec1', text = 'text-ec4' }) {
+function SmallButton({
+	type = 'button',
+	children,
+	bg = 'bg-ec1',
+	text = 'text-ec4',
+}) {
 	return (
 		<button
-			type="button"
+			type={type}
 			className={`${text} ${bg} min-w-fit w-[20%] rounded-lg px-2 font-semibold leading-7 whitespace-nowrap s:px-1`}
 		>
 			{children}

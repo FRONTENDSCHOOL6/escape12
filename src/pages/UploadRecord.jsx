@@ -1,20 +1,23 @@
 import pb from '@/api/pockethost';
+import userUId from '@/api/userUid';
+import clover from '@/assets/upload-clover.png';
 import Spinner from '@/components/Spinner';
 import Button from '@/components/button/Button';
 import Headerback from '@/components/header/Headerback';
+import SubmitInput from '@/components/input/SubmitInput';
 import Nav from '@/components/nav/Nav';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import clover from '@/assets/upload-clover.png';
+import { useNavigate, useParams } from 'react-router-dom';
+import debounce from './../utils/debounce';
 
 function UploadRecord() {
 	const { dataId } = useParams();
 	const navigate = useNavigate();
 	const [data, setData] = useState([]);
+	const [comment, setComment] = useState([]);
+	const [commentInput, setCommentInput] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
 	//삭제 기능
@@ -46,15 +49,59 @@ function UploadRecord() {
 		}
 	};
 
+	// 댓글 입력하기
+	const handleComment = async (e) => {
+		setCommentInput(e.target.value);
+		debounce((e) => e.target.value);
+	};
+
+	// 등록 버튼
+	const handleSubmitComment = async (e) => {
+		e.preventDefault();
+		const commentData = {
+			content: commentInput,
+			author: `${userUId?.model.id}`,
+			record: `${dataId}`,
+		};
+
+		try {
+			const resultCommentData = await pb
+				.collection('comment')
+				.create(commentData);
+
+			const recordComment = {
+				comment: [`${resultCommentData.id}`],
+				commentAuthor: [`${userUId?.model.id}`],
+			};
+
+			await pb.collection('record').update(`${dataId}`, recordComment);
+
+			toast('등록되었습니다 :)', {
+				icon: '💛',
+				duration: 2000,
+			});
+
+			setCommentInput('');
+		} catch (err) {
+			console.log(`댓글 등록 에러: ${err}`);
+		}
+	};
+
 	//데이터 불러오기
 	useEffect(() => {
 		const handleRecordData = async () => {
-			const upload = await pb.collection('record').getOne(`${dataId}`, {
-				expand: 'escapeList, author',
+			const recordData = await pb.collection('record').getOne(`${dataId}`, {
+				expand: 'escapeList, author, comment, commentAuthor',
+			});
+
+			const commentData = await pb.collection('comment').getList(1, 200, {
+				filter: `record = "${dataId}"`,
+				expand: 'author, record',
 			});
 
 			try {
-				setData(upload);
+				setData(recordData);
+				setComment(commentData.items);
 				setIsLoading(true);
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
@@ -74,7 +121,7 @@ function UploadRecord() {
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center justify-center min-h-[100vh] m-auto relative py-24 text-lg gap-5 px-20 s:px-12">
 				<Headerback
 					onClick={() => {
-						navigate('/theme');
+						navigate(-1);
 					}}
 				>
 					{!isLoading
@@ -88,7 +135,7 @@ function UploadRecord() {
 						<Spinner />
 					</div>
 				)}
-				{isLoading && (
+				{isLoading && data && (
 					<>
 						<section className="flex flex-row-reverse items-center gap-4">
 							<div className="flex flex-col flex-1 gap-3 s:gap-1 whitespace-nowrap">
@@ -100,7 +147,7 @@ function UploadRecord() {
 											: data.point}
 									</span>
 								</h3>
-								<p className="flex justify-between">
+								<div className="flex justify-between">
 									<span>
 										{!data.date ? data.expand?.escapeList.created : data.date}
 									</span>
@@ -113,7 +160,7 @@ function UploadRecord() {
 										/>
 										{data.expand?.author?.nickName}
 									</p>
-								</p>
+								</div>
 							</div>
 							<img
 								className="w-[20%] rounded-full"
@@ -123,7 +170,7 @@ function UploadRecord() {
 							/>
 						</section>
 						<img
-							className="w-[70%]"
+							className="w-[50%]"
 							src={
 								!data.image
 									? data.expand?.escapeList?.image
@@ -134,7 +181,7 @@ function UploadRecord() {
 						<section className="w-full">
 							<ul className="flex justify-between pb-4 font-semibold">
 								<li>
-									⭐{' '}
+									⭐
 									{!data.grade && data.grade !== 0
 										? data.expand?.escapeList.grade
 										: data.grade}
@@ -160,6 +207,39 @@ function UploadRecord() {
 								수정
 							</Button>
 						</section>
+						<div className="w-full pt-4 border-t-2">
+							<SubmitInput
+								placeholder="댓글을 입력해주세요 ☺️"
+								value={commentInput}
+								onChange={handleComment}
+								onSubmit={handleSubmitComment}
+								text="px-0 text-ec4 my-4"
+							>
+								등록
+							</SubmitInput>
+
+							<ul className="flex flex-col gap-4 text-lg w-full">
+								{isLoading &&
+									comment &&
+									comment.map((item) => {
+										return (
+											<li key={item.id} className="w-full flex gap-3">
+												<div className="flex gap-2">
+													<img
+														className="w-8 h-8 rounded-full"
+														src={`https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`}
+														alt={item.expand?.author?.nickName}
+													/>
+													<span className="font-bold">
+														{item.expand?.author?.nickName}
+													</span>
+												</div>
+												<span className="pb-2 flex-1">{item.content}</span>
+											</li>
+										);
+									})}
+							</ul>
+						</div>
 					</>
 				)}
 			</div>
