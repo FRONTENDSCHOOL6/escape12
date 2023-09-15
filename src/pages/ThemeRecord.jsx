@@ -20,7 +20,7 @@ pb.autoCancellation(false);
 function ThemeRecord() {
 	const navigate = useNavigate();
 	const { dataId } = useParams();
-	const [data, setData] = useState([]);
+	const [data, setData] = useState({});
 	const [date, setDate] = useState('');
 	const [grade, setGrade] = useState('');
 	const [length, setLength] = useState(0);
@@ -28,6 +28,7 @@ function ThemeRecord() {
 	const [minute, setMinute] = useState('');
 	const [content, setContent] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [record, setRecord] = useState([]);
 
 	// 날짜 상태 관리
 	const handleDateChange = (e) => {
@@ -58,19 +59,26 @@ function ThemeRecord() {
 	//테마 데이터 불러오기
 	useEffect(() => {
 		const dataList = async () => {
-			const record = await pb.collection('escapeList').getOne(`${dataId}`);
+			const record = await pb.collection('escapeList').getOne(`${dataId}`, {
+				expand: 'users',
+			});
+
+			const userRecord = await pb
+				.collection('users')
+				.getOne(`${userUId?.model.id}`, {
+					expand: 'record',
+				});
 
 			try {
 				setData(record);
 				setIsLoading(true);
+				setRecord(userRecord.record);
 			} catch (err) {
 				console.log(`불러오기 내용: ${err}`);
 			}
 		};
 		dataList();
 	}, [dataId]);
-
-	console.log(data);
 
 	// 기록 등록하기 이벤트
 	const handleSubmitRecord = async (e) => {
@@ -98,6 +106,12 @@ function ThemeRecord() {
 			};
 
 			await pb.collection('escapeList').update(`${dataId}`, themeClear);
+
+			const userRecord = {
+				record: [...record, `${result.id}`],
+			};
+
+			await pb.collection('users').update(`${userUId?.model.id}`, userRecord);
 
 			toast('등록되었습니다 :)', {
 				icon: '💛',
