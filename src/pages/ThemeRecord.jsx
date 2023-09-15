@@ -21,6 +21,7 @@ function ThemeRecord() {
 	const navigate = useNavigate();
 	const { dataId } = useParams();
 	const [data, setData] = useState({});
+	const [users, setUsers] = useState([]);
 	const [date, setDate] = useState('');
 	const [grade, setGrade] = useState('');
 	const [length, setLength] = useState(0);
@@ -29,6 +30,7 @@ function ThemeRecord() {
 	const [content, setContent] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [record, setRecord] = useState([]);
+	const [escapeList, setEscapeList] = useState([]);
 
 	// 날짜 상태 관리
 	const handleDateChange = (e) => {
@@ -69,10 +71,18 @@ function ThemeRecord() {
 					expand: 'record',
 				});
 
+			const userEscapeList = await pb
+				.collection('users')
+				.getOne(`${userUId?.model.id}`, {
+					expand: 'escapeList',
+				});
+
 			try {
 				setData(record);
-				setIsLoading(true);
+				setUsers(record.users);
 				setRecord(userRecord.record);
+				setEscapeList(userEscapeList.escapeList);
+				setIsLoading(true);
 			} catch (err) {
 				console.log(`불러오기 내용: ${err}`);
 			}
@@ -100,15 +110,14 @@ function ThemeRecord() {
 			const result = await pb.collection('record').create(themeRecord);
 
 			const themeClear = {
-				record: [`${result.id}`],
-				clear: true,
-				users: [`${userUId?.model.id}`],
+				users: [...users, `${userUId?.model.id}`],
 			};
 
 			await pb.collection('escapeList').update(`${dataId}`, themeClear);
 
 			const userRecord = {
 				record: [...record, `${result.id}`],
+				escapeList: [...escapeList, `${dataId}`],
 			};
 
 			await pb.collection('users').update(`${userUId?.model.id}`, userRecord);
