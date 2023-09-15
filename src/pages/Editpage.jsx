@@ -4,10 +4,18 @@ import Nav from '@/components/nav/Nav';
 import Headerback from '@/components/header/HeaderBack';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import FormInput from '@/components/loginsignup/FormInput';
 
 function Editpage() {
 	const navigate = useNavigate();
+	const handleSave = () =>{
+		toast('정보 수정이 완료되었습니다', {
+			icon: '✨',
+			duration: 2000,
+		});
+		navigate('/mypage');
+	}
 
 	return (
 		<>
@@ -18,7 +26,7 @@ function Editpage() {
 				{/* header, headerback 맨 위 고정 */}
 				<Headerback
 					onClick={() => {
-						navigate('/mypage');
+						navigate(-1);
 					}}
 				>
 					정보 수정
@@ -46,15 +54,13 @@ function Editpage() {
 						</FormInput>
 					</div>
 					<Button
-						onClick={() => {
-							navigate('/mypage');
-						}}
+						onClick={handleSave}
 						bg="bg-ec1"
 						text="text-ec4 mt-4"
 					>
 						저장
 					</Button>
-					<footer className="mt-auto py-1">
+					<footer className="mt-auto py-1 mb-2">
 						<em>
 							<Link
 								to="https://github.com/FRONTENDSCHOOL6/escape12/"

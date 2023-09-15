@@ -8,6 +8,7 @@ import FormInput from '@/components/loginsignup/FormInput';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import pb from '@/api/pockethost';
+import userUId from '@/api/userUid';
 
 function AddCommunity() {
 	const [title, setTitle] = useState('');
@@ -28,14 +29,15 @@ function AddCommunity() {
 	const handleDateCrate = async (e) => {
 		e.preventDefault();
 		const data = {
-			title,
-			content,
+			title:title,
+			content:content,
+			author:`${userUId?.model.id}`
 		};
 
 		try {
 			await pb.collection('community').create(data);
 
-			toast('등록되었습니다 :)', {
+			toast('글이 등록되었습니다 :)', {
 				icon: '💛',
 				duration: 2000,
 			});
@@ -43,7 +45,6 @@ function AddCommunity() {
 		} catch (err) {
 			console.log(err);
 		}
-		// navigate('/mypage');
 	};
 
 	return (
@@ -55,7 +56,7 @@ function AddCommunity() {
 				{/* Header */}
 				<Headerback
 					onClick={() => {
-						navigate('/postpage');
+						navigate(-1);
 					}}
 				>
 					글 작성
