@@ -45,7 +45,7 @@ function ThemeItem({
 
 	return (
 		<figure className="my-4 border-2 border-ec1 p-6 s:p-3 rounded-xl flex gap-3 s:gap-[5%] text-ec1 text-lg s:text-base relative h-[180px]">
-			<div className=" bg-ec4 flex min-w-[25%] s:min-w-0 s:max-w-[25%]">
+			<div className=" bg-ec4 flex w-[25%]">
 				<img src={image} alt={theme} aria-hidden className="w-full" />
 			</div>
 			<figcaption className="flex flex-col justify-between s:justify-around">

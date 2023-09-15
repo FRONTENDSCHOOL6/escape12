@@ -1,8 +1,10 @@
 import pb from '@/api/pockethost';
 import userUId from '@/api/userUid';
+import noImage from '@/assets/noImage.png';
 import clover from '@/assets/upload-clover.png';
 import Spinner from '@/components/Spinner';
 import Button from '@/components/button/Button';
+import CommentItem from '@/components/comment/Commentitem';
 import Headerback from '@/components/header/Headerback';
 import SubmitInput from '@/components/input/SubmitInput';
 import Nav from '@/components/nav/Nav';
@@ -111,6 +113,8 @@ function UploadRecord() {
 		handleRecordData();
 	}, [dataId]);
 
+	console.log(data);
+
 	return (
 		<div>
 			<Helmet>
@@ -137,8 +141,8 @@ function UploadRecord() {
 				)}
 				{isLoading && data && (
 					<>
-						<section className="flex flex-row-reverse items-center gap-4">
-							<div className="flex flex-col flex-1 gap-3 s:gap-1 whitespace-nowrap">
+						<section className="flex flex-row-reverse items-center gap-4 w-full">
+							<div className="flex flex-col gap-3 s:gap-1 whitespace-nowrap flex-1">
 								<h3 className="text-2xl">
 									{!data.store ? data.expand?.escapeList?.store : data.store}
 									<span className="ml-3 s:ml-2">
@@ -148,33 +152,35 @@ function UploadRecord() {
 									</span>
 								</h3>
 								<div className="flex justify-between">
-									<span>
-										{!data.date ? data.expand?.escapeList.created : data.date}
-									</span>
 									<p className="flex">
+										{data.expand?.author?.nickName}
 										<img
 											className="w-6 mr-1"
 											src={clover}
 											alt="회원등급"
 											aria-hidden
 										/>
-										{data.expand?.author?.nickName}
 									</p>
+									<span>
+										{!data.date ? data.expand?.escapeList.created : data.date}
+									</span>
 								</div>
 							</div>
-							<img
-								className="w-[20%] rounded-full"
-								src={`https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`}
-								alt={data.expand?.author?.nickName}
-								aria-hidden
-							/>
+							<div className="w-20 h-20">
+								<img
+									className="w-full h-full rounded-full"
+									src={`https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`}
+									alt={data.expand?.author?.nickName}
+									aria-hidden
+								/>
+							</div>
 						</section>
 						<img
 							className="w-[50%]"
 							src={
-								!data.image
-									? data.expand?.escapeList?.image
-									: `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.image}`
+								data.image
+									? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.image}`
+									: data.expand?.escapeList?.image || noImage
 							}
 							alt={data.expand?.escapeList?.theme}
 						/>
@@ -213,7 +219,7 @@ function UploadRecord() {
 								value={commentInput}
 								onChange={handleComment}
 								onSubmit={handleSubmitComment}
-								text="px-0 text-ec4 my-4"
+								text="text-ec4 my-4 px-0"
 							>
 								등록
 							</SubmitInput>
@@ -224,17 +230,12 @@ function UploadRecord() {
 									comment.map((item) => {
 										return (
 											<li key={item.id} className="w-full flex gap-3">
-												<div className="flex gap-2">
-													<img
-														className="w-8 h-8 rounded-full"
-														src={`https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`}
-														alt={item.expand?.author?.nickName}
-													/>
-													<span className="font-bold">
-														{item.expand?.author?.nickName}
-													</span>
-												</div>
-												<span className="pb-2 flex-1">{item.content}</span>
+												<CommentItem
+													src={`https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`}
+													alt={item.expand?.author?.nickName}
+													nickName={item.expand?.author?.nickName}
+													comment={item.content}
+												/>
 											</li>
 										);
 									})}
