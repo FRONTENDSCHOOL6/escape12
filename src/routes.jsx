@@ -4,6 +4,7 @@ import Escape from '@/layout/Escape';
 import AddCommunity from '@/pages/AddCommunity';
 import BookMark from '@/pages/BookMark';
 import CommentPage from '@/pages/CommentPage';
+import EditRecord from '@/pages/EditRecord';
 import Editpage from '@/pages/Editpage';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
@@ -13,12 +14,12 @@ import MyCommunity from '@/pages/MyCommunity';
 import MyRecord from '@/pages/MyRecord';
 import Mypage from '@/pages/Mypage';
 import PostPage from '@/pages/PostPage';
+import RecordCommunity from '@/pages/RecordCommunity';
 import RecordPage from '@/pages/RecordPage';
 import SignUp from '@/pages/SignUp';
 import Theme from '@/pages/Theme';
 import ThemeRecord from '@/pages/ThemeRecord';
 import UploadRecord from '@/pages/UploadRecord';
-import EditRecord from '@/pages/EditRecord';
 import { createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
 			{ path: '/theme/:dataId', element: <ThemeRecord /> },
 			{ path: '/upload/:dataId', element: <UploadRecord /> },
 			{ path: '/theme/edit/:dataId', element: <EditRecord /> },
+			{ path: '/recordcommunity', element: <RecordCommunity /> },
 			{ path: '/postpage', element: <PostPage /> },
 			{ path: '/addcommunity', element: <AddCommunity /> },
 			{ path: '/postpage/:dataId', element: <CommentPage /> },
