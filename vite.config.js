@@ -52,7 +52,7 @@ export default defineConfig({
 				manualChunks: {
 					react: ['react', 'react-dom'],
 					reactRouter: ['react-router-dom'],
-					animations: ['framer-motion', 'gsap'],
+					animations: ['gsap'],
 				},
 			},
 		},
