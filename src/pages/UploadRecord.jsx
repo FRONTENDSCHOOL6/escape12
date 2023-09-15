@@ -1,20 +1,22 @@
 import pb from '@/api/pockethost';
+import userUId from '@/api/userUid';
+import clover from '@/assets/upload-clover.png';
 import Spinner from '@/components/Spinner';
 import Button from '@/components/button/Button';
 import Headerback from '@/components/header/Headerback';
+import SearchInput from '@/components/input/SearchInput';
 import Nav from '@/components/nav/Nav';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import clover from '@/assets/upload-clover.png';
+import { useNavigate, useParams } from 'react-router-dom';
+import debounce from './../utils/debounce';
 
 function UploadRecord() {
 	const { dataId } = useParams();
 	const navigate = useNavigate();
 	const [data, setData] = useState([]);
+	const [comment, setComment] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
 	//삭제 기능
@@ -46,11 +48,51 @@ function UploadRecord() {
 		}
 	};
 
+	// 댓글 입력하기
+	const handleComment = async (e) => {
+		setComment(e.target.value);
+	};
+
+	const debounceComment = debounce((e) => handleComment(e), 100);
+
+	// 등록 버튼
+	const handleSubmitComment = async (e) => {
+		e.preventDefault();
+		const commentData = {
+			content: comment,
+			author: `${userUId?.model.id}`,
+			record: `${dataId}`,
+		};
+
+		try {
+			const resultCommentData = await pb
+				.collection('comment')
+				.create(commentData);
+
+			const recordComment = {
+				comment: [`${resultCommentData.id}`],
+				commentAuthor: [`${userUId?.model.id}`],
+			};
+
+			await pb.collection('record').update(`${dataId}`, recordComment);
+
+			toast('등록되었습니다 :)', {
+				icon: '💛',
+				duration: 2000,
+			});
+
+			// 댓글 등록 후 초기화가 안됨
+			setComment(' ');
+		} catch (err) {
+			console.log(`댓글 등록 에러: ${err}`);
+		}
+	};
+
 	//데이터 불러오기
 	useEffect(() => {
 		const handleRecordData = async () => {
 			const upload = await pb.collection('record').getOne(`${dataId}`, {
-				expand: 'escapeList, author',
+				expand: 'escapeList, author, comment',
 			});
 
 			try {
@@ -160,6 +202,17 @@ function UploadRecord() {
 								수정
 							</Button>
 						</section>
+						<div className="w-full py-7 border-t-2">
+							<SearchInput
+								placeholder="댓글을 입력해주세요 ☺️"
+								value={comment}
+								onChange={debounceComment}
+								onSubmit={handleSubmitComment}
+								text="px-0 text-ec4"
+							>
+								등록
+							</SearchInput>
+						</div>
 					</>
 				)}
 			</div>
