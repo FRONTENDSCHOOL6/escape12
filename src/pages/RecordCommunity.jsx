@@ -69,10 +69,13 @@ function RecordCommunity() {
 
 		const recordSearch = async () => {
 			const recordList = await pb.collection('record').getList(1, 200, {
+				sort: '-created',
 				expand: 'escapeList,author',
-				filter: `theme ~ "${e.target.value}" || store ~ "${
-					e.target.value
-				}"|| grade = "${
+				filter: `theme ~ "${e.target.value}" || author = "${
+					data.expand?.author?.nickName === e.target.value
+						? data.expand?.author?.id
+						: ''
+				}" || store ~ "${e.target.value}"|| grade = "${
 					e.target.value === '꽃길'
 						? 8 && 9 && 10
 						: e.target.value === '풀길'
@@ -207,11 +210,8 @@ function RecordCommunity() {
 							})}
 					</ul>
 				</div>
-				<UpNav
-					topClick={handleTopButton}
-					hidden={!showPlusNav ? 'hidden' : ''}
-				/>
 			</div>
+			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
 		</div>
 	);
 }
