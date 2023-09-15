@@ -30,7 +30,7 @@ function Mypage() {
   //작성 기록 갯수
   useEffect(() => {
     const getrecord = async () => {
-      const recordlist = await pb.collection('record').getFullList();
+      const recordlist = await pb.collection('record').getFullList({filter: `author = "${userUId?.model.id}"`,});
 
       try {
         setRecords(recordlist);
@@ -41,7 +41,7 @@ function Mypage() {
     }
     //작성 글 갯수
     const getcommunity = async () => {
-      const communitylist = await pb.collection('community').getFullList();
+      const communitylist = await pb.collection('community').getFullList({filter: `author = "${userUId?.model.id}"`,});
 
       try {
         setCommunity(communitylist);
@@ -52,7 +52,7 @@ function Mypage() {
     }
     //작성 댓글 갯수
     const getcomment = async () => {
-      const commentlist = await pb.collection('comment').getFullList();
+      const commentlist = await pb.collection('comment').getFullList({filter: `author = "${userUId?.model.id}"`,});
 
       try {
         setComment(commentlist);
@@ -61,7 +61,7 @@ function Mypage() {
         console.log(error)
       }
     }
-    //아이디, 닉네임 정보 불러오기
+    //아이디, 닉네임 정보 불러오기 +사진
     const datalist = async () => {
       const resultList = await pb.collection('users').getOne(`${userUId?.model.id}`, {
         expand: 'email',
@@ -80,7 +80,6 @@ function Mypage() {
       datalist()
   }, [])
 
-
   return (
     <>
       <Helmet>
@@ -97,12 +96,11 @@ function Mypage() {
 
         {isLoading && (
           <div className="flex-1 flex flex-col items-center">
-            <img
-              className="w-[30%] mx-auto rounded-full"
-              src="https://mblogthumb-phinf.pstatic.net/MjAxOTAxMjNfMjI5/MDAxNTQ4MTcxMTE2MTI4.nv3-mRR-cZiGBxCD_KuMH8OsQ-WDJEJ9kTTBwb2XlkUg.WKv1PpzrR2s0duklK1AemD8cmGDAvRre7yrJG1okdZ8g.JPEG.seooooya/IMG_2063.JPG?type=w800"
-              alt="사용자 사진"
-              aria-hidden
-            />
+            <div><img
+                src={`https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.avatar}`}
+                alt={data.nickName} aria-hidden
+                className="w-[30%] mx-auto rounded-full"></img>
+              </div>
             <ul className="s:px-12 p-12 text-xl space-y-4">
               <li>아이디 | {data.email} </li>
               <li>비밀번호 | ******** </li>
