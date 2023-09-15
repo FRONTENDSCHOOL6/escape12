@@ -41,6 +41,8 @@ function UploadRecord() {
 		}
 	};
 
+	console.log(data);
+
 	//게시글 수정 기능
 	const handleEditRecord = () => {
 		try {
@@ -111,8 +113,6 @@ function UploadRecord() {
 
 		handleRecordData();
 	}, [dataId]);
-
-	console.log(data);
 
 	return (
 		<div>

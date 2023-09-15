@@ -1,10 +1,10 @@
 import SmallButton from '@/components/button/SmallButton';
-import { bool, func, number, string } from 'prop-types';
+import { array, bool, func, number, string } from 'prop-types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Span from './Span';
-import HeartButton from './HeartButton';
 import MedalButton from '../button/MedalButton';
+import HeartButton from './HeartButton';
+import Span from './Span';
 
 ThemeItem.propTypes = {
 	store: string,
@@ -20,8 +20,8 @@ ThemeItem.propTypes = {
 	dataid: string,
 	heart: bool,
 	toggleHeart: func,
-	clear: bool,
-	record: string,
+	clear: array,
+	record: array,
 };
 
 function ThemeItem({
@@ -44,8 +44,8 @@ function ThemeItem({
 	};
 
 	return (
-		<figure className="my-4 border-2 border-ec1 p-6 s:p-3 rounded-xl flex gap-3 s:gap-[5%] text-ec1 text-lg s:text-base relative h-[180px]">
-			<div className=" bg-ec4 flex w-[25%]">
+		<figure className="my-4 border-2 border-ec1 p-4 s:p-3 rounded-xl flex gap-3 s:gap-[5%] text-ec1 text-lg s:text-base relative h-[180px]">
+			<div className=" bg-ec4 flex w-[25%] s:min-w-[25%]">
 				<img src={image} alt={theme} aria-hidden className="w-full" />
 			</div>
 			<figcaption className="flex flex-col justify-between s:justify-around">
@@ -61,7 +61,7 @@ function ThemeItem({
 							: '🌸꽃길'}
 					</Span>
 				</section>
-				<section className="flex gap-3">
+				<section className="flex gap-4 s:justify-between">
 					<div className="flex gap-1">
 						<h3>
 							{store} <Span>{point}점</Span>
@@ -69,25 +69,36 @@ function ThemeItem({
 					</div>
 					<Span>장르: {field}</Span>
 				</section>
-				<section className="flex gap-7 s:gap-[2%]">
+				<section className="flex gap-7 w-full s:justify-between">
 					{level === 1 || level === 2 || level === 3 ? (
-						<SmallButton bg="bg-googleline s:p-1 s:text-xs">♣ 쉬움</SmallButton>
+						<SmallButton bg="bg-googleline">♣ 쉬움</SmallButton>
 					) : level === 4 || level === 5 || level === 6 || level === 7 ? (
-						<SmallButton bg="bg-kakaoline s:p-1 s:text-xs">♣ 보통</SmallButton>
+						<SmallButton bg="bg-kakaoline">♣ 보통</SmallButton>
 					) : (
-						<SmallButton bg="bg-sweetred s:p-1 s:text-xs">♣ 어려움</SmallButton>
+						<SmallButton bg="bg-sweetred">♣ 어려움</SmallButton>
 					)}
-					{!clear ? (
-						<Link to={dataid}>
-							<SmallButton bg="bg-ec3" text="text-ec1 s:text-xs s:p-1">
-								기록하기
-							</SmallButton>
-						</Link>
-					) : (
+					{clear && clear.findIndex((item) => item.id === `${dataid}`) >= 0 && (
 						<Link to={`/upload/${record}`}>
 							<MedalButton theme={theme} />
 						</Link>
 					)}
+
+					{clear && clear.findIndex((item) => item.id === `${dataid}`) < 0 && (
+						<Link to={dataid}>
+							<SmallButton bg="bg-ec3" text="text-ec1">
+								기록하기
+							</SmallButton>
+						</Link>
+					)}
+
+					{!clear && (
+						<Link to={dataid}>
+							<SmallButton bg="bg-ec3" text="text-ec1">
+								기록하기
+							</SmallButton>
+						</Link>
+					)}
+
 					<Link to={link} target="_blank" rel="noopenner noreferrer">
 						<SmallButton bg="bg-ec1 s:text-xs s:p-1">예약하기</SmallButton>
 					</Link>
