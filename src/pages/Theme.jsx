@@ -5,6 +5,7 @@ import Spinner from '@/components/Spinner';
 import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
+import HeartButton from '@/components/theme/HeartButton';
 import LiButton from '@/components/theme/LiButton';
 import ThemeItem from '@/components/theme/ThemeItem';
 import debounce from '@/utils/debounce';
@@ -20,8 +21,20 @@ function Theme() {
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [emptyData, setEmptyData] = useState(false);
+	const [gang, setGang] = useState(false);
+	const [hong, setHong] = useState(false);
+	const [kuk, setKuk] = useState(false);
+	const [level, setLevel] = useState(false);
+	const [like, setLike] = useState(false);
 	const [user, setUser] = useState([]);
 	const navigate = useNavigate();
+
+	const [heart, setHeart] = useState(false);
+
+	// heart 상태 관리
+	const isClickHeart = () => {
+		heart === false ? setHeart(true) : setHeart(false);
+	};
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
@@ -58,6 +71,12 @@ function Theme() {
 	//인기순 정렬하기
 	const handleGradeSort = () => {
 		setIsLoading(false);
+		setGang(false);
+		setHong(false);
+		setKuk(false);
+		setLevel(false);
+		setLike(true);
+
 		gradeSort ? setGradeSort(false) : setGradeSort(true);
 
 		const gradeDataSort = async () => {
@@ -85,6 +104,12 @@ function Theme() {
 	//난이도별 정리하기
 	const handleLevelSort = () => {
 		setIsLoading(false);
+		setGang(false);
+		setHong(false);
+		setKuk(false);
+		setLevel(true);
+		setLike(false);
+
 		levelSort ? setLevelSort(false) : setLevelSort(true);
 
 		const levelDataSort = async () => {
@@ -112,6 +137,11 @@ function Theme() {
 	//지역별 강남 정렬하기
 	const handleGangnam = () => {
 		setIsLoading(false);
+		setGang(true);
+		setHong(false);
+		setKuk(false);
+		setLevel(false);
+		setLike(false);
 
 		const regionGangNam = async () => {
 			const gangnam = await pb.collection('escapeList').getFullList({
@@ -133,6 +163,11 @@ function Theme() {
 	//지역별 홍대 정렬하기
 	const handleHongDae = () => {
 		setIsLoading(false);
+		setGang(false);
+		setHong(true);
+		setKuk(false);
+		setLevel(false);
+		setLike(false);
 
 		const regionHongDae = async () => {
 			const hongdae = await pb.collection('escapeList').getFullList({
@@ -154,6 +189,11 @@ function Theme() {
 	//지역별 건대 정렬하기
 	const handleKonkuk = () => {
 		setIsLoading(false);
+		setGang(false);
+		setHong(false);
+		setKuk(true);
+		setLevel(false);
+		setLike(false);
 
 		const regionHongDae = async () => {
 			const konkuk = await pb.collection('escapeList').getFullList({
@@ -174,6 +214,12 @@ function Theme() {
 
 	//검색 기능
 	const handleSearch = (e) => {
+		setGang(false);
+		setHong(false);
+		setKuk(false);
+		setLevel(false);
+		setLike(false);
+
 		setIsLoading(false);
 		if (e.target.value.length !== 0) {
 			setSearch(e.target.value);
@@ -276,21 +322,42 @@ function Theme() {
 				</SearchInput>
 				<ul className="text-ec1 text-lg flex justify-center w-full gap-8 s:justify-center s:gap-[3%] px-20 s:px-12">
 					<li>
-						<LiButton onClick={handleGangnam}>강남</LiButton>
+						<LiButton
+							onClick={handleGangnam}
+							text={gang ? 'font-bold text-xl' : ''}
+						>
+							강남
+						</LiButton>
 					</li>
 					<li>
-						<LiButton onClick={handleHongDae}>홍대</LiButton>
+						<LiButton
+							onClick={handleHongDae}
+							text={hong ? 'font-bold text-xl' : ''}
+						>
+							홍대
+						</LiButton>
 					</li>
 					<li>
-						<LiButton onClick={handleKonkuk}>건대</LiButton>
+						<LiButton
+							onClick={handleKonkuk}
+							text={kuk ? 'font-bold text-xl' : ''}
+						>
+							건대
+						</LiButton>
 					</li>
 					<li>
-						<LiButton onClick={handleLevelSort}>
+						<LiButton
+							onClick={handleLevelSort}
+							text={level ? 'font-bold text-xl' : ''}
+						>
 							{!levelSort ? '난이도순 ↑' : '난이도순 ↓'}
 						</LiButton>
 					</li>
 					<li>
-						<LiButton onClick={handleGradeSort}>
+						<LiButton
+							onClick={handleGradeSort}
+							text={like ? 'font-bold text-xl' : ''}
+						>
 							{!gradeSort ? '인기순 ↑' : '인기순 ↓'}
 						</LiButton>
 					</li>
@@ -310,7 +377,7 @@ function Theme() {
 					<ul className="w-full px-20 s:px-12">
 						{data.map((item) => {
 							return (
-								<li key={item.id}>
+								<li key={item.id} className="relative">
 									<ThemeItem
 										store={item.store}
 										point={item.point}
@@ -323,6 +390,10 @@ function Theme() {
 										dataid={item.id}
 										clear={user}
 										record={item.record}
+									/>
+									<HeartButton
+										onClick={isClickHeart}
+										checked={!heart ? 'bg-heartfalse' : 'bg-hearttrue'}
 									/>
 								</li>
 							);
