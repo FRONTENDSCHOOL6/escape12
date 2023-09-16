@@ -48,7 +48,7 @@ function ThemeItem({
 			// 좋아요 True
 			try {
 				if (!heart) {
-					const bookMarkId = { bookmark: [`${dataid}`] };
+					const bookMarkId = { bookmark: [...user, `${dataid}`] };
 					await pb
 						.collection('users')
 						.update(`${userUId.model.id}`, bookMarkId);
