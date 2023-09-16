@@ -58,7 +58,7 @@ function Theme() {
 	//데이터 불러오기
 	useEffect(() => {
 		const dataList = async () => {
-			const escape = await pb.collection('escapeList').getList(1, 300, {
+			const escape = await pb.collection('escapeList').getList(1, 400, {
 				sort: 'theme',
 			});
 
@@ -206,7 +206,7 @@ function Theme() {
 		}
 
 		const escapeSearch = async () => {
-			const resultList = await pb.collection('escapeList').getList(1, 200, {
+			const resultList = await pb.collection('escapeList').getList(1, 400, {
 				sort: 'theme',
 				filter: `(store ~ "${e.target.value}" || theme ~ "${
 					e.target.value
@@ -221,7 +221,7 @@ function Theme() {
 				}")`,
 			});
 
-			const data = await pb.collection('escapeList').getList(1, 200, {
+			const data = await pb.collection('escapeList').getList(1, 400, {
 				expand: 'users',
 			});
 
@@ -258,9 +258,6 @@ function Theme() {
 	const handleSubmitButton = (e) => {
 		e.preventDefault();
 	};
-
-
-  console.log(data);
 
 	return (
 		<>
