@@ -15,13 +15,13 @@ ThemeItem.propTypes = {
 	image: string,
 	link: string,
 	field: string,
-	onClick: func,
-	checked: string,
 	dataid: string,
 	heart: bool,
 	toggleHeart: func,
 	clear: array,
 	record: array,
+	onClick: func,
+	checked: string,
 };
 
 function ThemeItem({
@@ -36,13 +36,9 @@ function ThemeItem({
 	dataid,
 	clear,
 	record,
+	onClick,
+	checked,
 }) {
-	const [heart, setHeart] = useState(false);
-
-	const isClickHeart = () => {
-		heart === false ? setHeart(true) : setHeart(false);
-	};
-
 	return (
 		<figure className="my-4 border-2 border-ec1 p-4 s:p-3 rounded-xl flex gap-3 s:gap-[5%] text-ec1 text-lg s:text-base relative h-[180px]">
 			<div className=" bg-ec4 flex w-[25%] s:min-w-[25%]">
@@ -104,10 +100,7 @@ function ThemeItem({
 					</Link>
 				</section>
 			</figcaption>
-			<HeartButton
-				onClick={isClickHeart}
-				checked={!heart ? 'bg-heartfalse' : 'bg-hearttrue'}
-			/>
+			<HeartButton onClick={onClick} checked={checked} />
 		</figure>
 	);
 }

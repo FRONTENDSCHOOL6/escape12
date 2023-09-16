@@ -20,8 +20,14 @@ function Theme() {
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [emptyData, setEmptyData] = useState(false);
+	const [heart, setHeart] = useState(false);
 	const [user, setUser] = useState([]);
 	const navigate = useNavigate();
+
+	// 좋아요 버튼 이벤트
+	const isClickHeart = () => {
+		heart === false ? setHeart(true) : setHeart(false);
+	};
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
@@ -323,6 +329,8 @@ function Theme() {
 										dataid={item.id}
 										clear={user}
 										record={item.record}
+										onClick={isClickHeart}
+										checked={!heart ? 'bg-heartfalse' : 'bg-hearttrue'}
 									/>
 								</li>
 							);
