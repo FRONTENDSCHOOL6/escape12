@@ -16,7 +16,7 @@ function DefaultnickName({ nickName, nickNameEvent }) {
 				defaultValue={nickName}
 				onChange={nickNameEvent}
 			>
-				테마명
+				닉네임
 			</FormInput>
 		</>
 	);

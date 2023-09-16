@@ -30,10 +30,11 @@
    </br>
    <img alt="html5" src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img alt="css" src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img alt="tailwind" src ="https://img.shields.io/badge/Tailwind-06B6D4.svg?&style=for-the-badge&logo=TailwindCSS&logoColor=white"/> <img alt="javascript" src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img alt="react" src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img alt="reactrouter" src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white"> <img alt="reactquery" src="https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=react-query&logoColor=white"> 
 </div>
+
 ## 🔖 역할 분담
-김건주 (스크럼마스터) : 로그인, 회원가입, 테마, 즐겨찾기, 내가 쓴 기록
-김남진 : 커뮤니티(글, 작성자, 댓글), 내가 쓴 커뮤글, 내가 쓴 댓글
-조수연 (조장) : 마이페이지, 정보수정, 커뮤니티(글 작성), 기록
+- 김건주 (스크럼마스터) : 로그인, 회원가입, 테마, 즐겨찾기, 내가 쓴 기록
+- 김남진 : 커뮤니티(글, 작성자, 댓글), 내가 쓴 커뮤글, 내가 쓴 댓글
+- 조수연 (조장) : 마이페이지, 정보수정, 커뮤니티(글 작성), 기록
 
 ## 🖥️ 진행 일정
 - 23.09.04 ~ 23.09.05 : 전체 회의, 역할 분담, 피그마 구현
