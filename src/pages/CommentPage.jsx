@@ -89,6 +89,7 @@ function CommentPage() {
 			const commentData = await pb.collection('comment').getList(1, 200, {
 				filter: `community = "${dataId}"`,
 				expand: 'author, community',
+				sort: '-created',
 			});
 			try {
 				setData(record);
@@ -109,7 +110,7 @@ function CommentPage() {
 			</Helmet>
 			{/* 전체 페이지 */}
 
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center min-h-[100vh] m-auto px-20 s:px-12 py-20 gap-10 relative">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center min-h-[100vh] m-auto px-20 s:px-12 py-24 gap-10 relative">
 				<Headerback
 					onClick={() => {
 						navigate(-1);
