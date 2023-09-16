@@ -22,6 +22,7 @@
 - 매일 오전 9시 간단한 회의
 - 매일 오후 5시 30분 전체 머지
 - 속도가 다르다고 비난하기 금지, 도움주기
+- 커밋은 한글로, 자주하기
 
 ## ⚙️ 기술 스택
 <div>
@@ -50,3 +51,6 @@
 
 ## 페이지 기능
 - 페이지 별 사진 첨부 및 기능 설명
+
+##### [Wiki 바로가기](https://github.com/FRONTENDSCHOOL6/escape12/wiki)
+##### [Backlog 바로가기](https://github.com/orgs/FRONTENDSCHOOL6/projects/24/views/4)
