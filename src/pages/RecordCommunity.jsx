@@ -1,16 +1,15 @@
 import pb from '@/api/pockethost';
+import noImage from '@/assets/noImage.png';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
 import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
 import RecordCommunityItem from '@/components/record/RecordCommunityItem';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import debounce from '@/utils/debounce';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import noImage from '@/assets/noImage.png';
-import debounce from '@/utils/debounce';
 
 function RecordCommunity() {
 	const navigate = useNavigate();
@@ -59,7 +58,7 @@ function RecordCommunity() {
 	}, [showPlusNav]);
 
 	// 검색 기능
-	const handleSearch = (e) => {
+	const handleSearch = useCallback((e) => {
 		setIsLoading(false);
 		if (e.target.value.length !== 0) {
 			setSearch(e.target.value);
@@ -67,12 +66,14 @@ function RecordCommunity() {
 			setSearch('');
 		}
 
+		// 테마명, 닉네임, 업체명, 평점으로 검색
 		const recordSearch = async () => {
 			const recordList = await pb.collection('record').getList(1, 200, {
+				sort: '-created',
 				expand: 'escapeList,author',
-				filter: `theme ~ "${e.target.value}" || store ~ "${
+				filter: `theme ~ "${e.target.value}" || nickName = "${
 					e.target.value
-				}"|| grade = "${
+				}" || store ~ "${e.target.value}"|| grade = "${
 					e.target.value === '꽃길'
 						? 8 && 9 && 10
 						: e.target.value === '풀길'
@@ -123,8 +124,11 @@ function RecordCommunity() {
 		};
 
 		recordSearch();
-	};
-	const debounceSearch = debounce((e) => handleSearch(e), 500);
+	}, []);
+	const debounceSearch = useMemo(
+		() => debounce((e) => handleSearch(e), 500),
+		[handleSearch]
+	);
 
 	// 데이터 불러오기
 	useEffect(() => {
@@ -144,8 +148,6 @@ function RecordCommunity() {
 
 		allRecord();
 	}, []);
-
-	console.log(data);
 
 	return (
 		<div>
@@ -181,7 +183,7 @@ function RecordCommunity() {
 							<Spinner />
 						</div>
 					)}
-					<ul className="w-full px-20">
+					<ul className="w-full px-20 s:px-12">
 						{!emptyData &&
 							isLoading &&
 							!noResult &&
@@ -201,17 +203,15 @@ function RecordCommunity() {
 											}
 											author={item.expand?.author?.nickName}
 											link={item.id}
+											record={item.expand?.author?.record}
 										/>
 									</li>
 								);
 							})}
 					</ul>
 				</div>
-				<UpNav
-					topClick={handleTopButton}
-					hidden={!showPlusNav ? 'hidden' : ''}
-				/>
 			</div>
+			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
 		</div>
 	);
 }

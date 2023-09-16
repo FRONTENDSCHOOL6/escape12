@@ -8,7 +8,7 @@ Date.propTypes = {
 
 function Date({ dateValue, onChange }) {
 	return (
-		<div className="flex text-ec1 px-2 gap-5">
+		<div className="flex text-ec1 px-2 gap-5 s:gap-9">
 			<label htmlFor="date" className="w-32 s:min-w-fit">
 				<Sup>날짜</Sup>
 			</label>

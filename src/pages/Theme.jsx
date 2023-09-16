@@ -1,4 +1,5 @@
 import pb from '@/api/pockethost';
+import userUId from '@/api/userUid';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
 import HeaderRecord from '@/components/header/HeaderRecord';
@@ -19,6 +20,7 @@ function Theme() {
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [emptyData, setEmptyData] = useState(false);
+	const [user, setUser] = useState([]);
 	const navigate = useNavigate();
 
 	//기록하기 버튼 이벤트
@@ -52,24 +54,6 @@ function Theme() {
 			window.removeEventListener('scroll', handleScroll);
 		};
 	}, [showPlusNav]);
-
-	//데이터 불러오기
-	useEffect(() => {
-		const dataList = async () => {
-			const record = await pb.collection('escapeList').getList(1, 200, {
-				expand: 'store, point, field, grade, level, image, link',
-				sort: 'theme',
-			});
-
-			try {
-				setData(record.items);
-				setIsLoading(true);
-			} catch (err) {
-				console.log(`에러 내용: ${err}`);
-			}
-		};
-		dataList();
-	}, []);
 
 	//인기순 정렬하기
 	const handleGradeSort = () => {
@@ -198,7 +182,8 @@ function Theme() {
 		}
 
 		const escapeSearch = async () => {
-			const resultList = await pb.collection('escapeList').getList(1, 200, {
+			const resultList = await pb.collection('escapeList').getList(1, 227, {
+				sort: 'theme',
 				filter: `(store ~ "${e.target.value}" || theme ~ "${
 					e.target.value
 				}" || field ~ "${e.target.value}" || grade ~ "${
@@ -212,8 +197,8 @@ function Theme() {
 				}")`,
 			});
 
-			const data = await pb.collection('escapeList').getList(1, 200, {
-				expand: 'store, point, field, grade, level, image, link',
+			const data = await pb.collection('escapeList').getList(1, 227, {
+				expand: 'users',
 			});
 
 			try {
@@ -250,6 +235,30 @@ function Theme() {
 		e.preventDefault();
 	};
 
+	//데이터 불러오기
+	useEffect(() => {
+		const dataList = async () => {
+			const escape = await pb.collection('escapeList').getList(1, 227, {
+				sort: 'theme',
+			});
+
+			const usersEscape = await pb
+				.collection('users')
+				.getOne(`${userUId?.model?.id}`, {
+					expand: 'escapeList',
+				});
+
+			try {
+				setData(escape.items);
+				setUser(usersEscape.expand?.escapeList);
+				setIsLoading(true);
+			} catch (err) {
+				console.log(`에러 내용: ${err}`);
+			}
+		};
+		dataList();
+	}, []);
+
 	return (
 		<>
 			<Helmet>
@@ -265,7 +274,7 @@ function Theme() {
 				>
 					검색
 				</SearchInput>
-				<ul className="text-ec1 text-lg flex justify-center w-full gap-8 s:justify-center s:pr-0 s:gap-5">
+				<ul className="text-ec1 text-lg flex justify-center w-full gap-8 s:justify-center s:gap-[3%] px-20 s:px-12">
 					<li>
 						<LiButton onClick={handleGangnam}>강남</LiButton>
 					</li>
@@ -297,7 +306,7 @@ function Theme() {
 						<Spinner />
 					</div>
 				)}
-				{isLoading && (
+				{isLoading && data && (
 					<ul className="w-full px-20 s:px-12">
 						{data.map((item) => {
 							return (
@@ -312,7 +321,7 @@ function Theme() {
 										link={item.link}
 										field={item.field}
 										dataid={item.id}
-										clear={item.clear}
+										clear={user}
 										record={item.record}
 									/>
 								</li>

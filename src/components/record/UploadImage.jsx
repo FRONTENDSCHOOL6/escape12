@@ -1,5 +1,4 @@
-import Sup from './Sup';
-import { func, string, object } from 'prop-types';
+import { func, object, string } from 'prop-types';
 
 UploadImage.propTypes = {
 	inputRef: object,
@@ -12,9 +11,7 @@ UploadImage.propTypes = {
 function UploadImage({ inputRef, onChange, imgRef, src, alt }) {
 	return (
 		<div className="flex flex-col gap-5 text-ec1 relative px-2">
-			<label htmlFor="image">
-				<Sup>사진</Sup>
-			</label>
+			<label htmlFor="image">사진</label>
 			<input
 				ref={inputRef}
 				onChange={onChange}
@@ -23,7 +20,6 @@ function UploadImage({ inputRef, onChange, imgRef, src, alt }) {
 				name="image"
 				id="image"
 				accept="*.jpg,*.png,*.webp,*.avif"
-				required
 			/>
 			<div className="h-[140px] bg-opacity p-2 rounded-lg border border-ec1">
 				<img ref={imgRef} className="h-full" src={src} alt={alt} />

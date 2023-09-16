@@ -185,7 +185,7 @@ function SignUp() {
 				<KeyLogo path="/loginselete" />
 				<form
 					onSubmit={handleUserData}
-					className="flex flex-col gap-10 items-center mt-14"
+					className="flex flex-col gap-10 items-center my-14 s:px-3"
 				>
 					<fieldset className="flex flex-col gap-3">
 						<>

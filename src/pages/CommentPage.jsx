@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import Commentitem from '@/components/comment/Commentitem';
+import Commentitem from '@/components/comment/CommentItem';
 
 function CommentPage() {
 	const [data, setData] = useState([]);

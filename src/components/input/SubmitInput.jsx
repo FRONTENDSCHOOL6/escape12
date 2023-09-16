@@ -23,7 +23,7 @@ function SubmitInput({
 	return (
 		<form
 			onSubmit={onSubmit}
-			className={`flex gap-4 w-full px-20 justify-center text-lg pb-4 ${text}`}
+			className={`flex gap-4 w-full justify-center text-lg pb-4 ${text}`}
 		>
 			<input
 				type={type}

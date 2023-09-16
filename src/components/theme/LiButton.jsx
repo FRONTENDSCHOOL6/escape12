@@ -7,7 +7,11 @@ LiButton.propTypes = {
 
 function LiButton({ onClick, children }) {
 	return (
-		<button className="hover:font-extrabold" type="button" onClick={onClick}>
+		<button
+			className="hover:font-extrabold whitespace-nowrap"
+			type="button"
+			onClick={onClick}
+		>
 			{children}
 		</button>
 	);

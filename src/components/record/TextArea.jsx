@@ -1,10 +1,10 @@
-import { func, string } from 'prop-types';
+import { func, string, number } from 'prop-types';
 
 TextArea.propTypes = {
 	value: string,
 	onChange: func,
 	style: string,
-	children: string,
+	children: number,
 };
 
 function TextArea({

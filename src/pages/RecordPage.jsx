@@ -11,6 +11,7 @@ import RemainingTime from '@/components/record/RemainingTime';
 import TextArea from '@/components/record/TextArea';
 import UploadImage from '@/components/record/UploadImage';
 import debounce from '@/utils/debounce';
+import { useEffect } from 'react';
 import { useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
@@ -26,6 +27,7 @@ function RecordPage() {
 	const [hour, setHour] = useState('');
 	const [minute, setMinute] = useState('');
 	const [content, setContent] = useState('');
+	const [data, setData] = useState([]);
 	const photoRef = useRef(null);
 	const uploadPhotoRef = useRef(null);
 
@@ -87,10 +89,17 @@ function RecordPage() {
 			content: content,
 			image: photoRef.current.files[0],
 			author: `${userUId?.model.id}`,
+			nickName: `${userUId?.model.nickName}`,
 		};
 
 		try {
 			const result = await pb.collection('record').create(userRecord);
+
+			const userRecord1 = {
+				record: [...data, `${result.id}`],
+			};
+
+			await pb.collection('users').update(`${userUId?.model.id}`, userRecord1);
 
 			toast('등록되었습니다 :)', {
 				icon: '💛',
@@ -101,6 +110,23 @@ function RecordPage() {
 			console.log(`등록하기 에러: ${err}`);
 		}
 	};
+
+	useEffect(() => {
+		const dataList = async () => {
+			const userRecord = await pb
+				.collection('users')
+				.getOne(`${userUId?.model.id}`, {
+					expand: 'record',
+				});
+
+			try {
+				setData(userRecord.record);
+			} catch (err) {
+				console.log(`불러오기 내용: ${err}`);
+			}
+		};
+		dataList();
+	}, []);
 
 	return (
 		<>
