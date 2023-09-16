@@ -1,17 +1,37 @@
-import { string } from 'prop-types';
+import userUId from '@/api/userUid';
+import { func, string } from 'prop-types';
 
-Commentitem.propTypes = {
-	author: string,
-	content: string,
+CommentItem.propTypes = {
+	src: string,
+	alt: string,
+	nickName: string,
+	comment: string,
+	userId: string,
+	onClick: func,
 };
 
-function Commentitem({ author, content }) {
+function CommentItem({
+	src,
+	alt,
+	nickName,
+	comment,
+	userId = '',
+	onClick = null,
+}) {
 	return (
-		<div className="text-lg w-full border-2 text-ec1 p-4 mb-2 rounded-xl flex flex-col m-auto">
-			<p className="font-bold mb-2 pb-2 border-b-[1px]">{author}</p>
-			<p>{content}</p>
-		</div>
+		<>
+			<div className="flex gap-2">
+				<img className="w-8 h-8 rounded-full" src={src} alt={alt} />
+				<span className="font-bold">{nickName}</span>
+			</div>
+			<span className="pb-2 flex-1">{comment}</span>
+			{userId === `${userUId?.model.id}` && (
+				<button type="button" onClick={onClick}>
+					X
+				</button>
+			)}
+		</>
 	);
 }
 
-export default Commentitem;
+export default CommentItem;

@@ -5,7 +5,7 @@ FormInputValid.propTypes = {
 	color: string,
 };
 function FormInputValid({ children, color }) {
-	return <p className={`${color} text-right h-6`}>{children}</p>;
+	return <p className={`${color} text-right h-6 s:text-sm`}>{children}</p>;
 }
 
 export default FormInputValid;

@@ -15,15 +15,15 @@ function Button({
     onClick = null,
     children,
 }) {
-    return (
-        <button
-            type={type}
-            className={`text-center rounded-lg ${bg} ${text} px-8 h-8 font-semibold`}
-            onClick={onClick}
-        >
-            {children}
-        </button>
-    );
+	return (
+		<button
+			type={type}
+			className={`text-center rounded-lg ${bg} ${text} px-8 h-8 font-semibold`}
+			onClick={onClick}
+		>
+			{children}
+		</button>
+	);
 }
 
 export default Button;

@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import Button from '@/components/button/Button';
 import Nav from '@/components/nav/Nav';
 import Headerback from '@/components/header/Headerback';
+import Headerback from '@/components/header/Headerback';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
@@ -90,11 +91,7 @@ function Editpage() {
 								nickNameEvent={debouncenickName}
 							/>
 					</div>
-					<Button
-						onClick={handleSave}
-						bg="bg-ec1"
-						text="text-ec4 mt-4"
-					>
+					<Button onClick={handleSave} bg="bg-ec1" text="text-ec4 mt-4">
 						저장
 					</Button>
 					<footer className="mt-auto py-1 mb-2">

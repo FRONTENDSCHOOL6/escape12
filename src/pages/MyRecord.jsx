@@ -139,7 +139,6 @@ function MyRecord() {
 			try {
 				setData(records);
 				setIsLoading(true);
-				// console.log(records);
 			} catch (err) {
 				console.log(`데이터 불러오기 에러 : ${err}`);
 			}

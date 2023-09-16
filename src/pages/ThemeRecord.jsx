@@ -20,7 +20,8 @@ pb.autoCancellation(false);
 function ThemeRecord() {
 	const navigate = useNavigate();
 	const { dataId } = useParams();
-	const [data, setData] = useState([]);
+	const [data, setData] = useState({});
+	const [users, setUsers] = useState([]);
 	const [date, setDate] = useState('');
 	const [grade, setGrade] = useState('');
 	const [length, setLength] = useState(0);
@@ -28,6 +29,9 @@ function ThemeRecord() {
 	const [minute, setMinute] = useState('');
 	const [content, setContent] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [record, setRecord] = useState([]);
+	const [escapeList, setEscapeList] = useState([]);
+	const [escapeListRecord, setEscapeListRecord] = useState([]);
 
 	// 날짜 상태 관리
 	const handleDateChange = (e) => {
@@ -58,10 +62,28 @@ function ThemeRecord() {
 	//테마 데이터 불러오기
 	useEffect(() => {
 		const dataList = async () => {
-			const record = await pb.collection('escapeList').getOne(`${dataId}`);
+			const record = await pb.collection('escapeList').getOne(`${dataId}`, {
+				expand: 'users,record',
+			});
+
+			const userRecord = await pb
+				.collection('users')
+				.getOne(`${userUId?.model.id}`, {
+					expand: 'record',
+				});
+
+			const userEscapeList = await pb
+				.collection('users')
+				.getOne(`${userUId?.model.id}`, {
+					expand: 'escapeList',
+				});
 
 			try {
 				setData(record);
+				setUsers(record.users);
+				setRecord(userRecord.record);
+				setEscapeList(userEscapeList.escapeList);
+				setEscapeListRecord(record.record);
 				setIsLoading(true);
 			} catch (err) {
 				console.log(`불러오기 내용: ${err}`);
@@ -69,8 +91,6 @@ function ThemeRecord() {
 		};
 		dataList();
 	}, [dataId]);
-
-	console.log(data);
 
 	// 기록 등록하기 이벤트
 	const handleSubmitRecord = async (e) => {
@@ -87,17 +107,24 @@ function ThemeRecord() {
 				content: content,
 				author: `${userUId?.model.id}`,
 				escapeList: `${dataId}`,
+				nickName: `${userUId?.model.nickName}`,
 			};
 
 			const result = await pb.collection('record').create(themeRecord);
 
 			const themeClear = {
-				record: [`${result.id}`],
-				clear: true,
-				users: [`${userUId?.model.id}`],
+				users: [...users, `${userUId?.model.id}`],
+				record: [...escapeListRecord, `${result.id}`],
 			};
 
 			await pb.collection('escapeList').update(`${dataId}`, themeClear);
+
+			const userRecord = {
+				record: [...record, `${result.id}`],
+				escapeList: [...escapeList, `${dataId}`],
+			};
+
+			await pb.collection('users').update(`${userUId?.model.id}`, userRecord);
 
 			toast('등록되었습니다 :)', {
 				icon: '💛',
