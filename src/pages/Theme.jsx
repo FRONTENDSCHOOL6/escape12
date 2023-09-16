@@ -27,13 +27,31 @@ function Theme() {
 	const [level, setLevel] = useState(false);
 	const [like, setLike] = useState(false);
 	const [user, setUser] = useState([]);
+	const [bookMark, setBookMark] = useState([]);
 	const navigate = useNavigate();
 
 	const [heart, setHeart] = useState(false);
 
+	// // heart 상태 관리
+	// const isClickHeart = () => {
+	// 	heart === false ? setHeart(true) : setHeart(false);
+	// };
+
 	// heart 상태 관리
-	const isClickHeart = () => {
-		heart === false ? setHeart(true) : setHeart(false);
+	const isClickHeart = (item) => {
+		const newHeartState = !item.heart;
+		setData((prevData) =>
+			prevData.map((d) =>
+				d.id === item.id ? { ...d, heart: newHeartState } : d
+			)
+		);
+
+    if(newHeartState){
+      console.log('좋아요');
+    }else{
+      console.log('좋아요취소!');
+    }
+		// console.log(`${item.id}: ${newHeartState}`);
 	};
 
 	//기록하기 버튼 이벤트
@@ -294,9 +312,16 @@ function Theme() {
 					expand: 'escapeList',
 				});
 
+			const usersLike = await pb
+				.collection('users')
+				.getOne(`${userUId?.model?.id}`, {
+					expand: 'bookmark',
+				});
+
 			try {
 				setData(escape.items);
 				setUser(usersEscape.expand?.escapeList);
+				setBookMark(usersLike.bookmark);
 				setIsLoading(true);
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
@@ -392,8 +417,10 @@ function Theme() {
 										record={item.record}
 									/>
 									<HeartButton
-										onClick={isClickHeart}
-										checked={!heart ? 'bg-heartfalse' : 'bg-hearttrue'}
+										// onClick={isClickHeart}
+										// checked={!heart ? 'bg-heartfalse' : 'bg-hearttrue'}
+										onClick={() => isClickHeart(item)} // 아이템별로 클릭 이벤트 처리
+										checked={!item.heart ? 'bg-heartfalse' : 'bg-hearttrue'} // 아이템의 개별 heart 상태 사용
 									/>
 								</li>
 							);
