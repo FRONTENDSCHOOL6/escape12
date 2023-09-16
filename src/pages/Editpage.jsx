@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import Button from '@/components/button/Button';
 import Nav from '@/components/nav/Nav';
-import Headerback from '@/components/header/HeaderBack';
+import Headerback from '@/components/header/Headerback';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
@@ -9,13 +9,13 @@ import FormInput from '@/components/loginsignup/FormInput';
 
 function Editpage() {
 	const navigate = useNavigate();
-	const handleSave = () =>{
+	const handleSave = () => {
 		toast('정보 수정이 완료되었습니다', {
 			icon: '✨',
 			duration: 2000,
 		});
 		navigate('/mypage');
-	}
+	};
 
 	return (
 		<>
@@ -53,11 +53,7 @@ function Editpage() {
 							닉네임
 						</FormInput>
 					</div>
-					<Button
-						onClick={handleSave}
-						bg="bg-ec1"
-						text="text-ec4 mt-4"
-					>
+					<Button onClick={handleSave} bg="bg-ec1" text="text-ec4 mt-4">
 						저장
 					</Button>
 					<footer className="mt-auto py-1 mb-2">
