@@ -114,14 +114,14 @@ function Mypage() {
             <ul className="w-80 s:px-12 rounded-lg border-2 p-12 text-xl space-y-4 mt-8 text-center">
               <li>
                 내가 작성한 기록 :
-                <Link to="/recordpage" className="hover:text-ec5"> {records.length} 개</Link>
+                <Link to="/myrecord" className="hover:text-ec5"> {records.length} 개</Link>
               </li>
               <li>
                 내가 작성한 글 :
-                <Link to="/mypage" className="hover:text-ec5"> {community.length} 개</Link></li>
+                <Link to="/mycommunity" className="hover:text-ec5"> {community.length} 개</Link></li>
               <li>
                 내가 작성한 댓글 :
-                <Link to="/mypage" className="hover:text-ec5"> {comment.length} 개</Link></li>
+                <Link to="/mycomment" className="hover:text-ec5"> {comment.length} 개</Link></li>
               <li
               >
                 <Link to="/mypage" className="hover:text-ec5">
