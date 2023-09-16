@@ -27,6 +27,21 @@ function Mypage() {
 		});
   };
 
+  //회원 탈퇴
+  const handleSecession = () =>{
+    const result = confirm('😢 정말로 탈퇴하실 건가요....?')
+
+    if(result){
+      pb.collection('users').delete(`${userUId.model.id}`);
+      toast('탈퇴가 완료 되었습니다',{
+        icon: '🙁',
+        duration: 2000,
+      });
+    }
+
+    }
+  
+
   //작성 기록 갯수
   useEffect(() => {
     const getrecord = async () => {
@@ -134,8 +149,18 @@ function Mypage() {
             >
               로그아웃
             </Button>
+            <div className="flex flex-col items-center pt-4 flex-1 text-ec1">
+              <button
+                type='button'
+                onClick={handleSecession}>
+                회원 탈퇴
+              </button>
+            </div>
           </div>
-        )}</div>
+
+        )}
+
+      </div>
       <Nav />
     </>
   );
