@@ -1,5 +1,8 @@
+import pb from '@/api/pockethost';
+import userUId from '@/api/userUid';
 import SmallButton from '@/components/button/SmallButton';
-import { array, bool, func, number, string } from 'prop-types';
+import { array, number, string } from 'prop-types';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import MedalButton from '../button/MedalButton';
 import HeartButton from './HeartButton';
@@ -15,12 +18,8 @@ ThemeItem.propTypes = {
 	link: string,
 	field: string,
 	dataid: string,
-	heart: bool,
-	toggleHeart: func,
 	clear: array,
 	record: array,
-	onClick: func,
-	checked: string,
 };
 
 function ThemeItem({
@@ -35,9 +34,45 @@ function ThemeItem({
 	dataid,
 	clear,
 	record,
-	onClick,
-	checked,
 }) {
+	const [heart, setHeart] = useState(false);
+	const [user, setUser] = useState([]);
+
+	// 좋아요 버튼 이벤트
+	const isClickHeart = () => {
+		// 하트 boolean 값
+		heart === false ? setHeart(true) : setHeart(false);
+
+		// 좋아요 기능
+		const userBookMark = async () => {
+			// 좋아요 True
+			try {
+				if (!heart) {
+					const bookMarkId = { bookmark: [`${dataid}`] };
+					await pb
+						.collection('users')
+						.update(`${userUId.model.id}`, bookMarkId);
+
+					setUser([...user, `${dataid}`]);
+					console.log('좋아요!');
+
+					// 좋아요 False
+				} else {
+					const arr = user.filter((i) => i !== `${dataid}`);
+          const updateBookMark = {bookmark: arr}
+          await pb
+					.collection('users')
+					.update(`${userUId.model.id}`, updateBookMark);
+
+					console.log('좋아요 취소!');
+				}
+			} catch (err) {
+				console.log(`좋아요 에러: ${err}`);
+			}
+		};
+		userBookMark();
+	};
+
 	return (
 		<figure className="my-4 border-2 border-ec1 p-4 s:p-3 rounded-xl flex gap-3 s:gap-[5%] text-ec1 text-lg s:text-base relative h-[180px] w-full">
 			<div className=" bg-ec4 flex w-[25%] s:min-w-[25%]">
@@ -99,7 +134,10 @@ function ThemeItem({
 					</Link>
 				</section>
 			</figcaption>
-			<HeartButton onClick={onClick} checked={checked} />
+			<HeartButton
+				onClick={isClickHeart}
+				checked={!heart ? 'bg-heartfalse' : 'bg-hearttrue'}
+			/>
 		</figure>
 	);
 }

@@ -20,14 +20,8 @@ function Theme() {
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [emptyData, setEmptyData] = useState(false);
-	const [heart, setHeart] = useState(false);
 	const [user, setUser] = useState([]);
 	const navigate = useNavigate();
-
-	// 좋아요 버튼 이벤트
-	const isClickHeart = () => {
-		heart === false ? setHeart(true) : setHeart(false);
-	};
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
@@ -60,30 +54,6 @@ function Theme() {
 			window.removeEventListener('scroll', handleScroll);
 		};
 	}, [showPlusNav]);
-
-	//데이터 불러오기
-	useEffect(() => {
-		const dataList = async () => {
-			const escape = await pb.collection('escapeList').getList(1, 400, {
-				sort: 'theme',
-			});
-
-			const usersEscape = await pb
-				.collection('users')
-				.getOne(`${userUId?.model?.id}`, {
-					expand: 'escapeList',
-				});
-
-			try {
-				setData(escape.items);
-				setUser(usersEscape.expand?.escapeList);
-				setIsLoading(true);
-			} catch (err) {
-				console.log(`에러 내용: ${err}`);
-			}
-		};
-		dataList();
-	}, []);
 
 	//인기순 정렬하기
 	const handleGradeSort = () => {
@@ -212,7 +182,7 @@ function Theme() {
 		}
 
 		const escapeSearch = async () => {
-			const resultList = await pb.collection('escapeList').getList(1, 400, {
+			const resultList = await pb.collection('escapeList').getList(1, 227, {
 				sort: 'theme',
 				filter: `(store ~ "${e.target.value}" || theme ~ "${
 					e.target.value
@@ -227,7 +197,7 @@ function Theme() {
 				}")`,
 			});
 
-			const data = await pb.collection('escapeList').getList(1, 400, {
+			const data = await pb.collection('escapeList').getList(1, 227, {
 				expand: 'users',
 			});
 
@@ -264,6 +234,30 @@ function Theme() {
 	const handleSubmitButton = (e) => {
 		e.preventDefault();
 	};
+
+	//데이터 불러오기
+	useEffect(() => {
+		const dataList = async () => {
+			const escape = await pb.collection('escapeList').getList(1, 227, {
+				sort: 'theme',
+			});
+
+			const usersEscape = await pb
+				.collection('users')
+				.getOne(`${userUId?.model?.id}`, {
+					expand: 'escapeList',
+				});
+
+			try {
+				setData(escape.items);
+				setUser(usersEscape.expand?.escapeList);
+				setIsLoading(true);
+			} catch (err) {
+				console.log(`에러 내용: ${err}`);
+			}
+		};
+		dataList();
+	}, []);
 
 	return (
 		<>
@@ -312,7 +306,7 @@ function Theme() {
 						<Spinner />
 					</div>
 				)}
-				{isLoading && (
+				{isLoading && data && (
 					<ul className="w-full px-20 s:px-12">
 						{data.map((item) => {
 							return (
@@ -329,8 +323,6 @@ function Theme() {
 										dataid={item.id}
 										clear={user}
 										record={item.record}
-										onClick={isClickHeart}
-										checked={!heart ? 'bg-heartfalse' : 'bg-hearttrue'}
 									/>
 								</li>
 							);
