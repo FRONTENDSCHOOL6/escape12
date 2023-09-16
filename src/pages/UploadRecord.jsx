@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
-import debounce from './../utils/debounce';
 
 function UploadRecord() {
 	const { dataId } = useParams();
@@ -20,14 +19,26 @@ function UploadRecord() {
 	const [comment, setComment] = useState([]);
 	const [commentInput, setCommentInput] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [escapeList, setEscapeList] = useState([]);
 
 	//게시글 삭제 기능
 	const handleDeleteRecord = async () => {
 		const deleteConfirm = confirm('정말로 삭제하시겠습니까?');
 
+		//user에 escapeList에 연결된 값 삭제하기
+		// 해당 테마의 아이디값을 제외한 배열로 업데이트하기
+		const array = escapeList.filter(
+			(i) => i !== `${data.expand?.escapeList?.id}`
+		);
+
+		const updateEscapeList = { escapeList: array };
+
 		try {
 			if (deleteConfirm) {
 				await pb.collection('record').delete(`${dataId}`);
+				await pb
+					.collection('users')
+					.update(`${userUId.model.id}`, updateEscapeList);
 
 				toast('삭제되었습니다', {
 					icon: '🗑️',
@@ -40,8 +51,6 @@ function UploadRecord() {
 			console.log(`삭제 에러: ${err}`);
 		}
 	};
-
-	console.log(data);
 
 	//게시글 수정 기능
 	const handleEditRecord = () => {
@@ -60,12 +69,15 @@ function UploadRecord() {
 	// 등록 버튼
 	const handleSubmitComment = async (e) => {
 		e.preventDefault();
+
+    // 등록할 댓글
 		const commentData = {
 			content: commentInput,
 			author: `${userUId?.model.id}`,
 			record: `${dataId}`,
 		};
 
+    // 새로고침 후 다시 받아온 댓글 데이터
 		const againCommentData = await pb.collection('comment').getList(1, 200, {
 			filter: `record = "${dataId}"`,
 			sort: '-created',
@@ -91,10 +103,12 @@ function UploadRecord() {
 	//데이터 불러오기
 	useEffect(() => {
 		const handleRecordData = async () => {
+      // 기록데이터
 			const recordData = await pb.collection('record').getOne(`${dataId}`, {
 				expand: 'escapeList, author',
 			});
 
+      // 댓글데이터
 			const commentData = await pb.collection('comment').getList(1, 200, {
 				filter: `record = "${dataId}"`,
 				sort: '-created',
@@ -112,6 +126,22 @@ function UploadRecord() {
 
 		handleRecordData();
 	}, [dataId]);
+
+	// user에 저장된 escapeList 불러오기
+	useEffect(() => {
+		const handleUserEscapeList = async () => {
+			const userEscapeListData = await pb
+				.collection('users')
+				.getOne(`${userUId.model.id}`);
+			try {
+				setEscapeList(userEscapeListData.escapeList);
+			} catch (err) {
+				console.log(`userEscapeList 불러오기 에러: ${err}`);
+			}
+		};
+
+		handleUserEscapeList();
+	}, []);
 
 	return (
 		<div>

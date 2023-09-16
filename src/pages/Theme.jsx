@@ -70,7 +70,7 @@ function Theme() {
 
 			const usersEscape = await pb
 				.collection('users')
-				.getOne(`${userUId.model.id}`, {
+				.getOne(`${userUId?.model?.id}`, {
 					expand: 'escapeList',
 				});
 
