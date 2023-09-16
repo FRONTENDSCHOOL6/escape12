@@ -1,18 +1,25 @@
 import pb from '@/api/pockethost';
-import HeaderRecord from '@/components/header/HeaderRecord';
-import Community from '@/components/mycommunity/CommunityItem';
+import userUId from '@/api/userUid';
+import EmptyContents from '@/components/EmptyContents';
+import HeaderBackRecord from '@/components/header/HeaderBackRecord';
+// import HeaderRecord from '@/components/header/HeaderRecord';
+import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
+import PostList from '@/components/post/PostList';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 pb.autoCancellation(false);
 
-function Mycommunity() {
+function MyCommunity() {
 	const [posts, setPosts] = useState([]);
+	const [search, setSearch] = useState('');
 	const [IsLoading, setIsLoading] = useState(false);
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const navigate = useNavigate();
+	const [emptyData, setEmptyData] = useState(false);
+	const [noResult, setNoResult] = useState(false);
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
@@ -45,43 +52,99 @@ function Mycommunity() {
 			window.removeEventListener('scroll', handleScroll);
 		};
 	}, [showPlusNav]);
-	// 포켓호스트 가져오기
+
+	const handleSearch = async (e) => {
+		if (e.target.value.length !== 0) {
+			setSearch(e.target.value);
+		} else {
+			setSearch('');
+		}
+
+		setIsLoading(true);
+
+		try {
+			const resultList = await pb.collection('community').getList(1, 200, {
+				filter: `(author ~ "${e.target.value}" || content ~ "${e.target.value}" || title ~ "${e.target.value}")`,
+			});
+
+			if (resultList.items.length > 0) {
+				setPosts(resultList.items);
+				setEmptyData(false);
+				setIsLoading(true);
+				setNoResult(false);
+			} else if (e.target.value === '') {
+				const data = await pb.collection('community').getList(1, 200);
+				setPosts(data.items);
+				setEmptyData(false);
+				setIsLoading(true);
+				setNoResult(false);
+			}
+		} catch (err) {
+			console.log(`검색 에러 내용 : ${err}`);
+		} finally {
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 500);
+		}
+	};
+
 	useEffect(() => {
-		const Snslist = async () => {
-			const communitypost = await pb.collection('community').getList(1, 200, {
-				expand: 'comment,author',
+		const mycommunity = async () => {
+			const community = await pb.collection('community').getFullList({
+				filter: `author = "${userUId?.model.id}"`,
+				expand: 'author,',
 				sort: '-created',
 			});
-			setIsLoading(true);
 
 			try {
-				setPosts(communitypost.items);
+				setPosts(community);
+				setIsLoading(true);
 			} catch (err) {
-				console.log(`에러 내용: ${err}`);
-			} finally {
-				setTimeout(() => {
-					setIsLoading(false);
-				}, 500);
+				console.log(`데이터 불러오기 에러 : ${err}`);
 			}
 		};
 
-		Snslist();
+		mycommunity();
 	}, []);
 
+	// 검색 버튼
+	const handleSubmitButton = (e) => {
+		e.preventDefault();
+	};
+	console.log(posts);
 	return (
 		<>
 			<Helmet>
-				<title>내가쓴커뮤글</title>
+				<title>내 게시물 목록</title>
 			</Helmet>
 
 			<div className="w-full max-w-[600px] min-w-[320px] py-20 bg-ec4 flex flex-col items-center min-h-[100vh] m-auto gap-14">
-				<HeaderRecord pencilClick={handleRecordButton}>
-					나의 커뮤니티
-				</HeaderRecord>
+				<HeaderBackRecord
+					pencilClick={handleRecordButton}
+					onClick={() => {
+						navigate(-1);
+					}}
+				>
+					내 게시물 목록
+				</HeaderBackRecord>
 
-				<div className="min-w-[300px] w-full s:px-12 px-20">
-					<Community />
-				</div>
+				<SearchInput
+					placeholder="검색어를 입력해주세요😀"
+					value={search}
+					onChange={handleSearch}
+					onSubmit={handleSubmitButton}
+				>
+					검색
+				</SearchInput>
+				{posts && <PostList posts={posts} />}
+				{IsLoading && posts.length === 0 && !emptyData && !noResult && (
+					<div className="translate-y-1/3">
+						<EmptyContents>기록이 없습니다 : &#40;</EmptyContents>
+					</div>
+				)}
+				{/* {!isLoading &&
+					posts.map((post) => <PostList key={post.id} post={post} />)} */}
+
 				<UpNav
 					topClick={handleTopButton}
 					hidden={!showPlusNav ? 'hidden' : ''}
@@ -91,4 +154,4 @@ function Mycommunity() {
 	);
 }
 
-export default Mycommunity;
+export default MyCommunity;

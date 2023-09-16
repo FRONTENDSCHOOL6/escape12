@@ -9,13 +9,13 @@ import FormInput from '@/components/loginsignup/FormInput';
 
 function Editpage() {
 	const navigate = useNavigate();
-	const handleSave = () =>{
+	const handleSave = () => {
 		toast('정보 수정이 완료되었습니다', {
 			icon: '✨',
 			duration: 2000,
 		});
 		navigate('/mypage');
-	}
+	};
 
 	return (
 		<>
@@ -53,11 +53,7 @@ function Editpage() {
 							닉네임
 						</FormInput>
 					</div>
-					<Button
-						onClick={handleSave}
-						bg="bg-ec1"
-						text="text-ec4 mt-4"
-					>
+					<Button onClick={handleSave} bg="bg-ec1" text="text-ec4 mt-4">
 						저장
 					</Button>
 					<footer className="mt-auto py-1 mb-2">
