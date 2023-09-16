@@ -86,7 +86,7 @@ function Login() {
 				<KeyLogo />
 				<form
 					onSubmit={handleLogin}
-					className="flex flex-col gap-10 items-center py-32 s:py-16"
+					className="flex flex-col gap-10 items-center py-32 s:py-16 s:px-3"
 				>
 					<fieldset className="flex flex-col gap-3">
 						<div>

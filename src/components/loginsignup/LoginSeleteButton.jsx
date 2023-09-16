@@ -8,7 +8,7 @@ LoginSeleteButton.propTypes = {
 	onClick: func,
 };
 
-function LoginSeleteButton({ children, line, text, img, onClick = '' }) {
+function LoginSeleteButton({ children, line, text, img, onClick = null }) {
 	const buttonLeft = {
 		backgroundPosition: '10% 50%',
 	};

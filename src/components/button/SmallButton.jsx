@@ -17,7 +17,7 @@ function SmallButton({
 	return (
 		<button
 			type={type}
-			className={`${text} ${bg} min-w-fit w-[20%] rounded-lg px-2 font-semibold leading-7 whitespace-nowrap s:px-1`}
+			className={`${text} ${bg} min-w-fit rounded-lg px-2 font-semibold whitespace-nowrap s:px-0.5`}
 			onClick={onClick}
 		>
 			{children}

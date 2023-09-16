@@ -28,12 +28,12 @@ function FormInput({
 	return (
 		<>
 			<fieldset className="flex gap-5 justify-between text-ec1 relative px-2">
-				<label htmlFor={name} className="w-32 s:min-w-fit">
+				<label htmlFor={name} className="w-34 s:min-w-fit">
 					<Sup hidden={hidden}>{children}</Sup>
 				</label>
 				<input
 					type={type}
-					className="w-[300px] s:w-[90%] bg-opacity border-b-2 border-ec1 focus:outline-none"
+					className="w-[300px] s:w-[60%] bg-opacity border-b-2 border-ec1 focus:outline-none"
 					name={name}
 					id={name}
 					onChange={onChange}
