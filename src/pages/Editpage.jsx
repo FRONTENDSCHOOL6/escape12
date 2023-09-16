@@ -6,9 +6,18 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import FormInput from '@/components/loginsignup/FormInput';
+import pb from '@/api/pockethost';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import userUId from '@/api/userUid';
 
 function Editpage() {
 	const navigate = useNavigate();
+	const [email, setEmail] = useState('');
+	const [nickName, setnickName]=useState('');
+	const [data, setData] = useState([]);
+
+//정보수정
 	const handleSave = () =>{
 		toast('정보 수정이 완료되었습니다', {
 			icon: '✨',
@@ -16,6 +25,21 @@ function Editpage() {
 		});
 		navigate('/mypage');
 	}
+
+	useEffect(()=>{
+		const datalist = async()=>{
+		const resultList = await pb.collection('users').getOne(`${userUId?.model.id}`);
+		try {
+			setData(resultList);
+			setEmail(resultList.email);
+			setnickName(resultList.nickName)
+
+		} catch (error) {
+			console.log(error)
+		}}
+		datalist()
+	},[])
+	console.log(nickName);
 
 	return (
 		<>
@@ -39,7 +63,11 @@ function Editpage() {
 							alt="사용자 사진"
 							aria-hidden
 						/>
-						<FormInput type="email" name="id" placeholder="변경할 이메일">
+						<FormInput 
+						type="email" 
+						name="id" 
+						placeholder="변경할 이메일"
+						value={email}>
 							아이디(이메일)
 						</FormInput>
 						<FormInput
@@ -49,7 +77,11 @@ function Editpage() {
 						>
 							비밀번호
 						</FormInput>
-						<FormInput type="text" name="nickname" placeholder="닉네임">
+						<FormInput 
+						type="text" 
+						name="nickname" 
+						placeholder="닉네임"
+						value={nickName}>
 							닉네임
 						</FormInput>
 					</div>
