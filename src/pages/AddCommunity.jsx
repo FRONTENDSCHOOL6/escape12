@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Button from '@/components/button/Button';
 import Nav from '@/components/nav/Nav';
-import Sup from '@/components/record/Sup';
 import Headerback from '@/components/header/Headerback';
 import FormInput from '@/components/loginsignup/FormInput';
 import { useNavigate } from 'react-router-dom';
@@ -71,9 +70,9 @@ function AddCommunity() {
 							onChange={handleTitle}
 							placeholder="제목을 입력해주세요."
 						>
-							<Sup>제목</Sup>
+						제목
 						</FormInput>
-						<p className="flex justify-end mb-3 text-lg">
+						<p className="flex justify-end py-3 text-lg">
 							{currentDate.toLocaleDateString()}
 						</p>
 						<textarea
