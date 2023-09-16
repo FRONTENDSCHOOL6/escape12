@@ -1,4 +1,5 @@
 import pb from '@/api/pockethost';
+import EmptyContents from '@/components/EmptyContents';
 import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
@@ -15,6 +16,8 @@ function PostPage() {
 	const [IsLoading, setIsLoading] = useState(false);
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const navigate = useNavigate();
+	const [emptyData, setEmptyData] = useState(false);
+	const [noResult, setNoResult] = useState(false);
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
@@ -54,17 +57,13 @@ function PostPage() {
 				expand: 'comment,author',
 				sort: '-created',
 			});
-			setIsLoading(true);
 
 			console.log(communitypost.items);
 			try {
 				setPosts(communitypost.items);
+				setIsLoading(true);
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
-			} finally {
-				setTimeout(() => {
-					setIsLoading(false);
-				}, 500);
 			}
 		};
 
@@ -88,10 +87,15 @@ function PostPage() {
 
 			if (resultList.items.length > 0) {
 				setPosts(resultList.items);
+				setEmptyData(false);
+				setIsLoading(true);
+				setNoResult(false);
 			} else if (e.target.value === '') {
 				const data = await pb.collection('community').getList(1, 200);
-
 				setPosts(data.items);
+				setEmptyData(false);
+				setIsLoading(true);
+				setNoResult(false);
 			}
 		} catch (err) {
 			console.log(`검색 에러 내용 : ${err}`);
@@ -100,6 +104,11 @@ function PostPage() {
 				setIsLoading(false);
 			}, 500);
 		}
+	};
+
+	// 검색 버튼
+	const handleSubmitButton = (e) => {
+		e.preventDefault();
 	};
 	console.log(posts);
 	return (
@@ -117,10 +126,16 @@ function PostPage() {
 					placeholder="검색어를 입력해주세요😀"
 					value={search}
 					onChange={handleSearch}
+					onSubmit={handleSubmitButton}
 				>
 					검색
 				</SearchInput>
 				<PostList posts={posts} />
+				{IsLoading && posts.length === 0 && !emptyData && !noResult && (
+					<div className="translate-y-1/3">
+						<EmptyContents>기록이 없습니다 : &#40;</EmptyContents>
+					</div>
+				)}
 				{/* {!isLoading &&
 					posts.map((post) => <PostList key={post.id} post={post} />)} */}
 

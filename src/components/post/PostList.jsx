@@ -14,9 +14,9 @@ PostList.propTypes = {
 	// onDeletePost: PropTypes.func.isRequired,
 };
 
-function PostList({ posts /*onDeletePost*/ }) {
+function PostList({ posts }) {
 	return (
-		<div className="min-w-[300px] w-full s:px-12 px-20">
+		<div className="s:px-12 w-full px-20">
 			{posts.map((post) => (
 				<Post
 					id={post.id}
