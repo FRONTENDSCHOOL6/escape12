@@ -3,6 +3,7 @@ import Button from '@/components/button/Button';
 import Nav from '@/components/nav/Nav';
 import Headerback from '@/components/header/Headerback';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '@/components/Spinner';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import FormInput from '@/components/loginsignup/FormInput';
@@ -18,6 +19,7 @@ function Editpage() {
 	const [email, setEmail] = useState('');
 	const [nickName, setnickName]=useState('');
 	const [data, setData] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 	
  //닉네임 상태 관리
 	const handlenickName = (e) => {
@@ -41,6 +43,7 @@ function Editpage() {
 			setData(resultList);
 			setEmail(resultList.email);
 			setnickName(resultList.nickName)
+			setIsLoading(true);
 
 		} catch (error) {
 			console.log(error)
@@ -63,7 +66,13 @@ function Editpage() {
 				>
 					정보 수정
 				</Headerback>
-				<div className="flex-1 flex flex-col items-center">
+				{!isLoading && (
+          <div className="absolute top-1/2 -translate-y-1/2">
+            <Spinner />
+          </div>
+        )}
+				{isLoading && (
+				<div className="flex-1 flex flex-col items-center my-14 s:px-3">
 					<div className="s:px-12 p-12 text-xl space-y-10">
 						<img
 							className="w-[30%] mx-auto rounded-full"
@@ -105,6 +114,7 @@ function Editpage() {
 						</em>
 					</footer>
 				</div>
+				)}
 			</div>
 			<Nav />
 		</>
