@@ -1,6 +1,5 @@
 import SmallButton from '@/components/button/SmallButton';
 import { array, bool, func, number, string } from 'prop-types';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import MedalButton from '../button/MedalButton';
 import HeartButton from './HeartButton';
