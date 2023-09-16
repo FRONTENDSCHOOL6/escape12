@@ -9,13 +9,21 @@ import FormInput from '@/components/loginsignup/FormInput';
 import pb from '@/api/pockethost';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import debounce from '@/utils/debounce';
 import userUId from '@/api/userUid';
+import DefaultEdit from '@/components/edit/DefaultEdit';
 
 function Editpage() {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [nickName, setnickName]=useState('');
 	const [data, setData] = useState([]);
+	
+ //닉네임 상태 관리
+	const handlenickName = (e) => {
+		setnickName(e.target.value);
+	};
+	const debouncenickName = debounce((e) => handlenickName(e), 2000);
 
 //정보수정
 	const handleSave = () =>{
@@ -77,13 +85,10 @@ function Editpage() {
 						>
 							비밀번호
 						</FormInput>
-						<FormInput 
-						type="text" 
-						name="nickname" 
-						placeholder="닉네임"
-						value={nickName}>
-							닉네임
-						</FormInput>
+						<DefaultEdit
+								nickName={nickName}
+								nickNameEvent={debouncenickName}
+							/>
 					</div>
 					<Button
 						onClick={handleSave}
