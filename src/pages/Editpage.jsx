@@ -2,7 +2,6 @@ import { Helmet } from 'react-helmet-async';
 import Button from '@/components/button/Button';
 import Nav from '@/components/nav/Nav';
 import Headerback from '@/components/header/Headerback';
-import Headerback from '@/components/header/Headerback';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
@@ -17,37 +16,39 @@ import DefaultEdit from '@/components/edit/DefaultEdit';
 function Editpage() {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
-	const [nickName, setnickName]=useState('');
+	const [nickName, setnickName] = useState('');
 	const [data, setData] = useState([]);
-	
- //닉네임 상태 관리
+
+	//닉네임 상태 관리
 	const handlenickName = (e) => {
 		setnickName(e.target.value);
 	};
 	const debouncenickName = debounce((e) => handlenickName(e), 2000);
 
-//정보수정
-	const handleSave = () =>{
+	//정보수정
+	const handleSave = () => {
 		toast('정보 수정이 완료되었습니다', {
 			icon: '✨',
 			duration: 2000,
 		});
 		navigate('/mypage');
-	}
+	};
 
-	useEffect(()=>{
-		const datalist = async()=>{
-		const resultList = await pb.collection('users').getOne(`${userUId?.model.id}`);
-		try {
-			setData(resultList);
-			setEmail(resultList.email);
-			setnickName(resultList.nickName)
-
-		} catch (error) {
-			console.log(error)
-		}}
-		datalist()
-	},[])
+	useEffect(() => {
+		const datalist = async () => {
+			const resultList = await pb
+				.collection('users')
+				.getOne(`${userUId?.model.id}`);
+			try {
+				setData(resultList);
+				setEmail(resultList.email);
+				setnickName(resultList.nickName);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		datalist();
+	}, []);
 	console.log(nickName);
 
 	return (
@@ -72,11 +73,12 @@ function Editpage() {
 							alt="사용자 사진"
 							aria-hidden
 						/>
-						<FormInput 
-						type="email" 
-						name="id" 
-						placeholder="변경할 이메일"
-						value={email}>
+						<FormInput
+							type="email"
+							name="id"
+							placeholder="변경할 이메일"
+							value={email}
+						>
 							아이디(이메일)
 						</FormInput>
 						<FormInput
@@ -86,10 +88,7 @@ function Editpage() {
 						>
 							비밀번호
 						</FormInput>
-						<DefaultEdit
-								nickName={nickName}
-								nickNameEvent={debouncenickName}
-							/>
+						<DefaultEdit nickName={nickName} nickNameEvent={debouncenickName} />
 					</div>
 					<Button onClick={handleSave} bg="bg-ec1" text="text-ec4 mt-4">
 						저장
