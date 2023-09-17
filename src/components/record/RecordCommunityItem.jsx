@@ -49,12 +49,14 @@ function RecordCommunityItem({
 					<h3>{store}</h3>
 				</section>
 				<section className="flex justify-between">
-					<span>
-						{record.length < 6
+					<span className={`${author === '탈퇴회원' ? 'text-gray' : ''}`}>
+						{record.length < 6 && record.length > 0
 							? `🥚${author}`
 							: record.length > 5 && record.length < 11
 							? `🐤${author}`
-							: `🐔${author}`}
+							: record.length > 10
+							? `🐔${author}`
+							: `${author}`}
 					</span>
 					<Button bg="bg-ec1" text="text-ec4" onClick={handleLink}>
 						보러가기

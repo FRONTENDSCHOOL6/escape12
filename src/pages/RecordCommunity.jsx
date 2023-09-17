@@ -201,7 +201,11 @@ function RecordCommunity() {
 													? item.expand?.escapeList?.image
 													: `${noImage}`
 											}
-											author={item.expand?.author?.nickName}
+											author={
+												item.expand?.author?.nickName
+													? item.expand?.author?.nickName
+													: '탈퇴회원'
+											}
 											link={item.id}
 											record={item.expand?.author?.record}
 										/>

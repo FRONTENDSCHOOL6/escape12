@@ -70,14 +70,14 @@ function UploadRecord() {
 	const handleSubmitComment = async (e) => {
 		e.preventDefault();
 
-    // 등록할 댓글
+		// 등록할 댓글
 		const commentData = {
 			content: commentInput,
 			author: `${userUId?.model.id}`,
 			record: `${dataId}`,
 		};
 
-    // 새로고침 후 다시 받아온 댓글 데이터
+		// 새로고침 후 다시 받아온 댓글 데이터
 		const againCommentData = await pb.collection('comment').getList(1, 200, {
 			filter: `record = "${dataId}"`,
 			sort: '-created',
@@ -103,12 +103,12 @@ function UploadRecord() {
 	//데이터 불러오기
 	useEffect(() => {
 		const handleRecordData = async () => {
-      // 기록데이터
+			// 기록데이터
 			const recordData = await pb.collection('record').getOne(`${dataId}`, {
 				expand: 'escapeList, author',
 			});
 
-      // 댓글데이터
+			// 댓글데이터
 			const commentData = await pb.collection('comment').getList(1, 200, {
 				filter: `record = "${dataId}"`,
 				sort: '-created',
@@ -180,13 +180,20 @@ function UploadRecord() {
 									</span>
 								</h3>
 								<div className="flex justify-between">
-									<p className="flex">
-										{data.expand?.author?.record.length < 6
+									<p
+										className={`flex ${
+											data.expand?.author?.nickName ? '' : 'text-gray'
+										}`}
+									>
+										{data.expand?.author?.record.length < 6 &&
+										data.expand?.author?.record.length > 0
 											? `🥚${data.expand?.author?.nickName}`
 											: data.expand?.author?.record.length > 5 &&
 											  data.expand?.author?.record.length < 11
 											? `🐤${data.expand?.author?.nickName}`
-											: `🐔${data.expand?.author?.nickName}`}
+											: data.expand?.author?.record.length > 10
+											? `🐔${data.expand?.author?.nickName}`
+											: `탈퇴회원`}
 									</p>
 									<span>
 										{!data.date ? data.expand?.escapeList.created : data.date}
@@ -196,7 +203,11 @@ function UploadRecord() {
 							<div className="w-20 h-20">
 								<img
 									className="w-full h-full rounded-full"
-									src={`https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`}
+									src={
+										data.expand?.author?.avatar
+											? `https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`
+											: `${noImage}`
+									}
 									alt={data.expand?.author?.nickName}
 									aria-hidden
 								/>
@@ -274,7 +285,11 @@ function UploadRecord() {
 										return (
 											<li key={item.id} className="w-full flex gap-3">
 												<CommentItem
-													src={`https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`}
+													src={
+														item.expand?.author?.avatar
+															? `https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`
+															: `${noImage}`
+													}
 													alt={item.expand?.author?.nickName}
 													nickName={item.expand?.author?.nickName}
 													comment={item.content}
