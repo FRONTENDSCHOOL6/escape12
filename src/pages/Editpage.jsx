@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import Spinner from '@/components/Spinner';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import FormInput from '@/components/loginsignup/FormInput';
 import pb from '@/api/pockethost';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -21,11 +20,18 @@ function Editpage() {
 	const [data, setData] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 
+	//이메일상태 관리
+	const handleemail = (e) => {
+		setEmail(e.target.value);
+	};
+	const debounceemail = debounce((e) => handleemail(e), 2000);
+
 	//닉네임 상태 관리
 	const handlenickName = (e) => {
 		setnickName(e.target.value);
 	};
 	const debouncenickName = debounce((e) => handlenickName(e), 2000);
+
 
 	//정보수정
 	const handleSave = () => {
@@ -81,23 +87,9 @@ function Editpage() {
 								alt="사용자 사진"
 								aria-hidden
 							/>
-							<FormInput
-								type="email"
-								name="id"
-								placeholder="변경할 이메일"
-								value={email}>
-								아이디(이메일)
-							</FormInput>
-							{/* 작성 기능 X */}
-							<FormInput
-								type="password"
-								name="password"
-								placeholder="🥲 비밀번호는 변경할 수 없습니다"
-								readOnly
-							>
-								비밀번호
-							</FormInput>
 							<DefaultEdit
+								email={email}
+								emailEvent={debounceemail}
 								nickName={nickName}
 								nickNameEvent={debouncenickName}
 							/>
