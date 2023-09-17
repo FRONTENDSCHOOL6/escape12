@@ -105,9 +105,6 @@ function BookMark() {
 		userBookMarkData();
 	}, [userUId?.model.id]);
 
-	console.log(bookMark);
-	console.log(record);
-
 	return (
 		<>
 			<Helmet>

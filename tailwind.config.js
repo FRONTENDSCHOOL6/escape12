@@ -32,6 +32,7 @@ export default {
 			eyefalse: 'url("/src/assets/login-eyefalse.png")',
 			hearttrue: 'url("/src/assets/theme-hearttrue.png")',
 			heartfalse: 'url("/src/assets/theme-heartfalse.png")',
+			heartlike: 'url("/src/assets/upload-like.png")',
 		},
 		extend: {
 			keyframes: {

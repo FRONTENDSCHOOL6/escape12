@@ -20,6 +20,13 @@ function UploadRecord() {
 	const [commentInput, setCommentInput] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [escapeList, setEscapeList] = useState([]);
+	const [likeUpdate, setLikeUpdate] = useState(0);
+
+	// 뒤로가기
+	const handleBack = () => {
+		updateLikeInPb();
+		navigate(-1);
+	};
 
 	//게시글 삭제 기능
 	const handleDeleteRecord = async () => {
@@ -44,7 +51,7 @@ function UploadRecord() {
 					icon: '🗑️',
 					duration: 2000,
 				});
-
+				updateLikeInPb();
 				navigate('/theme');
 			}
 		} catch (err) {
@@ -55,6 +62,7 @@ function UploadRecord() {
 	//게시글 수정 기능
 	const handleEditRecord = () => {
 		try {
+			updateLikeInPb();
 			navigate(`/theme/edit/${dataId}`);
 		} catch (err) {
 			console.log(`수정 에러: ${err}`);
@@ -94,9 +102,33 @@ function UploadRecord() {
 
 			setCommentInput('');
 			setComment(againCommentData.items);
+			updateLikeInPb();
 			location.reload();
 		} catch (err) {
 			console.log(`댓글 등록 에러: ${err}`);
+		}
+	};
+
+	// 좋아요기능
+	const handleLike = () => {
+		setLikeUpdate(likeUpdate + 1);
+
+		toast('좋아요 +1', {
+			icon: '❤️',
+			duration: 800,
+		});
+	};
+
+	// 좋아요 수 서버 업데이트
+	const updateLikeInPb = async () => {
+		try {
+			const likeData = {
+				like: likeUpdate,
+			};
+
+			await pb.collection('record').update(`${dataId}`, likeData);
+		} catch (error) {
+			console.error('좋아요 업데이트 실패:', error);
 		}
 	};
 
@@ -118,6 +150,7 @@ function UploadRecord() {
 			try {
 				setData(recordData);
 				setComment(commentData.items);
+				setLikeUpdate(recordData.like);
 				setIsLoading(true);
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
@@ -151,11 +184,7 @@ function UploadRecord() {
 				</title>
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center justify-center min-h-[100vh] m-auto relative pt-20 pb-28 text-lg gap-5 px-20 s:px-12">
-				<Headerback
-					onClick={() => {
-						navigate(-1);
-					}}
-				>
+				<Headerback onClick={handleBack}>
 					{!isLoading
 						? '로딩중'
 						: !data.theme
@@ -237,6 +266,15 @@ function UploadRecord() {
 										{!data.minute ? '00' : data.minute}
 									</span>
 									LEFT
+								</li>
+								<li>
+									<button
+										type="button"
+										onClick={handleLike}
+										className="bg-heartlike bg-no-repeat w-fit pl-7 bg-[left_top_0.3rem]"
+									>
+										좋아요 {likeUpdate}
+									</button>
 								</li>
 							</ul>
 							<div className="min-h-[160px] w-full bg-opacity border-2 p-4 rounded-lg">
