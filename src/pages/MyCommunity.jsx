@@ -129,14 +129,16 @@ function MyCommunity() {
 					내 게시물 목록
 				</HeaderBackRecord>
 
-				<SearchInput
-					placeholder="검색어를 입력해주세요😀"
-					value={search}
-					onChange={handleSearch}
-					onSubmit={handleSubmitButton}
-				>
-					검색
-				</SearchInput>
+				{IsLoading && (
+					<SearchInput
+						placeholder="검색어를 입력해주세요😀"
+						value={search}
+						onChange={handleSearch}
+						onSubmit={handleSubmitButton}
+					>
+						검색
+					</SearchInput>
+				)}
 
 				{posts && <PostList posts={posts} />}
 				{IsLoading && posts.length === 0 && !emptyData && !noResult && (
@@ -145,7 +147,7 @@ function MyCommunity() {
 					</div>
 				)}
 				{!IsLoading && (
-					<div className="translate-y-1/2">
+					<div className="absolute top-1/2 -translate-y-1/2">
 						<Spinner />
 					</div>
 				)}
