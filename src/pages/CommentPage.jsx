@@ -48,11 +48,6 @@ function CommentPage() {
 			} catch (err) {
 				console.log(`삭제 에러: ${err}`);
 			}
-		} else {
-			toast('게시글을 삭제할 수 있는 권한이 없습니다.', {
-				icon: '❌',
-				duration: 1000,
-			});
 		}
 	};
 
@@ -66,11 +61,6 @@ function CommentPage() {
 			} catch (err) {
 				console.log(`수정 에러: ${err}`);
 			}
-		} else {
-			toast('게시글을 수정할 수 있는 권한이 없습니다.', {
-				icon: '❌',
-				duration: 1000,
-			});
 		}
 	};
 
@@ -144,7 +134,7 @@ function CommentPage() {
 			<Helmet>
 				<title>게시글 상세</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center min-h-[100vh] m-auto px-20 s:px-12 py-24 gap-10 relative">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col gap-3 items-center min-h-[100vh] m-auto px-20 s:px-12 py-24 relative">
 				<Headerback
 					onClick={() => {
 						navigate(-1);
@@ -157,70 +147,78 @@ function CommentPage() {
 						<Spinner />
 					</div>
 				)}
-				<div className="min-w-[300px] w-full">
-					{isLoading && data && (
-						<Post
-							title={data.title}
-							author={data.expand?.author?.nickName}
-							content={data.content}
-						/>
-					)}
+				{isLoading && (
+					<>
+						<div className="min-w-[300px] w-full">
+							{data && (
+								<Post
+									title={data.title}
+									author={data.expand?.author?.nickName}
+									content={data.content}
+								/>
+							)}
+							{userUId?.model.id === data.expand?.author?.id && (
+								<div className="flex justify-between m-auto">
+									<SmallButton
+										bg="bg-ec3"
+										text="text-ec1"
+										onClick={handleEditRecord}
+									>
+										수정
+									</SmallButton>
+									<SmallButton
+										bg="bg-ec3"
+										text="text-ec1"
+										onClick={handleDeleteRecord}
+									>
+										삭제
+									</SmallButton>
+								</div>
+							)}
+						</div>
+						<div className="w-full border-t-2 pt-6 mt-2 border-ec1">
+							<SubmitInput
+								placeholder="댓글을 입력해주세요 😀"
+								value={commentInput}
+								onChange={handleComment}
+								onSubmit={handleSubmitComment}
+								text="px-0 text-ec4 my-4"
+							>
+								등록
+							</SubmitInput>
 
-					<div className="flex justify-between m-auto">
-						<SmallButton bg="bg-ec3" text="text-ec1" onClick={handleEditRecord}>
-							수정
-						</SmallButton>
-						<SmallButton
-							bg="bg-ec3"
-							text="text-ec1"
-							onClick={handleDeleteRecord}
-						>
-							삭제
-						</SmallButton>
-					</div>
-				</div>
+							<ul className="flex flex-col gap-4 text-lg w-full text-ec1">
+								{comment &&
+									comment.map((item) => {
+										// 댓글 삭제하기
+										const handleDeleteComment = async () => {
+											const result = confirm('댓글을 삭제하시겠습니까?');
 
-				<div className="w-full border-t-2 pt-6 border-ec1">
-					<SubmitInput
-						placeholder="댓글을 입력해주세요 😀"
-						value={commentInput}
-						onChange={handleComment}
-						onSubmit={handleSubmitComment}
-						text="px-0 text-ec4 my-4"
-					>
-						등록
-					</SubmitInput>
+											if (result) {
+												await pb.collection('comment').delete(`${item.id}`);
+												location.reload();
+											}
+										};
 
-					<ul className="flex flex-col gap-4 text-lg w-full text-ec1">
-						{isLoading &&
-							comment &&
-							comment.map((item) => {
-								// 댓글 삭제하기
-								const handleDeleteComment = async () => {
-									const result = confirm('댓글을 삭제하시겠습니까?');
-
-									if (result) {
-										await pb.collection('comment').delete(`${item.id}`);
-										location.reload();
-									}
-								};
-
-								return (
-									<li key={item.id} className="w-full flex gap-3">
-										<CommentItem
-											src={`https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`}
-											alt={item.expand?.author?.nickName}
-											nickName={item.expand?.author?.nickName}
-											comment={item.content}
-											userId={item.expand?.author?.id}
-											id={item.id}
-											onClick={handleDeleteComment}
-										/>
-									</li>
-								);
-							})}
-					</ul>
-				</div>
+										return (
+											<li key={item.id} className="w-full flex gap-3">
+												<CommentItem
+													src={`https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`}
+													alt={item.expand?.author?.nickName}
+													nickName={item.expand?.author?.nickName}
+													comment={item.content}
+													userId={item.expand?.author?.id}
+													id={item.id}
+													onClick={handleDeleteComment}
+												/>
+											</li>
+										);
+									})}
+							</ul>
+						</div>
+						{''}
+					</>
+				)}
 				<Nav />
 			</div>
 		</div>
@@ -228,18 +226,3 @@ function CommentPage() {
 }
 
 export default CommentPage;
-
-// {isLoading &&
-// 	comment &&
-// 	comment.map((item) => {
-// 		return (
-// 			<li key={item.id} className="w-full flex gap-3">
-// 				<CommentItem
-// 					src={`https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`}
-// 					alt={item.expand?.author?.nickName}
-// 					nickName={item.expand?.author?.nickName}
-// 					comment={item.content}
-// 				/>
-// 			</li>
-// 		);
-// 	})}
