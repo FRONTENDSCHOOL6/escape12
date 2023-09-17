@@ -11,6 +11,7 @@ import ThemeItem from '@/components/theme/ThemeItem';
 import debounce from '@/utils/debounce';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 function Theme() {
@@ -27,18 +28,11 @@ function Theme() {
 	const [level, setLevel] = useState(false);
 	const [like, setLike] = useState(false);
 	const [user, setUser] = useState([]);
-	const [bookMark, setBookMark] = useState([]);
+	const [bookMark, setBookMark] = useState(null);
 	const navigate = useNavigate();
 
-	const [heart, setHeart] = useState(false);
-
-	// // heart 상태 관리
-	// const isClickHeart = () => {
-	// 	heart === false ? setHeart(true) : setHeart(false);
-	// };
-
-	// heart 상태 관리
-	const isClickHeart = (item) => {
+	// 즐겨찾기 기능
+	const isClickHeart = async (item) => {
 		const newHeartState = !item.heart;
 		setData((prevData) =>
 			prevData.map((d) =>
@@ -46,12 +40,36 @@ function Theme() {
 			)
 		);
 
-    if(newHeartState){
-      console.log('좋아요');
-    }else{
-      console.log('좋아요취소!');
-    }
-		// console.log(`${item.id}: ${newHeartState}`);
+		if (newHeartState && bookMark.indexOf(`${item.id}`) < 0) {
+			setBookMark((i) => [...i, `${item.id}`]);
+			const userBookMarkSelete = {
+				bookmark: [...bookMark, `${item.id}`],
+			};
+
+			await pb
+				.collection('users')
+				.update(`${userUId?.model.id}`, userBookMarkSelete);
+
+			toast('즐겨찾기에 추가되었습니다', {
+				icon: '⭐',
+				duration: 2000,
+			});
+		} else {
+			const userBookMarkCancle = bookMark.filter((i) => i !== `${item.id}`);
+
+			setBookMark(userBookMarkCancle);
+
+			const updateBookMark = { bookmark: userBookMarkCancle };
+
+			await pb
+				.collection('users')
+				.update(`${userUId?.model.id}`, updateBookMark);
+
+			toast('즐겨찾기에 삭제되었습니다', {
+				icon: '✖️',
+				duration: 2000,
+			});
+		}
 	};
 
 	//기록하기 버튼 이벤트
@@ -306,16 +324,16 @@ function Theme() {
 				sort: 'theme',
 			});
 
-			const usersEscape = await pb
-				.collection('users')
-				.getOne(`${userUId?.model?.id}`, {
-					expand: 'escapeList',
-				});
-
 			const usersLike = await pb
 				.collection('users')
 				.getOne(`${userUId?.model?.id}`, {
 					expand: 'bookmark',
+				});
+
+			const usersEscape = await pb
+				.collection('users')
+				.getOne(`${userUId?.model?.id}`, {
+					expand: 'escapeList',
 				});
 
 			try {
@@ -329,6 +347,8 @@ function Theme() {
 		};
 		dataList();
 	}, []);
+
+	console.log(bookMark);
 
 	return (
 		<>
@@ -398,7 +418,7 @@ function Theme() {
 						<Spinner />
 					</div>
 				)}
-				{isLoading && data && (
+				{isLoading && data && bookMark && (
 					<ul className="w-full px-20 s:px-12">
 						{data.map((item) => {
 							return (
@@ -417,10 +437,12 @@ function Theme() {
 										record={item.record}
 									/>
 									<HeartButton
-										// onClick={isClickHeart}
-										// checked={!heart ? 'bg-heartfalse' : 'bg-hearttrue'}
-										onClick={() => isClickHeart(item)} // 아이템별로 클릭 이벤트 처리
-										checked={!item.heart ? 'bg-heartfalse' : 'bg-hearttrue'} // 아이템의 개별 heart 상태 사용
+										onClick={() => isClickHeart(item)}
+										checked={
+											bookMark.indexOf(`${item.id}`) < 0
+												? 'bg-heartfalse'
+												: 'bg-hearttrue'
+										}
 									/>
 								</li>
 							);
