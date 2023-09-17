@@ -20,7 +20,7 @@ function EditImage({ inputRef, onChange, imgRef, src, alt }) {
 				id="image"
 				accept="*.jpg,*.png,*.webp,*.avif"
 			/>
-				<img ref={imgRef} className="h-full rounded-full w-40 h-40" src={src} alt={alt} />
+				<img ref={imgRef} className="rounded-full w-40 h-40" src={src} alt={alt} />
 		</div>
 	);
 }
