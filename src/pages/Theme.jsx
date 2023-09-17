@@ -53,12 +53,12 @@ function Theme() {
 				bookmark: [...bookMark, `${item.id}`],
 			};
 
-			await pb.collection('users').update(userId, userBookMarkSelete);
-
 			toast('즐겨찾기에 추가되었습니다', {
 				icon: '⭐',
 				duration: 2000,
 			});
+
+			await pb.collection('users').update(userId, userBookMarkSelete);
 		} else {
 			const userBookMarkCancle = bookMark.filter(
 				(value) => value !== `${item.id}`
@@ -68,12 +68,12 @@ function Theme() {
 
 			const updateBookMark = { bookmark: userBookMarkCancle };
 
-			await pb.collection('users').update(userId, updateBookMark);
-
 			toast('즐겨찾기에 삭제되었습니다', {
 				icon: '✖️',
 				duration: 2000,
 			});
+
+			await pb.collection('users').update(userId, updateBookMark);
 		}
 	};
 
