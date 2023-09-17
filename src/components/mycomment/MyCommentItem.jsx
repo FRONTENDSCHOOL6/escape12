@@ -13,9 +13,10 @@ MyCommentItem.propTypes = {
 	postId: string,
 	recordId: string,
 	postTitle: string,
+	postType: string,
 };
 
-function MyCommentItem({ comment, id, postId, recordId, postTitle }) {
+function MyCommentItem({ comment, id, postId, recordId, postTitle, postType }) {
 	// console.log(postId);
 	const handleDeletecomment = async (e) => {
 		e.preventDefault();
@@ -39,7 +40,13 @@ function MyCommentItem({ comment, id, postId, recordId, postTitle }) {
 
 	return (
 		<div className="text-ec1 border-2 justify-between max-h-[105px] p-4 mb-6 rounded-xl flex m-auto transition-transform duration-500 ease-in-out transform hover:scale-105">
-			<Link to={`/postpage/${postId}`}>
+			<Link
+				to={
+					postType === 'community'
+						? `/postpage/${postId}`
+						: `/record/${recordId}`
+				}
+			>
 				<div className="">
 					{/* <img className="w-8 h-8 rounded-full" src={src} alt={alt} /> */}
 					{/* <span className="font-bold ">{nickName}</span> */}
