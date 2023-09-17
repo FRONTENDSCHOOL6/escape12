@@ -11,7 +11,7 @@ DefaultnickName.propTypes = {
 
 function DefaultnickName({ nickName, nickNameEvent, email, emailEvent }) {
 	return (
-		<>
+		<div className="s:px-12 p-12 text-xl space-y-10">
 			<FormInput
 				name="email"
 				palceholder="이메일"
@@ -35,7 +35,7 @@ function DefaultnickName({ nickName, nickNameEvent, email, emailEvent }) {
 			>
 				닉네임
 			</FormInput>
-		</>
+		</div>
 	);
 }
 

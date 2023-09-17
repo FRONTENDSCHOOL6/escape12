@@ -7,17 +7,24 @@ import Spinner from '@/components/Spinner';
 import { toast } from 'react-hot-toast';
 import pb from '@/api/pockethost';
 import { useState } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import userUId from '@/api/userUid';
 import DefaultEdit from '@/components/edit/DefaultEdit';
+import EditImage from '@/components/edit/EditImage';
 
 function Editpage() {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [nickName, setnickName] = useState('');
+	const [id, setId] = useState('');
+	const [collectionId, setCollectionId] = useState('');
+	const [data, setData] =useState('');
+	const [avatar, setAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const photoRef = useRef(`${data.expand?.users?.avatar}`);
+	const uploadPhotoRef = useRef(null);
 
-	//이메일상태 관리
+	//이메일 상태 관리
 	const handleEmail = (e) => {
 		setEmail(e.target.value);
 	};
@@ -27,14 +34,25 @@ function Editpage() {
 		setnickName(e.target.value);
 	};
 
+		// 사진 상태 관리
+		const handleUploadPhoto = (e) => {
+			const photoFile = e.target.files[0];
+			const photoUrl = URL.createObjectURL(photoFile);
+			uploadPhotoRef.current.setAttribute('src', photoUrl);
+		};
+
 	//기존 데이터 가져오기
 	useEffect(() => {
 		const datalist = async () => {
 			const resultList = await pb.collection('users').getOne(`${userUId?.model.id}`);
 			try {
 				setEmail(resultList.email);
-				setnickName(resultList.nickName)
+				setnickName(resultList.nickName);
+				setAvatar(resultList.avatar);
+				setId(resultList.id);
+				setCollectionId(resultList.collectionId);
 				setIsLoading(true);
+				setData(resultList)
 			} catch (error) {
 				console.log(error)
 			}
@@ -48,6 +66,7 @@ function Editpage() {
 		const updateData = {
 			email: email,
 			nickName: nickName,
+			avatar: photoRef.current.files[0],
 		};
 
 		try {
@@ -65,6 +84,7 @@ function Editpage() {
 			console.log(err);
 		}
 	};
+console.log(avatar);
 
 	return (
 		<>
@@ -89,22 +109,27 @@ function Editpage() {
 					<div className="flex-1 flex flex-col items-center s:px-3">
 						<form
 						onSubmit={handleSave}
-						className="text-center">
-						
-						<div className="s:px-12 p-12 text-xl space-y-10">
-							<img
-								className="w-[30%] mx-auto rounded-full"
-								src="https://mblogthumb-phinf.pstatic.net/MjAxOTAxMjNfMjI5/MDAxNTQ4MTcxMTE2MTI4.nv3-mRR-cZiGBxCD_KuMH8OsQ-WDJEJ9kTTBwb2XlkUg.WKv1PpzrR2s0duklK1AemD8cmGDAvRre7yrJG1okdZ8g.JPEG.seooooya/IMG_2063.JPG?type=w800"
-								alt="사용자 사진"
-								aria-hidden
+						className="text-center flex flex-col items-center">	
+						<div className="w-40 h-40">
+							<EditImage
+								inputRef={photoRef}
+								onChange={handleUploadPhoto}
+								imgRef={uploadPhotoRef}
+								src={
+									!data.avatar
+										? data.expand?.users?.avatar
+										: `https://refresh.pockethost.io/api/files/${collectionId}/${id}/${avatar}`
+								}
+								alt={data.theme}
 							/>
+							</div>
 							<DefaultEdit
 								email={email}
 								emailEvent={handleEmail}
 								nickName={nickName}
 								nickNameEvent={handlenickName}
+								
 							/>
-						</div>
 						<Button type="submit" bg="bg-ec1" text="text-ec4 mt-4">
 							저장
 						</Button>
