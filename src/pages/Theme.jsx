@@ -32,7 +32,7 @@ function Theme() {
 	const [kuk, setKuk] = useState(false);
 	const [level, setLevel] = useState(false);
 	const [like, setLike] = useState(false);
-	const [record, setRecord] = useState(null);
+	const [record, setRecord] = useState();
 	const [bookMark, setBookMark] = useState(null);
 
 	// 즐겨찾기 기능
@@ -334,7 +334,7 @@ function Theme() {
 					expand: 'escapeList',
 				});
 
-				if (usersLike && usersEscape) {
+				if (usersLike || usersEscape) {
 					setBookMark(usersLike.bookmark);
 					setRecord(usersEscape.expand?.escapeList);
 				}
@@ -346,7 +346,7 @@ function Theme() {
 
 	//데이터 불러오기
 	useEffect(() => {
-		if (record && bookMark) {
+		if (record || bookMark) {
 			const dataList = async () => {
 				const escape = await pb.collection('escapeList').getList(1, 10, {
 					sort: 'theme',
@@ -431,7 +431,7 @@ function Theme() {
 						<Spinner />
 					</div>
 				)}
-				{isLoading && data && bookMark && record && (
+				{isLoading && data && (
 					<ul className="w-full px-20 s:px-12">
 						{data.map((item) => {
 							return (
