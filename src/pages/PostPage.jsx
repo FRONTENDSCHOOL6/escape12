@@ -1,5 +1,6 @@
 import pb from '@/api/pockethost';
 import EmptyContents from '@/components/EmptyContents';
+import Spinner from '@/components/Spinner';
 import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
@@ -134,6 +135,11 @@ function PostPage() {
 				{IsLoading && posts.length === 0 && !emptyData && !noResult && (
 					<div className="translate-y-1/3">
 						<EmptyContents>기록이 없습니다 : &#40;</EmptyContents>
+					</div>
+				)}
+				{!IsLoading && (
+					<div className="translate-y-1/2">
+						<Spinner />
 					</div>
 				)}
 				{/* {!isLoading &&
