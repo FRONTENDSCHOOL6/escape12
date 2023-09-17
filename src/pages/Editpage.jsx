@@ -2,14 +2,12 @@ import { Helmet } from 'react-helmet-async';
 import Button from '@/components/button/Button';
 import Nav from '@/components/nav/Nav';
 import Headerback from '@/components/header/Headerback';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import Spinner from '@/components/Spinner';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import pb from '@/api/pockethost';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import debounce from '@/utils/debounce';
 import userUId from '@/api/userUid';
 import DefaultEdit from '@/components/edit/DefaultEdit';
 
@@ -19,29 +17,19 @@ function Editpage() {
 	const [nickName, setnickName] = useState('');
 	const [data, setData] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
+	const { dataId } = useParams();
 
 	//이메일상태 관리
-	const handleemail = (e) => {
+	const handleEmail = (e) => {
 		setEmail(e.target.value);
 	};
-	const debounceemail = debounce((e) => handleemail(e), 2000);
 
 	//닉네임 상태 관리
 	const handlenickName = (e) => {
 		setnickName(e.target.value);
 	};
-	const debouncenickName = debounce((e) => handlenickName(e), 2000);
 
-
-	//정보수정
-	const handleSave = () => {
-		toast('정보 수정이 완료되었습니다', {
-			icon: '✨',
-			duration: 2000,
-		});
-		navigate('/mypage');
-	}
-
+	//기존 데이터 가져오기
 	useEffect(() => {
 		const datalist = async () => {
 			const resultList = await pb.collection('users').getOne(`${userUId?.model.id}`);
@@ -50,14 +38,36 @@ function Editpage() {
 				setEmail(resultList.email);
 				setnickName(resultList.nickName)
 				setIsLoading(true);
-
 			} catch (error) {
 				console.log(error)
 			}
 		}
 		datalist()
 	}, [])
-	console.log(nickName);
+
+	// 수정 상태 변경
+	const handleSave = async (e) => {
+		e.preventDefault();
+		const data = {
+			email: email,
+			nickName: nickName,
+		};
+
+		try {
+			const editresult = await pb
+				.collection('users')
+				.update(`${dataId}`, data);
+
+			toast('정보 수정이 완료되었습니다', {
+				icon: '✨',
+				duration: 2000,
+			});
+
+			navigate(`/mypage/${editresult.id}`);
+		} catch (err) {
+			console.log(err);
+		}
+	};
 
 	return (
 		<>
@@ -79,7 +89,7 @@ function Editpage() {
 					</div>
 				)}
 				{isLoading && (
-					<div className="flex-1 flex flex-col items-center my-14 s:px-3">
+					<div className="flex-1 flex flex-col items-center s:px-3">
 						<div className="s:px-12 p-12 text-xl space-y-10">
 							<img
 								className="w-[30%] mx-auto rounded-full"
@@ -89,9 +99,9 @@ function Editpage() {
 							/>
 							<DefaultEdit
 								email={email}
-								emailEvent={debounceemail}
+								emailEvent={handleEmail}
 								nickName={nickName}
-								nickNameEvent={debouncenickName}
+								nickNameEvent={handlenickName}
 							/>
 						</div>
 						<Button onClick={handleSave} bg="bg-ec1" text="text-ec4 mt-4">
