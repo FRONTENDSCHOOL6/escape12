@@ -1,5 +1,6 @@
 import pb from '@/api/pockethost';
-import userUId from '@/api/userUid';
+import userId from '@/api/userId';
+import userNickName from '@/api/userNickName';
 import thumnail from '@/assets/recordpage-thumbnail.png';
 import Button from '@/components/button/Button';
 import Headerback from '@/components/header/Headerback';
@@ -11,8 +12,7 @@ import RemainingTime from '@/components/record/RemainingTime';
 import TextArea from '@/components/record/TextArea';
 import UploadImage from '@/components/record/UploadImage';
 import debounce from '@/utils/debounce';
-import { useEffect } from 'react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -88,8 +88,8 @@ function RecordPage() {
 			minute: Number(minute),
 			content: content,
 			image: photoRef.current.files[0],
-			author: `${userUId?.model.id}`,
-			nickName: `${userUId?.model.nickName}`,
+			author: userId,
+			nickName: userNickName,
 		};
 
 		try {
@@ -99,7 +99,7 @@ function RecordPage() {
 				record: [...data, `${result.id}`],
 			};
 
-			await pb.collection('users').update(`${userUId?.model.id}`, userRecord1);
+			await pb.collection('users').update(userId, userRecord1);
 
 			toast('등록되었습니다 :)', {
 				icon: '💛',
@@ -113,11 +113,9 @@ function RecordPage() {
 
 	useEffect(() => {
 		const dataList = async () => {
-			const userRecord = await pb
-				.collection('users')
-				.getOne(`${userUId?.model.id}`, {
-					expand: 'record',
-				});
+			const userRecord = await pb.collection('users').getOne(userId, {
+				expand: 'record',
+			});
 
 			try {
 				setData(userRecord.record);

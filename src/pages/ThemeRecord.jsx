@@ -1,5 +1,6 @@
 import pb from '@/api/pockethost';
-import userUId from '@/api/userUid';
+import userId from '@/api/userId';
+import userNickName from '@/api/userNickName';
 import Spinner from '@/components/Spinner';
 import Button from '@/components/button/Button';
 import Headerback from '@/components/header/Headerback';
@@ -66,17 +67,13 @@ function ThemeRecord() {
 				expand: 'users,record',
 			});
 
-			const userRecord = await pb
-				.collection('users')
-				.getOne(`${userUId?.model.id}`, {
-					expand: 'record',
-				});
+			const userRecord = await pb.collection('users').getOne(userId, {
+				expand: 'record',
+			});
 
-			const userEscapeList = await pb
-				.collection('users')
-				.getOne(`${userUId?.model.id}`, {
-					expand: 'escapeList',
-				});
+			const userEscapeList = await pb.collection('users').getOne(userId, {
+				expand: 'escapeList',
+			});
 
 			try {
 				setData(record);
@@ -105,15 +102,15 @@ function ThemeRecord() {
 				hour: hour,
 				minute: minute,
 				content: content,
-				author: `${userUId?.model.id}`,
+				author: userId,
 				escapeList: `${dataId}`,
-				nickName: `${userUId?.model.nickName}`,
+				nickName: userNickName,
 			};
 
 			const result = await pb.collection('record').create(themeRecord);
 
 			const themeClear = {
-				users: [...users, `${userUId?.model.id}`],
+				users: [...users, userId],
 				record: [...escapeListRecord, `${result.id}`],
 			};
 
@@ -124,7 +121,7 @@ function ThemeRecord() {
 				escapeList: [...escapeList, `${dataId}`],
 			};
 
-			await pb.collection('users').update(`${userUId?.model.id}`, userRecord);
+			await pb.collection('users').update(userId, userRecord);
 
 			toast('등록되었습니다 :)', {
 				icon: '💛',

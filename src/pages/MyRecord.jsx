@@ -1,5 +1,5 @@
 import pb from '@/api/pockethost';
-import userUId from '@/api/userUid';
+import userId from '@/api/userId';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
 import HeaderBackRecord from '@/components/header/HeaderBackRecord';
@@ -63,11 +63,11 @@ function MyRecord() {
 
 		const recordSearch = async () => {
 			const recordList = await pb.collection('record').getList(1, 200, {
-				filter: `(author = "${userUId?.model.id}" && theme ~ "${
+				filter: `(author = "${userId}" && theme ~ "${
 					e.target.value
-				}") || (author = "${userUId?.model.id}" && store ~ "${
+				}") || (author = "${userId}" && store ~ "${
 					e.target.value
-				}") || (author = "${userUId?.model.id}" && grade = "${
+				}") || (author = "${userId}" && grade = "${
 					e.target.value === '꽃길'
 						? 8 && 9 && 10
 						: e.target.value === '풀길'
@@ -75,7 +75,7 @@ function MyRecord() {
 						: e.target.value === '흙길'
 						? 0 && 1 && 2 && 3
 						: '없음'
-				}") || (author = "${userUId?.model.id}" && grade = "${
+				}") || (author = "${userId}" && grade = "${
 					e.target.value === '꽃'
 						? 8 && 9 && 10
 						: e.target.value === '풀'
@@ -88,7 +88,7 @@ function MyRecord() {
 			});
 
 			const data = await pb.collection('record').getFullList({
-				filter: `author = "${userUId?.model.id}"`,
+				filter: `author = "${userId}"`,
 				expand: 'escapeList',
 			});
 
@@ -131,7 +131,7 @@ function MyRecord() {
 	useEffect(() => {
 		const myRecord = async () => {
 			const records = await pb.collection('record').getFullList({
-				filter: `author = "${userUId?.model.id}"`,
+				filter: `author = "${userId}"`,
 				expand: 'escapeList',
 				sort: '-created',
 			});

@@ -1,4 +1,5 @@
 import pb from '@/api/pockethost';
+import userId from '@/api/userId';
 import userUId from '@/api/userUid';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
@@ -50,9 +51,7 @@ function Theme() {
 				bookmark: [...bookMark, `${item.id}`],
 			};
 
-			await pb
-				.collection('users')
-				.update(`${userUId?.model.id}`, userBookMarkSelete);
+			await pb.collection('users').update(userId, userBookMarkSelete);
 
 			toast('즐겨찾기에 추가되었습니다', {
 				icon: '⭐',
@@ -102,8 +101,6 @@ function Theme() {
 				setShowPlusNav(currentScrollY >= 500);
 			}
 		};
-
-		console.log(window.screenY);
 
 		window.addEventListener('scroll', handleScroll);
 
@@ -328,18 +325,14 @@ function Theme() {
 	// 내 기록, 내 북마크 불러오기
 	useLayoutEffect(() => {
 		const fetchUserBookmarks = async () => {
-			if (userUId) {
-				const usersLike = await pb
-					.collection('users')
-					.getOne(`${userUId?.model?.id}`, {
-						expand: 'bookmark',
-					});
+			if (userId) {
+				const usersLike = await pb.collection('users').getOne(userId, {
+					expand: 'bookmark',
+				});
 
-				const usersEscape = await pb
-					.collection('users')
-					.getOne(`${userUId?.model?.id}`, {
-						expand: 'escapeList',
-					});
+				const usersEscape = await pb.collection('users').getOne(userId, {
+					expand: 'escapeList',
+				});
 
 				if (usersLike && usersEscape) {
 					setBookMark(usersLike.bookmark);
@@ -369,6 +362,9 @@ function Theme() {
 			dataList();
 		}
 	}, [record, bookMark]);
+
+	console.log(userId);
+	console.log(bookMark);
 
 	return (
 		<>
