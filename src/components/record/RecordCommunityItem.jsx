@@ -1,7 +1,7 @@
-import { number, string, array } from 'prop-types';
-import Button from '../button/Button';
-import Span from '../theme/Span';
+import { array, number, string } from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import SmallButton from '../button/SmallButton';
+import Span from '../theme/Span';
 
 RecordCommunityItem.propTypes = {
 	store: string,
@@ -58,9 +58,13 @@ function RecordCommunityItem({
 							? `🐔${author}`
 							: `${author}`}
 					</span>
-					<Button bg="bg-ec1" text="text-ec4" onClick={handleLink}>
+					<SmallButton
+						bg="bg-ec1"
+						text="text-ec4 s:px-[10%] s:py-0 px-6 py-1"
+						onClick={handleLink}
+					>
 						보러가기
-					</Button>
+					</SmallButton>
 				</section>
 			</figcaption>
 		</figure>

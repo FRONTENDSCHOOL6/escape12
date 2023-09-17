@@ -9,6 +9,7 @@ import HeartButton from '@/components/theme/HeartButton';
 import LiButton from '@/components/theme/LiButton';
 import ThemeItem from '@/components/theme/ThemeItem';
 import debounce from '@/utils/debounce';
+import { useLayoutEffect } from 'react';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
@@ -27,7 +28,7 @@ function Theme() {
 	const [kuk, setKuk] = useState(false);
 	const [level, setLevel] = useState(false);
 	const [like, setLike] = useState(false);
-	const [user, setUser] = useState([]);
+	const [record, setRecord] = useState(null);
 	const [bookMark, setBookMark] = useState(null);
 	const navigate = useNavigate();
 
@@ -101,6 +102,8 @@ function Theme() {
 				setShowPlusNav(currentScrollY >= 500);
 			}
 		};
+
+		console.log(window.screenY);
 
 		window.addEventListener('scroll', handleScroll);
 
@@ -322,31 +325,8 @@ function Theme() {
 		e.preventDefault();
 	};
 
-	//데이터 불러오기
-	useEffect(() => {
-		const dataList = async () => {
-			const escape = await pb.collection('escapeList').getList(1, 227, {
-				sort: 'theme',
-			});
-
-			const usersEscape = await pb
-				.collection('users')
-				.getOne(`${userUId?.model?.id}`, {
-					expand: 'escapeList',
-				});
-
-			try {
-				setData(escape.items);
-				setUser(usersEscape.expand?.escapeList);
-				setIsLoading(true);
-			} catch (err) {
-				console.log(`에러 내용: ${err}`);
-			}
-		};
-		dataList();
-	}, []);
-
-	useEffect(() => {
+	// 내 기록, 내 북마크 불러오기
+	useLayoutEffect(() => {
 		const fetchUserBookmarks = async () => {
 			if (userUId) {
 				const usersLike = await pb
@@ -355,14 +335,40 @@ function Theme() {
 						expand: 'bookmark',
 					});
 
-				if (usersLike) {
+				const usersEscape = await pb
+					.collection('users')
+					.getOne(`${userUId?.model?.id}`, {
+						expand: 'escapeList',
+					});
+
+				if (usersLike && usersEscape) {
 					setBookMark(usersLike.bookmark);
+					setRecord(usersEscape.expand?.escapeList);
 				}
 			}
 		};
 
 		fetchUserBookmarks();
 	}, []);
+
+	//데이터 불러오기
+	useEffect(() => {
+		if (record && bookMark) {
+			const dataList = async () => {
+				const escape = await pb.collection('escapeList').getList(1, 10, {
+					sort: 'theme',
+				});
+
+				try {
+					setData(escape.items);
+					setIsLoading(true);
+				} catch (err) {
+					console.log(`에러 내용: ${err}`);
+				}
+			};
+			dataList();
+		}
+	}, [record, bookMark]);
 
 	return (
 		<>
@@ -432,7 +438,7 @@ function Theme() {
 						<Spinner />
 					</div>
 				)}
-				{isLoading && data && bookMark && (
+				{isLoading && data && bookMark && record && (
 					<ul className="w-full px-20 s:px-12">
 						{data.map((item) => {
 							return (
@@ -447,7 +453,7 @@ function Theme() {
 										link={item.link}
 										field={item.field}
 										dataid={item.id}
-										clear={user}
+										clear={record}
 										record={item.record}
 									/>
 									<HeartButton
