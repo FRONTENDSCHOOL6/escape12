@@ -67,6 +67,9 @@ function MyCommentPage() {
 								comment={item.content}
 								postId={item.community}
 								recordId={item.record}
+								postTitle={
+									item.expand?.community?.title || item.expand?.record?.title
+								}
 							/>
 						))}
 				</div>
