@@ -71,7 +71,7 @@ function MyCommentPage() {
 								postTitle={
 									item.expand?.community?.title || item.expand?.record?.title
 								}
-								postType={item.record}
+								postType={item.community ? 'community' : 'record'}
 							/>
 						))}
 				</div>
