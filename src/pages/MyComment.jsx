@@ -7,6 +7,8 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import userUId from '@/api/userUid';
 import MyCommentItem from '@/components/mycomment/MyCommentItem';
+import Spinner from '@/components/Spinner';
+import EmptyContents from '@/components/EmptyContents';
 
 function MyCommentPage() {
 	// const { dataId } = useParams();
@@ -20,7 +22,7 @@ function MyCommentPage() {
 
 			const CommentList = await pb.collection('comment').getList(1, 200, {
 				filter: `author="${userUId?.model.id}"`,
-				expand: 'author',
+				expand: 'author , community',
 				sort: '-created',
 			});
 			try {
@@ -37,6 +39,7 @@ function MyCommentPage() {
 		MyComment();
 	}, []);
 
+	console.log(comment);
 	return (
 		<>
 			<Helmet>
@@ -57,10 +60,13 @@ function MyCommentPage() {
 						comment.map((item) => (
 							<MyCommentItem
 								key={item.id}
+								id={item.id}
 								src={`https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`}
-								alt={item.expand.author.nickName}
-								nickName={item.expand.author.nickName}
+								alt={item.expand?.author?.nickName}
+								nickName={item.expand?.author?.nickName}
 								comment={item.content}
+								postId={item.community}
+								recordId={item.record}
 							/>
 						))}
 				</div>
