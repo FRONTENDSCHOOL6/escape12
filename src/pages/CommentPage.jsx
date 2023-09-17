@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
-import debounce from './../utils/debounce';
 import SubmitInput from '@/components/input/SubmitInput';
 import userUId from '@/api/userUid';
 import CommentItem from '@/components/comment/Commentitem';
@@ -20,14 +19,25 @@ function CommentPage() {
 	const [comment, setComment] = useState([]);
 	const [commentInput, setCommentInput] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [community, setCommunity] = useState([]);
 
-	//삭제 기능
 	const handleDeleteRecord = async () => {
 		const deleteConfirm = confirm('정말로 삭제하시겠습니까?');
 
-		try {
-			if (deleteConfirm) {
+		const currentUserID = userUId?.model.id;
+		const postAuthorID = data.expand?.author?.id;
+
+		if (deleteConfirm && currentUserID === postAuthorID) {
+			const array = community.filter(
+				(i) => i !== `${data.expand?.community?.id}`
+			);
+			const updateCommunity = { escapeList: array };
+
+			try {
 				await pb.collection('community').delete(`${dataId}`);
+				await pb
+					.collection('users')
+					.update(`${userUId.model.id}`, updateCommunity);
 
 				toast('삭제되었습니다', {
 					icon: '🗑️',
@@ -35,28 +45,39 @@ function CommentPage() {
 				});
 
 				navigate('/postpage');
+			} catch (err) {
+				console.log(`삭제 에러: ${err}`);
 			}
-		} catch (err) {
-			console.log(`삭제 에러: ${err}`);
+		} else {
+			toast('게시글을 삭제할 수 있는 권한이 없습니다.', {
+				icon: '❌',
+				duration: 1000,
+			});
 		}
 	};
 
-	//수정 기능
 	const handleEditRecord = () => {
-		try {
-			navigate(`/AddCommunity/edit/${dataId}`);
-		} catch (err) {
-			console.log(`수정 에러: ${err}`);
+		const currentUserID = userUId?.model.id;
+		const postAuthorID = data.expand?.author?.id;
+
+		if (currentUserID === postAuthorID) {
+			try {
+				navigate(`/AddCommunity/edit/${dataId}`);
+			} catch (err) {
+				console.log(`수정 에러: ${err}`);
+			}
+		} else {
+			toast('게시글을 수정할 수 있는 권한이 없습니다.', {
+				icon: '❌',
+				duration: 1000,
+			});
 		}
 	};
 
-	// 댓글 입력하기
 	const handleComment = async (e) => {
 		setCommentInput(e.target.value);
-		debounce((e) => e.target.value);
 	};
 
-	// 등록 버튼
 	const handleSubmitComment = async (e) => {
 		e.preventDefault();
 		const commentData = {
@@ -80,8 +101,6 @@ function CommentPage() {
 		}
 	};
 
-	//게시글 불러오기
-	//게시글 및 댓글 정보 불러오기
 	useEffect(() => {
 		const dataList = async () => {
 			const record = await pb.collection('community').getOne(`${dataId}`, {
@@ -103,14 +122,28 @@ function CommentPage() {
 		dataList();
 	}, [dataId]);
 
+	useEffect(() => {
+		const handleUserCommunity = async () => {
+			const userCommunityData = await pb
+				.collection('users')
+				.getOne(`${userUId.model.id}`);
+			try {
+				setCommunity(userCommunityData.community);
+			} catch (err) {
+				console.log(`userCommunity 불러오기 에러: ${err}`);
+			}
+		};
+
+		handleUserCommunity();
+	}, []);
+
 	console.log(comment);
+
 	return (
 		<div>
 			<Helmet>
 				<title>게시글 상세</title>
 			</Helmet>
-			{/* 전체 페이지 */}
-
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center min-h-[100vh] m-auto px-20 s:px-12 py-24 gap-10 relative">
 				<Headerback
 					onClick={() => {
@@ -119,9 +152,13 @@ function CommentPage() {
 				>
 					게시글
 				</Headerback>
+				{!isLoading && (
+					<div className="absolute top-1/2 -translate-y-1/2">
+						<Spinner />
+					</div>
+				)}
 				<div className="min-w-[300px] w-full">
-					{/* 게시글 내용 박스 */}
-					{data && (
+					{isLoading && data && (
 						<Post
 							title={data.title}
 							author={data.expand?.author?.nickName}
@@ -143,7 +180,6 @@ function CommentPage() {
 					</div>
 				</div>
 
-				{/* 댓글 작성창 */}
 				<div className="w-full border-t-2 pt-6 border-ec1">
 					<SubmitInput
 						placeholder="댓글을 입력해주세요 😀"
@@ -155,17 +191,20 @@ function CommentPage() {
 						등록
 					</SubmitInput>
 
-					{/* 댓글 리스트 */}
-
-					{!isLoading && (
-						<div className="absolute top-1/2 -translate-y-1/2">
-							<Spinner />
-						</div>
-					)}
 					<ul className="flex flex-col gap-4 text-lg w-full text-ec1">
 						{isLoading &&
 							comment &&
 							comment.map((item) => {
+								// 댓글 삭제하기
+								const handleDeleteComment = async () => {
+									const result = confirm('댓글을 삭제하시겠습니까?');
+
+									if (result) {
+										await pb.collection('comment').delete(`${item.id}`);
+										location.reload();
+									}
+								};
+
 								return (
 									<li key={item.id} className="w-full flex gap-3">
 										<CommentItem
@@ -173,6 +212,9 @@ function CommentPage() {
 											alt={item.expand?.author?.nickName}
 											nickName={item.expand?.author?.nickName}
 											comment={item.content}
+											userId={item.expand?.author?.id}
+											id={item.id}
+											onClick={handleDeleteComment}
 										/>
 									</li>
 								);
@@ -186,3 +228,18 @@ function CommentPage() {
 }
 
 export default CommentPage;
+
+// {isLoading &&
+// 	comment &&
+// 	comment.map((item) => {
+// 		return (
+// 			<li key={item.id} className="w-full flex gap-3">
+// 				<CommentItem
+// 					src={`https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`}
+// 					alt={item.expand?.author?.nickName}
+// 					nickName={item.expand?.author?.nickName}
+// 					comment={item.content}
+// 				/>
+// 			</li>
+// 		);
+// 	})}
