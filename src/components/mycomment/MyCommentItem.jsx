@@ -1,5 +1,5 @@
 import { string } from 'prop-types';
-import SmallButton from '../button/SmallButton';
+import DeleteButton from '../button/DeleteButton';
 import toast from 'react-hot-toast';
 import pb from '@/api/pockethost';
 import { Link } from 'react-router-dom';
@@ -12,9 +12,10 @@ MyCommentItem.propTypes = {
 	id: string,
 	postId: string,
 	recordId: string,
+	postTitle: string,
 };
 
-function MyCommentItem({ comment, id, postId, recordId }) {
+function MyCommentItem({ comment, id, postId, recordId, postTitle }) {
 	// console.log(postId);
 	const handleDeletecomment = async (e) => {
 		e.preventDefault();
@@ -42,13 +43,14 @@ function MyCommentItem({ comment, id, postId, recordId }) {
 				<div className="">
 					{/* <img className="w-8 h-8 rounded-full" src={src} alt={alt} /> */}
 					{/* <span className="font-bold ">{nickName}</span> */}
+					<h3 className="text-lg font-semibold mb-2 border-b-2">{postTitle}</h3>
 					<p className="break-all whitespace-nowrap overflow-hidden text-ellipsis">
 						{comment}
 					</p>
 				</div>
 			</Link>
 			<div className="flex gap-3">
-				<SmallButton onClick={handleDeletecomment}>삭제</SmallButton>
+				<DeleteButton onClick={handleDeletecomment}>삭제</DeleteButton>
 			</div>
 		</div>
 	);
