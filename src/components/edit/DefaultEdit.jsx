@@ -1,11 +1,11 @@
-import { string } from 'prop-types';
+import { string, func } from 'prop-types';
 import FormInput from '../loginsignup/FormInput';
 
 DefaultnickName.propTypes = {
 	nickName: string,
-	nickNameEvent: string,
+	nickNameEvent: func,
 	email: string,
-	emailEvent: string,
+	emailEvent: func,
 	password: string
 };
 
@@ -15,7 +15,6 @@ function DefaultnickName({ nickName, nickNameEvent, email, emailEvent }) {
 			<FormInput
 				name="email"
 				palceholder="이메일"
-				mxLenght={25}
 				defaultValue={email}
 				onChange={emailEvent}
 			>
@@ -31,7 +30,6 @@ function DefaultnickName({ nickName, nickNameEvent, email, emailEvent }) {
 			<FormInput
 				name="nickName"
 				placeholder="닉네임"
-				maxLength={20}
 				defaultValue={nickName}
 				onChange={nickNameEvent}
 			>

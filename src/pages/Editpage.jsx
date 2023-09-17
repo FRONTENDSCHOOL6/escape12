@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import Button from '@/components/button/Button';
 import Nav from '@/components/nav/Nav';
 import Headerback from '@/components/header/Headerback';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Spinner from '@/components/Spinner';
 import { toast } from 'react-hot-toast';
 import pb from '@/api/pockethost';
@@ -15,9 +15,7 @@ function Editpage() {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [nickName, setnickName] = useState('');
-	const [data, setData] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
-	const { dataId } = useParams();
 
 	//이메일상태 관리
 	const handleEmail = (e) => {
@@ -34,7 +32,6 @@ function Editpage() {
 		const datalist = async () => {
 			const resultList = await pb.collection('users').getOne(`${userUId?.model.id}`);
 			try {
-				setData(resultList);
 				setEmail(resultList.email);
 				setnickName(resultList.nickName)
 				setIsLoading(true);
@@ -48,22 +45,22 @@ function Editpage() {
 	// 수정 상태 변경
 	const handleSave = async (e) => {
 		e.preventDefault();
-		const data = {
+		const updateData = {
 			email: email,
 			nickName: nickName,
 		};
 
 		try {
-			const editresult = await pb
+			await pb
 				.collection('users')
-				.update(`${dataId}`, data);
+				.update(`${userUId?.model.id}`, updateData);
 
 			toast('정보 수정이 완료되었습니다', {
 				icon: '✨',
 				duration: 2000,
 			});
 
-			navigate(`/mypage/${editresult.id}`);
+			navigate('/mypage')
 		} catch (err) {
 			console.log(err);
 		}
@@ -90,6 +87,10 @@ function Editpage() {
 				)}
 				{isLoading && (
 					<div className="flex-1 flex flex-col items-center s:px-3">
+						<form
+						onSubmit={handleSave}
+						className="text-center">
+						
 						<div className="s:px-12 p-12 text-xl space-y-10">
 							<img
 								className="w-[30%] mx-auto rounded-full"
@@ -104,9 +105,10 @@ function Editpage() {
 								nickNameEvent={handlenickName}
 							/>
 						</div>
-						<Button onClick={handleSave} bg="bg-ec1" text="text-ec4 mt-4">
+						<Button type="submit" bg="bg-ec1" text="text-ec4 mt-4">
 							저장
 						</Button>
+						</form>
 						<footer className="mt-auto py-1 mb-2">
 							<em>
 								<Link
