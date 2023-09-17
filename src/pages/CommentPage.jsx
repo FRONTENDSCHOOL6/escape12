@@ -11,6 +11,7 @@ import debounce from './../utils/debounce';
 import SubmitInput from '@/components/input/SubmitInput';
 import userUId from '@/api/userUid';
 import CommentItem from '@/components/comment/Commentitem';
+import Spinner from '@/components/Spinner';
 
 function CommentPage() {
 	const { dataId } = useParams();
@@ -104,7 +105,7 @@ function CommentPage() {
 
 	console.log(comment);
 	return (
-		<>
+		<div>
 			<Helmet>
 				<title>게시글 상세</title>
 			</Helmet>
@@ -156,6 +157,11 @@ function CommentPage() {
 
 					{/* 댓글 리스트 */}
 
+					{!isLoading && (
+						<div className="absolute top-1/2 -translate-y-1/2">
+							<Spinner />
+						</div>
+					)}
 					<ul className="flex flex-col gap-4 text-lg w-full text-ec1">
 						{isLoading &&
 							comment &&
@@ -175,7 +181,7 @@ function CommentPage() {
 				</div>
 				<Nav />
 			</div>
-		</>
+		</div>
 	);
 }
 
