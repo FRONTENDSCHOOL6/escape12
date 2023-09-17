@@ -1,6 +1,5 @@
+import getUserInfo from '@/api/getUserInfo';
 import pb from '@/api/pockethost';
-import userId from '@/api/userId';
-import userUId from '@/api/userUid';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
 import HeaderRecord from '@/components/header/HeaderRecord';
@@ -17,6 +16,10 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 function Theme() {
+	const {
+		user: { id: userId },
+	} = getUserInfo();
+	const navigate = useNavigate();
 	const [data, setData] = useState([]);
 	const [search, setSearch] = useState('');
 	const [levelSort, setLevelSort] = useState(false);
@@ -31,7 +34,6 @@ function Theme() {
 	const [like, setLike] = useState(false);
 	const [record, setRecord] = useState(null);
 	const [bookMark, setBookMark] = useState(null);
-	const navigate = useNavigate();
 
 	// 즐겨찾기 기능
 	const isClickHeart = async (item) => {
@@ -66,9 +68,7 @@ function Theme() {
 
 			const updateBookMark = { bookmark: userBookMarkCancle };
 
-			await pb
-				.collection('users')
-				.update(`${userUId?.model.id}`, updateBookMark);
+			await pb.collection('users').update(userId, updateBookMark);
 
 			toast('즐겨찾기에 삭제되었습니다', {
 				icon: '✖️',
@@ -342,7 +342,7 @@ function Theme() {
 		};
 
 		fetchUserBookmarks();
-	}, []);
+	}, [userId]);
 
 	//데이터 불러오기
 	useEffect(() => {
@@ -362,9 +362,6 @@ function Theme() {
 			dataList();
 		}
 	}, [record, bookMark]);
-
-	console.log(userId);
-	console.log(bookMark);
 
 	return (
 		<>

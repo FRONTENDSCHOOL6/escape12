@@ -1,5 +1,5 @@
 import pb from './pockethost';
 
-const userId = pb.authStore.model.id;
+const userId = pb.authStore.model?.id;
 
 export default userId;

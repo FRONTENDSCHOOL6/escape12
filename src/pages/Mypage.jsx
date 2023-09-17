@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import Button from '@/components/button/Button';
 import Nav from '@/components/nav/Nav';
 import Header from '@/components/header/Header';
@@ -8,9 +9,9 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import pb from '@/api/pockethost';
 import { toast } from 'react-hot-toast';
-import userUId from '@/api/userUid';
 
 function Mypage() {
+	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const [data, setData] = useState('');
 	const [records, setRecords] = useState([]);
