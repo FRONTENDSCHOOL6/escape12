@@ -1,5 +1,5 @@
 import pb from '@/api/pockethost';
-import userId from '@/api/userId';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import userNickName from '@/api/userNickName';
 import Spinner from '@/components/Spinner';
 import Button from '@/components/button/Button';
@@ -19,6 +19,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 pb.autoCancellation(false);
 
 function ThemeRecord() {
+	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const { dataId } = useParams();
 	const [data, setData] = useState({});
@@ -67,13 +68,17 @@ function ThemeRecord() {
 				expand: 'users,record',
 			});
 
-			const userRecord = await pb.collection('users').getOne(userId, {
-				expand: 'record',
-			});
+			const userRecord = await pb
+				.collection('users')
+				.getOne(`${userUId?.model.id}`, {
+					expand: 'record',
+				});
 
-			const userEscapeList = await pb.collection('users').getOne(userId, {
-				expand: 'escapeList',
-			});
+			const userEscapeList = await pb
+				.collection('users')
+				.getOne(`${userUId?.model.id}`, {
+					expand: 'escapeList',
+				});
 
 			try {
 				setData(record);
@@ -87,7 +92,7 @@ function ThemeRecord() {
 			}
 		};
 		dataList();
-	}, [dataId]);
+	}, [dataId, userUId?.model.id]);
 
 	// 기록 등록하기 이벤트
 	const handleSubmitRecord = async (e) => {
@@ -102,7 +107,7 @@ function ThemeRecord() {
 				hour: hour,
 				minute: minute,
 				content: content,
-				author: userId,
+				author: `${userUId?.model.id}`,
 				escapeList: `${dataId}`,
 				nickName: userNickName,
 			};
@@ -110,7 +115,7 @@ function ThemeRecord() {
 			const result = await pb.collection('record').create(themeRecord);
 
 			const themeClear = {
-				users: [...users, userId],
+				users: [...users, `${userUId?.model.id}`],
 				record: [...escapeListRecord, `${result.id}`],
 			};
 
@@ -121,7 +126,7 @@ function ThemeRecord() {
 				escapeList: [...escapeList, `${dataId}`],
 			};
 
-			await pb.collection('users').update(userId, userRecord);
+			await pb.collection('users').update(`${userUId?.model.id}`, userRecord);
 
 			toast('등록되었습니다 :)', {
 				icon: '💛',

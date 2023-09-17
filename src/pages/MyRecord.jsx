@@ -1,5 +1,6 @@
 import pb from '@/api/pockethost';
-import userId from '@/api/userId';
+import noImage from '@/assets/noImage.png';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
 import HeaderBackRecord from '@/components/header/HeaderBackRecord';
@@ -12,6 +13,7 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 function MyRecord() {
+	const userUId = getUserInfoFromStorage();
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [emptyData, setEmptyData] = useState(false);
@@ -63,11 +65,11 @@ function MyRecord() {
 
 		const recordSearch = async () => {
 			const recordList = await pb.collection('record').getList(1, 200, {
-				filter: `(author = "${userId}" && theme ~ "${
+				filter: `(author = "${userUId?.model.id}" && theme ~ "${
 					e.target.value
-				}") || (author = "${userId}" && store ~ "${
+				}") || (author = "${userUId?.model.id}" && store ~ "${
 					e.target.value
-				}") || (author = "${userId}" && grade = "${
+				}") || (author = "${userUId?.model.id}" && grade = "${
 					e.target.value === '꽃길'
 						? 8 && 9 && 10
 						: e.target.value === '풀길'
@@ -75,7 +77,7 @@ function MyRecord() {
 						: e.target.value === '흙길'
 						? 0 && 1 && 2 && 3
 						: '없음'
-				}") || (author = "${userId}" && grade = "${
+				}") || (author = "${userUId?.model.id}" && grade = "${
 					e.target.value === '꽃'
 						? 8 && 9 && 10
 						: e.target.value === '풀'
@@ -88,7 +90,7 @@ function MyRecord() {
 			});
 
 			const data = await pb.collection('record').getFullList({
-				filter: `author = "${userId}"`,
+				filter: `author = "${userUId?.model.id}"`,
 				expand: 'escapeList',
 			});
 
@@ -131,7 +133,7 @@ function MyRecord() {
 	useEffect(() => {
 		const myRecord = async () => {
 			const records = await pb.collection('record').getFullList({
-				filter: `author = "${userId}"`,
+				filter: `author = "${userUId?.model.id}"`,
 				expand: 'escapeList',
 				sort: '-created',
 			});
@@ -181,7 +183,7 @@ function MyRecord() {
 							<Spinner />
 						</div>
 					)}
-					<ul className="w-full px-20">
+					<ul className="w-full px-20 s:px-12">
 						{!emptyData &&
 							isLoading &&
 							!noResult &&
@@ -191,9 +193,9 @@ function MyRecord() {
 										<MyRecordItem
 											link={item.id}
 											src={
-												item.image
-													? `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
-													: item.expand?.escapeList?.image
+												!item.image
+													? item.expand?.escapeList?.image || noImage
+													: `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
 											}
 											alt={item.theme}
 											theme={item.theme}

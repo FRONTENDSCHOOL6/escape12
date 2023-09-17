@@ -181,7 +181,7 @@ function UploadRecord() {
 								</h3>
 								<div className="flex justify-between">
 									<p
-										className={`flex ${
+										className={`flex max-w-fit whitespace-nowrap overflow-hidden text-ellipsis ${
 											data.expand?.author?.nickName ? '' : 'text-gray'
 										}`}
 									>
@@ -200,7 +200,7 @@ function UploadRecord() {
 									</span>
 								</div>
 							</div>
-							<div className="w-20 h-20">
+							<div className="w-20 h-20 s:w-14 s:h-14">
 								<img
 									className="w-full h-full rounded-full"
 									src={

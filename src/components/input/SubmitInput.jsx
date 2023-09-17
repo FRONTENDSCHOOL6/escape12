@@ -32,7 +32,7 @@ function SubmitInput({
 				maxLength={35}
 				value={value}
 				required
-				className="pl-3 py-1 rounded-full focus:outline-none flex-1"
+				className="px-3 py-1 rounded-full focus:outline-none flex-1"
 			/>
 			<SmallButton type="submit">{children}</SmallButton>
 		</form>

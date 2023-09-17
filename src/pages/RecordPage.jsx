@@ -1,5 +1,5 @@
 import pb from '@/api/pockethost';
-import userId from '@/api/userId';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import userNickName from '@/api/userNickName';
 import thumnail from '@/assets/recordpage-thumbnail.png';
 import Button from '@/components/button/Button';
@@ -18,6 +18,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 function RecordPage() {
+	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const [length, setLength] = useState(0);
 	const [theme, setTheme] = useState('');
@@ -88,7 +89,7 @@ function RecordPage() {
 			minute: Number(minute),
 			content: content,
 			image: photoRef.current.files[0],
-			author: userId,
+			author: `${userUId?.model.id}`,
 			nickName: userNickName,
 		};
 
@@ -99,7 +100,7 @@ function RecordPage() {
 				record: [...data, `${result.id}`],
 			};
 
-			await pb.collection('users').update(userId, userRecord1);
+			await pb.collection('users').update(`${userUId?.model.id}`, userRecord1);
 
 			toast('등록되었습니다 :)', {
 				icon: '💛',
@@ -113,9 +114,11 @@ function RecordPage() {
 
 	useEffect(() => {
 		const dataList = async () => {
-			const userRecord = await pb.collection('users').getOne(userId, {
-				expand: 'record',
-			});
+			const userRecord = await pb
+				.collection('users')
+				.getOne(`${userUId?.model.id}`, {
+					expand: 'record',
+				});
 
 			try {
 				setData(userRecord.record);
