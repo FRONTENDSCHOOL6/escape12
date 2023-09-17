@@ -34,9 +34,12 @@ function Theme() {
 	// 즐겨찾기 기능
 	const isClickHeart = async (item) => {
 		const newHeartState = !item.heart;
+
 		setData((prevData) =>
-			prevData.map((d) =>
-				d.id === item.id ? { ...d, heart: newHeartState } : d
+			prevData.map((dataItem) =>
+				dataItem.id === item.id
+					? { ...dataItem, heart: newHeartState }
+					: dataItem
 			)
 		);
 
@@ -55,7 +58,9 @@ function Theme() {
 				duration: 2000,
 			});
 		} else {
-			const userBookMarkCancle = bookMark.filter((i) => i !== `${item.id}`);
+			const userBookMarkCancle = bookMark.filter(
+				(value) => value !== `${item.id}`
+			);
 
 			setBookMark(userBookMarkCancle);
 
@@ -324,12 +329,6 @@ function Theme() {
 				sort: 'theme',
 			});
 
-			const usersLike = await pb
-				.collection('users')
-				.getOne(`${userUId?.model?.id}`, {
-					expand: 'bookmark',
-				});
-
 			const usersEscape = await pb
 				.collection('users')
 				.getOne(`${userUId?.model?.id}`, {
@@ -339,7 +338,6 @@ function Theme() {
 			try {
 				setData(escape.items);
 				setUser(usersEscape.expand?.escapeList);
-				setBookMark(usersLike.bookmark);
 				setIsLoading(true);
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
@@ -348,7 +346,23 @@ function Theme() {
 		dataList();
 	}, []);
 
-	console.log(bookMark);
+	useEffect(() => {
+		const fetchUserBookmarks = async () => {
+			if (userUId) {
+				const usersLike = await pb
+					.collection('users')
+					.getOne(`${userUId?.model?.id}`, {
+						expand: 'bookmark',
+					});
+
+				if (usersLike) {
+					setBookMark(usersLike.bookmark);
+				}
+			}
+		};
+
+		fetchUserBookmarks();
+	}, []);
 
 	return (
 		<>
