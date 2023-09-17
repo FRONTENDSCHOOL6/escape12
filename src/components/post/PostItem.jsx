@@ -7,9 +7,11 @@ PostItem.propTypes = {
 	date: string,
 	id: string,
 	content: string,
+	src: string,
+	alt: string,
 };
 
-function PostItem({ id, title, author, content }) {
+function PostItem({ id, title, author, content, src, alt }) {
 	const shortContent =
 		content.length > 85 ? `${content.substring(0, 85)}...` : content;
 
@@ -20,7 +22,14 @@ function PostItem({ id, title, author, content }) {
 					<p className="whitespace-nowrap overflow-hidden text-ellipsis">
 						{title}
 					</p>
-					<p className="break-all font-bold whitespace-nowrap">{author}</p>
+					<div className="flex items-center">
+						{''}
+						{/* div 태그와 flex 스타일 추가 */}
+						<img className="w-6 h-6 rounded-full mr-2" src={src} alt={alt} />
+						{''}
+						{/* img 태그의 위치 변경 및 marginRight 스타일 추가 */}
+						<p className="break-all font-bold whitespace-normal">{author}</p>
+					</div>
 				</div>
 				<p className="break-all whitespace-nowrap overflow-hidden text-ellipsis">
 					{shortContent}
