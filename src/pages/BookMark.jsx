@@ -14,7 +14,6 @@ import { useNavigate } from 'react-router-dom';
 function BookMark() {
 	const [bookMark, setBookMark] = useState(null);
 	const [bookMarkId, setBookMarkId] = useState(null);
-	const [record, setRecord] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const navigate = useNavigate();
@@ -95,7 +94,6 @@ function BookMark() {
 			try {
 				setBookMark(userBookMark.expand?.bookmark);
 				setBookMarkId(userBookMark.bookmark);
-				setRecord(userBookMark.escapeList);
 				setIsLoading(true);
 			} catch (err) {
 				console.log(`북마크 불러오기 에러: ${err}`);
@@ -118,7 +116,7 @@ function BookMark() {
 				>
 					즐겨찾기
 				</Headerback>
-				{isLoading && bookMark.length === 0 && (
+				{isLoading && !bookMark && (
 					<div className="absolute top-1/2 -translate-y-1/2">
 						<EmptyContents>즐겨찾기 목록이 없습니다 : &#40;</EmptyContents>
 					</div>
@@ -128,7 +126,7 @@ function BookMark() {
 						<Spinner />
 					</div>
 				)}
-				{bookMark && bookMarkId && (
+				{isLoading && bookMark && bookMarkId && (
 					<ul className="w-full px-20 s:px-12">
 						{bookMark.map((item) => {
 							return (

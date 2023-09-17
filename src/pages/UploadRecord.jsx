@@ -295,6 +295,17 @@ function UploadRecord() {
 								</Button>
 							</section>
 						)}
+						{`${userUId?.model.admin}` && (
+							<section className="w-full flex justify-center pb-3">
+								<Button
+									bg="bg-ec1"
+									text="text-ec4"
+									onClick={handleDeleteRecord}
+								>
+									삭제
+								</Button>
+							</section>
+						)}
 						<div className="w-full pt-3 border-t-2">
 							<SubmitInput
 								placeholder="댓글을 입력해주세요 ☺️"
