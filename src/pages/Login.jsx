@@ -59,7 +59,7 @@ function Login() {
 
 		try {
 			// 인증 새로고침
-			await pb.collection('users').authRefresh();
+			// await pb.collection('users').authRefresh();
 
 			const authData = await pb
 				.collection('users')
