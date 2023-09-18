@@ -8,13 +8,14 @@ import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import SubmitInput from '@/components/input/SubmitInput';
-import userUId from '@/api/userUid';
 import CommentItem from '@/components/comment/Commentitem';
 import Spinner from '@/components/Spinner';
 import Button from '@/components/button/Button';
 import noImage from '@/assets/noImage.png';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 
 function CommentPage() {
+	const userUId = getUserInfoFromStorage();
 	const { dataId } = useParams();
 	const navigate = useNavigate();
 	const [data, setData] = useState([]);
@@ -35,6 +36,7 @@ function CommentPage() {
 			const array = community.filter(
 				(i) => i !== `${data.expand?.community?.id}`
 			);
+
 			const updateCommunity = { escapeList: array };
 
 			try {
@@ -42,6 +44,10 @@ function CommentPage() {
 				await pb
 					.collection('users')
 					.update(`${userUId.model.id}`, updateCommunity);
+
+				comment.map(async (item) => {
+					await pb.collection('comment').delete(`${item.id}`);
+				});
 
 				toast('삭제되었습니다', {
 					icon: '🗑️',
