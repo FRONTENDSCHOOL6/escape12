@@ -3,13 +3,69 @@ import LoginSeleteButton from '@/components/loginsignup/LoginSeleteButton';
 import KeyLogo from '@/components/KeyLogo';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
+import pb from '@/api/pockethost';
+import { useNavigate } from 'react-router-dom';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 
 function LoginSelete() {
-	const handleFindUserData = () => {
-		toast('이메일 로그인만 가능합니다', {
-			icon: '🔐',
-			duration: 2000,
-		});
+	const navigate = useNavigate();
+	const userUId = getUserInfoFromStorage();
+
+	// 로그인기능 구현못했을때
+	// const handleFindUserData = () => {
+	// 	toast('이메일 로그인만 가능합니다', {
+	// 		icon: '🔐',
+	// 		duration: 2000,
+	// 	});
+	// };
+
+	// 카카오톡 로그인
+	const handleKakaoLogin = async () => {
+		const kakao = await pb
+			.collection('users')
+			.authWithOAuth2({ provider: 'kakao' });
+
+		try {
+			toast('로그인에 성공하셨습니다.', {
+				icon: '❤️',
+				duration: 2000,
+			});
+
+			navigate('/theme');
+		} catch (err) {
+			console.log(`카카오톡 에러: ${err}`);
+
+			toast('로그인에 실패하셨습니다.', {
+				icon: '😭',
+				duration: 2000,
+			});
+		} finally {
+			console.log(kakao);
+		}
+	};
+
+	// 구글로그인
+	const handleGoogleLogin = async () => {
+		const authData = await pb
+			.collection('users')
+			.authWithOAuth2({ provider: 'google' });
+		try {
+			toast('로그인에 성공하셨습니다.', {
+				icon: '❤️',
+				duration: 2000,
+			});
+
+			navigate('/theme');
+		} catch (err) {
+			console.log(`카카오톡 에러: ${err}`);
+
+			toast('로그인에 실패하셨습니다.', {
+				icon: '😭',
+				duration: 2000,
+			});
+		} finally {
+			console.log(authData);
+		}
 	};
 
 	return (
@@ -24,7 +80,7 @@ function LoginSelete() {
 						line="border-kakaoline"
 						text="text-kakaoline"
 						img="bg-kakao"
-						onClick={handleFindUserData}
+						onClick={handleKakaoLogin}
 					>
 						카카오 로그인
 					</LoginSeleteButton>
@@ -32,7 +88,7 @@ function LoginSelete() {
 						line="border-googleline"
 						text="text-googleline"
 						img="bg-google"
-						onClick={handleFindUserData}
+						onClick={handleGoogleLogin}
 					>
 						구글 로그인
 					</LoginSeleteButton>

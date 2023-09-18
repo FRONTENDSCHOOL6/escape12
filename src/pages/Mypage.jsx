@@ -19,15 +19,25 @@ function Mypage() {
 	const [comment, setComment] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 
+	// const KAKAO_CLIENT_ID = '7e2f5729e497d2295073a752a34b20c2';
+	// const KAKAO_LOGOUT_REDIRECT_URI = 'https://refresh.pockethost.io';
+
 	//로그아웃
-	const handleLogout = () => {
+	const handleLogout = async () => {
+		// location.replace(
+		// 	`https://kauth.kakao.com/oauth/logout?client_id=${KAKAO_CLIENT_ID}&logout_redirect_uri=${KAKAO_LOGOUT_REDIRECT_URI}`
+		// );
+
 		toast('로그아웃이 완료되었습니다', {
 			icon: '⭕',
-			duration: 1000,
+			duration: 500,
 		});
+
 		setTimeout(() => {
 			pb.authStore.clear();
-		}, 1000);
+		}, 500);
+
+		navigate('/loginselete');
 	};
 
 	//작성 기록 갯수
