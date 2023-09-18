@@ -1,18 +1,25 @@
+import getUserInfo from '@/api/getUserInfo';
 import pb from '@/api/pockethost';
-import userUId from '@/api/userUid';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
 import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
+import HeartButton from '@/components/theme/HeartButton';
 import LiButton from '@/components/theme/LiButton';
 import ThemeItem from '@/components/theme/ThemeItem';
 import debounce from '@/utils/debounce';
+import { useLayoutEffect } from 'react';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 function Theme() {
+	const {
+		user: { id: userId },
+	} = getUserInfo();
+	const navigate = useNavigate();
 	const [data, setData] = useState([]);
 	const [search, setSearch] = useState('');
 	const [levelSort, setLevelSort] = useState(false);
@@ -20,8 +27,55 @@ function Theme() {
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [emptyData, setEmptyData] = useState(false);
-	const [user, setUser] = useState([]);
-	const navigate = useNavigate();
+	const [gang, setGang] = useState(false);
+	const [hong, setHong] = useState(false);
+	const [kuk, setKuk] = useState(false);
+	const [level, setLevel] = useState(false);
+	const [like, setLike] = useState(false);
+	const [record, setRecord] = useState();
+	const [bookMark, setBookMark] = useState(null);
+
+	// 즐겨찾기 기능
+	const isClickHeart = async (item) => {
+		const newHeartState = !item.heart;
+
+		setData((prevData) =>
+			prevData.map((dataItem) =>
+				dataItem.id === item.id
+					? { ...dataItem, heart: newHeartState }
+					: dataItem
+			)
+		);
+
+		if (newHeartState && bookMark.indexOf(`${item.id}`) < 0) {
+			setBookMark((i) => [...i, `${item.id}`]);
+			const userBookMarkSelete = {
+				bookmark: [...bookMark, `${item.id}`],
+			};
+
+			toast('즐겨찾기에 추가되었습니다', {
+				icon: '⭐',
+				duration: 2000,
+			});
+
+			await pb.collection('users').update(userId, userBookMarkSelete);
+		} else {
+			const userBookMarkCancle = bookMark.filter(
+				(value) => value !== `${item.id}`
+			);
+
+			setBookMark(userBookMarkCancle);
+
+			const updateBookMark = { bookmark: userBookMarkCancle };
+
+			toast('즐겨찾기에 삭제되었습니다', {
+				icon: '✖️',
+				duration: 2000,
+			});
+
+			await pb.collection('users').update(userId, updateBookMark);
+		}
+	};
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
@@ -58,6 +112,12 @@ function Theme() {
 	//인기순 정렬하기
 	const handleGradeSort = () => {
 		setIsLoading(false);
+		setGang(false);
+		setHong(false);
+		setKuk(false);
+		setLevel(false);
+		setLike(true);
+
 		gradeSort ? setGradeSort(false) : setGradeSort(true);
 
 		const gradeDataSort = async () => {
@@ -85,6 +145,12 @@ function Theme() {
 	//난이도별 정리하기
 	const handleLevelSort = () => {
 		setIsLoading(false);
+		setGang(false);
+		setHong(false);
+		setKuk(false);
+		setLevel(true);
+		setLike(false);
+
 		levelSort ? setLevelSort(false) : setLevelSort(true);
 
 		const levelDataSort = async () => {
@@ -112,6 +178,11 @@ function Theme() {
 	//지역별 강남 정렬하기
 	const handleGangnam = () => {
 		setIsLoading(false);
+		setGang(true);
+		setHong(false);
+		setKuk(false);
+		setLevel(false);
+		setLike(false);
 
 		const regionGangNam = async () => {
 			const gangnam = await pb.collection('escapeList').getFullList({
@@ -133,6 +204,11 @@ function Theme() {
 	//지역별 홍대 정렬하기
 	const handleHongDae = () => {
 		setIsLoading(false);
+		setGang(false);
+		setHong(true);
+		setKuk(false);
+		setLevel(false);
+		setLike(false);
 
 		const regionHongDae = async () => {
 			const hongdae = await pb.collection('escapeList').getFullList({
@@ -154,6 +230,11 @@ function Theme() {
 	//지역별 건대 정렬하기
 	const handleKonkuk = () => {
 		setIsLoading(false);
+		setGang(false);
+		setHong(false);
+		setKuk(true);
+		setLevel(false);
+		setLike(false);
 
 		const regionHongDae = async () => {
 			const konkuk = await pb.collection('escapeList').getFullList({
@@ -174,6 +255,12 @@ function Theme() {
 
 	//검색 기능
 	const handleSearch = (e) => {
+		setGang(false);
+		setHong(false);
+		setKuk(false);
+		setLevel(false);
+		setLike(false);
+
 		setIsLoading(false);
 		if (e.target.value.length !== 0) {
 			setSearch(e.target.value);
@@ -235,29 +322,46 @@ function Theme() {
 		e.preventDefault();
 	};
 
-	//데이터 불러오기
-	useEffect(() => {
-		const dataList = async () => {
-			const escape = await pb.collection('escapeList').getList(1, 227, {
-				sort: 'theme',
-			});
+	// 내 기록, 내 북마크 불러오기
+	useLayoutEffect(() => {
+		const fetchUserBookmarks = async () => {
+			if (userId) {
+				const usersLike = await pb.collection('users').getOne(userId, {
+					expand: 'bookmark',
+				});
 
-			const usersEscape = await pb
-				.collection('users')
-				.getOne(`${userUId?.model?.id}`, {
+				const usersEscape = await pb.collection('users').getOne(userId, {
 					expand: 'escapeList',
 				});
 
-			try {
-				setData(escape.items);
-				setUser(usersEscape.expand?.escapeList);
-				setIsLoading(true);
-			} catch (err) {
-				console.log(`에러 내용: ${err}`);
+				if (usersLike || usersEscape) {
+					setBookMark(usersLike.bookmark);
+					setRecord(usersEscape.expand?.escapeList);
+				}
 			}
 		};
-		dataList();
-	}, []);
+
+		fetchUserBookmarks();
+	}, [userId]);
+
+	//데이터 불러오기
+	useEffect(() => {
+		if (record || bookMark) {
+			const dataList = async () => {
+				const escape = await pb.collection('escapeList').getList(1, 10, {
+					sort: 'theme',
+				});
+
+				try {
+					setData(escape.items);
+					setIsLoading(true);
+				} catch (err) {
+					console.log(`에러 내용: ${err}`);
+				}
+			};
+			dataList();
+		}
+	}, [record, bookMark]);
 
 	return (
 		<>
@@ -276,21 +380,42 @@ function Theme() {
 				</SearchInput>
 				<ul className="text-ec1 text-lg flex justify-center w-full gap-8 s:justify-center s:gap-[3%] px-20 s:px-12">
 					<li>
-						<LiButton onClick={handleGangnam}>강남</LiButton>
+						<LiButton
+							onClick={handleGangnam}
+							text={gang ? 'font-bold text-xl' : ''}
+						>
+							강남
+						</LiButton>
 					</li>
 					<li>
-						<LiButton onClick={handleHongDae}>홍대</LiButton>
+						<LiButton
+							onClick={handleHongDae}
+							text={hong ? 'font-bold text-xl' : ''}
+						>
+							홍대
+						</LiButton>
 					</li>
 					<li>
-						<LiButton onClick={handleKonkuk}>건대</LiButton>
+						<LiButton
+							onClick={handleKonkuk}
+							text={kuk ? 'font-bold text-xl' : ''}
+						>
+							건대
+						</LiButton>
 					</li>
 					<li>
-						<LiButton onClick={handleLevelSort}>
+						<LiButton
+							onClick={handleLevelSort}
+							text={level ? 'font-bold text-xl' : ''}
+						>
 							{!levelSort ? '난이도순 ↑' : '난이도순 ↓'}
 						</LiButton>
 					</li>
 					<li>
-						<LiButton onClick={handleGradeSort}>
+						<LiButton
+							onClick={handleGradeSort}
+							text={like ? 'font-bold text-xl' : ''}
+						>
 							{!gradeSort ? '인기순 ↑' : '인기순 ↓'}
 						</LiButton>
 					</li>
@@ -310,7 +435,7 @@ function Theme() {
 					<ul className="w-full px-20 s:px-12">
 						{data.map((item) => {
 							return (
-								<li key={item.id}>
+								<li key={item.id} className="relative">
 									<ThemeItem
 										store={item.store}
 										point={item.point}
@@ -321,8 +446,16 @@ function Theme() {
 										link={item.link}
 										field={item.field}
 										dataid={item.id}
-										clear={user}
+										clear={record}
 										record={item.record}
+									/>
+									<HeartButton
+										onClick={() => isClickHeart(item)}
+										checked={
+											bookMark.indexOf(`${item.id}`) < 0
+												? 'bg-heartfalse'
+												: 'bg-hearttrue'
+										}
 									/>
 								</li>
 							);

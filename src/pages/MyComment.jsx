@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import userUId from '@/api/userUid';
 import MyCommentItem from '@/components/mycomment/MyCommentItem';
+import Spinner from '@/components/Spinner';
 
 function MyCommentPage() {
 	// const { dataId } = useParams();
@@ -16,27 +17,25 @@ function MyCommentPage() {
 
 	useEffect(() => {
 		const MyComment = async () => {
-			setIsLoading(true);
-
 			const CommentList = await pb.collection('comment').getList(1, 200, {
 				filter: `author="${userUId?.model.id}"`,
-				expand: 'author',
+				expand: 'author , community',
 				sort: '-created',
 			});
 			try {
 				if (CommentList.items.length > 0) {
 					setComments(CommentList.items);
+					setIsLoading(true);
 				}
 			} catch (err) {
 				console.log(`데이터 불러오기 에러 : ${err}`);
-			} finally {
-				setIsLoading(false);
 			}
 		};
 
 		MyComment();
 	}, []);
 
+	console.log(comment);
 	return (
 		<>
 			<Helmet>
@@ -52,15 +51,27 @@ function MyCommentPage() {
 					내 댓글 목록
 				</Headerback>
 
+				{!isLoading && (
+					<div className="absolute top-1/2 -translate-y-1/2">
+						<Spinner />
+					</div>
+				)}
 				<div className="s:px-12 w-full px-20">
-					{!isLoading &&
+					{isLoading &&
 						comment.map((item) => (
 							<MyCommentItem
 								key={item.id}
+								id={item.id}
 								src={`https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`}
-								alt={item.expand.author.nickName}
-								nickName={item.expand.author.nickName}
+								alt={item.expand?.author?.nickName}
+								nickName={item.expand?.author?.nickName}
 								comment={item.content}
+								postId={item.community}
+								recordId={item.record}
+								postTitle={
+									item.expand?.community?.title || item.expand?.record?.title
+								}
+								postType={item.community ? 'community' : 'record'}
 							/>
 						))}
 				</div>

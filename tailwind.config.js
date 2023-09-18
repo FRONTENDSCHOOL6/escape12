@@ -17,6 +17,7 @@ export default {
 			ec4: '#352F44',
 			ec5: '#F8DE22',
 			red: '#FA0000',
+			gray: '#868e96',
 			sweetred: '#FFC1C1',
 			kakaoline: '#FFE895',
 			googleline: '#BCF0AB',
@@ -31,6 +32,7 @@ export default {
 			eyefalse: 'url("/src/assets/login-eyefalse.png")',
 			hearttrue: 'url("/src/assets/theme-hearttrue.png")',
 			heartfalse: 'url("/src/assets/theme-heartfalse.png")',
+			heartlike: 'url("/src/assets/upload-like.png")',
 		},
 		extend: {
 			keyframes: {

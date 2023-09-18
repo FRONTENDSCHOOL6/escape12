@@ -1,5 +1,6 @@
 import pb from '@/api/pockethost';
-import userUId from '@/api/userUid';
+import noImage from '@/assets/noImage.png';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
 import HeaderBackRecord from '@/components/header/HeaderBackRecord';
@@ -12,6 +13,7 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 function MyRecord() {
+	const userUId = getUserInfoFromStorage();
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [emptyData, setEmptyData] = useState(false);
@@ -181,7 +183,7 @@ function MyRecord() {
 							<Spinner />
 						</div>
 					)}
-					<ul className="w-full px-20">
+					<ul className="w-full px-20 s:px-12">
 						{!emptyData &&
 							isLoading &&
 							!noResult &&
@@ -191,9 +193,9 @@ function MyRecord() {
 										<MyRecordItem
 											link={item.id}
 											src={
-												item.image
-													? `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
-													: item.expand?.escapeList?.image
+												!item.image
+													? item.expand?.escapeList?.image || noImage
+													: `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
 											}
 											alt={item.theme}
 											theme={item.theme}
