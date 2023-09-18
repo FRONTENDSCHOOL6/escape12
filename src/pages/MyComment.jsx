@@ -5,12 +5,13 @@ import Nav from '@/components/nav/Nav';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import userUId from '@/api/userUid';
 import MyCommentItem from '@/components/mycomment/MyCommentItem';
 import Spinner from '@/components/Spinner';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 
 function MyCommentPage() {
 	// const { dataId } = useParams();
+	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const [comment, setComment] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
