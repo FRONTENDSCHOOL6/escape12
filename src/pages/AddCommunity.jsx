@@ -68,19 +68,19 @@ function AddCommunity() {
 							id="title"
 							name="title"
 							onChange={handleTitle}
-							placeholder="제목을 입력해주세요."
+							placeholder="제목을 입력해주세요"
 						>
 						제목
 						</FormInput>
 						<p className="flex justify-end py-3 text-lg">
-							{currentDate.toLocaleDateString()}
+							📅 {currentDate.toLocaleDateString()}
 						</p>
 						<textarea
 							value={content}
 							id="content"
 							onChange={handleContent}
-							placeholder="작성해주세요.🤩"
-							className="w-full h-80 p-4 text-ec4 border rounded-lg"
+							placeholder="글을 작성해주세요 ✏️"
+							className="w-full h-96 p-4 text-ec4 border rounded-lg"
 						/>
 					</div>
 					<Button type="submit" bg="bg-ec1 text-center" text="text-ec4 mt-4">

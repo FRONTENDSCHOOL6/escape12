@@ -1,24 +1,41 @@
-import { string } from 'prop-types';
+import { string, func } from 'prop-types';
 import FormInput from '../loginsignup/FormInput';
 
 DefaultnickName.propTypes = {
-	nickName:string,
-  nickNameEvent:string,
+	nickName: string,
+	nickNameEvent: func,
+	email: string,
+	emailEvent: func,
+	password: string
 };
 
-function DefaultnickName({ nickName, nickNameEvent }) {
+function DefaultnickName({ nickName, nickNameEvent, email, emailEvent }) {
 	return (
-		<>
+		<div className="s:px-12 p-12 text-xl space-y-10">
 			<FormInput
-				nickName="nickName"
+				name="email"
+				palceholder="이메일"
+				defaultValue={email}
+				onChange={emailEvent}
+			>
+				아이디(이메일)
+			</FormInput>
+			<FormInput
+				type="password"
+				name="password"
+				placeholder="🥲 비밀번호는 변경할 수 없습니다"
+				readOnly
+			>비밀번호
+			</FormInput>
+			<FormInput
+				name="nickName"
 				placeholder="닉네임"
-				maxLength="20"
 				defaultValue={nickName}
 				onChange={nickNameEvent}
 			>
-				테마명
+				닉네임
 			</FormInput>
-		</>
+		</div>
 	);
 }
 
