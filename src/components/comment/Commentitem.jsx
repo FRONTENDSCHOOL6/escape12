@@ -1,4 +1,4 @@
-import userUId from '@/api/userUid';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import { func, string } from 'prop-types';
 
 CommentItem.propTypes = {
@@ -18,6 +18,8 @@ function CommentItem({
 	userId = '',
 	onClick = null,
 }) {
+	const userUId = getUserInfoFromStorage();
+
 	return (
 		<>
 			<div className="flex gap-2">
@@ -29,6 +31,13 @@ function CommentItem({
 				<button type="button" onClick={onClick}>
 					X
 				</button>
+			)}
+			{`${userUId?.model.admin}` === true ? (
+				<button type="button" onClick={onClick}>
+					X
+				</button>
+			) : (
+				''
 			)}
 		</>
 	);

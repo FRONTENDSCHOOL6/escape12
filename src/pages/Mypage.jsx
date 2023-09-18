@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import Button from '@/components/button/Button';
 import Nav from '@/components/nav/Nav';
 import Header from '@/components/header/Header';
@@ -8,9 +9,9 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import pb from '@/api/pockethost';
 import { toast } from 'react-hot-toast';
-import userUId from '@/api/userUid';
 
 function Mypage() {
+	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const [data, setData] = useState('');
 	const [records, setRecords] = useState([]);
@@ -125,27 +126,24 @@ function Mypage() {
 							<li>
 								내가 작성한 기록 :
 								<Link to="/myrecord" className="hover:text-ec5">
-									{' '}
 									{records.length} 개
 								</Link>
 							</li>
 							<li>
 								내가 작성한 글 :
 								<Link to="/mycommunity" className="hover:text-ec5">
-									{' '}
 									{community.length} 개
 								</Link>
 							</li>
 							<li>
 								내가 작성한 댓글 :
 								<Link to="/mycomment" className="hover:text-ec5">
-									{' '}
 									{comment.length} 개
 								</Link>
 							</li>
 							<li>
-								<Link to="/mypage" className="hover:text-ec5">
-									⭐ 즐겨찾기 바로가기{' '}
+								<Link to="/bookmark" className="hover:text-ec5">
+									⭐ 즐겨찾기 바로가기
 								</Link>
 							</li>
 						</ul>

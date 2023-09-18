@@ -1,5 +1,6 @@
 import pb from '@/api/pockethost';
-import userUId from '@/api/userUid';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
+import userNickName from '@/api/userNickName';
 import thumnail from '@/assets/recordpage-thumbnail.png';
 import Button from '@/components/button/Button';
 import Headerback from '@/components/header/Headerback';
@@ -11,13 +12,13 @@ import RemainingTime from '@/components/record/RemainingTime';
 import TextArea from '@/components/record/TextArea';
 import UploadImage from '@/components/record/UploadImage';
 import debounce from '@/utils/debounce';
-import { useEffect } from 'react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 function RecordPage() {
+	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const [length, setLength] = useState(0);
 	const [theme, setTheme] = useState('');
@@ -89,7 +90,7 @@ function RecordPage() {
 			content: content,
 			image: photoRef.current.files[0],
 			author: `${userUId?.model.id}`,
-			nickName: `${userUId?.model.nickName}`,
+			nickName: userNickName,
 		};
 
 		try {
