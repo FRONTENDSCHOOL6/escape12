@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
+import noImage from '@/assets/noImage.png';
 
 function EditRecord() {
 	const navigate = useNavigate();
@@ -149,7 +150,7 @@ function EditRecord() {
 					} 기록 수정`}
 				</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto text-lg relative pt-20">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto text-lg relative py-20">
 				<Headerback
 					onClick={() => {
 						navigate(-1);
@@ -188,7 +189,7 @@ function EditRecord() {
 								imgRef={uploadPhotoRef}
 								src={
 									!data.image
-										? data.expand?.escapeList?.image
+										? data.expand?.escapeList?.image || noImage
 										: `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.image}`
 								}
 								alt={data.theme}

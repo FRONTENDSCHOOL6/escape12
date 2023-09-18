@@ -1,5 +1,6 @@
 import pb from '@/api/pockethost';
-import userUId from '@/api/userUid';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
+import userNickName from '@/api/userNickName';
 import Spinner from '@/components/Spinner';
 import Button from '@/components/button/Button';
 import Headerback from '@/components/header/Headerback';
@@ -18,6 +19,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 pb.autoCancellation(false);
 
 function ThemeRecord() {
+	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const { dataId } = useParams();
 	const [data, setData] = useState({});
@@ -90,7 +92,7 @@ function ThemeRecord() {
 			}
 		};
 		dataList();
-	}, [dataId]);
+	}, [dataId, userUId?.model.id]);
 
 	// 기록 등록하기 이벤트
 	const handleSubmitRecord = async (e) => {
@@ -107,7 +109,7 @@ function ThemeRecord() {
 				content: content,
 				author: `${userUId?.model.id}`,
 				escapeList: `${dataId}`,
-				nickName: `${userUId?.model.nickName}`,
+				nickName: userNickName,
 			};
 
 			const result = await pb.collection('record').create(themeRecord);

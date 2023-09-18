@@ -1,10 +1,9 @@
 import SmallButton from '@/components/button/SmallButton';
-import { array, number, string } from 'prop-types';
+import { number, string } from 'prop-types';
 import { Link } from 'react-router-dom';
-import MedalButton from '../button/MedalButton';
-import Span from './Span';
+import Span from '../theme/Span';
 
-ThemeItem.propTypes = {
+BookMarkItem.propTypes = {
 	store: string,
 	point: string,
 	theme: string,
@@ -13,12 +12,9 @@ ThemeItem.propTypes = {
 	image: string,
 	link: string,
 	field: string,
-	dataid: string,
-	clear: array,
-	record: array,
 };
 
-function ThemeItem({
+function BookMarkItem({
 	store,
 	point,
 	theme,
@@ -27,9 +23,6 @@ function ThemeItem({
 	image,
 	link,
 	field,
-	dataid,
-	clear,
-	record,
 }) {
 	return (
 		<figure className="my-4 border-2 border-ec1 p-4 s:p-3 rounded-xl flex gap-3 s:gap-[5%] text-ec1 text-lg s:text-base relative h-[180px] w-full">
@@ -50,7 +43,7 @@ function ThemeItem({
 					</Span>
 				</section>
 				<section className="flex justify-between items-center">
-					<div className="flex gap-1">
+					<div className="flex gap-1 whitespace-nowrap overflow-hidden text-ellipsis">
 						<h3>
 							{store} <Span>{point}점</Span>
 						</h3>
@@ -63,32 +56,10 @@ function ThemeItem({
 					) : level === 4 || level === 5 || level === 6 || level === 7 ? (
 						<SmallButton bg="bg-kakaoline">♣ 보통</SmallButton>
 					) : (
-						<SmallButton bg="bg-sweetred">♣ 어려움</SmallButton>
+						<SmallButton bg="bg-sweetred s:px-3 px-7">♣ 어려움</SmallButton>
 					)}
-					{clear && clear.findIndex((item) => item.id === `${dataid}`) >= 0 && (
-						<Link to={`/upload/${record}`}>
-							<MedalButton theme={theme} />
-						</Link>
-					)}
-
-					{clear && clear.findIndex((item) => item.id === `${dataid}`) < 0 && (
-						<Link to={dataid}>
-							<SmallButton bg="bg-ec3" text="text-ec1">
-								기록하기
-							</SmallButton>
-						</Link>
-					)}
-
-					{!clear && (
-						<Link to={dataid}>
-							<SmallButton bg="bg-ec3" text="text-ec1">
-								기록하기
-							</SmallButton>
-						</Link>
-					)}
-
 					<Link to={link} target="_blank" rel="noopenner noreferrer">
-						<SmallButton bg="bg-ec1">예약하기</SmallButton>
+						<SmallButton bg="bg-ec1 s:px-3 px-9">예약하기</SmallButton>
 					</Link>
 				</section>
 			</figcaption>
@@ -96,4 +67,4 @@ function ThemeItem({
 	);
 }
 
-export default ThemeItem;
+export default BookMarkItem;

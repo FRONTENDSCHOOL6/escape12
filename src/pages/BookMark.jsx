@@ -1,13 +1,59 @@
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
+import pb from '@/api/pockethost';
+import EmptyContents from '@/components/EmptyContents';
+import Spinner from '@/components/Spinner';
 import Headerback from '@/components/header/Headerback';
+import BookMarkItem from '@/components/mypage/BookMarkItem';
 import UpNav from '@/components/nav/UpNav';
-import ThemeItem from '@/components/theme/ThemeItem';
+import HeartButton from '@/components/theme/HeartButton';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 function BookMark() {
+	const [bookMark, setBookMark] = useState(null);
+	const [bookMarkId, setBookMarkId] = useState(null);
+	const [isLoading, setIsLoading] = useState(false);
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const navigate = useNavigate();
+	const userUId = getUserInfoFromStorage();
+
+	// 즐겨찾기 기능
+	const isClickHeart = async (item) => {
+		if (bookMarkId.indexOf(`${item.id}`) < 0) {
+			setBookMarkId((i) => [...i, `${item.id}`]);
+			const userBookMarkSelete = {
+				bookmark: [...bookMarkId, `${item.id}`],
+			};
+
+			await pb
+				.collection('users')
+				.update(`${userUId?.model.id}`, userBookMarkSelete);
+
+			toast('즐겨찾기에 추가되었습니다', {
+				icon: '⭐',
+				duration: 2000,
+			});
+		} else {
+			const userBookMarkCancle = bookMarkId.filter(
+				(value) => value !== `${item.id}`
+			);
+
+			setBookMarkId(userBookMarkCancle);
+
+			const updateBookMark = { bookmark: userBookMarkCancle };
+
+			await pb
+				.collection('users')
+				.update(`${userUId?.model.id}`, updateBookMark);
+
+			toast('즐겨찾기에 삭제되었습니다', {
+				icon: '✖️',
+				duration: 2000,
+			});
+		}
+	};
 
 	//스크롤탑 버튼 이벤트
 	const handleTopButton = () => {
@@ -36,6 +82,27 @@ function BookMark() {
 		};
 	}, [showPlusNav]);
 
+	// 북마크 데이터 불러오기
+	useEffect(() => {
+		const userBookMarkData = async () => {
+			const userBookMark = await pb
+				.collection('users')
+				.getOne(`${userUId?.model.id}`, {
+					expand: 'bookmark, escapeList',
+				});
+
+			try {
+				setBookMark(userBookMark.expand?.bookmark);
+				setBookMarkId(userBookMark.bookmark);
+				setIsLoading(true);
+			} catch (err) {
+				console.log(`북마크 불러오기 에러: ${err}`);
+			}
+		};
+
+		userBookMarkData();
+	}, [userUId?.model.id]);
+
 	return (
 		<>
 			<Helmet>
@@ -49,86 +116,49 @@ function BookMark() {
 				>
 					즐겨찾기
 				</Headerback>
-				<ul>
-					<ThemeItem
-						image="https://blog.kakaocdn.net/dn/N7Dgj/btrHVz75l25/offKewdp8ZCnb9uqM7SuV0/img.png"
-						theme="사람들은 그것을 행복이라 부르기로 했다"
-						grade={8}
-						store="단편선"
-						point="강남"
-						field="스토리"
-						level={8}
-					/>
-					<ThemeItem
-						image="https://blog.kakaocdn.net/dn/N7Dgj/btrHVz75l25/offKewdp8ZCnb9uqM7SuV0/img.png"
-						theme="사람들은 그것을 행복이라 부르기로 했다"
-						grade={8}
-						store="단편선"
-						point="강남"
-						field="스토리"
-						level={8}
-					/>
-					<ThemeItem
-						image="https://blog.kakaocdn.net/dn/N7Dgj/btrHVz75l25/offKewdp8ZCnb9uqM7SuV0/img.png"
-						theme="사람들은 그것을 행복이라 부르기로 했다"
-						grade={8}
-						store="단편선"
-						point="강남"
-						field="스토리"
-						level={8}
-					/>
-					<ThemeItem
-						image="https://blog.kakaocdn.net/dn/N7Dgj/btrHVz75l25/offKewdp8ZCnb9uqM7SuV0/img.png"
-						theme="사람들은 그것을 행복이라 부르기로 했다"
-						grade={8}
-						store="단편선"
-						point="강남"
-						field="스토리"
-						level={8}
-					/>
-					<ThemeItem
-						image="https://blog.kakaocdn.net/dn/N7Dgj/btrHVz75l25/offKewdp8ZCnb9uqM7SuV0/img.png"
-						theme="사람들은 그것을 행복이라 부르기로 했다"
-						grade={8}
-						store="단편선"
-						point="강남"
-						field="스토리"
-						level={8}
-					/>
-					<ThemeItem
-						image="https://blog.kakaocdn.net/dn/N7Dgj/btrHVz75l25/offKewdp8ZCnb9uqM7SuV0/img.png"
-						theme="사람들은 그것을 행복이라 부르기로 했다"
-						grade={8}
-						store="단편선"
-						point="강남"
-						field="스토리"
-						level={8}
-					/>
-					<ThemeItem
-						image="https://blog.kakaocdn.net/dn/N7Dgj/btrHVz75l25/offKewdp8ZCnb9uqM7SuV0/img.png"
-						theme="사람들은 그것을 행복이라 부르기로 했다"
-						grade={8}
-						store="단편선"
-						point="강남"
-						field="스토리"
-						level={8}
-					/>
-					<ThemeItem
-						image="https://blog.kakaocdn.net/dn/N7Dgj/btrHVz75l25/offKewdp8ZCnb9uqM7SuV0/img.png"
-						theme="사람들은 그것을 행복이라 부르기로 했다"
-						grade={8}
-						store="단편선"
-						point="강남"
-						field="스토리"
-						level={8}
-					/>
-				</ul>
+				{isLoading && !bookMark && (
+					<div className="absolute top-1/2 -translate-y-1/2">
+						<EmptyContents>즐겨찾기 목록이 없습니다 : &#40;</EmptyContents>
+					</div>
+				)}
+				{!isLoading && (
+					<div className="absolute top-1/2 -translate-y-1/2">
+						<Spinner />
+					</div>
+				)}
+				{isLoading && bookMark && bookMarkId && (
+					<ul className="w-full px-20 s:px-12">
+						{bookMark.map((item) => {
+							return (
+								<li key={item.id} className="relative">
+									<BookMarkItem
+										store={item.store}
+										point={item.point}
+										theme={item.theme}
+										grade={item.grade}
+										level={item.level}
+										image={item.image}
+										link={item.link}
+										field={item.field}
+									/>
+									<HeartButton
+										onClick={() => isClickHeart(item)}
+										checked={
+											bookMarkId.indexOf(`${item.id}`) < 0
+												? 'bg-heartfalse'
+												: 'bg-hearttrue'
+										}
+									/>
+								</li>
+							);
+						})}
+					</ul>
+				)}
 				<UpNav
 					topClick={handleTopButton}
 					hidden={!showPlusNav ? 'hidden' : ''}
 				/>
 			</div>
-			;
 		</>
 	);
 }
