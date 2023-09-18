@@ -23,11 +23,11 @@ function Mypage() {
 	const handleLogout = () => {
 		toast('로그아웃이 완료되었습니다', {
 			icon: '⭕',
-			duration: 2000,
+			duration: 1000,
 		});
 		setTimeout(() => {
 			pb.authStore.clear();
-		}, 2000);
+		}, 1000);
 	};
 
 	//작성 기록 갯수
