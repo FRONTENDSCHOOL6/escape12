@@ -11,6 +11,8 @@ import SubmitInput from '@/components/input/SubmitInput';
 import userUId from '@/api/userUid';
 import CommentItem from '@/components/comment/Commentitem';
 import Spinner from '@/components/Spinner';
+import Button from '@/components/button/Button';
+import noImage from '@/assets/noImage.png';
 
 function CommentPage() {
 	const { dataId } = useParams();
@@ -23,11 +25,13 @@ function CommentPage() {
 
 	const handleDeleteRecord = async () => {
 		const deleteConfirm = confirm('정말로 삭제하시겠습니까?');
-
 		const currentUserID = userUId?.model.id;
 		const postAuthorID = data.expand?.author?.id;
 
-		if (deleteConfirm && currentUserID === postAuthorID) {
+		if (
+			deleteConfirm &&
+			(currentUserID === postAuthorID || userUId?.model.admin)
+		) {
 			const array = community.filter(
 				(i) => i !== `${data.expand?.community?.id}`
 			);
@@ -127,7 +131,7 @@ function CommentPage() {
 		handleUserCommunity();
 	}, []);
 
-	console.log(comment);
+	console.log(data);
 
 	return (
 		<div>
@@ -150,14 +154,27 @@ function CommentPage() {
 				{isLoading && (
 					<>
 						<div className="min-w-[300px] w-full">
+							<div className="text-right">
+								<span className="text-ec1">
+									{!data.created
+										? data.community.created
+										: data.created.slice(0, 10)}
+								</span>
+							</div>
 							{data && (
-								<Post
-									src={`https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`}
-									alt={data.expand?.author?.nickName}
-									title={data.title}
-									author={data.expand?.author?.nickName}
-									content={data.content}
-								/>
+								<>
+									<Post
+										src={
+											data.expand?.author?.avatar
+												? `https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`
+												: `${noImage}`
+										}
+										alt={data.expand?.author?.nickName || '탈퇴회원'}
+										title={data.title}
+										author={data.expand?.author?.nickName || '탈퇴회원'}
+										content={data.content}
+									></Post>
+								</>
 							)}
 							{userUId?.model.id === data.expand?.author?.id && (
 								<div className="flex justify-between m-auto">
@@ -176,6 +193,19 @@ function CommentPage() {
 										삭제
 									</SmallButton>
 								</div>
+							)}
+							{userUId?.model.admin ? (
+								<div className="w-full flex justify-center pb-3">
+									<Button
+										bg="bg-ec1"
+										text="text-ec4"
+										onClick={handleDeleteRecord}
+									>
+										삭제
+									</Button>
+								</div>
+							) : (
+								''
 							)}
 						</div>
 						<div className="w-full border-t-2 pt-6 mt-2 border-ec1">
