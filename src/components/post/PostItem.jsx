@@ -23,11 +23,7 @@ function PostItem({ id, title, author, content, src, alt }) {
 						{title}
 					</p>
 					<div className="flex items-center">
-						{''}
-						{/* div 태그와 flex 스타일 추가 */}
 						<img className="w-6 h-6 rounded-full mr-2" src={src} alt={alt} />
-						{''}
-						{/* img 태그의 위치 변경 및 marginRight 스타일 추가 */}
 						<p className="break-all font-bold whitespace-normal">{author}</p>
 					</div>
 				</div>
