@@ -59,7 +59,7 @@ function BookMarkItem({
 						<SmallButton bg="bg-sweetred s:px-3 px-7">♣ 어려움</SmallButton>
 					)}
 					<Link to={link} target="_blank" rel="noopenner noreferrer">
-						<SmallButton bg="bg-ec1 s:px-3 px-9">예약하기</SmallButton>
+						<SmallButton bg="bg-ec1 s:px-3 px-8">예약하기</SmallButton>
 					</Link>
 				</section>
 			</figcaption>
