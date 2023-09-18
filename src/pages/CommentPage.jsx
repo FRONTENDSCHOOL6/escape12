@@ -152,6 +152,8 @@ function CommentPage() {
 						<div className="min-w-[300px] w-full">
 							{data && (
 								<Post
+									src={`https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`}
+									alt={data.expand?.author?.nickName}
 									title={data.title}
 									author={data.expand?.author?.nickName}
 									content={data.content}
