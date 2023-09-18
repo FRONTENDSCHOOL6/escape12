@@ -17,11 +17,14 @@ function LoginSelete() {
 
 		const { username: name, email, avatarUrl } = kakao.meta;
 
+		console.log(avatarUrl);
+		console.log(typeof avatarUrl);
+
 		const updateUser = {
 			username: email.split('@')[0],
 			nickName: name,
 			emailVisibility: true,
-			avatar: avatarUrl,
+			// avatar: avatarUrl,
 		};
 
 		await pb.collection('users').update(kakao.record.id, updateUser);
@@ -57,7 +60,7 @@ function LoginSelete() {
 			username: email.split('@')[0],
 			nickName: name,
 			emailVisibility: true,
-			avatar: avatarUrl.file,
+			// avatar: avatarUrl,
 		};
 
 		await pb.collection('users').update(google.record.id, updateUserGoogle);
