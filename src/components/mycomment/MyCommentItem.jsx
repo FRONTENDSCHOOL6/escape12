@@ -42,9 +42,7 @@ function MyCommentItem({ comment, id, postId, recordId, postTitle, postType }) {
 		<div className="text-ec1 border-2 justify-between max-h-[105px] p-4 mb-6 rounded-xl flex m-auto transition-transform duration-500 ease-in-out transform hover:scale-105">
 			<Link
 				to={
-					postType === 'community'
-						? `/postpage/${postId}`
-						: `/record/${recordId}`
+					postType === 'community' ? `/postpage/${postId}` : `/upload/${postId}`
 				}
 			>
 				<div className="">
