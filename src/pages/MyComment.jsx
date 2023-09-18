@@ -12,19 +12,19 @@ import Spinner from '@/components/Spinner';
 function MyCommentPage() {
 	// const { dataId } = useParams();
 	const navigate = useNavigate();
-	const [comment, setComments] = useState([]);
+	const [comment, setComment] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		const MyComment = async () => {
 			const CommentList = await pb.collection('comment').getList(1, 200, {
 				filter: `author="${userUId?.model.id}"`,
-				expand: 'author , community',
+				expand: 'author , community , record',
 				sort: '-created',
 			});
 			try {
 				if (CommentList.items.length > 0) {
-					setComments(CommentList.items);
+					setComment(CommentList.items);
 					setIsLoading(true);
 				}
 			} catch (err) {
@@ -66,10 +66,9 @@ function MyCommentPage() {
 								alt={item.expand?.author?.nickName}
 								nickName={item.expand?.author?.nickName}
 								comment={item.content}
-								postId={item.community}
-								recordId={item.record}
+								postId={item.community || item.record}
 								postTitle={
-									item.expand?.community?.title || item.expand?.record?.title
+									item.expand?.community?.title || item.expand?.record?.theme
 								}
 								postType={item.community ? 'community' : 'record'}
 							/>
