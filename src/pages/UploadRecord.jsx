@@ -177,8 +177,6 @@ function UploadRecord() {
 		handleUserEscapeList();
 	}, []);
 
-console.log(userUId?.model.admin)
-
 	return (
 		<div>
 			<Helmet>
@@ -298,7 +296,7 @@ console.log(userUId?.model.admin)
 								</Button>
 							</section>
 						)}
-						{userUId?.model.admin === true ? (
+						{userUId?.model.admin ? (
 							<section className="w-full flex justify-center pb-3">
 								<Button
 									bg="bg-ec1"
@@ -359,7 +357,7 @@ console.log(userUId?.model.admin)
 					</>
 				)}
 			</div>
-			<Nav />
+			<Nav onClick={updateLikeInPb} />
 		</div>
 	);
 }

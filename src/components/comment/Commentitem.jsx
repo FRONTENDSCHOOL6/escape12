@@ -32,7 +32,7 @@ function CommentItem({
 					X
 				</button>
 			)}
-			{`${userUId?.model.admin}` === true ? (
+			{userUId?.model.admin ? (
 				<button type="button" onClick={onClick}>
 					X
 				</button>

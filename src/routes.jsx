@@ -22,6 +22,7 @@ import Theme from '@/pages/Theme';
 import ThemeRecord from '@/pages/ThemeRecord';
 import UploadRecord from '@/pages/UploadRecord';
 import { createBrowserRouter } from 'react-router-dom';
+import CreateTheme from './pages/CreateTheme';
 
 const router = createBrowserRouter([
 	{
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
 		children: [
 			{ path: '/theme', element: <Theme /> },
 			{ path: '/recordpage', element: <RecordPage /> },
+			{ path: '/createtheme', element: <CreateTheme /> },
 			{ path: '/theme/:dataId', element: <ThemeRecord /> },
 			{ path: '/upload/:dataId', element: <UploadRecord /> },
 			{ path: '/theme/edit/:dataId', element: <EditRecord /> },

@@ -207,11 +207,8 @@ function MyRecord() {
 							})}
 					</ul>
 				</div>
-				<UpNav
-					topClick={handleTopButton}
-					hidden={!showPlusNav ? 'hidden' : ''}
-				/>
 			</div>
+			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
 		</div>
 	);
 }
