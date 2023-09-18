@@ -357,7 +357,7 @@ function UploadRecord() {
 					</>
 				)}
 			</div>
-			<Nav />
+			<Nav onClick={updateLikeInPb} />
 		</div>
 	);
 }
