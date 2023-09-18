@@ -1,6 +1,7 @@
 import pb from '@/api/pockethost';
 import userUId from '@/api/userUid';
 import EmptyContents from '@/components/EmptyContents';
+import Spinner from '@/components/Spinner';
 import HeaderBackRecord from '@/components/header/HeaderBackRecord';
 // import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
@@ -128,18 +129,26 @@ function MyCommunity() {
 					내 게시물 목록
 				</HeaderBackRecord>
 
-				<SearchInput
-					placeholder="검색어를 입력해주세요😀"
-					value={search}
-					onChange={handleSearch}
-					onSubmit={handleSubmitButton}
-				>
-					검색
-				</SearchInput>
+				{IsLoading && (
+					<SearchInput
+						placeholder="검색어를 입력해주세요😀"
+						value={search}
+						onChange={handleSearch}
+						onSubmit={handleSubmitButton}
+					>
+						검색
+					</SearchInput>
+				)}
+
 				{posts && <PostList posts={posts} />}
 				{IsLoading && posts.length === 0 && !emptyData && !noResult && (
 					<div className="translate-y-1/3">
 						<EmptyContents>기록이 없습니다 : &#40;</EmptyContents>
+					</div>
+				)}
+				{!IsLoading && (
+					<div className="absolute top-1/2 -translate-y-1/2">
+						<Spinner />
 					</div>
 				)}
 				{/* {!isLoading &&
