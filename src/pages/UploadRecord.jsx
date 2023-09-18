@@ -1,6 +1,7 @@
 import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import pb from '@/api/pockethost';
 import noImage from '@/assets/noImage.png';
+import social from '@/assets/socialImg.jpg';
 import Spinner from '@/components/Spinner';
 import Button from '@/components/button/Button';
 import CommentItem from '@/components/comment/Commentitem';
@@ -221,18 +222,20 @@ function UploadRecord() {
 								<div className="flex justify-between">
 									<p
 										className={`flex max-w-fit whitespace-nowrap overflow-hidden text-ellipsis ${
-											data.expand?.author?.nickName ? '' : 'text-gray'
+											data.expand?.author?.nickName || data.expand?.author?.id
+												? ''
+												: 'text-gray'
 										}`}
 									>
 										{data.expand?.author?.record.length < 6 &&
 										data.expand?.author?.record.length > 0
-											? `🥚${data.expand?.author?.nickName}`
+											? `🥚${data.expand?.author?.nickName || '소셜계정'}`
 											: data.expand?.author?.record.length > 5 &&
 											  data.expand?.author?.record.length < 11
-											? `🐤${data.expand?.author?.nickName}`
+											? `🐤${data.expand?.author?.nickName || '소셜계정'}`
 											: data.expand?.author?.record.length > 10
-											? `🐔${data.expand?.author?.nickName}`
-											: `탈퇴회원`}
+											? `🐔${data.expand?.author?.nickName || '소셜계정'}`
+											: '탈퇴회원'}
 									</p>
 									<span>
 										{!data.date ? data.expand?.escapeList.created : data.date}
@@ -243,8 +246,10 @@ function UploadRecord() {
 								<img
 									className="w-full h-full rounded-full"
 									src={
-										data.expand?.author?.avatar
+										data.expand?.author?.id && data.expand?.author?.avatar
 											? `https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`
+											: data.expand?.author?.id
+											? `${social}`
 											: `${noImage}`
 									}
 									alt={data.expand?.author?.nickName}
@@ -347,12 +352,22 @@ function UploadRecord() {
 											<li key={item.id} className="w-full flex gap-3">
 												<CommentItem
 													src={
+														item.expand?.author?.id &&
 														item.expand?.author?.avatar
 															? `https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`
+															: item.expand?.author?.id
+															? `${social}`
 															: `${noImage}`
 													}
 													alt={item.expand?.author?.nickName}
-													nickName={item.expand?.author?.nickName || '탈퇴회원'}
+													nickName={
+														item.expand?.author?.id &&
+														item.expand?.author?.nickName
+															? item.expand?.author?.nickName
+															: item.expand?.author?.id
+															? '소셜계정'
+															: '탈퇴회원'
+													}
 													comment={item.content}
 													userId={item.expand?.author?.id}
 													id={item.id}
