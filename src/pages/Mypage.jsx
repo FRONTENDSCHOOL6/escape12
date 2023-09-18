@@ -142,7 +142,7 @@ function Mypage() {
 								</Link>
 							</li>
 							<li>
-								<Link to="/mypage" className="hover:text-ec5">
+								<Link to="/bookmark" className="hover:text-ec5">
 									⭐ 즐겨찾기 바로가기
 								</Link>
 							</li>
