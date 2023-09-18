@@ -142,8 +142,6 @@ function PostPage() {
 						<Spinner />
 					</div>
 				)}
-				{/* {!isLoading &&
-					posts.map((post) => <PostList key={post.id} post={post} />)} */}
 
 				<UpNav
 					topClick={handleTopButton}

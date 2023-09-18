@@ -11,13 +11,12 @@ MyCommentItem.propTypes = {
 	comment: string,
 	id: string,
 	postId: string,
-	recordId: string,
 	postTitle: string,
 	postType: string,
 };
 
-function MyCommentItem({ comment, id, postId, recordId, postTitle, postType }) {
-	// console.log(postId);
+function MyCommentItem({ comment, id, postId, postTitle, postType }) {
+	const maxLength = 30;
 	const handleDeletecomment = async (e) => {
 		e.preventDefault();
 		const deleteConfirm = confirm('정말로 삭제하시겠습니까?');
@@ -39,24 +38,27 @@ function MyCommentItem({ comment, id, postId, recordId, postTitle, postType }) {
 	};
 
 	return (
-		<div className="text-ec1 border-2 justify-between max-h-[105px] p-4 mb-6 rounded-xl flex m-auto transition-transform duration-500 ease-in-out transform hover:scale-105">
-			<Link
-				to={
-					postType === 'community' ? `/postpage/${postId}` : `/upload/${postId}`
-				}
-			>
-				<div className="">
-					{/* <img className="w-8 h-8 rounded-full" src={src} alt={alt} /> */}
-					{/* <span className="font-bold ">{nickName}</span> */}
+		<div className="text-ec1 border-2 justify-between max-h-[105px] items-center p-4 mb-6 rounded-xl flex m-auto transition-transform duration-500 ease-in-out transform hover:scale-105">
+			<div className="flex-grow flex">
+				<Link
+					to={
+						postType === 'community'
+							? `/postpage/${postId}`
+							: `/upload/${postId}`
+					}
+					className="flex-grow pr-4"
+				>
 					<h3 className="text-lg font-semibold mb-2 border-b-2">{postTitle}</h3>
-					<p className="break-all whitespace-nowrap overflow-hidden text-ellipsis">
-						{comment}
+					<p className="break-all whitespace-nowrap overflow-hidden">
+						{comment.length > maxLength
+							? `${comment.substring(0, maxLength)}...`
+							: comment}
 					</p>
-				</div>
-			</Link>
-			<div className="flex gap-3">
-				<DeleteButton onClick={handleDeletecomment}>삭제</DeleteButton>
+				</Link>
 			</div>
+			<DeleteButton className="ml-4" onClick={handleDeletecomment}>
+				삭제
+			</DeleteButton>
 		</div>
 	);
 }

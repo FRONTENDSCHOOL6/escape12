@@ -11,7 +11,6 @@ PostList.propTypes = {
 			content: string,
 		})
 	).isRequired,
-	// onDeletePost: PropTypes.func.isRequired,
 };
 
 function PostList({ posts }) {
@@ -27,7 +26,6 @@ function PostList({ posts }) {
 					content={post.content}
 					src={`https://refresh.pockethost.io/api/files/${post.expand?.author?.collectionId}/${post.expand?.author?.id}/${post.expand?.author?.avatar}`}
 					alt={post.expand?.author?.nickName}
-					// onDelete={() => onDeletePost(post.id)}
 				/>
 			))}
 		</div>
