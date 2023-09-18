@@ -115,12 +115,12 @@ function PostPage() {
 	return (
 		<>
 			<Helmet>
-				<title>게시글 목록</title>
+				<title>커뮤니티 목록</title>
 			</Helmet>
 
 			<div className="w-full max-w-[600px] min-w-[320px] py-20 bg-ec4 flex flex-col items-center min-h-[100vh] m-auto gap-14">
 				<HeaderRecord pencilClick={handleRecordButton}>
-					게시글 목록
+					커뮤니티 목록
 				</HeaderRecord>
 
 				<SearchInput
