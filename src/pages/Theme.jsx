@@ -1,4 +1,4 @@
-import getUserInfo from '@/api/getUserInfo';
+import getUserInfo, { getUserInfoFromStorage } from '@/api/getUserInfo';
 import pb from '@/api/pockethost';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
@@ -19,6 +19,7 @@ function Theme() {
 	const {
 		user: { id: userId },
 	} = getUserInfo();
+	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const [data, setData] = useState([]);
 	const [search, setSearch] = useState('');
@@ -80,6 +81,11 @@ function Theme() {
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
 		navigate('/recordpage');
+	};
+
+	// 관리자계정 이벤트
+	const handleAdmin = () => {
+		navigate('/createtheme');
 	};
 
 	//스크롤탑 버튼 이벤트
@@ -369,7 +375,11 @@ function Theme() {
 				<title>인기 테마</title>
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
-				<HeaderRecord pencilClick={handleRecordButton}>인기 테마</HeaderRecord>
+				<HeaderRecord
+					pencilClick={userUId?.model.admin ? handleAdmin : handleRecordButton}
+				>
+					인기 테마
+				</HeaderRecord>
 				<SearchInput
 					placeholder="검색어를 입력해주세요 😀"
 					value={search}

@@ -8,7 +8,7 @@ UploadImage.propTypes = {
 	alt: string,
 };
 
-function UploadImage({ inputRef, onChange, imgRef, src, alt }) {
+function UploadImage({ inputRef, onChange, imgRef, src, alt, ...restProps }) {
 	return (
 		<div className="flex flex-col gap-5 text-ec1 relative px-2">
 			<label htmlFor="image">사진</label>
@@ -20,6 +20,7 @@ function UploadImage({ inputRef, onChange, imgRef, src, alt }) {
 				name="image"
 				id="image"
 				accept="*.jpg,*.png,*.webp,*.avif"
+				{...restProps}
 			/>
 			<div className="h-[140px] bg-opacity p-2 rounded-lg border border-ec1">
 				<img ref={imgRef} className="h-full" src={src} alt={alt} />
