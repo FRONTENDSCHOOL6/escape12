@@ -1,5 +1,5 @@
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import pb from '@/api/pockethost';
-import userUId from '@/api/userUid';
 import noImage from '@/assets/noImage.png';
 import Spinner from '@/components/Spinner';
 import Button from '@/components/button/Button';
@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function UploadRecord() {
+	const userUId = getUserInfoFromStorage();
 	const { dataId } = useParams();
 	const navigate = useNavigate();
 	const [data, setData] = useState([]);
@@ -176,6 +177,8 @@ function UploadRecord() {
 		handleUserEscapeList();
 	}, []);
 
+console.log(userUId?.model.admin)
+
 	return (
 		<div>
 			<Helmet>
@@ -295,7 +298,7 @@ function UploadRecord() {
 								</Button>
 							</section>
 						)}
-						{`${userUId?.model.admin}` && (
+						{userUId?.model.admin === true ? (
 							<section className="w-full flex justify-center pb-3">
 								<Button
 									bg="bg-ec1"
@@ -305,6 +308,8 @@ function UploadRecord() {
 									삭제
 								</Button>
 							</section>
+						) : (
+							''
 						)}
 						<div className="w-full pt-3 border-t-2">
 							<SubmitInput
