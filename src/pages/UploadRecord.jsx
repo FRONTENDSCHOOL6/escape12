@@ -44,15 +44,22 @@ function UploadRecord() {
 		try {
 			if (deleteConfirm) {
 				await pb.collection('record').delete(`${dataId}`);
+
 				await pb
 					.collection('users')
 					.update(`${userUId.model.id}`, updateEscapeList);
+
+				comment.map(async (item) => {
+					await pb.collection('comment').delete(`${item.id}`);
+				});
 
 				toast('삭제되었습니다', {
 					icon: '🗑️',
 					duration: 2000,
 				});
+
 				updateLikeInPb();
+
 				navigate('/theme');
 			}
 		} catch (err) {
@@ -104,7 +111,9 @@ function UploadRecord() {
 			setCommentInput('');
 			setComment(againCommentData.items);
 			updateLikeInPb();
-			location.reload();
+			setTimeout(() => {
+				location.reload();
+			}, 1000);
 		} catch (err) {
 			console.log(`댓글 등록 에러: ${err}`);
 		}

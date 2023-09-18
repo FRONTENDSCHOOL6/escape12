@@ -31,17 +31,10 @@ function CommentItem({
 				</span>
 			</div>
 			<span className="pb-2 flex-1">{comment}</span>
-			{userId === `${userUId?.model.id}` && (
+			{(userId === `${userUId?.model.id}` || userUId?.model.admin) && (
 				<button type="button" onClick={onClick}>
 					X
 				</button>
-			)}
-			{userUId?.model.admin ? (
-				<button type="button" onClick={onClick}>
-					X
-				</button>
-			) : (
-				''
 			)}
 		</>
 	);
