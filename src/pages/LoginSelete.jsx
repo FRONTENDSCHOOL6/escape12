@@ -15,18 +15,20 @@ function LoginSelete() {
 			.collection('users')
 			.authWithOAuth2({ provider: 'kakao' });
 
-		const { username: name, email } = kakao.meta;
+		const { username: name, email, avatarUrl } = kakao.meta;
 
 		const updateUser = {
 			username: email.split('@')[0],
 			nickName: name,
+			emailVisibility: true,
+			avatar: avatarUrl,
 		};
 
 		await pb.collection('users').update(kakao.record.id, updateUser);
 
 		try {
-			toast('로그인에 성공하셨습니다.', {
-				icon: '❤️',
+			toast(`${kakao.record.nickName}님 환영합니다`, {
+				icon: '🧸',
 				duration: 2000,
 			});
 
@@ -49,17 +51,19 @@ function LoginSelete() {
 			.collection('users')
 			.authWithOAuth2({ provider: 'google' });
 
-		const { name, email } = google.meta;
+		const { name, email, avatarUrl } = google.meta;
 
 		const updateUserGoogle = {
 			username: email.split('@')[0],
 			nickName: name,
+			emailVisibility: true,
+			avatar: avatarUrl.file,
 		};
 
 		await pb.collection('users').update(google.record.id, updateUserGoogle);
 		try {
-			toast('로그인에 성공하셨습니다.', {
-				icon: '❤️',
+			toast(`${google.record.nickName}님 환영합니다`, {
+				icon: '🌍',
 				duration: 2000,
 			});
 
