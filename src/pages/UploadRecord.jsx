@@ -343,7 +343,7 @@ function UploadRecord() {
 															: `${noImage}`
 													}
 													alt={item.expand?.author?.nickName}
-													nickName={item.expand?.author?.nickName}
+													nickName={item.expand?.author?.nickName || '탈퇴회원'}
 													comment={item.content}
 													userId={item.expand?.author?.id}
 													id={item.id}
