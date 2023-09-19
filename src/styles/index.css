@@ -51,3 +51,7 @@ input::-webkit-autofill:active {
 input[type='file']::file-selector-button {
 	display: none;
 }
+
+input[type='file'] {
+	color: transparent;
+}

@@ -22,6 +22,9 @@ export default {
 				gray: '#868e96',
 				sweetred: '#FFC1C1',
 				kakaoline: '#FFE895',
+				googleline: '#BCF0AB',
+				opacity: 'transparent',
+				white: '#FFFFFF',
 			},
 			dark: {
 				ec1: '#FAF0E6',
@@ -32,8 +35,11 @@ export default {
 				green: 'green',
 				red: 'red',
 				gray: 'gray',
-				sweetred: 'sweetred',
-				kakaoline: 'kakaoline',
+				sweetred: '#FFC1C1',
+				kakaoline: '#FFE895',
+				googleline: '#BCF0AB',
+				opacity: 'transparent',
+				white: '#FFFFFF',
 			},
 		},
 		backgroundImage: {
@@ -44,6 +50,7 @@ export default {
 			eyefalse: 'url("/src/assets/login-eyefalse.png")',
 			hearttrue: 'url("/src/assets/theme-hearttrue.png")',
 			heartfalse: 'url("/src/assets/theme-heartfalse.png")',
+			heartlike: 'url("/src/assets/upload-like.png")',
 		},
 		extend: {
 			boxShadow: {
