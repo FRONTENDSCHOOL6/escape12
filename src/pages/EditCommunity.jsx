@@ -75,26 +75,26 @@ function EditCommunity() {
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
 				<Headerback onClick={() => navigate(-1)}>글 작성</Headerback>
 				<form onSubmit={handleEditPost} className="flex flex-col items-center">
-					<div className="text-lg s:px-12 px-14">
+					<div className="text-lg pt-28 s:px-12 px-14">
 						<FormInput
 							value={title}
 							type="text"
 							id="title"
 							name="title"
 							onChange={handleTitle}
-							placeholder="제목을 입력해주세요."
+							placeholder="제목을 입력해주세요"
 						>
 							제목
 						</FormInput>
-						<p className="flex justify-end mb-3 text-lg">
-							{currentDate.toLocaleDateString()}
+						<p className="flex justify-end py-3 text-lg">
+							📅 {currentDate.toLocaleDateString()}
 						</p>
 						<textarea
 							value={content}
 							id="content"
 							onChange={handleContent}
-							placeholder="작성해주세요.🤩"
-							className="w-full h-80 p-4 text-ec4 border rounded-lg"
+							placeholder="글을 작성해주세요 ✏️"
+							className="w-full h-96 p-4 text-ec4 border rounded-lg"
 						></textarea>
 					</div>
 

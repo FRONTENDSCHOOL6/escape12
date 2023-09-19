@@ -124,7 +124,7 @@ function PostPage() {
 				</HeaderRecord>
 
 				<SearchInput
-					placeholder="검색어를 입력해주세요😀"
+					placeholder="검색어를 입력해주세요 😀"
 					value={search}
 					onChange={handleSearch}
 					onSubmit={handleSubmitButton}
