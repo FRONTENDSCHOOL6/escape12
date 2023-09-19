@@ -91,7 +91,7 @@ function Editpage() {
 			<Helmet>
 				<title>정보 수정</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				{/* header, headerback 맨 위 고정 */}
 				<Headerback
 					onClick={() => {

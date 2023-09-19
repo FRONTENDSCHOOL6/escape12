@@ -123,7 +123,7 @@ function Mypage() {
 			<Helmet>
 				<title>마이페이지</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative mb-4 bg-light-ec1 dark:bg-dark-ec1 text-light-ec4 dark:text-dark-ec4">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative mb-4 bg-light-ec1 dark:bg-dark-ec1 text-light-ec4 dark:text-dark-ec4 text-lg">
 				{/* header, headerback 맨 위 고정 */}
 				<Header>마이페이지</Header>
 				{!isLoading && (
