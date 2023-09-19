@@ -103,7 +103,7 @@ function Mypage() {
 					<div className="flex-1 flex flex-col items-center">
 						<div className="w-40 h-40">
 							<img
-								src={data.avatar?`https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.avatar}`:!data.social||data.social==="http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg"?{socialImg}:data.social}
+								src={data.avatar?`https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.avatar}`:!data.social||data.social==="http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg"?`${socialImg}`:data.social}
 								alt={data.nickName}
 								aria-hidden
 								className="w-full h-full rounded-full"
