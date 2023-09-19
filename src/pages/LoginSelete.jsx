@@ -27,10 +27,17 @@ function LoginSelete() {
 		await pb.collection('users').update(kakao.record.id, updateUser);
 
 		try {
-			toast(`${kakao.record.nickName}님 환영합니다`, {
-				icon: '🧸',
-				duration: 2000,
-			});
+			if (kakao.record.id) {
+				toast(`${kakao.record.nickName}님 환영합니다`, {
+					icon: '🧸',
+					duration: 2000,
+				});
+			} else {
+				toast(`로그인되었습니다`, {
+					icon: '🧸',
+					duration: 2000,
+				});
+			}
 
 			navigate('/theme');
 		} catch (err) {
@@ -59,11 +66,19 @@ function LoginSelete() {
 		};
 
 		await pb.collection('users').update(google.record.id, updateUserGoogle);
+
 		try {
-			toast(`${google.record.nickName}님 환영합니다`, {
-				icon: '🌍',
-				duration: 2000,
-			});
+			if (google.record.id) {
+				toast(`${google.record.nickName}님 환영합니다`, {
+					icon: '🌍',
+					duration: 2000,
+				});
+			} else {
+				toast(`로그인되었습니다`, {
+					icon: '🌍',
+					duration: 2000,
+				});
+			}
 
 			navigate('/theme');
 		} catch (err) {
