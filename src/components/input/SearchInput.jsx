@@ -32,7 +32,7 @@ function SearchInput({
 				maxLength={35}
 				defaultValue={value}
 				required
-				className="pl-3 py-1 rounded-full focus:outline-none flex-1"
+				className="pl-3 py-1 rounded-full focus:outline-none shadow-xl dark:shadow-darkMode flex-1 text-light-ec4 dark:text-dark-ec1"
 			/>
 			<SmallButton type="submit">{children}</SmallButton>
 		</form>

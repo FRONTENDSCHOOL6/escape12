@@ -1,5 +1,6 @@
 import { string, shape, arrayOf } from 'prop-types';
 import Post from './PostItem';
+import noImage from '@/assets/noImage.png';
 
 PostList.propTypes = {
 	posts: arrayOf(
@@ -21,11 +22,19 @@ function PostList({ posts }) {
 					id={post.id}
 					key={post.id}
 					title={post.title}
-					author={post.expand?.author?.nickName}
+					author={
+						post.expand?.author?.nickName
+							? post.expand?.author?.nickName
+							: '탈퇴회원'
+					}
 					date={post.date}
 					content={post.content}
-					src={`https://refresh.pockethost.io/api/files/${post.expand?.author?.collectionId}/${post.expand?.author?.id}/${post.expand?.author?.avatar}`}
-					alt={post.expand?.author?.nickName}
+					src={
+						post.expand && post.expand.author && post.expand.author.avatar
+							? `https://refresh.pockethost.io/api/files/${post.expand.author.collectionId}/${post.expand.author.id}/${post.expand.author.avatar}`
+							: `${noImage}`
+					}
+					alt={post.expand?.author?.nickName || '탈퇴회원'}
 				/>
 			))}
 		</div>

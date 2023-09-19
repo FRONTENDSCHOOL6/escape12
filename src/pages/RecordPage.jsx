@@ -84,7 +84,7 @@ function RecordPage() {
 			theme: theme,
 			store: store,
 			date: date,
-			grade: Number(grade),
+			grade: Number(grade) * 2,
 			hour: Number(hour),
 			minute: Number(minute),
 			content: content,
@@ -146,7 +146,7 @@ function RecordPage() {
 					className="flex flex-col gap-6 py-5 s:py-2 mb-24"
 					onSubmit={handleSubmitRecord}
 				>
-					<fieldset className="flex flex-col gap-7">
+					<fieldset className="flex flex-col gap-6">
 						<DefaultThemeStore
 							theme={theme}
 							themeEvent={debounceTheme}

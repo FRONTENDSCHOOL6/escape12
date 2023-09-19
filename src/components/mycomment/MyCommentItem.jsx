@@ -38,7 +38,7 @@ function MyCommentItem({ comment, id, postId, postTitle, postType }) {
 	};
 
 	return (
-		<div className="text-ec1 border-2 justify-between max-h-[105px] items-center p-4 mb-6 rounded-xl flex m-auto transition-transform duration-500 ease-in-out transform hover:scale-105">
+		<div className="text-ec1 border-2 justify-between shadow-xl dark:shadow-darkMode max-h-[105px] items-center p-4 mb-6 rounded-xl flex m-auto transition-transform duration-500 ease-in-out transform hover:scale-105">
 			<div className="flex-grow flex">
 				<Link
 					to={
@@ -48,7 +48,9 @@ function MyCommentItem({ comment, id, postId, postTitle, postType }) {
 					}
 					className="flex-grow pr-4"
 				>
-					<h3 className="text-lg font-semibold mb-2 border-b-2">{postTitle}</h3>
+					<h3 className="text-lg font-semibold mb-2 border-b-2">
+						{postType === 'community' ? '📕' : '🎫'} {postTitle}
+					</h3>
 					<p className="break-all whitespace-nowrap overflow-hidden">
 						{comment.length > maxLength
 							? `${comment.substring(0, maxLength)}...`

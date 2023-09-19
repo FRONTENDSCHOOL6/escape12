@@ -6,7 +6,7 @@ import FormInput from '@/components/loginsignup/FormInput';
 import Nav from '@/components/nav/Nav';
 import DefaultThemeStore from '@/components/record/DefaultThemeStore';
 import Grade from '@/components/record/Grade';
-import Select from '@/components/record/Select';
+import SelectInput from '@/components/record/SelectInput';
 import Sup from '@/components/record/Sup';
 import debounce from '@/utils/debounce';
 import { useState } from 'react';
@@ -204,7 +204,7 @@ function CreateTheme() {
 							<label htmlFor="level" className="w-32 s:min-w-fit">
 								<Sup>난이도</Sup>
 							</label>
-							<Select
+							<SelectInput
 								id="level"
 								name="level"
 								onChange={handleLevel}

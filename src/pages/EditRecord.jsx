@@ -116,7 +116,7 @@ function EditRecord() {
 			theme: theme,
 			store: store,
 			date: date,
-			grade: grade,
+			grade: grade * 2,
 			hour: hour,
 			minute: minute,
 			content: content,

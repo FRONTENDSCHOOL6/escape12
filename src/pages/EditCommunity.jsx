@@ -75,7 +75,7 @@ function EditCommunity() {
 			<Helmet>
 				<title>글 작성</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
+			<div className="max-w-[600px] min-w-[320px] bg-light-ec1 dark:bg-dark-ec1 text-light-ec4 dark:text-dark-ec4  flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
 				<Headerback onClick={() => navigate(-1)}>글 작성</Headerback>
 				{!isLoading && (
 					<div className="absolute top-1/2 -translate-y-1/2">
@@ -103,11 +103,10 @@ function EditCommunity() {
 								id="content"
 								onChange={handleContent}
 								placeholder="글을 작성해주세요 ✏️"
-								className="w-full h-96 p-4 text-ec4 border rounded-lg"
+								className="w-full h-96 p-4 text-dark-ec1 border rounded-lg shadow-xl dark:shadow-darkMode"
 							></textarea>
 						</div>
-
-						<Button type="submit" bg="bg-ec1 text-center" text="text-ec4 mt-4">
+						<Button type="submit" bg="text-center" text="text-dark-ec4 mt-4">
 							등록
 						</Button>
 					</form>

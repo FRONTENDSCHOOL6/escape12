@@ -5,6 +5,7 @@ import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
 import PostList from '@/components/post/PostList';
+import debounce from '@/utils/debounce';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
@@ -107,6 +108,8 @@ function PostPage() {
 		}
 	};
 
+	const debounceSearch = debounce((e) => handleSearch(e));
+
 	// 검색 버튼
 	const handleSubmitButton = (e) => {
 		e.preventDefault();
@@ -115,18 +118,18 @@ function PostPage() {
 	return (
 		<>
 			<Helmet>
-				<title>게시글 목록</title>
+				<title>커뮤니티 목록</title>
 			</Helmet>
 
-			<div className="w-full max-w-[600px] min-w-[320px] py-20 bg-ec4 flex flex-col items-center min-h-[100vh] m-auto gap-14">
+			<div className="w-full max-w-[600px] min-w-[320px] py-20 bg-light-ec1 dark:bg-dark-ec1 text-light-ec4 dark:text-dark-ec4 flex flex-col items-center min-h-[100vh] m-auto gap-14">
 				<HeaderRecord pencilClick={handleRecordButton}>
-					게시글 목록
+					커뮤니티 목록
 				</HeaderRecord>
 
 				<SearchInput
 					placeholder="검색어를 입력해주세요 😀"
 					value={search}
-					onChange={handleSearch}
+					onChange={debounceSearch}
 					onSubmit={handleSubmitButton}
 				>
 					검색

@@ -5,12 +5,13 @@ import Nav from '@/components/nav/Nav';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import userUId from '@/api/userUid';
 import MyCommentItem from '@/components/mycomment/MyCommentItem';
 import Spinner from '@/components/Spinner';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 
 function MyCommentPage() {
 	// const { dataId } = useParams();
+	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const [comment, setComment] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +43,7 @@ function MyCommentPage() {
 				<title>내 댓글 목록</title>
 			</Helmet>
 
-			<div className="w-full max-w-[600px] min-w-[320px] py-20 bg-ec4 flex flex-col items-center min-h-[100vh] m-auto gap-14">
+			<div className="w-full max-w-[600px] min-w-[320px] bg-light-ec1 dark:bg-dark-ec1 text-light-ec4 dark:text-dark-ec4 py-20 bg-ec4 flex flex-col items-center min-h-[100vh] m-auto gap-14">
 				<Headerback
 					onClick={() => {
 						navigate(-1);

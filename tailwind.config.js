@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./index.html', './src/**/*.jsx'],
+	darkMode: 'class',
 	theme: {
 		fontFamily: {
 			hob: ['SDSamliphopangche_Outline'],
@@ -11,18 +12,29 @@ export default {
 			l: { min: '1280px' },
 		},
 		colors: {
-			ec1: '#FAF0E6',
-			ec2: '#B9B4C7',
-			ec3: '#5C5470',
-			ec4: '#352F44',
-			ec5: '#F8DE22',
-			red: '#FA0000',
-			gray: '#868e96',
-			sweetred: '#FFC1C1',
-			kakaoline: '#FFE895',
-			googleline: '#BCF0AB',
-			opacity: 'transparent',
-			white: '#FFFFFF',
+			light: {
+				ec1: '#FAF0E6',
+				ec2: '#B9B4C7',
+				ec3: '#5C5470',
+				ec4: '#352F44',
+				ec5: '#F8DE22',
+				red: '#FA0000',
+				gray: '#868e96',
+				sweetred: '#FFC1C1',
+				kakaoline: '#FFE895',
+			},
+			dark: {
+				ec1: '#352F44',
+				ec2: '#B9B4C7',
+				ec3: '#5C5470',
+				ec4: '#FAF0E6',
+				ec5: '#F8DE22',
+				green: 'green',
+				red: 'red',
+				gray: 'gray',
+				sweetred: 'sweetred',
+				kakaoline: 'kakaoline',
+			},
 		},
 		backgroundImage: {
 			kakao: 'url("/src/assets/loginselete-kakao.png")',
@@ -32,9 +44,12 @@ export default {
 			eyefalse: 'url("/src/assets/login-eyefalse.png")',
 			hearttrue: 'url("/src/assets/theme-hearttrue.png")',
 			heartfalse: 'url("/src/assets/theme-heartfalse.png")',
-			heartlike: 'url("/src/assets/upload-like.png")',
 		},
 		extend: {
+			boxShadow: {
+				darkMode:
+					'0 10px 15px -3px rgba(0, 0, 0, .5), 0 4px 6px -2px rgba(0, 0, 0,.07)', // 커스텀 그림자 추가
+			},
 			keyframes: {
 				spinner: {
 					'0%': { boxShadow: '-200px 0 #fff inset' },
@@ -44,10 +59,12 @@ export default {
 					'100%': { boxShadow: '150px 0 #fff inset' },
 				},
 			},
-			animation: {
-				moon: 'spinner 2s linear infinite',
-			},
+			animation: { moon: 'spinner 2s linear infinite' },
 		},
+	},
+	variants: {
+		backgroundColor: ['responsive', 'dark'],
+		textColor: ['responsive', 'dark'],
 	},
 	plugins: [],
 };

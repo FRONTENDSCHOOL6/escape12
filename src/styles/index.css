@@ -20,8 +20,14 @@
 
 body {
 	font-family: 'SUITE-Regular';
-	background-color: #faf0e6;
 	-ms-overflow-style: none;
+}
+
+body.light {
+	background-color: #352f44;
+}
+body.dark {
+	background-color: #faf0e6;
 }
 
 body::-webkit-scrollbar {
@@ -42,6 +48,6 @@ input::-webkit-autofill:active {
 	transition: background-color 5000s ease-in-out 0s;
 }
 
-input[type="file"]::file-selector-button {
+input[type='file']::file-selector-button {
 	display: none;
 }

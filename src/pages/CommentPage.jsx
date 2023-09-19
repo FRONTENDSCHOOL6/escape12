@@ -8,11 +8,14 @@ import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import SubmitInput from '@/components/input/SubmitInput';
-import userUId from '@/api/userUid';
 import CommentItem from '@/components/comment/Commentitem';
 import Spinner from '@/components/Spinner';
+import Button from '@/components/button/Button';
+import noImage from '@/assets/noImage.png';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 
 function CommentPage() {
+	const userUId = getUserInfoFromStorage();
 	const { dataId } = useParams();
 	const navigate = useNavigate();
 	const [data, setData] = useState([]);
@@ -23,14 +26,17 @@ function CommentPage() {
 
 	const handleDeleteRecord = async () => {
 		const deleteConfirm = confirm('정말로 삭제하시겠습니까?');
-
 		const currentUserID = userUId?.model.id;
 		const postAuthorID = data.expand?.author?.id;
 
-		if (deleteConfirm && currentUserID === postAuthorID) {
+		if (
+			deleteConfirm &&
+			(currentUserID === postAuthorID || userUId?.model.admin)
+		) {
 			const array = community.filter(
 				(i) => i !== `${data.expand?.community?.id}`
 			);
+
 			const updateCommunity = { escapeList: array };
 
 			try {
@@ -38,6 +44,10 @@ function CommentPage() {
 				await pb
 					.collection('users')
 					.update(`${userUId.model.id}`, updateCommunity);
+
+				comment.map(async (item) => {
+					await pb.collection('comment').delete(`${item.id}`);
+				});
 
 				toast('삭제되었습니다', {
 					icon: '🗑️',
@@ -127,14 +137,14 @@ function CommentPage() {
 		handleUserCommunity();
 	}, []);
 
-	console.log(comment);
+	console.log(data);
 
 	return (
 		<div>
 			<Helmet>
 				<title>게시글 상세</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col gap-3 items-center min-h-[100vh] m-auto px-20 s:px-12 py-24 relative">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col gap-3 bg-light-ec1 dark:bg-dark-ec1 text-light-ec4 dark:text-dark-ec4 items-center min-h-[100vh] m-auto px-20 s:px-12 py-24 relative">
 				<Headerback
 					onClick={() => {
 						navigate(-1);
@@ -150,14 +160,27 @@ function CommentPage() {
 				{isLoading && (
 					<>
 						<div className="min-w-[300px] w-full">
+							<div className="text-right">
+								<span className="text-ec1">
+									{!data.created
+										? data.community.created
+										: data.created.slice(0, 10)}
+								</span>
+							</div>
 							{data && (
-								<Post
-									src={`https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`}
-									alt={data.expand?.author?.nickName}
-									title={data.title}
-									author={data.expand?.author?.nickName}
-									content={data.content}
-								/>
+								<>
+									<Post
+										src={
+											data.expand?.author?.avatar
+												? `https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`
+												: `${noImage}`
+										}
+										alt={data.expand?.author?.nickName || '탈퇴회원'}
+										title={data.title}
+										author={data.expand?.author?.nickName || '탈퇴회원'}
+										content={data.content}
+									></Post>
+								</>
 							)}
 							{userUId?.model.id === data.expand?.author?.id && (
 								<div className="flex justify-between m-auto">
@@ -177,6 +200,19 @@ function CommentPage() {
 									</SmallButton>
 								</div>
 							)}
+							{userUId?.model.admin ? (
+								<div className="w-full flex justify-center pb-3">
+									<Button
+										bg="bg-ec1"
+										text="text-ec4"
+										onClick={handleDeleteRecord}
+									>
+										삭제
+									</Button>
+								</div>
+							) : (
+								''
+							)}
 						</div>
 						<div className="w-full border-t-2 pt-6 mt-2 border-ec1">
 							<SubmitInput
@@ -189,7 +225,7 @@ function CommentPage() {
 								등록
 							</SubmitInput>
 
-							<ul className="flex flex-col gap-4 text-lg w-full text-ec1">
+							<ul className="flex flex-col gap-4 text-lg w-full text-ec1 ">
 								{comment &&
 									comment.map((item) => {
 										// 댓글 삭제하기

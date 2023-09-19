@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import { string } from 'prop-types';
+import { Tooltip } from '@mui/material';
+import PropTypes, { string } from 'prop-types';
 
 Span.propTypes = {
 	text: string,
@@ -10,7 +10,23 @@ Span.propTypes = {
 };
 
 function Span({ children, text = '' }) {
-	return <span className={`whitespace-nowrap ${text}`}>{children}</span>;
+	return (
+		<Tooltip
+			title={
+				children === '🌸꽃길'
+					? '평점 8~10점'
+					: children === '🌿풀길'
+					? '평점 4~7점'
+					: children === '😱흙길'
+					? '평점 0~3점'
+					: ''
+			}
+			placement="right-end"
+			arrow
+		>
+			<span className={`whitespace-nowrap ${text}`}>{children}</span>
+		</Tooltip>
+	);
 }
 
 export default Span;
