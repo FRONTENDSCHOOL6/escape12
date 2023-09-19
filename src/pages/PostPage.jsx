@@ -98,13 +98,16 @@ function PostPage() {
 				setEmptyData(false);
 				setIsLoading(true);
 				setNoResult(false);
+			} else {
+				setEmptyData(false);
+				setIsLoading(true);
+				setNoResult(false);
+				setPosts(resultList.items);
 			}
 		} catch (err) {
 			console.log(`검색 에러 내용 : ${err}`);
-		} finally {
-			setTimeout(() => {
-				setIsLoading(false);
-			}, 500);
+
+			setIsLoading(false);
 		}
 	};
 
