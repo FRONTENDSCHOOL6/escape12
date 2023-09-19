@@ -144,7 +144,7 @@ function CommentPage() {
 			<Helmet>
 				<title>게시글 상세</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col gap-3 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 items-center min-h-[100vh] m-auto px-20 s:px-12 py-24 relative">
+			<div className="max-w-[600px] min-w-[320px] text-lg bg-ec4 flex flex-col gap-3 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 items-center min-h-[100vh] m-auto px-20 s:px-12 py-24 relative">
 				<Headerback
 					onClick={() => {
 						navigate(-1);
