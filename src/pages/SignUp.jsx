@@ -112,7 +112,7 @@ function SignUp() {
 
 				navigate('/login');
 			} else {
-				toast('존재하는 닉네임 또는 아이디입니다.', {
+				toast('존재하는 닉네임 또는 아이디입니다', {
 					icon: '💛',
 					duration: 2000,
 				});
@@ -206,7 +206,7 @@ function SignUp() {
 									: !isValidEmail
 									? '이메일 형식으로 입력해주세요'
 									: isSameEmail === true
-									? '존재하는 이메일입니다.'
+									? '존재하는 이메일입니다'
 									: ' '}
 							</FormInputValid>
 						</>
@@ -251,7 +251,7 @@ function SignUp() {
 									? ''
 									: password === passwordConfirm
 									? '비밀번호가 일치합니다'
-									: '비밀번호가 일치하지 않습니다.'}
+									: '비밀번호가 일치하지 않습니다'}
 							</FormInputValid>
 						</>
 						<>
@@ -275,7 +275,7 @@ function SignUp() {
 								{nickName.length !== 0 && !regNickName.test(nickName)
 									? '공백 제외 두 자리 이상입력해주세요'
 									: nickName.length !== 0 && isValidNickName === true
-									? '존재하는 닉네임입니다.'
+									? '존재하는 닉네임입니다'
 									: ''}
 							</FormInputValid>
 							<div className="flex justify-between text-ec1 relative px-2 gap-5">
