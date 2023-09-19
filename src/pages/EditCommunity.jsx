@@ -4,6 +4,7 @@ import Button from '@/components/button/Button';
 import Nav from '@/components/nav/Nav';
 import Headerback from '@/components/header/Headerback';
 import FormInput from '@/components/loginsignup/FormInput';
+import Spinner from '@/components/Spinner';
 import { useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import pb from '@/api/pockethost';
@@ -15,6 +16,7 @@ function EditCommunity() {
 	const currentDate = new Date();
 	const navigate = useNavigate();
 	const { dataId } = useParams();
+	const [isLoading, setIsLoading] = useState(false);
 
 	// 제목 상태 변경
 	const handleTitle = (e) => {
@@ -35,6 +37,7 @@ function EditCommunity() {
 			try {
 				setTitle(postData.title);
 				setContent(postData.content);
+				setIsLoading(true);
 			} catch (err) {
 				console.error(err);
 			}
@@ -72,36 +75,49 @@ function EditCommunity() {
 			<Helmet>
 				<title>글 작성</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-light-ec1 dark:bg-dark-ec1 text-light-ec4 dark:text-dark-ec4  flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
+			<div className="max-w-[600px] min-w-[320px] bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1  flex flex-col items-center min-h-[100vh] m-auto py-20 relative">
 				<Headerback onClick={() => navigate(-1)}>글 작성</Headerback>
-				<form onSubmit={handleEditPost} className="flex flex-col items-center">
-					<div className="text-lg s:px-12 px-14 ">
-						<FormInput
-							value={title}
-							type="text"
-							id="title"
-							name="title"
-							onChange={handleTitle}
-							placeholder="제목을 입력해주세요."
-						>
-							제목
-						</FormInput>
-						<p className="flex justify-end mb-3 text-lg ">
-							{currentDate.toLocaleDateString()}
-						</p>
-						<textarea
-							value={content}
-							id="content"
-							onChange={handleContent}
-							placeholder="작성해주세요.🤩"
-							className="w-full h-80 p-4 text-dark-ec1 border rounded-lg shadow-xl dark:shadow-darkMode"
-						></textarea>
+				{!isLoading && (
+					<div className="absolute top-1/2 -translate-y-1/2">
+						<Spinner />
 					</div>
-
-					<Button type="submit" bg="text-center" text="text-dark-ec4 mt-4">
-						등록
-					</Button>
-				</form>
+				)}
+				{isLoading && (
+					<form
+						onSubmit={handleEditPost}
+						className="flex flex-col items-center"
+					>
+						<div className="text-lg pt-28 s:px-12 px-14">
+							<FormInput
+								value={title}
+								type="text"
+								id="title"
+								name="title"
+								onChange={handleTitle}
+								placeholder="제목을 입력해주세요"
+							>
+								제목
+							</FormInput>
+							<p className="flex justify-end py-3 text-lg">
+								📅 {currentDate.toLocaleDateString()}
+							</p>
+							<textarea
+								value={content}
+								id="content"
+								onChange={handleContent}
+								placeholder="글을 작성해주세요 ✏️"
+								className="w-full h-96 p-4 text-dark-ec4 border rounded-lg shadow-xl dark:shadow-darkMode"
+							></textarea>
+						</div>
+						<Button
+							type="submit"
+							bg="text-center"
+							text="dark:text-dark-ec4 mt-4"
+						>
+							등록
+						</Button>
+					</form>
+				)}
 			</div>
 			<Nav />
 		</>

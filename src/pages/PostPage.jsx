@@ -121,13 +121,13 @@ function PostPage() {
 				<title>커뮤니티 목록</title>
 			</Helmet>
 
-			<div className="w-full max-w-[600px] min-w-[320px] py-20 bg-light-ec1 dark:bg-dark-ec1 text-light-ec4 dark:text-dark-ec4 flex flex-col items-center min-h-[100vh] m-auto gap-14">
+			<div className="w-full max-w-[600px] min-w-[320px] py-20 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 flex flex-col items-center min-h-[100vh] m-auto gap-14">
 				<HeaderRecord pencilClick={handleRecordButton}>
 					커뮤니티 목록
 				</HeaderRecord>
 
 				<SearchInput
-					placeholder="검색어를 입력해주세요😀"
+					placeholder="검색어를 입력해주세요 😀"
 					value={search}
 					onChange={debounceSearch}
 					onSubmit={handleSubmitButton}

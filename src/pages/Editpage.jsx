@@ -11,6 +11,7 @@ import { useEffect, useRef } from 'react';
 import userUId from '@/api/userUid';
 import DefaultEdit from '@/components/edit/DefaultEdit';
 import EditImage from '@/components/edit/EditImage';
+import socialImg from '@/assets/socialImg.png'
 
 function Editpage() {
 	const navigate = useNavigate();
@@ -18,7 +19,7 @@ function Editpage() {
 	const [nickName, setnickName] = useState('');
 	const [id, setId] = useState('');
 	const [collectionId, setCollectionId] = useState('');
-	const [data, setData] =useState('');
+	const [data, setData] = useState('');
 	const [avatar, setAvatar] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const photoRef = useRef(`${data.expand?.users?.avatar}`);
@@ -34,12 +35,12 @@ function Editpage() {
 		setnickName(e.target.value);
 	};
 
-		// 사진 상태 관리
-		const handleUploadPhoto = (e) => {
-			const photoFile = e.target.files[0];
-			const photoUrl = URL.createObjectURL(photoFile);
-			uploadPhotoRef.current.setAttribute('src', photoUrl);
-		};
+	// 사진 상태 관리
+	const handleUploadPhoto = (e) => {
+		const photoFile = e.target.files[0];
+		const photoUrl = URL.createObjectURL(photoFile);
+		uploadPhotoRef.current.setAttribute('src', photoUrl);
+	};
 
 	//기존 데이터 가져오기
 	useEffect(() => {
@@ -84,7 +85,6 @@ function Editpage() {
 			console.log(err);
 		}
 	};
-console.log(avatar);
 
 	return (
 		<>
@@ -108,31 +108,28 @@ console.log(avatar);
 				{isLoading && (
 					<div className="flex-1 flex flex-col items-center s:px-3">
 						<form
-						onSubmit={handleSave}
-						className="text-center flex flex-col items-center">	
-						<div className="w-40 h-40">
-							<EditImage
-								inputRef={photoRef}
-								onChange={handleUploadPhoto}
-								imgRef={uploadPhotoRef}
-								src={
-									!data.avatar
-										? data.expand?.users?.avatar
-										: `https://refresh.pockethost.io/api/files/${collectionId}/${id}/${avatar}`
-								}
-								alt={data.theme}
-							/>
+							onSubmit={handleSave}
+							className="text-center flex flex-col items-center">
+							<div className="w-40 h-40">
+								<EditImage
+									inputRef={photoRef}
+									onChange={handleUploadPhoto}
+									imgRef={uploadPhotoRef}
+									src={
+										data.avatar ? `https://refresh.pockethost.io/api/files/${collectionId}/${id}/${avatar}` : !data.social || data.social === "http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg" ? `${socialImg}`: data.social}
+									alt={data.theme}
+								/>
 							</div>
 							<DefaultEdit
 								email={email}
 								emailEvent={handleEmail}
 								nickName={nickName}
 								nickNameEvent={handlenickName}
-								
+
 							/>
-						<Button type="submit" bg="bg-ec1" text="text-ec4 mt-4">
-							저장
-						</Button>
+							<Button type="submit" bg="bg-ec1" text="text-ec4 mt-4">
+								저장
+							</Button>
 						</form>
 						<footer className="mt-auto py-1 mb-2">
 							<em>
