@@ -135,7 +135,7 @@ function Mypage() {
 					<div className="flex-1 flex flex-col items-center">
 						<div className="w-40 h-40">
 							<img
-								src={data.avatar?`https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.avatar}`:!data.social||data.social==="http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg"?`${socialImg}`:data.social}
+								src={data.avatar ? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.avatar}` : !data.social || data.social === "http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg" ? `${socialImg}` : data.social}
 								alt={data.nickName}
 								aria-hidden
 								className="w-full h-full rounded-full"
@@ -158,24 +158,24 @@ function Mypage() {
 						<ul className="w-80 s:px-12 rounded-lg border-2 p-12 text-xl space-y-4 mt-8 text-center">
 							<li>
 								내가 작성한 기록 :
-								<Link to="/myrecord" className="hover:text-ec5">
+								<Link to="/myrecord" className="hover:dark:text-dark-ec5 hover:font-bold">
 									{records.length} 개
 								</Link>
 							</li>
 							<li>
 								내가 작성한 글 :
-								<Link to="/mycommunity" className="hover:text-ec5">
+								<Link to="/mycommunity" className="hover:dark:text-dark-ec5 hover:font-bold">
 									{community.length} 개
 								</Link>
 							</li>
 							<li>
 								내가 작성한 댓글 :
-								<Link to="/mycomment" className="hover:text-ec5">
+								<Link to="/mycomment" className="hover:dark:text-dark-ec5 hover:font-bold">
 									{comment.length} 개
 								</Link>
 							</li>
 							<li>
-								<Link to="/bookmark" className="hover:text-ec5">
+								<Link to="/bookmark" className="hover:dark:text-dark-ec5 hover:font-bold">
 									⭐ 즐겨찾기 바로가기
 								</Link>
 							</li>
