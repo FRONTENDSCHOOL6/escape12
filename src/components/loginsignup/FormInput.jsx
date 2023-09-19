@@ -33,7 +33,7 @@ function FormInput({
 				</label>
 				<input
 					type={type}
-					className="w-[300px] s:w-[60%] bg-opacity border-b-2 border-ec1 focus:outline-none"
+					className="w-[300px] s:w-[60%] bg-opacity border-b-2 border-ec1 focus:outline-none shadow-xl dark:shadow-darkMode text-dark-ec1"
 					name={name}
 					id={name}
 					onChange={onChange}
