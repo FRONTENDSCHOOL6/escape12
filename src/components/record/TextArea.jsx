@@ -15,7 +15,7 @@ function TextArea({
 	...restProps
 }) {
 	return (
-		<div className="relative">
+		<div className="relative px-2">
 			<textarea
 				value={value}
 				onChange={onChange}
@@ -24,7 +24,7 @@ function TextArea({
 				required
 				{...restProps}
 			/>
-			<p className="text-right absolute -bottom-5 right-0">{children}/ 250</p>
+			<p className="text-right absolute -bottom-5 right-2">{children}/ 250</p>
 		</div>
 	);
 }

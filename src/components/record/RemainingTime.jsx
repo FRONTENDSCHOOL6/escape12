@@ -1,5 +1,5 @@
 import { func, string } from 'prop-types';
-import Select from './Select';
+import SelectInput from './SelectInput';
 
 RemainingTime.propTypes = {
 	hour: string,
@@ -14,23 +14,25 @@ function RemainingTime({ hour, hourEvent, minute, minuteEvent }) {
 			<label htmlFor="clearTime" className="w-32 s:min-w-fit">
 				남은 시간
 			</label>
-			<div className="flex gap-2">
-				<Select
+			<div className="flex items-start">
+				<SelectInput
+					label="시간"
 					id="clearTime"
 					name="hour"
 					defaultValue={hour}
 					onChange={hourEvent}
 					max={1}
 				/>
-				:
-				<Select
+				<span className="translate-y-1/2">:</span>
+				<SelectInput
+					label="분"
 					id="clearTime"
 					name="minute"
 					defaultValue={minute}
 					onChange={minuteEvent}
 					max={59}
 				/>
-				LEFT
+				<span className="translate-y-1/2">LEFT</span>
 			</div>
 		</div>
 	);
