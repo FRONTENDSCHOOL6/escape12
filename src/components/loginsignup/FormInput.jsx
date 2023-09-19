@@ -3,37 +3,39 @@ import PropTypes from 'prop-types';
 import Sup from '../record/Sup';
 
 FormInput.propTypes = {
-    type: string,
-    name: string,
-    bg: string,
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]),
-    onChange: func,
-    onClick: func,
-    hidden: string,
+	type: string,
+	name: string,
+	bg: string,
+	children: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.node),
+		PropTypes.node,
+	]),
+	onChange: func,
+	onClick: func,
+	bold: string,
+	hidden: string,
 };
 
 function FormInput({
-    children,
-    type,
-    name,
-    bg = 'hidden',
-    onChange = null,
-    onClick = null,
-    hidden = 'text-red',
-    ...restProps
+	children,
+	type,
+	name,
+	bg = 'hidden',
+	onChange = null,
+	onClick = null,
+	hidden = 'dark:text-dark-red text-light-red',
+	bold = '',
+	...restProps
 }) {
 	return (
 		<>
 			<fieldset className="flex gap-5 justify-between text-ec1 relative px-2">
-				<label htmlFor={name} className="w-34 s:min-w-fit">
+				<label htmlFor={name} className={`w-34 s:min-w-fit ${bold}`}>
 					<Sup hidden={hidden}>{children}</Sup>
 				</label>
 				<input
 					type={type}
-					className="w-[300px] s:w-[60%] bg-light-opacity dark:bg-dark-opacity border-b-2 border-ec1 focus:outline-none text-light-ec1 dark:text-dark-ec4"
+					className="w-[300px] s:w-[60%] bg-light-opacity dark:bg-dark-opacity border-b-2 border-ec1 focus:outline-none text-light-ec4 dark:text-dark-ec1"
 					name={name}
 					id={name}
 					onChange={onChange}

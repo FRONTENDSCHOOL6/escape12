@@ -181,13 +181,13 @@ function SignUp() {
 			<Helmet>
 				<title>회원가입</title>
 			</Helmet>
-			<div className="text-lg max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center min-h-screen m-auto">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center min-h-screen m-auto bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<KeyLogo path="/loginselete" />
 				<form
 					onSubmit={handleUserData}
 					className="flex flex-col gap-10 items-center my-14 s:px-3"
 				>
-					<fieldset className="flex flex-col gap-3">
+					<fieldset className="flex flex-col gap-3 dark:text-dark-ec1 text-light-ec4">
 						<>
 							<FormInput
 								type="email"
@@ -199,7 +199,11 @@ function SignUp() {
 								아이디(이메일)
 							</FormInput>
 							<FormInputValid
-								color={!isValidEmail || isSameEmail === true ? 'text-red' : ''}
+								color={
+									!isValidEmail || isSameEmail === true
+										? 'dark:text-dark-red text-light-red'
+										: ''
+								}
 							>
 								{!email
 									? ' '
@@ -214,7 +218,15 @@ function SignUp() {
 							<FormInput
 								type={pwView ? 'text' : 'password'}
 								name="password"
-								bg={pwView ? 'bg-eyetrue' : 'bg-eyefalse'}
+								bg={
+									window.localStorage.getItem('theme') === 'dark'
+										? pwView
+											? 'bg-eyelight'
+											: 'bg-eyefalse'
+										: pwView
+										? 'bg-eyetrue'
+										: 'bg-eyefalse'
+								}
 								onChange={debouncePwHandler}
 								onClick={isClickedPwView}
 								defaultValue={password}
@@ -222,7 +234,9 @@ function SignUp() {
 							>
 								비밀번호
 							</FormInput>
-							<FormInputValid color={!isValidPw ? 'text-red' : ''}>
+							<FormInputValid
+								color={!isValidPw ? 'dark:text-dark-red text-light-red' : ''}
+							>
 								{!password
 									? ''
 									: !isValidPw
@@ -234,7 +248,15 @@ function SignUp() {
 							<FormInput
 								type={pwConfirmView ? 'text' : 'password'}
 								name="passwordConfirm"
-								bg={pwConfirmView ? 'bg-eyetrue' : 'bg-eyefalse'}
+								bg={
+									window.localStorage.getItem('theme') === 'dark'
+										? pwConfirmView
+											? 'bg-eyelight'
+											: 'bg-eyefalse'
+										: pwConfirmView
+										? 'bg-eyetrue'
+										: 'bg-eyefalse'
+								}
 								onChange={debouncePwConfirmHandler}
 								onClick={isClickedPwConfirmView}
 								defaultValue={passwordConfirm}
@@ -244,7 +266,9 @@ function SignUp() {
 							</FormInput>
 							<FormInputValid
 								color={
-									password === passwordConfirm ? 'text-googleline' : 'text-red'
+									password === passwordConfirm
+										? 'dark:text-dark-googleline text-light-ec4'
+										: 'dark:text-dark-red text-light-red'
 								}
 							>
 								{passwordConfirm.length === 0
@@ -268,7 +292,7 @@ function SignUp() {
 								color={
 									(nickName.length !== 0 && !regNickName.test(nickName)) ||
 									isValidNickName
-										? 'text-red'
+										? 'dark:text-dark-red text-light-red'
 										: ''
 								}
 							>

@@ -116,7 +116,7 @@ function Login() {
 			<Helmet>
 				<title>로그인</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center h-screen m-auto text-lg">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center h-screen m-auto bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<KeyLogo />
 				<form
 					onSubmit={handleLogin}
@@ -129,11 +129,13 @@ function Login() {
 								name="id"
 								onChange={debounceEmailHandler}
 								defaultValue={email}
-								hidden="text-opacity"
+								hidden="dark:text-dark-ec4 text-light-ec1"
 							>
 								아이디(이메일)
 							</FormInput>
-							<FormInputValid color={!isValidId ? 'text-red' : ''}>
+							<FormInputValid
+								color={!isValidId ? 'dark:text-dark-red text-light-red' : ''}
+							>
 								{!email
 									? ' '
 									: !isValidId
@@ -145,15 +147,25 @@ function Login() {
 							<FormInput
 								type={pwView ? 'text' : 'password'}
 								name="password"
-								bg={pwView ? 'bg-eyetrue' : 'bg-eyefalse'}
+								bg={
+									window.localStorage.getItem('theme') === 'dark'
+										? pwView
+											? 'bg-eyelight'
+											: 'bg-eyefalse'
+										: pwView
+										? 'bg-eyetrue'
+										: 'bg-eyefalse'
+								}
 								onChange={debouncePwHandler}
 								onClick={isClickedPwView}
 								defaultValue={password}
-								hidden="text-opacity"
+								hidden="dark:text-dark-ec4 text-light-ec1"
 							>
 								비밀번호
 							</FormInput>
-							<FormInputValid color={!isValidPw ? 'text-red' : ''}>
+							<FormInputValid
+								color={!isValidPw ? 'dark:text-dark-red text-light-red' : ''}
+							>
 								{!password
 									? ''
 									: !isValidPw
@@ -189,10 +201,18 @@ function Login() {
 							/>
 						</DialogContent>
 						<DialogActions>
-							<Button text="text-ec4" bg="bg-kakaoline" onClick={handleClose}>
+							<Button
+								text="dark:text-dark-ec4 text-light-ec4"
+								bg="dark:bg-dark-kakaoline bg-light-kakaoline"
+								onClick={handleClose}
+							>
 								취소
 							</Button>
-							<Button text="text-ec4" bg="bg-kakaoline" onClick={handleResetPw}>
+							<Button
+								text="dark:text-dark-ec4 text-light-ec4"
+								bg="dark:bg-dark-kakaoline bg-light-kakaoline"
+								onClick={handleResetPw}
+							>
 								확인
 							</Button>
 						</DialogActions>
