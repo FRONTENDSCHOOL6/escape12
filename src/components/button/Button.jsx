@@ -18,7 +18,7 @@ function Button({
 	return (
 		<button
 			type={type}
-			className={`text-center rounded-lg ${bg} ${text} px-8 h-8 font-semibold shadow-xl dark:shadow-darkMode bg-light-ec4 dark:bg-dark-ec4 text-light-ec1 dark:text-dark-ec1`}
+			className={`text-center rounded-lg ${bg} ${text} px-8 h-8 font-semibold shadow-xl dark:shadow-darkMode bg-light-ec4 dark:bg-dark-ec1 text-light-ec1 dark:text-dark-ec4`}
 			onClick={onClick}
 		>
 			{children}
