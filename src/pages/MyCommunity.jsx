@@ -7,6 +7,7 @@ import HeaderBackRecord from '@/components/header/HeaderBackRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
 import PostList from '@/components/post/PostList';
+import { debounce } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
@@ -79,13 +80,16 @@ function MyCommunity() {
 				setEmptyData(false);
 				setIsLoading(true);
 				setNoResult(false);
+			} else {
+				setEmptyData(false);
+				setIsLoading(true);
+				setNoResult(false);
+				setPosts(resultList.items);
 			}
 		} catch (err) {
 			console.log(`검색 에러 내용 : ${err}`);
-		} finally {
-			setTimeout(() => {
-				setIsLoading(false);
-			}, 500);
+
+			setIsLoading(false);
 		}
 	};
 
@@ -108,6 +112,7 @@ function MyCommunity() {
 		mycommunity();
 	}, []);
 
+	const debounceSearch = debounce((e) => handleSearch(e));
 	// 검색 버튼
 	const handleSubmitButton = (e) => {
 		e.preventDefault();
@@ -119,7 +124,7 @@ function MyCommunity() {
 				<title>내 게시물 목록</title>
 			</Helmet>
 
-			<div className="w-full max-w-[600px] min-w-[320px] bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 py-20 bg-ec4 flex flex-col items-center min-h-[100vh] m-auto gap-14">
+			<div className="w-full max-w-[600px] min-w-[320px] bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 py-20 bg-ec4 flex flex-col items-center min-h-[100vh] m-auto text-lg gap-14">
 				<HeaderBackRecord
 					pencilClick={handleRecordButton}
 					onClick={() => {
@@ -133,7 +138,7 @@ function MyCommunity() {
 					<SearchInput
 						placeholder="검색어를 입력해주세요😀"
 						value={search}
-						onChange={handleSearch}
+						onChange={debounceSearch}
 						onSubmit={handleSubmitButton}
 					>
 						검색
