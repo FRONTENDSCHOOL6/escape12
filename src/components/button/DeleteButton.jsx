@@ -17,7 +17,7 @@ function SmallButton({
 	return (
 		<button
 			type={type}
-			className={`${text} ${bg} min-w-fit rounded-lg shadow-xl dark:shadow-darkMode bg-light-ec4 dark:bg-dark-ec4 text-light-ec1 dark:text-dark-ec1 px-2 font-semibold whitespace-nowrap s:px-0.5 transition-transform ease-in-out transform hover:scale-105 hover:bg-ec5`}
+			className={`${text} ${bg} min-w-fit rounded-lg shadow-xl dark:shadow-darkMode bg-light-ec4 dark:bg-dark-ec1 text-light-ec1 dark:text-dark-ec4 px-2 font-semibold whitespace-nowrap s:px-0.5 transition-transform ease-in-out transform hover:scale-105 hover:bg-ec5`}
 			onClick={onClick}
 		>
 			{children}
