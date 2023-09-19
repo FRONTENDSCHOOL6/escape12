@@ -5,6 +5,7 @@ import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
 import PostList from '@/components/post/PostList';
+import debounce from '@/utils/debounce';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
@@ -107,6 +108,8 @@ function PostPage() {
 		}
 	};
 
+	const debounceSearch = debounce((e) => handleSearch(e));
+
 	// 검색 버튼
 	const handleSubmitButton = (e) => {
 		e.preventDefault();
@@ -126,7 +129,7 @@ function PostPage() {
 				<SearchInput
 					placeholder="검색어를 입력해주세요😀"
 					value={search}
-					onChange={handleSearch}
+					onChange={debounceSearch}
 					onSubmit={handleSubmitButton}
 				>
 					검색
