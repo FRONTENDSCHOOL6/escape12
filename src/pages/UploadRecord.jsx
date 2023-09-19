@@ -1,7 +1,7 @@
 import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import pb from '@/api/pockethost';
 import noImage from '@/assets/noImage.png';
-import social from '@/assets/socialImg.jpg';
+import social from '@/assets/socialImg.png';
 import Spinner from '@/components/Spinner';
 import Button from '@/components/button/Button';
 import CommentItem from '@/components/comment/Commentitem';
