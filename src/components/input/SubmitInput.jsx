@@ -34,7 +34,7 @@ function SubmitInput({
 				required
 				className="px-3 py-1 rounded-full focus:outline-none flex-1"
 			/>
-			<SmallButton className="shadow-xl dark:shadow-darkMode" type="submit">
+			<SmallButton className="" type="submit">
 				{children}
 			</SmallButton>
 		</form>
