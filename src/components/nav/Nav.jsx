@@ -28,15 +28,15 @@ function Nav({ onClick = null }) {
 
 	return (
 		<nav
-			className="text-center bg-ec3 text-ec1 font-bold pb-2 pt-1 max-w-[600px] min-w-[320px] m-auto fixed bottom-0 left-0 right-0"
+			className="text-center bg-light-ec3 text-ec1 font-bold pb-2 pt-1 max-w-[600px] min-w-[320px] m-auto fixed bottom-0 left-0 right-0"
 			onClick={onClick}
 		>
 			<ul className="flex justify-around items-center">
 				<li>
 					<NavLink
 						to="/theme"
-						className={`text-ec1 hover:text-ec5 ${
-							isThemeActive ? 'text-ec5' : ''
+						className={`text-light-ec1 hover:text-light-ec5 ${
+							isThemeActive ? 'text-light-ec5' : ''
 						}`}
 					>
 						<img className="w-12" src={list4} alt="마이" />
@@ -46,13 +46,13 @@ function Nav({ onClick = null }) {
 				<li>
 					<NavLink
 						to="/recordcommunity"
-						className={`text-ec1 hover:text-ec5 ${
+						className={`text-light-ec1 hover:text-light-ec5 ${
 							isRecordPageActive ||
 							isThemeRecordActive ||
 							isUploadRecordActive ||
 							isRecordCommunityActive ||
 							isEditRecordActive
-								? 'text-ec5'
+								? 'text-light-ec5'
 								: ''
 						} flex flex-col items-center`}
 					>
@@ -63,9 +63,9 @@ function Nav({ onClick = null }) {
 				<li>
 					<NavLink
 						to="/postpage"
-						className={`text-ec1 hover:text-ec5 ${
+						className={`text-light-ec1 hover:text-light-ec5 ${
 							isAddCommunityActive || isPostPageActive || isCommentPageActive
-								? 'text-ec5'
+								? 'text-light-ec5'
 								: ''
 						}`}
 					>
@@ -76,14 +76,14 @@ function Nav({ onClick = null }) {
 				<li>
 					<NavLink
 						to="/mypage"
-						className={`text-ec1 hover:text-ec5 ${
+						className={`text-light-ec1 hover:text-light-ec5 ${
 							isMyPageActive ||
 							isMyRecordActive ||
 							isBookMarkActive ||
 							isMyPageEditActive ||
 							isMyCommunityActive ||
 							isMyCommentActive
-								? 'text-ec5'
+								? 'text-light-ec5'
 								: ''
 						}`}
 					>

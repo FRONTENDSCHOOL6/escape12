@@ -3,17 +3,19 @@ import { Toaster } from 'react-hot-toast';
 import { RouterProvider } from 'react-router-dom';
 import router from './routes';
 import AuthProvider from '@/contexts/Auth';
+import { ThemeProvider } from './contexts/ThemeProvider';
 
 function App() {
 	return (
-		<>
-			<HelmetProvider>
-				<AuthProvider>
-					<RouterProvider router={router} />
-				</AuthProvider>
-			</HelmetProvider>
+		<HelmetProvider>
+			<AuthProvider>
+				<ThemeProvider>
+					{''}
+					<RouterProvider router={router}>{router.routes}</RouterProvider>
+				</ThemeProvider>
+			</AuthProvider>
 			<Toaster />
-		</>
+		</HelmetProvider>
 	);
 }
 
