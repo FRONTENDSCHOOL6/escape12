@@ -19,6 +19,7 @@ function Mypage() {
 	const [community, setCommunity] = useState([]);
 	const [comment, setComment] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
+	
 	const KAKAO_CLIENT_ID = '7e2f5729e497d2295073a752a34b20c2';
 	const KAKAO_LOGOUT_REDIRECT_URI = 'http://localhost:5173/';
 
