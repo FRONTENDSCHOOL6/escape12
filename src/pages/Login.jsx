@@ -4,6 +4,15 @@ import KeyLogo from '@/components/KeyLogo';
 import FormInput from '@/components/loginsignup/FormInput';
 import FormInputValid from '@/components/loginsignup/FormInputValid';
 import debounce from '@/utils/debounce';
+import {
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+	TextField,
+} from '@mui/material';
+import { useRef } from 'react';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
@@ -23,13 +32,38 @@ function Login() {
 	const [isValidId, setIsValidId] = useState(false);
 	const [isValidPw, setIsValidPw] = useState(false);
 	const [pwView, setPwView] = useState(false);
+	const [open, setOpen] = useState(false);
+	const confirmEmailRef = useRef('');
 
-	//아이디비밀번호 찾기 안내문구
-	const handleFindUserData = () => {
-		toast('현재 해당 서비스는 이용불가합니다', {
-			icon: '😭',
-			duration: 2000,
+	// 이메일 비밀번호 확인 및 변경 요청 인풋
+	const handleEmail = (e) => {
+		confirmEmailRef.current = e.target.value;
+	};
+
+	// 아이디비밀번호 찾기
+	const handleResetPw = async () => {
+		toast(`메일이 전송되었습니다`, {
+			icon: '✉️',
+			duration: 1000,
 		});
+
+		handleClose();
+
+		await pb
+			.collection('users')
+			.requestPasswordReset(`${confirmEmailRef.current}`);
+
+		await pb
+			.collection('users')
+			.requestVerification(`${confirmEmailRef.current}`);
+	};
+
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
 	};
 
 	//패스워드 보기
@@ -58,9 +92,6 @@ function Login() {
 		e.preventDefault();
 
 		try {
-			// 인증 새로고침
-			// await pb.collection('users').authRefresh();
-
 			const authData = await pb
 				.collection('users')
 				.authWithPassword(email, password);
@@ -136,9 +167,36 @@ function Login() {
 					</Button>
 				</form>
 				<div className="flex flex-col items-center gap-5 flex-1 text-ec1">
-					<Link to="" onClick={handleFindUserData}>
+					<Link to="" onClick={handleClickOpen}>
 						아이디/비밀번호 찾기
 					</Link>
+					<Dialog open={open} onClose={handleClose}>
+						<DialogTitle>정보 변경</DialogTitle>
+						<DialogContent>
+							<DialogContentText>
+								아이디/비밀번호 확인 메일을 받으실 메일 주소를 작성해주세요
+							</DialogContentText>
+							<TextField
+								ref={confirmEmailRef}
+								onChange={handleEmail}
+								autoFocus
+								margin="dense"
+								id="name"
+								label="Email Address"
+								type="email"
+								fullWidth
+								variant="standard"
+							/>
+						</DialogContent>
+						<DialogActions>
+							<Button text="text-ec4" bg="bg-kakaoline" onClick={handleClose}>
+								취소
+							</Button>
+							<Button text="text-ec4" bg="bg-kakaoline" onClick={handleResetPw}>
+								확인
+							</Button>
+						</DialogActions>
+					</Dialog>
 					<Link to="/signup">회원가입</Link>
 					<Link to="/loginselete">다른 방법으로 로그인</Link>
 				</div>
