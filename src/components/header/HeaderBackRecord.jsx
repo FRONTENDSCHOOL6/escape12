@@ -1,6 +1,6 @@
-import { string, func } from 'prop-types';
-import PlusButton from '../button/PlusButton';
 import pencil from '@/assets/plusbutton-pencil.png';
+import { func, string } from 'prop-types';
+import PlusButton from '../button/PlusButton';
 
 HeaderBackRecord.propTypes = {
 	children: string,
