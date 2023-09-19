@@ -3,27 +3,27 @@ import PropTypes from 'prop-types';
 import Sup from '../record/Sup';
 
 FormInput.propTypes = {
-	type: string,
-	name: string,
-	bg: string,
-	children: PropTypes.oneOfType([
-		PropTypes.arrayOf(PropTypes.node),
-		PropTypes.node,
-	]),
-	onChange: func,
-	onClick: func,
-	hidden: string,
+    type: string,
+    name: string,
+    bg: string,
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node,
+    ]),
+    onChange: func,
+    onClick: func,
+    hidden: string,
 };
 
 function FormInput({
-	children,
-	type,
-	name,
-	bg = 'hidden',
-	onChange = null,
-	onClick = null,
-	hidden = 'text-red',
-	...restProps
+    children,
+    type,
+    name,
+    bg = 'hidden',
+    onChange = null,
+    onClick = null,
+    hidden = 'text-red',
+    ...restProps
 }) {
 	return (
 		<>
