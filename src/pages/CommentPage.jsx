@@ -144,7 +144,7 @@ function CommentPage() {
 			<Helmet>
 				<title>게시글 상세</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col gap-3 items-center min-h-[100vh] m-auto px-20 s:px-12 py-24 relative">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col gap-3 bg-light-ec1 dark:bg-dark-ec1 text-light-ec4 dark:text-dark-ec4 items-center min-h-[100vh] m-auto px-20 s:px-12 py-24 relative">
 				<Headerback
 					onClick={() => {
 						navigate(-1);
@@ -225,7 +225,7 @@ function CommentPage() {
 								등록
 							</SubmitInput>
 
-							<ul className="flex flex-col gap-4 text-lg w-full text-ec1">
+							<ul className="flex flex-col gap-4 text-lg w-full text-ec1 ">
 								{comment &&
 									comment.map((item) => {
 										// 댓글 삭제하기
