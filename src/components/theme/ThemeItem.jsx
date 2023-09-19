@@ -59,11 +59,17 @@ function ThemeItem({
 				</section>
 				<section className="flex justify-between s:justify-around">
 					{level === 1 || level === 2 || level === 3 ? (
-						<SmallButton bg="bg-googleline">♣ 쉬움</SmallButton>
+						<SmallButton bg="dark:bg-dark-googleline bg-light-googleline text-light-ec4">
+							♣ 쉬움
+						</SmallButton>
 					) : level === 4 || level === 5 || level === 6 || level === 7 ? (
-						<SmallButton bg="bg-kakaoline">♣ 보통</SmallButton>
+						<SmallButton bg="dark:bg-dark-kakaoline bg-light-kakaoline text-light-ec4">
+							♣ 보통
+						</SmallButton>
 					) : (
-						<SmallButton bg="bg-sweetred">♣ 어려움</SmallButton>
+						<SmallButton bg="dark:bg-dark-sweetred bg-light-sweetred text-light-ec4">
+							♣ 어려움
+						</SmallButton>
 					)}
 					{clear && clear.findIndex((item) => item.id === `${dataid}`) >= 0 && (
 						<Link to={`/upload/${record}`}>

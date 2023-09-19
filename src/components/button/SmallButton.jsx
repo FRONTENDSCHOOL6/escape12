@@ -11,7 +11,7 @@ function SmallButton({
 	type = 'button',
 	children,
 	bg = 'bg-ec1',
-	text = 'text-ec4',
+	text = '',
 	onClick = null,
 }) {
 	return (

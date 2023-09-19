@@ -11,7 +11,7 @@ PlusButton.propTypes = {
 
 function PlusButton({ onClick, src, alt, location, hidden = {} }) {
 	return (
-		<Tooltip title="기록하기" arrow>
+		<Tooltip title={`${alt}` === '위로가기' ? '' : '기록하기'} arrow>
 			<button
 				type="button"
 				className={`s:w-14 w-14 h-14 flex items-center justify-center bg-ec1 border-1 rounded-full text-6xl font-semibold absolute ${location} ${hidden}`}

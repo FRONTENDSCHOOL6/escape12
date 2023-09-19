@@ -24,10 +24,10 @@ export default {
 				kakaoline: '#FFE895',
 			},
 			dark: {
-				ec1: '#352F44',
+				ec1: '#FAF0E6',
 				ec2: '#B9B4C7',
 				ec3: '#5C5470',
-				ec4: '#FAF0E6',
+				ec4: '#352F44',
 				ec5: '#F8DE22',
 				green: 'green',
 				red: 'red',
