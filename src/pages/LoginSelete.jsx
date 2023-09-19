@@ -17,14 +17,11 @@ function LoginSelete() {
 
 		const { username: name, email, avatarUrl } = kakao.meta;
 
-		console.log(avatarUrl);
-		console.log(typeof avatarUrl);
-
 		const updateUser = {
 			username: email.split('@')[0],
 			nickName: name,
 			emailVisibility: true,
-			// avatar: avatarUrl,
+			social: avatarUrl,
 		};
 
 		await pb.collection('users').update(kakao.record.id, updateUser);
@@ -43,8 +40,6 @@ function LoginSelete() {
 				icon: '😭',
 				duration: 2000,
 			});
-		} finally {
-			console.log(kakao);
 		}
 	};
 
@@ -60,7 +55,7 @@ function LoginSelete() {
 			username: email.split('@')[0],
 			nickName: name,
 			emailVisibility: true,
-			// avatar: avatarUrl,
+			social: avatarUrl,
 		};
 
 		await pb.collection('users').update(google.record.id, updateUserGoogle);
@@ -78,8 +73,6 @@ function LoginSelete() {
 				icon: '😭',
 				duration: 2000,
 			});
-		} finally {
-			console.log(google);
 		}
 	};
 

@@ -248,9 +248,11 @@ function UploadRecord() {
 									src={
 										data.expand?.author?.id && data.expand?.author?.avatar
 											? `https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`
-											: data.expand?.author?.id
+											: data.expand?.author?.social ===
+													'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg' ||
+											  !data.expand?.author?.social
 											? `${social}`
-											: `${noImage}`
+											: data.expand?.author?.social
 									}
 									alt={data.expand?.author?.nickName}
 									aria-hidden
@@ -355,9 +357,14 @@ function UploadRecord() {
 														item.expand?.author?.id &&
 														item.expand?.author?.avatar
 															? `https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`
-															: item.expand?.author?.id
+															: item.expand?.author?.id &&
+															  item.expand?.author?.social
+															? item.expand?.author?.social
+															: item.expand?.author?.social ===
+																	'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg' ||
+															  !item.expand?.author?.social
 															? `${social}`
-															: `${noImage}`
+															: item.expand?.author?.social
 													}
 													alt={item.expand?.author?.nickName}
 													nickName={
