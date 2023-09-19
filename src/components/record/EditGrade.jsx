@@ -1,5 +1,5 @@
+import { Rating } from '@mui/material';
 import { func, string } from 'prop-types';
-import Select from './Select';
 import Sup from './Sup';
 
 EditGrade.propTypes = {
@@ -13,15 +13,17 @@ function EditGrade({ grade, onChange }) {
 			<label htmlFor="grade" className="w-32 s:min-w-fit">
 				<Sup>평점</Sup>
 			</label>
-			<Select
+			<Rating
 				id="grade"
-				name="grade"
 				onChange={onChange}
-				max={10}
+				max={5}
 				value={grade}
+				name="half-rating grade"
+				defaultValue={5}
+				precision={0.5}
 				required
+				sx={{ '& .MuiRating-iconEmpty': { color: '#868e96' } }}
 			/>
-			<span className="s:min-w-fit">/ 10</span>
 		</div>
 	);
 }

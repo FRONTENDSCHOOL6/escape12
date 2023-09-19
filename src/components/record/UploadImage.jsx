@@ -10,7 +10,7 @@ UploadImage.propTypes = {
 
 function UploadImage({ inputRef, onChange, imgRef, src, alt, ...restProps }) {
 	return (
-		<div className="flex flex-col gap-5 text-ec1 relative px-2">
+		<div className="flex flex-col gap-1 text-ec1 relative px-2 mt-5">
 			<label htmlFor="image">사진</label>
 			<input
 				ref={inputRef}

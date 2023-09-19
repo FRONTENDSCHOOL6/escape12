@@ -1,5 +1,5 @@
 import { func, string } from 'prop-types';
-import Select from './Select';
+import SelectInput from './SelectInput';
 
 EditRemainingTime.propTypes = {
 	hour: string,
@@ -15,7 +15,7 @@ function EditRemainingTime({ hour, hourEvent, minute, minuteEvent }) {
 				남은 시간
 			</label>
 			<div className="flex gap-2">
-				<Select
+				<SelectInput
 					id="clearTime"
 					name="hour"
 					value={hour}
@@ -23,7 +23,7 @@ function EditRemainingTime({ hour, hourEvent, minute, minuteEvent }) {
 					max={1}
 				/>
 				:
-				<Select
+				<SelectInput
 					id="clearTime"
 					name="minute"
 					value={minute}

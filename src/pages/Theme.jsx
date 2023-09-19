@@ -9,8 +9,7 @@ import HeartButton from '@/components/theme/HeartButton';
 import LiButton from '@/components/theme/LiButton';
 import ThemeItem from '@/components/theme/ThemeItem';
 import debounce from '@/utils/debounce';
-import { useLayoutEffect } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -35,6 +34,7 @@ function Theme() {
 	const [like, setLike] = useState(false);
 	const [record, setRecord] = useState();
 	const [bookMark, setBookMark] = useState(null);
+	const [page, setPage] = useState(1);
 
 	// 즐겨찾기 기능
 	const isClickHeart = async (item) => {
@@ -100,11 +100,32 @@ function Theme() {
 	useEffect(() => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
+			const totalPageHeight = document.documentElement.scrollHeight;
+			const windowHeight = window.innerHeight;
+
 			if (
 				(currentScrollY >= 500 && !showPlusNav) ||
 				(currentScrollY < 500 && showPlusNav)
 			) {
 				setShowPlusNav(currentScrollY >= 500);
+			}
+
+			if (currentScrollY + windowHeight >= totalPageHeight) {
+				const dataUpdate = async () => {
+					const escape = await pb
+						.collection('escapeList')
+						.getList(page + 1, 10, {
+							sort: 'theme',
+						});
+
+					try {
+						setPage(page + 1);
+						setData((prevData) => [...prevData, ...escape.items]);
+					} catch (err) {
+						console.log(`에러 내용: ${err}`);
+					}
+				};
+				dataUpdate();
 			}
 		};
 
@@ -113,7 +134,7 @@ function Theme() {
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
 		};
-	}, [showPlusNav]);
+	}, [page, showPlusNav]);
 
 	//인기순 정렬하기
 	const handleGradeSort = () => {
