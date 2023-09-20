@@ -49,15 +49,13 @@ function ThemeItem({
 							: '🌸꽃길'}
 					</Span>
 				</section>
-				<section className="flex justify-between items-center">
-					<div className="flex gap-1">
-						<h3>
-							{store} <Span>{point}점</Span>
-						</h3>
-					</div>
+				<section className="flex justify-between items-center s:w-[90%]">
+					<h3 className="s:max-w-[70%] overflow-hidden text-ellipsis whitespace-nowrap">
+						{store} <Span text="pl-1">{point}점</Span>
+					</h3>
 					<Span text="font-semibold">{field}</Span>
 				</section>
-				<section className="flex justify-between s:justify-around">
+				<section className="flex justify-between s:w-[90%]">
 					{level === 1 || level === 2 || level === 3 ? (
 						<SmallButton bg="dark:bg-dark-googleline bg-light-googleline text-light-ec4">
 							♣ 쉬움

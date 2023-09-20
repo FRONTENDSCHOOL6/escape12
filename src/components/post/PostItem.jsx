@@ -19,7 +19,7 @@ function PostItem({ id, title, author, content, src, alt }) {
 		<Link to={`/postpage/${id}`}>
 			<div className="border-2 max-h-[105px] p-4 mb-6 rounded-xl flex flex-col m-auto transition-transform duration-500 ease-in-out transform hover:scale-105">
 				<div className="flex justify-between border-b-[1px] mb-4 pb-0.5">
-					<p className="whitespace-nowrap overflow-hidden text-ellipsis font-semibold">
+					<p className="s:max-w-[100px] whitespace-nowrap overflow-hidden text-ellipsis font-semibold">
 						{title}
 					</p>
 					<div className="flex items-center">
