@@ -147,7 +147,7 @@ function CommentPage() {
 			<Helmet>
 				<title>게시글 상세</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] text-lg bg-ec4 flex flex-col gap-3 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 items-center min-h-[100vh] m-auto px-20 s:px-12 py-24 relative">
+			<div className="max-w-[600px] min-w-[320px] text-lg flex flex-col gap-3 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 items-center min-h-[100vh] m-auto px-20 s:px-12 py-24 relative">
 				<Headerback
 					onClick={() => {
 						navigate(-1);
@@ -163,8 +163,9 @@ function CommentPage() {
 				{isLoading && (
 					<>
 						<div className="min-w-[300px] w-full">
-							<div className="text-right">
-								<span className="text-ec1">
+							<div className="text-right mb-1">
+								<span>
+									📅
 									{!data.created
 										? data.community.created
 										: data.created.slice(0, 10)}
@@ -175,17 +176,17 @@ function CommentPage() {
 									<Post
 										src={
 											data.expand &&
-												data.expand.author &&
-												data.expand.author.avatar
+											data.expand.author &&
+											data.expand.author.avatar
 												? `https://refresh.pockethost.io/api/files/${data.expand.author.collectionId}/${data.expand.author.id}/${data.expand.author.avatar}`
 												: data.expand?.author?.social ===
-													'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-													? `${social}`
-													: data.expand?.author?.social
-														? data.expand?.author?.social
-														: theme === 'dark'
-															? `${noImageLight}`
-															: `${noImage}`
+												  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+												? `${social}`
+												: data.expand?.author?.social
+												? data.expand?.author?.social
+												: theme === 'dark'
+												? `${noImageLight}`
+												: `${noImage}`
 										}
 										alt={data.expand?.author?.nickName || '탈퇴회원'}
 										title={data.title}
@@ -255,20 +256,27 @@ function CommentPage() {
 												<CommentItem
 													src={
 														item.expand &&
-															item.expand.author &&
-															item.expand.author.avatar
+														item.expand.author &&
+														item.expand.author.avatar
 															? `https://refresh.pockethost.io/api/files/${item.expand.author.collectionId}/${item.expand.author.id}/${item.expand.author.avatar}`
 															: item.expand?.author?.social ===
-																'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-																? `${social}`
-																: item.expand?.author?.social
-																	? item.expand?.author?.social
-																	: theme === 'dark'
-																		? `${noImageLight}`
-																		: `${noImage}`
+															  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+															? `${social}`
+															: item.expand?.author?.social
+															? item.expand?.author?.social
+															: theme === 'dark'
+															? `${noImageLight}`
+															: `${noImage}`
 													}
 													alt={item.expand?.author?.nickName}
-													nickName={item.expand?.author?.nickName}
+													nickName={
+														item.expand?.author?.nickName &&
+														item.expand?.author?.id
+															? item.expand?.author?.nickName
+															: item.expand?.author?.id
+															? '소셜계정'
+															: '탈퇴회원'
+													}
 													comment={item.content}
 													userId={item.expand?.author?.id}
 													id={item.id}

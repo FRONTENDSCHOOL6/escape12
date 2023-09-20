@@ -10,7 +10,7 @@ Post.propTypes = {
 
 function Post({ title, author, content, src, alt }) {
 	return (
-		<div className="text-[15px]  min-h-[400px] text-lg text-ec1 border-2 p-4 mb-4 rounded-xl flex flex-col m-auto">
+		<div className="min-h-[400px] text-lg border-2 p-4 mb-4 rounded-xl flex flex-col m-auto">
 			<div className="flex justify-between border-b-[1px] mb-4 pb-2">
 				<p className="font-semibold">{title}</p>
 				<div className="flex items-center">

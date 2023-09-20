@@ -34,7 +34,6 @@ function MyCommentPage() {
 		MyComment();
 	}, [userUId?.model.id]);
 
-	console.log(comment);
 	return (
 		<>
 			<Helmet>

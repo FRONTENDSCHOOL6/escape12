@@ -28,7 +28,7 @@ function Nav({ onClick = null }) {
 
 	return (
 		<nav
-			className="text-center bg-light-ec3 text-ec1 font-bold pb-2 pt-1 max-w-[600px] min-w-[320px] m-auto fixed bottom-0 left-0 right-0"
+			className="text-center bg-light-ec3 font-bold pb-2 pt-1 max-w-[600px] min-w-[320px] m-auto fixed bottom-0 left-0 right-0"
 			onClick={onClick}
 		>
 			<ul className="flex justify-around items-center">
