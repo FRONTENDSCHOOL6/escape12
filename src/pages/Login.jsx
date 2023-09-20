@@ -42,20 +42,12 @@ function Login() {
 
 	// 아이디비밀번호 찾기
 	const handleResetPw = async () => {
-		toast(`메일이 전송되었습니다`, {
+		toast(`해당 기능은 지원하지않습니다`, {
 			icon: '✉️',
-			duration: 1000,
+			duration: 2000,
 		});
 
 		handleClose();
-
-		await pb
-			.collection('users')
-			.requestPasswordReset(`${confirmEmailRef.current}`);
-
-		await pb
-			.collection('users')
-			.requestVerification(`${confirmEmailRef.current}`);
 	};
 
 	const handleClickOpen = () => {
