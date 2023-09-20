@@ -60,8 +60,8 @@ function AddCommunity() {
 				>
 					글 작성
 				</Headerback>
-				<form onSubmit={handleDateCrate} className="flex flex-col items-center">
-					<div className="text-lg pt-28 s:px-12 px-14">
+				<form onSubmit={handleDateCrate} className="flex flex-col items-center w-full">
+					<div className="text-lg pt-28 w-full px-20 s:px-12">
 						{/* Title, Content */}
 						<FormInput
 							type="text"
