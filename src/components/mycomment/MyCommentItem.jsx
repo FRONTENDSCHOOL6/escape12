@@ -16,7 +16,7 @@ MyCommentItem.propTypes = {
 };
 
 function MyCommentItem({ comment, id, postId, postTitle, postType }) {
-	const maxLength = 27;
+	const maxLength = 25;
 	const handleDeletecomment = async (e) => {
 		e.preventDefault();
 		const deleteConfirm = confirm('정말로 삭제하시겠습니까?');
