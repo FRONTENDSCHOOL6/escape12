@@ -127,7 +127,6 @@ function PostPage() {
 				<HeaderRecord pencilClick={handleRecordButton}>
 					커뮤니티 목록
 				</HeaderRecord>
-
 				<SearchInput
 					placeholder="검색어를 입력해주세요 😀"
 					value={search}

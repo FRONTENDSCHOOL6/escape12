@@ -116,7 +116,7 @@ function Editpage() {
 									onChange={handleUploadPhoto}
 									imgRef={uploadPhotoRef}
 									src={
-										data.avatar ? `https://refresh.pockethost.io/api/files/${collectionId}/${id}/${avatar}` : !data.social || data.social === "http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg" ? `${socialImg}`: data.social}
+										data.avatar ? `https://refresh.pockethost.io/api/files/${collectionId}/${id}/${avatar}` : !data.social || data.social === "http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg" ? `${socialImg}` : data.social}
 									alt={data.theme}
 								/>
 							</div>

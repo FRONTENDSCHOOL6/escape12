@@ -208,10 +208,10 @@ function SignUp() {
 								{!email
 									? ' '
 									: !isValidEmail
-									? '이메일 형식으로 입력해주세요'
-									: isSameEmail === true
-									? '존재하는 이메일입니다'
-									: ' '}
+										? '이메일 형식으로 입력해주세요'
+										: isSameEmail === true
+											? '존재하는 이메일입니다'
+											: ' '}
 							</FormInputValid>
 						</>
 						<>
@@ -224,8 +224,8 @@ function SignUp() {
 											? 'bg-eyelight'
 											: 'bg-eyefalse'
 										: pwView
-										? 'bg-eyetrue'
-										: 'bg-eyefalse'
+											? 'bg-eyetrue'
+											: 'bg-eyefalse'
 								}
 								onChange={debouncePwHandler}
 								onClick={isClickedPwView}
@@ -240,8 +240,8 @@ function SignUp() {
 								{!password
 									? ''
 									: !isValidPw
-									? '비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다'
-									: ''}
+										? '비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다'
+										: ''}
 							</FormInputValid>
 						</>
 						<>
@@ -254,8 +254,8 @@ function SignUp() {
 											? 'bg-eyelight'
 											: 'bg-eyefalse'
 										: pwConfirmView
-										? 'bg-eyetrue'
-										: 'bg-eyefalse'
+											? 'bg-eyetrue'
+											: 'bg-eyefalse'
 								}
 								onChange={debouncePwConfirmHandler}
 								onClick={isClickedPwConfirmView}
@@ -274,8 +274,8 @@ function SignUp() {
 								{passwordConfirm.length === 0
 									? ''
 									: password === passwordConfirm
-									? '비밀번호가 일치합니다'
-									: '비밀번호가 일치하지 않습니다'}
+										? '비밀번호가 일치합니다'
+										: '비밀번호가 일치하지 않습니다'}
 							</FormInputValid>
 						</>
 						<>
@@ -291,7 +291,7 @@ function SignUp() {
 							<FormInputValid
 								color={
 									(nickName.length !== 0 && !regNickName.test(nickName)) ||
-									isValidNickName
+										isValidNickName
 										? 'dark:text-dark-red text-light-red'
 										: ''
 								}
@@ -299,8 +299,8 @@ function SignUp() {
 								{nickName.length !== 0 && !regNickName.test(nickName)
 									? '공백 제외 두 자리 이상입력해주세요'
 									: nickName.length !== 0 && isValidNickName === true
-									? '존재하는 닉네임입니다'
-									: ''}
+										? '존재하는 닉네임입니다'
+										: ''}
 							</FormInputValid>
 							<div className="flex justify-between text-ec1 relative px-2 gap-5">
 								<label htmlFor="image" className="whitespace-nowrap">

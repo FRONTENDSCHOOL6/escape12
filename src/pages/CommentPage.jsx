@@ -140,7 +140,7 @@ function CommentPage() {
 		};
 
 		handleUserCommunity();
-	}, []);
+	}, [userUId.model.id]);
 
 	return (
 		<div>
@@ -175,17 +175,17 @@ function CommentPage() {
 									<Post
 										src={
 											data.expand &&
-											data.expand.author &&
-											data.expand.author.avatar
+												data.expand.author &&
+												data.expand.author.avatar
 												? `https://refresh.pockethost.io/api/files/${data.expand.author.collectionId}/${data.expand.author.id}/${data.expand.author.avatar}`
 												: data.expand?.author?.social ===
-												  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-												? `${social}`
-												: data.expand?.author?.social
-												? data.expand?.author?.social
-												: theme === 'dark'
-												? `${noImageLight}`
-												: `${noImage}`
+													'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+													? `${social}`
+													: data.expand?.author?.social
+														? data.expand?.author?.social
+														: theme === 'dark'
+															? `${noImageLight}`
+															: `${noImage}`
 										}
 										alt={data.expand?.author?.nickName || '탈퇴회원'}
 										title={data.title}
@@ -255,17 +255,17 @@ function CommentPage() {
 												<CommentItem
 													src={
 														item.expand &&
-														item.expand.author &&
-														item.expand.author.avatar
+															item.expand.author &&
+															item.expand.author.avatar
 															? `https://refresh.pockethost.io/api/files/${item.expand.author.collectionId}/${item.expand.author.id}/${item.expand.author.avatar}`
 															: item.expand?.author?.social ===
-															  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-															? `${social}`
-															: item.expand?.author?.social
-															? item.expand?.author?.social
-															: theme === 'dark'
-															? `${noImageLight}`
-															: `${noImage}`
+																'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+																? `${social}`
+																: item.expand?.author?.social
+																	? item.expand?.author?.social
+																	: theme === 'dark'
+																		? `${noImageLight}`
+																		: `${noImage}`
 													}
 													alt={item.expand?.author?.nickName}
 													nickName={item.expand?.author?.nickName}

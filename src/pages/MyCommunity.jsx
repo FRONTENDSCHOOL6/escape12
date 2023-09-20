@@ -3,7 +3,6 @@ import userUId from '@/api/userUid';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
 import HeaderBackRecord from '@/components/header/HeaderBackRecord';
-// import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
 import PostList from '@/components/post/PostList';

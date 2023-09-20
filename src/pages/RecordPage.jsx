@@ -128,7 +128,7 @@ function RecordPage() {
 			}
 		};
 		dataList();
-	}, []);
+	}, [userUId?.model.id]);
 
 	return (
 		<>

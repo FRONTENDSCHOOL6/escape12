@@ -139,8 +139,8 @@ function Login() {
 								{!email
 									? ' '
 									: !isValidId
-									? '이메일 형식으로 입력해주세요'
-									: ' '}
+										? '이메일 형식으로 입력해주세요'
+										: ' '}
 							</FormInputValid>
 						</div>
 						<div>
@@ -153,8 +153,8 @@ function Login() {
 											? 'bg-eyelight'
 											: 'bg-eyefalse'
 										: pwView
-										? 'bg-eyetrue'
-										: 'bg-eyefalse'
+											? 'bg-eyetrue'
+											: 'bg-eyefalse'
 								}
 								onChange={debouncePwHandler}
 								onClick={isClickedPwView}
@@ -169,8 +169,8 @@ function Login() {
 								{!password
 									? ''
 									: !isValidPw
-									? '비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다'
-									: ''}
+										? '비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다'
+										: ''}
 							</FormInputValid>
 						</div>
 					</fieldset>

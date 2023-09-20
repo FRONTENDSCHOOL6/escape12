@@ -34,7 +34,7 @@ function Mypage() {
 				icon: '⭕',
 				duration: 500,
 			});
-		} else {
+		} else if (data.social) {
 			toast('로그아웃이 완료되었습니다', {
 				icon: '⭕',
 				duration: 500,
