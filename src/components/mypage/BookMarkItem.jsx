@@ -1,7 +1,7 @@
 import SmallButton from '@/components/button/SmallButton';
-import { number, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import Span from '../theme/Span';
+import { number, string } from 'prop-types';
 
 BookMarkItem.propTypes = {
 	store: string,
