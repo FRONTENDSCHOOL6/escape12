@@ -7,13 +7,16 @@ import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
 import RecordCommunityItem from '@/components/record/RecordCommunityItem';
+import { ThemeContext } from '@/contexts/ThemeContext';
 import debounce from '@/utils/debounce';
+import { useContext } from 'react';
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 function RecordCommunity() {
 	const navigate = useNavigate();
+	const { theme } = useContext(ThemeContext);
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [emptyData, setEmptyData] = useState(false);
@@ -200,11 +203,11 @@ function RecordCommunity() {
 													? `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
 													: item.expand?.escapeList?.image
 													? item.expand?.escapeList?.image
-													: window.localStorage.getItem('theme') === 'dark' &&
+													: theme === 'dark' &&
 													  !item.image &&
 													  !item.expand?.escapeList?.image
 													? `${noImageLight}`
-													: window.localStorage.getItem('theme') === 'light' &&
+													: theme === 'light' &&
 													  !item.image &&
 													  !item.expand?.escapeList?.image
 													? `${noImage}`

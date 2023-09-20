@@ -9,15 +9,18 @@ import HeartButton from '@/components/theme/HeartButton';
 import LiButton from '@/components/theme/LiButton';
 import ThemeItem from '@/components/theme/ThemeItem';
 import debounce from '@/utils/debounce';
+import { useContext } from 'react';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { ThemeContext } from '@/contexts/ThemeContext';
 
 function Theme() {
 	const {
 		user: { id: userId },
 	} = getUserInfo();
+	const { theme } = useContext(ThemeContext);
 	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const [data, setData] = useState([]);
@@ -483,11 +486,10 @@ function Theme() {
 									<HeartButton
 										onClick={() => isClickHeart(item)}
 										checked={
-											window.localStorage.getItem('theme') === 'dark' &&
-											bookMark.indexOf(`${item.id}`) > 0
+											theme === 'dark' && bookMark.indexOf(`${item.id}`) >= 0
 												? 'bg-hearttrue'
-												: window.localStorage.getItem('theme') === 'light' &&
-												  bookMark.indexOf(`${item.id}`) > 0
+												: theme === 'light' &&
+												  bookMark.indexOf(`${item.id}`) >= 0
 												? 'bg-heartlike'
 												: 'bg-heartfalse'
 										}

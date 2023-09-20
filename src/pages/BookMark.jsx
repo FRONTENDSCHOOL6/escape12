@@ -6,6 +6,8 @@ import Headerback from '@/components/header/Headerback';
 import BookMarkItem from '@/components/mypage/BookMarkItem';
 import UpNav from '@/components/nav/UpNav';
 import HeartButton from '@/components/theme/HeartButton';
+import { ThemeContext } from '@/contexts/ThemeContext';
+import { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
@@ -18,6 +20,7 @@ function BookMark() {
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const navigate = useNavigate();
 	const userUId = getUserInfoFromStorage();
+	const { theme } = useContext(ThemeContext);
 
 	// 즐겨찾기 기능
 	const isClickHeart = async (item) => {
@@ -144,9 +147,12 @@ function BookMark() {
 									<HeartButton
 										onClick={() => isClickHeart(item)}
 										checked={
-											bookMarkId.indexOf(`${item.id}`) < 0
-												? 'bg-heartfalse'
-												: 'bg-hearttrue'
+											theme === 'dark' && bookMarkId.indexOf(`${item.id}`) >= 0
+												? 'bg-hearttrue'
+												: theme === 'light' &&
+												  bookMarkId.indexOf(`${item.id}`) >= 0
+												? 'bg-heartlike'
+												: 'bg-haertfalse'
 										}
 									/>
 								</li>
@@ -154,11 +160,8 @@ function BookMark() {
 						})}
 					</ul>
 				)}
-				<UpNav
-					topClick={handleTopButton}
-					hidden={!showPlusNav ? 'hidden' : ''}
-				/>
 			</div>
+			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
 		</>
 	);
 }
