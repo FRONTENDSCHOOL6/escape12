@@ -199,7 +199,7 @@ function Mypage() {
 						>
 							로그아웃
 						</Button>
-						<div className="flex flex-col items-center pt-4 flex-1">
+						<div className="flex flex-col items-center pt-4 flex-1 text-light-gray">
               <button
                 type='button'
                 onClick={handleSecession}>
