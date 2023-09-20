@@ -301,15 +301,17 @@ function Theme() {
 		const escapeSearch = async () => {
 			const resultList = await pb.collection('escapeList').getList(1, 227, {
 				sort: 'theme',
-				filter: `(store ~ "${e.target.value}" || theme ~ "${e.target.value
-					}" || field ~ "${e.target.value}" || grade ~ "${e.target.value === '꽃길'
+				filter: `(store ~ "${e.target.value}" || theme ~ "${
+					e.target.value
+				}" || field ~ "${e.target.value}" || grade ~ "${
+					e.target.value === '꽃길'
 						? 8 || 9 || 10
 						: e.target.value === '풀길'
-							? 4 && 5 && 6 && 7
-							: e.target.value === '흙길'
-								? 1 && 2 && 3
-								: '없음'
-					}")`,
+						? 4 && 5 && 6 && 7
+						: e.target.value === '흙길'
+						? 1 && 2 && 3
+						: '없음'
+				}")`,
 			});
 
 			const data = await pb.collection('escapeList').getList(1, 227, {
@@ -396,7 +398,7 @@ function Theme() {
 			<Helmet>
 				<title>인기 테마</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
+			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<HeaderRecord
 					pencilClick={userUId?.model.admin ? handleAdmin : handleRecordButton}
 				>
@@ -487,9 +489,9 @@ function Theme() {
 											theme === 'dark' && bookMark.indexOf(`${item.id}`) >= 0
 												? 'bg-hearttrue'
 												: theme === 'light' &&
-													bookMark.indexOf(`${item.id}`) >= 0
-													? 'bg-heartlike'
-													: 'bg-heartfalse'
+												  bookMark.indexOf(`${item.id}`) >= 0
+												? 'bg-heartlike'
+												: 'bg-heartfalse'
 										}
 									/>
 								</li>

@@ -111,7 +111,7 @@ function BookMark() {
 			<Helmet>
 				<title>즐겨찾기</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
+			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<Headerback
 					onClick={() => {
 						navigate(-1);
@@ -152,7 +152,7 @@ function BookMark() {
 												: theme === 'light' &&
 													bookMarkId.indexOf(`${item.id}`) >= 0
 													? 'bg-heartlike'
-													: 'bg-haertfalse'
+													: 'bg-heartfalse'
 										}
 									/>
 								</li>
