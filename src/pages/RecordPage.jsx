@@ -1,6 +1,5 @@
 import pb from '@/api/pockethost';
 import { getUserInfoFromStorage } from '@/api/getUserInfo';
-import userNickName from '@/api/userNickName';
 import thumnail from '@/assets/recordpage-thumbnail.png';
 import Button from '@/components/button/Button';
 import Headerback from '@/components/header/Headerback';
@@ -90,7 +89,7 @@ function RecordPage() {
 			content: content,
 			image: photoRef.current.files[0],
 			author: `${userUId?.model.id}`,
-			nickName: userNickName,
+			nickName: `${userUId?.model.nickName}`,
 		};
 
 		try {
