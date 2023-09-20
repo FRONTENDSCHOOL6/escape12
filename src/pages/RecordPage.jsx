@@ -155,7 +155,7 @@ function RecordPage() {
 							storeEvent={debounceStore}
 						/>
 						<Date dateValue={date} onChange={handleDateChange} />
-						<Grade grade={grade} onChange={handleRatingChange} />
+						<Grade grade={Number(grade)} onChange={handleRatingChange} />
 						<RemainingTime
 							hour={hour}
 							hourEvent={handleRemainingTimeChange}
