@@ -38,7 +38,7 @@ function MyCommentItem({ comment, id, postId, postTitle, postType }) {
 	};
 
 	return (
-		<div className="text-ec1 border-2 justify-between max-h-[105px] items-center p-4 mb-6 rounded-xl flex m-auto transition-transform duration-500 ease-in-out transform hover:scale-105">
+		<div className="border-2 justify-between max-h-[105px] items-center p-4 mb-6 rounded-xl flex m-auto transition-transform duration-500 ease-in-out transform hover:scale-105">
 			<div className="flex-grow flex">
 				<Link
 					to={

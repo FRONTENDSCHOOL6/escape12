@@ -1,4 +1,6 @@
 import { array, number, string } from 'prop-types';
+import noImage from '@/assets/noImage.png';
+import noImageLight from '@/assets/noImageLight.png';
 import { useNavigate } from 'react-router-dom';
 import SmallButton from '../button/SmallButton';
 import Span from '../theme/Span';
@@ -28,9 +30,18 @@ function RecordCommunityItem({
 		navigate(`/upload/${link}`);
 	};
 	return (
-		<figure className="my-4 border-2 border-ec1 p-4 s:p-3 rounded-xl flex gap-3 s:gap-[5%] text-ec1 text-lg s:text-base relative h-[180px]">
-			<div className=" bg-ec4 flex w-[50%]">
-				<img src={image} alt={theme} aria-hidden className="w-full" />
+		<figure className="my-4 border-2 border-ec1 p-4 s:p-3 rounded-xl flex gap-3 s:gap-[5%] text-lg s:text-base relative h-[180px]">
+			<div className="flex w-[50%]">
+				<img
+					src={image}
+					alt={
+						image === `${noImageLight}` || image === `${noImage}`
+							? '사진없음'
+							: theme
+					}
+					aria-hidden
+					className="w-full"
+				/>
 			</div>
 			<figcaption className="flex flex-col justify-between s:justify-around w-full">
 				<section className="flex w-full justify-between">
@@ -63,8 +74,7 @@ function RecordCommunityItem({
 							: `${author}`}
 					</span>
 					<SmallButton
-						bg="bg-ec1"
-						text="text-ec4 s:px-[5%] s:py-1 px-6 py-1"
+						text="s:px-[5%] s:py-1 px-6 py-1"
 						onClick={handleLink}
 					>
 						보러가기

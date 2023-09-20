@@ -144,7 +144,7 @@ function ThemeRecord() {
 			<Helmet>
 				<title>테마 클리어</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto relative pt-16 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
+			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto relative pt-16 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<Headerback
 					onClick={() => {
 						navigate(-1);
@@ -165,7 +165,7 @@ function ThemeRecord() {
 						<fieldset className="flex flex-col gap-7">
 							<ValueThemeStore theme={data.theme} store={data.store} />
 							<Date dateValue={date} onChange={handleDateChange} />
-							<Grade grade={grade} onChange={handleRatingChange} />
+							<Grade grade={Number(grade)} onChange={handleRatingChange} />
 							<RemainingTime
 								hour={hour}
 								hourEvent={handleRemainingTimeChange}

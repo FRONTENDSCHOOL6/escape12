@@ -25,7 +25,7 @@ function BookMarkItem({
 	field,
 }) {
 	return (
-		<figure className="my-4 border-2 border-ec1 p-4 s:p-3 rounded-xl flex gap-3 s:gap-[5%] text-ec1 text-lg s:text-base relative h-[180px] w-full">
+		<figure className="my-4 border-2 border-ec1 p-4 s:p-3 rounded-xl flex gap-3 s:gap-[5%] text-lg s:text-base relative h-[180px] w-full">
 			<div className=" bg-ec4 flex w-[25%] s:min-w-[25%]">
 				<img src={image} alt={theme} aria-hidden className="w-full" />
 			</div>
@@ -52,11 +52,11 @@ function BookMarkItem({
 				</section>
 				<section className="flex justify-between s:justify-around">
 					{level === 1 || level === 2 || level === 3 ? (
-						<SmallButton bg="dark:bg-dark-googleline bg-light-googleline text-light-ec4">
+						<SmallButton bg="dark:bg-dark-googleline bg-light-googleline text-light-ec4 s:px-3 px-7">
 							♣ 쉬움
 						</SmallButton>
 					) : level === 4 || level === 5 || level === 6 || level === 7 ? (
-						<SmallButton bg="dark:bg-dark-kakaoline bg-light-kakaoline text-light-ec4">
+						<SmallButton bg="dark:bg-dark-kakaoline bg-light-kakaoline text-light-ec4 s:px-3 px-7">
 							♣ 보통
 						</SmallButton>
 					) : (
@@ -65,7 +65,7 @@ function BookMarkItem({
 						</SmallButton>
 					)}
 					<Link to={link} target="_blank" rel="noopenner noreferrer">
-						<SmallButton bg="bg-ec1 s:px-3 px-8">예약하기</SmallButton>
+						<SmallButton bg="s:px-3 px-8">예약하기</SmallButton>
 					</Link>
 				</section>
 			</figcaption>

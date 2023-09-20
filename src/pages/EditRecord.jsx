@@ -15,12 +15,15 @@ import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import noImage from '@/assets/noImage.png';
+import noImageLight from '@/assets/noImageLight.png';
+import { useContext } from 'react';
+import { ThemeContext } from '@/contexts/ThemeContext';
 
 function EditRecord() {
 	const navigate = useNavigate();
 	const { dataId } = useParams();
 	const [data, setData] = useState([]);
-	const [theme, setTheme] = useState('');
+	const [themeData, setThemeData] = useState('');
 	const [store, setStore] = useState('');
 	const [date, setDate] = useState('');
 	const [grade, setGrade] = useState('');
@@ -32,10 +35,11 @@ function EditRecord() {
 	const [isLoading, setIsLoading] = useState(false);
 	const photoRef = useRef(`${data.expand?.escapeList?.image}`);
 	const uploadPhotoRef = useRef(null);
+	const { theme } = useContext(ThemeContext);
 
 	// 테마명 상태 관리
 	const handleTheme = (e) => {
-		setTheme(e.target.value);
+		setThemeData(e.target.value);
 	};
 	const debounceTheme = debounce((e) => handleTheme(e), 2000);
 
@@ -88,7 +92,7 @@ function EditRecord() {
 			try {
 				setIsLoading(true);
 				setData(record);
-				setTheme(record.theme);
+				setThemeData(record.theme);
 				setStore(record.store);
 				setDate(record.date);
 				setGrade(Number(record.grade));
@@ -113,7 +117,7 @@ function EditRecord() {
 	const handleEditRecord = async (e) => {
 		e.preventDefault();
 		const userRecord = {
-			theme: theme,
+			theme: themeData,
 			store: store,
 			date: date,
 			grade: grade * 2,
@@ -126,14 +130,15 @@ function EditRecord() {
 		};
 
 		try {
-			const result = await pb
-				.collection('record')
-				.update(`${dataId}`, userRecord);
-
 			toast('수정되었습니다 :)', {
 				icon: '💛',
 				duration: 2000,
 			});
+
+			const result = await pb
+				.collection('record')
+				.update(`${dataId}`, userRecord);
+
 			navigate(`/upload/${result.id}`);
 		} catch (err) {
 			console.log(`등록하기 에러: ${err}`);
@@ -145,11 +150,12 @@ function EditRecord() {
 		<>
 			<Helmet>
 				<title>
-					{`${!data.theme ? data.expand?.escapeList?.theme : data.theme
-						} 기록 수정`}
+					{`${
+						!data.theme ? data.expand?.escapeList?.theme : data.theme
+					} 기록 수정`}
 				</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto text-lg relative py-20 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1">
+			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto text-lg relative py-20 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1">
 				<Headerback
 					onClick={() => {
 						navigate(-1);
@@ -169,7 +175,7 @@ function EditRecord() {
 					>
 						<fieldset className="flex flex-col gap-7">
 							<DefaultThemeStore
-								theme={theme}
+								theme={themeData}
 								themeEvent={debounceTheme}
 								store={store}
 								storeEvent={debounceStore}
@@ -187,21 +193,27 @@ function EditRecord() {
 								onChange={handleUploadPhoto}
 								imgRef={uploadPhotoRef}
 								src={
-									!data.image
-										? data.expand?.escapeList?.image || noImage
-										: `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.image}`
+									data.image
+										? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.image}`
+										: data.expand?.escapeList?.image
+										? data.expand?.escapeList?.image
+										: theme === 'dark'
+										? `${noImageLight}`
+										: `${noImage}`
 								}
-								alt={data.theme}
+								alt={
+									data.theme
+										? data.theme
+										: data.expand?.escapeList?.theme
+										? data.expand?.escapeList?.theme
+										: '사진없음'
+								}
 							/>
 							<TextArea value={content} onChange={handleContentChange}>
 								{String(length)}
 							</TextArea>
 						</fieldset>
-						<Button
-							bg="bg-ec1 text-center"
-							text="text-ec4 m-auto"
-							type="submit"
-						>
+						<Button bg="text-center" text="m-auto" type="submit">
 							수정
 						</Button>
 					</form>
