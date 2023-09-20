@@ -150,9 +150,9 @@ function BookMark() {
 											theme === 'dark' && bookMarkId.indexOf(`${item.id}`) >= 0
 												? 'bg-hearttrue'
 												: theme === 'light' &&
-												  bookMarkId.indexOf(`${item.id}`) >= 0
-												? 'bg-heartlike'
-												: 'bg-haertfalse'
+													bookMarkId.indexOf(`${item.id}`) >= 0
+													? 'bg-heartlike'
+													: 'bg-haertfalse'
 										}
 									/>
 								</li>

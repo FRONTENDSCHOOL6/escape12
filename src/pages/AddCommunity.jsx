@@ -28,9 +28,9 @@ function AddCommunity() {
 	const handleDateCrate = async (e) => {
 		e.preventDefault();
 		const data = {
-			title:title,
-			content:content,
-			author:`${userUId?.model.id}`
+			title: title,
+			content: content,
+			author: `${userUId?.model.id}`
 		};
 
 		try {
@@ -70,7 +70,7 @@ function AddCommunity() {
 							onChange={handleTitle}
 							placeholder="제목을 입력해주세요"
 						>
-						제목
+							제목
 						</FormInput>
 						<p className="flex justify-end py-3 text-lg">
 							📅 {currentDate.toLocaleDateString()}

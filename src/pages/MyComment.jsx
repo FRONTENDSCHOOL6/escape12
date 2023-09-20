@@ -1,6 +1,5 @@
 import pb from '@/api/pockethost';
 import Headerback from '@/components/header/Headerback';
-// import SmallButton from '@/components/button/SmallButton';
 import Nav from '@/components/nav/Nav';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -10,7 +9,6 @@ import Spinner from '@/components/Spinner';
 import { getUserInfoFromStorage } from '@/api/getUserInfo';
 
 function MyCommentPage() {
-	// const { dataId } = useParams();
 	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const [comment, setComment] = useState([]);
@@ -34,7 +32,7 @@ function MyCommentPage() {
 		};
 
 		MyComment();
-	}, []);
+	}, [userUId?.model.id]);
 
 	console.log(comment);
 	return (
