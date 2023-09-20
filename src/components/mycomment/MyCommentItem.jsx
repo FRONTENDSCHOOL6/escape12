@@ -48,10 +48,13 @@ function MyCommentItem({ comment, id, postId, postTitle, postType }) {
 					}
 					className="flex-grow pr-4"
 				>
-					<h3 className="text-lg font-semibold mb-2 border-b-2">
-						{postType === 'community' ? '📕' : '🎫'} {postTitle}
+					<h3 className="text-lg font-semibold mb-2 border-b-2 whitespace-nowrap overflow-hidden text-ellipsis s:max-w-[190px]">
+						{postType === 'community' ? '📕' : '🎫'}{' '}
+						{postTitle.length > maxLength
+							? `${postTitle.substring(0, maxLength)}...`
+							: postTitle}
 					</h3>
-					<p className="break-all whitespace-nowrap overflow-hidden text-base max-w-full">
+					<p className="break-all whitespace-nowrap overflow-hidden text-ellipsis text-base s:max-w-[150px] max-w-full">
 						{comment.length > maxLength
 							? `${comment.substring(0, maxLength)}...`
 							: comment}
