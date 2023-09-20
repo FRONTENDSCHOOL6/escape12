@@ -8,12 +8,13 @@ import { toast } from 'react-hot-toast';
 import pb from '@/api/pockethost';
 import { useState } from 'react';
 import { useEffect, useRef } from 'react';
-import userUId from '@/api/userUid';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import DefaultEdit from '@/components/edit/DefaultEdit';
 import EditImage from '@/components/edit/EditImage';
-import socialImg from '@/assets/socialImg.png'
+import socialImg from '@/assets/socialImg.png';
 
 function Editpage() {
+	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
 	const [nickName, setnickName] = useState('');
@@ -45,7 +46,9 @@ function Editpage() {
 	//기존 데이터 가져오기
 	useEffect(() => {
 		const datalist = async () => {
-			const resultList = await pb.collection('users').getOne(`${userUId?.model.id}`);
+			const resultList = await pb
+				.collection('users')
+				.getOne(`${userUId?.model.id}`);
 			try {
 				setEmail(resultList.email);
 				setnickName(resultList.nickName);
@@ -53,13 +56,13 @@ function Editpage() {
 				setId(resultList.id);
 				setCollectionId(resultList.collectionId);
 				setIsLoading(true);
-				setData(resultList)
+				setData(resultList);
 			} catch (error) {
-				console.log(error)
+				console.log(error);
 			}
-		}
-		datalist()
-	}, [])
+		};
+		datalist();
+	}, [userUId?.model.id]);
 
 	// 수정 상태 변경
 	const handleSave = async (e) => {
@@ -71,16 +74,14 @@ function Editpage() {
 		};
 
 		try {
-			await pb
-				.collection('users')
-				.update(`${userUId?.model.id}`, updateData);
+			await pb.collection('users').update(`${userUId?.model.id}`, updateData);
 
 			toast('정보 수정이 완료되었습니다', {
 				icon: '✨',
 				duration: 2000,
 			});
 
-			navigate('/mypage')
+			navigate('/mypage');
 		} catch (err) {
 			console.log(err);
 		}
@@ -109,15 +110,23 @@ function Editpage() {
 					<div className="flex-1 flex flex-col items-center s:px-3 ">
 						<form
 							onSubmit={handleSave}
-							className="text-center flex flex-col items-center">
+							className="text-center flex flex-col items-center"
+						>
 							<div className="w-40 h-40">
 								<EditImage
 									inputRef={photoRef}
 									onChange={handleUploadPhoto}
 									imgRef={uploadPhotoRef}
 									src={
-										data.avatar ? `https://refresh.pockethost.io/api/files/${collectionId}/${id}/${avatar}` : !data.social || data.social === "http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg" ? `${socialImg}` : data.social}
-										alt={data.nickName}
+										data.avatar
+											? `https://refresh.pockethost.io/api/files/${collectionId}/${id}/${avatar}`
+											: !data.social ||
+											  data.social ===
+													'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+											? `${socialImg}`
+											: data.social
+									}
+									alt={data.nickName}
 								/>
 							</div>
 							<DefaultEdit
@@ -125,7 +134,6 @@ function Editpage() {
 								emailEvent={handleEmail}
 								nickName={nickName}
 								nickNameEvent={handlenickName}
-
 							/>
 							<Button type="submit" text="mt-4">
 								저장
