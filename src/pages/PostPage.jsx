@@ -60,7 +60,6 @@ function PostPage() {
 				sort: '-created',
 			});
 
-			console.log(communitypost.items);
 			try {
 				setPosts(communitypost.items);
 				setIsLoading(true);
@@ -117,7 +116,7 @@ function PostPage() {
 	const handleSubmitButton = (e) => {
 		e.preventDefault();
 	};
-	console.log(posts);
+
 	return (
 		<>
 			<Helmet>

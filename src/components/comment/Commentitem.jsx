@@ -25,7 +25,9 @@ function CommentItem({
 			<div className="flex gap-2">
 				<img className="w-8 h-8 rounded-full" src={src} alt={alt} />
 				<span
-					className={`font-bold ${nickName === '탈퇴회원' ? 'text-gray' : ''}`}
+					className={`font-bold ${
+						nickName === '탈퇴회원' ? 'dark:text-dark-gray text-light-gray' : ''
+					}`}
 				>
 					{nickName}
 				</span>

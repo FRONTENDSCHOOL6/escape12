@@ -25,7 +25,15 @@ function PostItem({ id, title, author, content, src, theme }) {
 					</p>
 					<div className="flex items-center">
 						<img className="w-6 h-6 rounded-full mr-2" src={src} alt={theme} />
-						<p className="break-all font-bold whitespace-normal">{author}</p>
+						<p
+							className={`break-all font-bold whitespace-normal ${
+								author === '탈퇴회원'
+									? 'dark:text-dark-gray text-light-gray'
+									: ''
+							}`}
+						>
+							{author}
+						</p>
 					</div>
 				</div>
 				<p className="break-all whitespace-nowrap overflow-hidden text-ellipsis">
