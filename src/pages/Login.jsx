@@ -77,7 +77,7 @@ function Login() {
 		setEmail(target);
 		setIsValidId(regEmail.test(target));
 	};
-	const debounceEmailHandler = debounce((e) => handleIdValidEmail(e), 300);
+	const debounceEmailHandler = debounce((e) => handleIdValidEmail(e), 100);
 
 	//비밀번호 정규식 검사
 	const handlePwValid = (e) => {
@@ -85,7 +85,7 @@ function Login() {
 		setPassword(target);
 		setIsValidPw(regPw.test(target));
 	};
-	const debouncePwHandler = debounce((e) => handlePwValid(e), 300);
+	const debouncePwHandler = debounce((e) => handlePwValid(e), 100);
 
 	//로그인 정보 확인 후 이동
 	const handleLogin = async (e) => {

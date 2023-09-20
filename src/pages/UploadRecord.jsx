@@ -87,7 +87,7 @@ function UploadRecord() {
 		setCommentInput(e.target.value);
 	};
 
-	// 등록 버튼
+	// 댓글 등록 버튼
 	const handleSubmitComment = async (e) => {
 		e.preventDefault();
 

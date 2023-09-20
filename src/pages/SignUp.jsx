@@ -297,7 +297,7 @@ function SignUp() {
 								}
 							>
 								{nickName.length !== 0 && !regNickName.test(nickName)
-									? '공백 제외 두 자리 이상입력해주세요'
+									? '공백 제외 두 자리 이상 입력해주세요'
 									: nickName.length !== 0 && isValidNickName === true
 									? '존재하는 닉네임입니다'
 									: ''}
