@@ -1,10 +1,10 @@
 import { Rating } from '@mui/material';
-import { func, string } from 'prop-types';
+import { func, number } from 'prop-types';
 import Sup from './Sup';
 
 Grade.propTypes = {
 	onChange: func,
-	grade: string,
+	grade: number,
 };
 
 function Grade({ grade, onChange }) {

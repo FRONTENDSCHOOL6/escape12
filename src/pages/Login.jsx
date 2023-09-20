@@ -77,7 +77,7 @@ function Login() {
 		setEmail(target);
 		setIsValidId(regEmail.test(target));
 	};
-	const debounceEmailHandler = debounce((e) => handleIdValidEmail(e), 300);
+	const debounceEmailHandler = debounce((e) => handleIdValidEmail(e), 100);
 
 	//비밀번호 정규식 검사
 	const handlePwValid = (e) => {
@@ -85,7 +85,7 @@ function Login() {
 		setPassword(target);
 		setIsValidPw(regPw.test(target));
 	};
-	const debouncePwHandler = debounce((e) => handlePwValid(e), 300);
+	const debouncePwHandler = debounce((e) => handlePwValid(e), 100);
 
 	//로그인 정보 확인 후 이동
 	const handleLogin = async (e) => {
@@ -116,7 +116,7 @@ function Login() {
 			<Helmet>
 				<title>로그인</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center h-screen m-auto bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
+			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center h-screen m-auto bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<KeyLogo />
 				<form
 					onSubmit={handleLogin}
@@ -139,8 +139,8 @@ function Login() {
 								{!email
 									? ' '
 									: !isValidId
-										? '이메일 형식으로 입력해주세요'
-										: ' '}
+									? '이메일 형식으로 입력해주세요'
+									: ' '}
 							</FormInputValid>
 						</div>
 						<div>
@@ -153,8 +153,8 @@ function Login() {
 											? 'bg-eyelight'
 											: 'bg-eyefalse'
 										: pwView
-											? 'bg-eyetrue'
-											: 'bg-eyefalse'
+										? 'bg-eyetrue'
+										: 'bg-eyefalse'
 								}
 								onChange={debouncePwHandler}
 								onClick={isClickedPwView}
@@ -169,8 +169,8 @@ function Login() {
 								{!password
 									? ''
 									: !isValidPw
-										? '비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다'
-										: ''}
+									? '비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다'
+									: ''}
 							</FormInputValid>
 						</div>
 					</fieldset>
