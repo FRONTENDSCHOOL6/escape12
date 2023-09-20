@@ -138,7 +138,7 @@ function Mypage() {
 			<Helmet>
 				<title>마이페이지</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative mb-4 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
+			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative mb-4 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				{/* header, headerback 맨 위 고정 */}
 				<Header>마이페이지</Header>
 				{!isLoading && (
@@ -165,8 +165,6 @@ function Mypage() {
 							onClick={() => {
 								navigate('/editpage');
 							}}
-							bg="bg-ec1"
-							text="text-ec4"
 						>
 							정보수정
 						</Button>
@@ -197,12 +195,11 @@ function Mypage() {
 						</ul>
 						<Button
 							onClick={handleLogout}
-							bg="bg-ec1 text-center mt-8"
-							text="text-ec4"
+							bg="text-center mt-8"
 						>
 							로그아웃
 						</Button>
-						<div className="flex flex-col items-center pt-4 flex-1 text-ec1">
+						<div className="flex flex-col items-center pt-4 flex-1">
               <button
                 type='button'
                 onClick={handleSecession}>

@@ -10,7 +10,7 @@ EditImage.propTypes = {
 
 function EditImage({ inputRef, onChange, imgRef, src, alt }) {
 	return (
-		<div className="flex flex-col gap-5 text-ec1 relative">
+		<div className="flex flex-col gap-5 relative">
 			<input
 				ref={inputRef}
 				onChange={onChange}
