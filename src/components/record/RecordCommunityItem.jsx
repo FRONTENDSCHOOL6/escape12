@@ -37,7 +37,7 @@ function RecordCommunityItem({
 					<h2 className="s:max-w-[90px] max-w-[170px] whitespace-nowrap overflow-hidden text-ellipsis text-2xl s:text-lg font-semibold">
 						{theme}
 					</h2>
-					<Span>
+					<Span text="font-semibold">
 						{grade === 0 || grade === 1 || grade === 2 || grade === 3
 							? '😱흙길'
 							: grade === 4 || grade === 5 || grade === 6 || grade === 7
@@ -51,7 +51,7 @@ function RecordCommunityItem({
 				<section className="flex justify-between">
 					<span
 						className={`${
-							author === '탈퇴회원' ? 'text-gray' : ''
+							author === '탈퇴회원' ? 'dark:text-dark-gray text-light-gray' : ''
 						} s:max-w-fit whitespace-nowrap text-ellipsis overflow-hidden`}
 					>
 						{record.length < 6 && record.length > 0

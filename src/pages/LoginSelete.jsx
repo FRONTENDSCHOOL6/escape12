@@ -96,20 +96,20 @@ function LoginSelete() {
 			<Helmet>
 				<title>로그인선택</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center h-screen m-auto text-lg">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center h-screen m-auto bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<KeyLogo />
 				<div className="flex flex-col gap-7 mt-[20%] l:mt-[25%]">
 					<LoginSeleteButton
-						line="border-kakaoline"
-						text="text-kakaoline"
+						line="dark:border-dark-kakaoline"
+						text="dark:text-dark-kakaoline dark:bg-dark-opacity bg-light-kakaoline"
 						img="bg-kakao"
 						onClick={handleKakaoLogin}
 					>
 						카카오 로그인
 					</LoginSeleteButton>
 					<LoginSeleteButton
-						line="border-googleline"
-						text="text-googleline"
+						line="dark:border-dark-googleline"
+						text="dark:text-dark-googleline dark:bg-dark-opacity bg-light-googleline"
 						img="bg-google"
 						onClick={handleGoogleLogin}
 					>
@@ -117,8 +117,8 @@ function LoginSelete() {
 					</LoginSeleteButton>
 					<Link to="/login">
 						<LoginSeleteButton
-							line="border-white"
-							text="text-white"
+							line="dark:border-dark-white"
+							text="text-light-ec4 dark:bg-dark-opacity dark:text-dark-white"
 							img="bg-key"
 						>
 							이메일 로그인

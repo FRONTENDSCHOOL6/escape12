@@ -395,7 +395,7 @@ function Theme() {
 			<Helmet>
 				<title>인기 테마</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec1 text-light-ec4 dark:text-dark-ec4">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<HeaderRecord
 					pencilClick={userUId?.model.admin ? handleAdmin : handleRecordButton}
 				>
@@ -409,7 +409,7 @@ function Theme() {
 				>
 					검색
 				</SearchInput>
-				<ul className="text-ec1 text-lg flex justify-center w-full gap-8 s:justify-center s:gap-[3%] px-20 s:px-12">
+				<ul className="text-lg flex justify-center w-full gap-8 s:justify-center s:gap-[3%] px-20 s:px-12">
 					<li>
 						<LiButton
 							onClick={handleGangnam}
@@ -483,9 +483,13 @@ function Theme() {
 									<HeartButton
 										onClick={() => isClickHeart(item)}
 										checked={
-											bookMark.indexOf(`${item.id}`) < 0
-												? 'bg-heartfalse'
-												: 'bg-hearttrue'
+											window.localStorage.getItem('theme') === 'dark' &&
+											bookMark.indexOf(`${item.id}`) > 0
+												? 'bg-hearttrue'
+												: window.localStorage.getItem('theme') === 'light' &&
+												  bookMark.indexOf(`${item.id}`) > 0
+												? 'bg-heartlike'
+												: 'bg-heartfalse'
 										}
 									/>
 								</li>
@@ -493,11 +497,8 @@ function Theme() {
 						})}
 					</ul>
 				)}
-				<UpNav
-					topClick={handleTopButton}
-					hidden={!showPlusNav ? 'hidden' : ''}
-				/>
 			</div>
+			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
 		</>
 	);
 }
