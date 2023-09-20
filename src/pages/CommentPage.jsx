@@ -257,8 +257,8 @@ function CommentPage() {
 						{''}
 					</>
 				)}
-				<Nav />
 			</div>
+			<Nav />
 		</div>
 	);
 }
