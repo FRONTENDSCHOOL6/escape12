@@ -1,5 +1,6 @@
 import pb from '@/api/pockethost';
 import noImage from '@/assets/noImage.png';
+import noImageLight from '@/assets/noImageLight.png';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
 import HeaderRecord from '@/components/header/HeaderRecord';
@@ -154,7 +155,7 @@ function RecordCommunity() {
 			<Helmet>
 				<title>방탈러 기록</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-screen m-auto relative pt-20 pb-28 text-lg gap-6">
+			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-screen m-auto relative pt-20 pb-28 gap-6 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<HeaderRecord
 					onClick={() => {
 						navigate(-1);
@@ -199,7 +200,15 @@ function RecordCommunity() {
 													? `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
 													: item.expand?.escapeList?.image
 													? item.expand?.escapeList?.image
-													: `${noImage}`
+													: window.localStorage.getItem('theme') === 'dark' &&
+													  !item.image &&
+													  !item.expand?.escapeList?.image
+													? `${noImageLight}`
+													: window.localStorage.getItem('theme') === 'light' &&
+													  !item.image &&
+													  !item.expand?.escapeList?.image
+													? `${noImage}`
+													: ''
 											}
 											author={
 												item.expand?.author?.nickName && item.expand?.author?.id

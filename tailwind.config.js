@@ -48,6 +48,7 @@ export default {
 			key: 'url("/src/assets/loginselete-key.png")',
 			eyetrue: 'url("/src/assets/login-eyetrue.png")',
 			eyefalse: 'url("/src/assets/login-eyefalse.png")',
+			eyelight: 'url("/src/assets/login-eyelight.png")',
 			hearttrue: 'url("/src/assets/theme-hearttrue.png")',
 			heartfalse: 'url("/src/assets/theme-heartfalse.png")',
 			heartlike: 'url("/src/assets/upload-like.png")',

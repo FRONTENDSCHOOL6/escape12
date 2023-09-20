@@ -16,7 +16,7 @@ MyCommentItem.propTypes = {
 };
 
 function MyCommentItem({ comment, id, postId, postTitle, postType }) {
-	const maxLength = 30;
+	const maxLength = 27;
 	const handleDeletecomment = async (e) => {
 		e.preventDefault();
 		const deleteConfirm = confirm('정말로 삭제하시겠습니까?');
@@ -38,7 +38,7 @@ function MyCommentItem({ comment, id, postId, postTitle, postType }) {
 	};
 
 	return (
-		<div className="text-ec1 border-2 justify-between shadow-xl dark:shadow-darkMode max-h-[105px] items-center p-4 mb-6 rounded-xl flex m-auto transition-transform duration-500 ease-in-out transform hover:scale-105">
+		<div className="text-ec1 border-2 justify-between max-h-[105px] items-center p-4 mb-6 rounded-xl flex m-auto transition-transform duration-500 ease-in-out transform hover:scale-105">
 			<div className="flex-grow flex">
 				<Link
 					to={
@@ -51,14 +51,14 @@ function MyCommentItem({ comment, id, postId, postTitle, postType }) {
 					<h3 className="text-lg font-semibold mb-2 border-b-2">
 						{postType === 'community' ? '📕' : '🎫'} {postTitle}
 					</h3>
-					<p className="break-all whitespace-nowrap overflow-hidden">
+					<p className="break-all whitespace-nowrap overflow-hidden text-base max-w-full">
 						{comment.length > maxLength
 							? `${comment.substring(0, maxLength)}...`
 							: comment}
 					</p>
 				</Link>
 			</div>
-			<DeleteButton className="ml-4" onClick={handleDeletecomment}>
+			<DeleteButton className="ml-auto" onClick={handleDeletecomment}>
 				삭제
 			</DeleteButton>
 		</div>

@@ -5,7 +5,7 @@ Sup.propTypes = {
 	hidden: string,
 };
 
-function Sup({ children, hidden = 'text-red' }) {
+function Sup({ children, hidden = 'dark:text-dark-red text-light-red' }) {
 	return (
 		<p>
 			{children} <sup className={`${hidden} text-lg`}> *</sup>
