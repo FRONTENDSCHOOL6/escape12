@@ -8,13 +8,12 @@ import UpNav from '@/components/nav/UpNav';
 import HeartButton from '@/components/theme/HeartButton';
 import LiButton from '@/components/theme/LiButton';
 import ThemeItem from '@/components/theme/ThemeItem';
+import { ThemeContext } from '@/contexts/ThemeContext';
 import debounce from '@/utils/debounce';
-import { useContext } from 'react';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { ThemeContext } from '@/contexts/ThemeContext';
 
 function Theme() {
 	const {
@@ -122,6 +121,7 @@ function Theme() {
 						});
 
 					try {
+						currentScrollY - 1000;
 						setPage(page + 1);
 						setData((prevData) => [...prevData, ...escape.items]);
 					} catch (err) {
@@ -497,6 +497,7 @@ function Theme() {
 								</li>
 							);
 						})}
+						<li className="font-semibold text-center pb-10">불러오는 중...</li>
 					</ul>
 				)}
 			</div>
