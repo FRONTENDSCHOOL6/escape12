@@ -18,7 +18,7 @@ function Date({ dateValue, onChange }) {
 				defaultValue={dateValue}
 				onChange={onChange}
 				required
-				className="w-[200px] s:w-[90%] text-ec4 text-center"
+				className="w-[200px] s:w-[90%] text-ec4 text-center dark:text-dark-ec4"
 			/>
 		</div>
 	);

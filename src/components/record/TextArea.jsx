@@ -19,12 +19,12 @@ function TextArea({
 			<textarea
 				value={value}
 				onChange={onChange}
-				className={`w-full p-4 rounded-lg ${style}`}
+				className={`w-full p-4 rounded-lg dark:text-dark-ec4 ${style}`}
 				maxLength={250}
 				required
 				{...restProps}
 			/>
-			<p className="text-right absolute -bottom-5 right-2">{children}/ 250</p>
+			<p className="text-right absolute -bottom-5 right-2 ">{children}/ 250</p>
 		</div>
 	);
 }
