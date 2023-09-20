@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import { Helmet } from 'react-helmet-async';
 import Button from '@/components/button/Button';
 import Nav from '@/components/nav/Nav';
@@ -7,9 +8,10 @@ import FormInput from '@/components/loginsignup/FormInput';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import pb from '@/api/pockethost';
-import userUId from '@/api/userUid';
+
 
 function AddCommunity() {
+	const userUId = getUserInfoFromStorage();
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 	const currentDate = new Date();
