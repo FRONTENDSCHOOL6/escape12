@@ -62,7 +62,7 @@ function Editpage() {
 			}
 		};
 		datalist();
-	}, []);
+	}, [userUId?.model.id]);
 
 	// 수정 상태 변경
 	const handleSave = async (e) => {
