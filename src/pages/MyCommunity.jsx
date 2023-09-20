@@ -116,14 +116,14 @@ function MyCommunity() {
 	const handleSubmitButton = (e) => {
 		e.preventDefault();
 	};
-	console.log(posts);
+
 	return (
 		<>
 			<Helmet>
 				<title>내 게시물 목록</title>
 			</Helmet>
 
-			<div className="w-full max-w-[600px] min-w-[320px] bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 py-20 bg-ec4 flex flex-col items-center min-h-[100vh] m-auto text-lg gap-14">
+			<div className="w-full max-w-[600px] min-w-[320px] bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 py-20 flex flex-col items-center min-h-[100vh] m-auto text-lg gap-14">
 				<HeaderBackRecord
 					pencilClick={handleRecordButton}
 					onClick={() => {
@@ -135,7 +135,7 @@ function MyCommunity() {
 
 				{IsLoading && (
 					<SearchInput
-						placeholder="검색어를 입력해주세요😀"
+						placeholder="검색어를 입력해주세요 😀"
 						value={search}
 						onChange={debounceSearch}
 						onSubmit={handleSubmitButton}
