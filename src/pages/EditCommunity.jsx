@@ -106,7 +106,7 @@ function EditCommunity() {
 								id="content"
 								onChange={handleContent}
 								placeholder="글을 작성해주세요 ✏️"
-								className="w-full h-96 p-4 text-dark-ec4 border rounded-lg shadow-xl dark:shadow-darkMode"
+								className="w-full h-96 p-4 text-dark-ec4 border rounded-lg"
 							></textarea>
 						</div>
 						<Button
