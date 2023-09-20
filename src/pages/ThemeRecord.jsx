@@ -1,6 +1,5 @@
 import pb from '@/api/pockethost';
 import { getUserInfoFromStorage } from '@/api/getUserInfo';
-import userNickName from '@/api/userNickName';
 import Spinner from '@/components/Spinner';
 import Button from '@/components/button/Button';
 import Headerback from '@/components/header/Headerback';
@@ -109,7 +108,7 @@ function ThemeRecord() {
 				content: content,
 				author: `${userUId?.model.id}`,
 				escapeList: `${dataId}`,
-				nickName: userNickName,
+				nickName: `${userUId?.model.nickName}`,
 			};
 
 			toast('등록되었습니다 :)', {
