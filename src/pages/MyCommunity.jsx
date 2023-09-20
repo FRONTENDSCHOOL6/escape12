@@ -156,14 +156,8 @@ function MyCommunity() {
 						<Spinner />
 					</div>
 				)}
-				{/* {!isLoading &&
-					posts.map((post) => <PostList key={post.id} post={post} />)} */}
-
-				<UpNav
-					topClick={handleTopButton}
-					hidden={!showPlusNav ? 'hidden' : ''}
-				/>
 			</div>
+			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
 		</>
 	);
 }
