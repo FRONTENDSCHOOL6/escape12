@@ -268,7 +268,14 @@ function CommentPage() {
 															? `${noImageLight}`
 															: `${noImage}`
 													}
-													alt={item.expand?.author?.nickName}
+													alt={
+														item.expand?.author?.nickName &&
+														item.expand?.author?.id
+															? item.expand?.author?.nickName
+															: item.expand?.author?.id
+															? '소셜계정'
+															: '탈퇴회원'
+													}
 													nickName={
 														item.expand?.author?.nickName &&
 														item.expand?.author?.id
