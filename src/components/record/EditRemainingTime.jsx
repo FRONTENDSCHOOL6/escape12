@@ -1,5 +1,5 @@
 import { func, string } from 'prop-types';
-import SelectInput from './SelectInput';
+import SelectInput from './Select';
 
 EditRemainingTime.propTypes = {
 	hour: string,

@@ -1,5 +1,6 @@
 import pb from '@/api/pockethost';
 import noImage from '@/assets/noImage.png';
+import noImageLight from '@/assets/noImageLight.png';
 import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
@@ -11,8 +12,11 @@ import debounce from '@/utils/debounce';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { ThemeContext } from '@/contexts/ThemeContext';
 
 function MyRecord() {
+	const { theme } = useContext(ThemeContext);
 	const userUId = getUserInfoFromStorage();
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
@@ -154,7 +158,7 @@ function MyRecord() {
 			<Helmet>
 				<title>나의 기록</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center min-h-screen m-auto relative pt-20 pb-28 text-lg gap-6">
+			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-screen m-auto relative pt-20 pb-28 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg gap-6">
 				<HeaderBackRecord
 					onClick={() => {
 						navigate(-1);
@@ -193,9 +197,19 @@ function MyRecord() {
 										<MyRecordItem
 											link={item.id}
 											src={
-												!item.image
-													? item.expand?.escapeList?.image || noImage
-													: `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
+												item.image
+													? `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
+													: item.expand?.escapeList?.image
+													? item.expand?.escapeList?.image
+													: theme === 'dark' &&
+													  !item.image &&
+													  !item.expand?.escapeList?.image
+													? `${noImageLight}`
+													: theme === 'light' &&
+													  !item.image &&
+													  !item.expand?.escapeList?.image
+													? `${noImage}`
+													: ''
 											}
 											alt={item.theme}
 											theme={item.theme}

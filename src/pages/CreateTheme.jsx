@@ -6,7 +6,7 @@ import FormInput from '@/components/loginsignup/FormInput';
 import Nav from '@/components/nav/Nav';
 import DefaultThemeStore from '@/components/record/DefaultThemeStore';
 import Grade from '@/components/record/Grade';
-import SelectInput from '@/components/record/SelectInput';
+import SelectInput from '@/components/record/Select';
 import Sup from '@/components/record/Sup';
 import debounce from '@/utils/debounce';
 import { useState } from 'react';
@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 
 function CreateTheme() {
 	const navigate = useNavigate();
-	const [theme, setTheme] = useState('');
+	const [themeName, setThemeName] = useState('');
 	const [store, setStore] = useState('');
 	const [point, setPoint] = useState('');
 	const [region, setRegion] = useState('');
@@ -28,7 +28,7 @@ function CreateTheme() {
 
 	// 테마명 상태 관리
 	const handleTheme = (e) => {
-		setTheme(e.target.value);
+		setThemeName(e.target.value);
 	};
 	const debounceTheme = debounce((e) => handleTheme(e), 2000);
 
@@ -83,9 +83,9 @@ function CreateTheme() {
 			region: region,
 			store: store,
 			point: point,
-			theme: theme,
+			theme: themeName,
 			field: field,
-			grade: Number(grade),
+			grade: grade * 2,
 			level: Number(level),
 			image: image,
 			link: link,
@@ -125,7 +125,7 @@ function CreateTheme() {
 				>
 					<fieldset className="flex flex-col gap-7">
 						<DefaultThemeStore
-							theme={theme}
+							theme={themeName}
 							themeEvent={debounceTheme}
 							store={store}
 							storeEvent={debounceStore}
@@ -164,7 +164,7 @@ function CreateTheme() {
 								name="region"
 								id="region"
 								onChange={handleRegion}
-								className="w-[100px] s:w-[50%] text-ec4 text-center"
+								className="w-[100px] s:w-[50%] dark:text-dark-ec4 text-light-ec4 text-center"
 								required
 							>
 								<option value="">선택</option>
@@ -181,7 +181,7 @@ function CreateTheme() {
 								name="field"
 								id="field"
 								onChange={handleField}
-								className="w-[100px] s:w-[50%] text-ec4 text-center"
+								className="w-[100px] s:w-[50%] dark:text-dark-ec4 text-light-ec4 text-center"
 								required
 							>
 								<option value="">선택</option>
