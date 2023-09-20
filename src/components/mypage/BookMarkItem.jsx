@@ -26,7 +26,7 @@ function BookMarkItem({
 }) {
 	return (
 		<figure className="my-4 border-2 border-ec1 p-4 s:p-3 rounded-xl flex gap-3 s:gap-[5%] text-lg s:text-base relative h-[180px] w-full">
-			<div className=" bg-ec4 flex w-[25%] s:min-w-[25%]">
+			<div className="flex w-[25%] s:min-w-[25%]">
 				<img src={image} alt={theme} aria-hidden className="w-full" />
 			</div>
 			<figcaption className="flex flex-col justify-between s:justify-around w-[80%]">
@@ -43,24 +43,24 @@ function BookMarkItem({
 					</Span>
 				</section>
 				<section className="flex justify-between items-center">
-					<div className="flex gap-1 whitespace-nowrap overflow-hidden text-ellipsis">
-						<h3>
+					<div className="flex gap-1">
+						<h3 className="s:max-w-[100px] whitespace-nowrap overflow-hidden text-ellipsis">
 							{store} <Span>{point}점</Span>
 						</h3>
 					</div>
 					<Span text="font-semibold">{field}</Span>
 				</section>
-				<section className="flex justify-between s:justify-around">
+				<section className="flex justify-between">
 					{level === 1 || level === 2 || level === 3 ? (
-						<SmallButton bg="dark:bg-dark-googleline bg-light-googleline text-light-ec4 s:px-3 px-7">
+						<SmallButton bg="dark:bg-dark-googleline bg-light-googleline text-light-ec4 s:px-4 px-9">
 							♣ 쉬움
 						</SmallButton>
 					) : level === 4 || level === 5 || level === 6 || level === 7 ? (
-						<SmallButton bg="dark:bg-dark-kakaoline bg-light-kakaoline text-light-ec4 s:px-3 px-7">
+						<SmallButton bg="dark:bg-dark-kakaoline bg-light-kakaoline text-light-ec4 s:px-4 px-9">
 							♣ 보통
 						</SmallButton>
 					) : (
-						<SmallButton bg="dark:bg-dark-sweetred bg-light-sweetred text-light-ec4 s:px-3 px-7">
+						<SmallButton bg="dark:bg-dark-sweetred bg-light-sweetred text-light-ec4 s:px-2 px-7">
 							♣ 어려움
 						</SmallButton>
 					)}
