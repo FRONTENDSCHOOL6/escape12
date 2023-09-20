@@ -1,5 +1,5 @@
 import pb from '@/api/pockethost';
-import userUId from '@/api/userUid';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
 import HeaderBackRecord from '@/components/header/HeaderBackRecord';
@@ -18,6 +18,7 @@ function MyCommunity() {
 	const [search, setSearch] = useState('');
 	const [IsLoading, setIsLoading] = useState(false);
 	const [showPlusNav, setShowPlusNav] = useState(false);
+	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const [emptyData, setEmptyData] = useState(false);
 	const [noResult, setNoResult] = useState(false);
@@ -109,7 +110,7 @@ function MyCommunity() {
 		};
 
 		mycommunity();
-	}, []);
+	}, [userUId?.model.id]);
 
 	const debounceSearch = debounce((e) => handleSearch(e));
 	// 검색 버튼
