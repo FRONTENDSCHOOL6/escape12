@@ -1,6 +1,7 @@
 import { string, shape, arrayOf } from 'prop-types';
 import Post from './PostItem';
 import noImage from '@/assets/noImage.png';
+import noImageLight from '@/assets/noImageLight.png';
 
 PostList.propTypes = {
 	posts: arrayOf(
@@ -23,8 +24,10 @@ function PostList({ posts }) {
 					key={post.id}
 					title={post.title}
 					author={
-						post.expand?.author?.nickName
+						post.expand?.author?.nickName && post.expand?.author?.id
 							? post.expand?.author?.nickName
+							: post.expand?.author?.id
+							? '소셜계정'
 							: '탈퇴회원'
 					}
 					date={post.date}
@@ -32,7 +35,11 @@ function PostList({ posts }) {
 					src={
 						post.expand && post.expand.author && post.expand.author.avatar
 							? `https://refresh.pockethost.io/api/files/${post.expand.author.collectionId}/${post.expand.author.id}/${post.expand.author.avatar}`
-							: `${noImage}`
+							: window.localStorage.getItem('theme') === 'dark'
+							? `${noImage}`
+							: window.localStorage.getItem('theme') === 'light'
+							? `${noImageLight}`
+							: ''
 					}
 					alt={post.expand?.author?.nickName || '탈퇴회원'}
 				/>

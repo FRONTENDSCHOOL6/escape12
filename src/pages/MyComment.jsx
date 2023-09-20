@@ -75,9 +75,8 @@ function MyCommentPage() {
 							/>
 						))}
 				</div>
-
-				<Nav />
 			</div>
+			<Nav />
 		</>
 	);
 }

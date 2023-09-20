@@ -9,9 +9,10 @@ PostItem.propTypes = {
 	content: string,
 	src: string,
 	alt: string,
+	theme: string,
 };
 
-function PostItem({ id, title, author, content, src, alt }) {
+function PostItem({ id, title, author, content, src, theme }) {
 	const shortContent =
 		content.length > 85 ? `${content.substring(0, 85)}...` : content;
 
@@ -23,7 +24,7 @@ function PostItem({ id, title, author, content, src, alt }) {
 						{title}
 					</p>
 					<div className="flex items-center">
-						<img className="w-6 h-6 rounded-full mr-2" src={src} alt={alt} />
+						<img className="w-6 h-6 rounded-full mr-2" src={src} alt={theme} />
 						<p className="break-all font-bold whitespace-normal">{author}</p>
 					</div>
 				</div>
