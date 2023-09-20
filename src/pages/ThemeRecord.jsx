@@ -165,7 +165,7 @@ function ThemeRecord() {
 						<fieldset className="flex flex-col gap-7">
 							<ValueThemeStore theme={data.theme} store={data.store} />
 							<Date dateValue={date} onChange={handleDateChange} />
-							<Grade grade={grade} onChange={handleRatingChange} />
+							<Grade grade={Number(grade)} onChange={handleRatingChange} />
 							<RemainingTime
 								hour={hour}
 								hourEvent={handleRemainingTimeChange}
