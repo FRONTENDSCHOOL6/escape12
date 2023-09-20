@@ -1,6 +1,7 @@
 import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import pb from '@/api/pockethost';
 import noImage from '@/assets/noImage.png';
+import noImageLight from '@/assets/noImageLight.png';
 import social from '@/assets/socialImg.png';
 import Spinner from '@/components/Spinner';
 import Button from '@/components/button/Button';
@@ -8,12 +9,15 @@ import CommentItem from '@/components/comment/Commentitem';
 import Headerback from '@/components/header/Headerback';
 import SubmitInput from '@/components/input/SubmitInput';
 import Nav from '@/components/nav/Nav';
+import { ThemeContext } from '@/contexts/ThemeContext';
+import { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function UploadRecord() {
+	const { theme } = useContext(ThemeContext);
 	const userUId = getUserInfoFromStorage();
 	const { dataId } = useParams();
 	const navigate = useNavigate();
@@ -102,19 +106,20 @@ function UploadRecord() {
 		});
 
 		try {
-			await pb.collection('comment').create(commentData);
-
 			toast('등록되었습니다 :)', {
 				icon: '💛',
-				duration: 2000,
+				duration: 500,
 			});
+
+			setTimeout(() => {
+				location.reload();
+			}, 500);
+
+			await pb.collection('comment').create(commentData);
 
 			setCommentInput('');
 			setComment(againCommentData.items);
 			updateLikeInPb();
-			setTimeout(() => {
-				location.reload();
-			}, 1000);
 		} catch (err) {
 			console.log(`댓글 등록 에러: ${err}`);
 		}
@@ -194,13 +199,13 @@ function UploadRecord() {
 					{`${!data.theme ? data.expand?.escapeList?.theme : data.theme} 기록`}
 				</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col items-center justify-center min-h-[100vh] m-auto relative pt-20 pb-28 gap-5 px-20 s:px-12 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
+			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center justify-center min-h-[100vh] m-auto relative pt-20 pb-28 gap-5 px-20 s:px-12 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<Headerback onClick={handleBack}>
 					{!isLoading
 						? '로딩중'
 						: !data.theme
-							? data.expand?.escapeList?.theme
-							: data.theme}
+						? data.expand?.escapeList?.theme
+						: data.theme}
 				</Headerback>
 				{!isLoading && (
 					<div className="absolute top-1/2 -translate-y-1/2">
@@ -221,20 +226,21 @@ function UploadRecord() {
 								</h3>
 								<div className="flex justify-between">
 									<p
-										className={`flex max-w-fit whitespace-nowrap overflow-hidden text-ellipsis ${data.expand?.author?.nickName || data.expand?.author?.id
-											? ''
-											: 'dark:text-dark-gray text-light-gray'
-											}`}
+										className={`flex max-w-fit whitespace-nowrap overflow-hidden text-ellipsis ${
+											data.expand?.author?.nickName || data.expand?.author?.id
+												? ''
+												: 'dark:text-dark-gray text-light-gray'
+										}`}
 									>
 										{data.expand?.author?.record.length < 6 &&
-											data.expand?.author?.record.length > 0
+										data.expand?.author?.record.length > 0
 											? `🥚${data.expand?.author?.nickName || '소셜계정'}`
 											: data.expand?.author?.record.length > 5 &&
-												data.expand?.author?.record.length < 11
-												? `🐤${data.expand?.author?.nickName || '소셜계정'}`
-												: data.expand?.author?.record.length > 10
-													? `🐔${data.expand?.author?.nickName || '소셜계정'}`
-													: '탈퇴회원'}
+											  data.expand?.author?.record.length < 11
+											? `🐤${data.expand?.author?.nickName || '소셜계정'}`
+											: data.expand?.author?.record.length > 10
+											? `🐔${data.expand?.author?.nickName || '소셜계정'}`
+											: '탈퇴회원'}
 									</p>
 									<span>
 										{!data.date ? data.expand?.escapeList.created : data.date}
@@ -248,9 +254,11 @@ function UploadRecord() {
 										data.expand?.author?.id && data.expand?.author?.avatar
 											? `https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`
 											: data.expand?.author?.social ===
-												'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-												? `${social}`
-												: `${noImage}`
+											  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+											? `${social}`
+											: theme == 'dark'
+											? `${noImageLight}`
+											: `${noImage}`
 									}
 									alt={data.expand?.author?.nickName}
 									aria-hidden
@@ -262,9 +270,9 @@ function UploadRecord() {
 							src={
 								data.image
 									? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.image}`
-									: data.expand?.escapeList?.image || noImage
+									: data.expand?.escapeList?.image ? data.expand?.escapeList?.image : theme==='dark' ? `${noImageLight}` : `${noImage}`
 							}
-							alt={data.expand?.escapeList?.theme}
+							alt={data.expand?.escapeList?.theme ? data.expand?.escapeList?.theme : "사진없음"}
 						/>
 						<section className="w-full py-2">
 							<ul className="flex justify-between pb-4 font-semibold">
@@ -298,27 +306,13 @@ function UploadRecord() {
 						</section>
 						{data.expand?.author?.id === `${userUId?.model.id}` && (
 							<section className="w-full flex justify-between pb-3">
-								<Button
-									bg="bg-ec1"
-									text="text-ec4"
-									onClick={handleDeleteRecord}
-								>
-									삭제
-								</Button>
-								<Button bg="bg-ec1" text="text-ec4" onClick={handleEditRecord}>
-									수정
-								</Button>
+								<Button onClick={handleDeleteRecord}>삭제</Button>
+								<Button onClick={handleEditRecord}>수정</Button>
 							</section>
 						)}
 						{userUId?.model.admin ? (
 							<section className="w-full flex justify-center pb-3">
-								<Button
-									bg="bg-ec1"
-									text="text-ec4"
-									onClick={handleDeleteRecord}
-								>
-									삭제
-								</Button>
+								<Button onClick={handleDeleteRecord}>삭제</Button>
 							</section>
 						) : (
 							''
@@ -329,7 +323,7 @@ function UploadRecord() {
 								value={commentInput}
 								onChange={handleComment}
 								onSubmit={handleSubmitComment}
-								text="text-ec4 my-4 px-0"
+								text="my-4 px-0"
 							>
 								등록
 							</SubmitInput>
@@ -353,24 +347,24 @@ function UploadRecord() {
 												<CommentItem
 													src={
 														item.expand?.author?.id &&
-															item.expand?.author?.avatar
+														item.expand?.author?.avatar
 															? `https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`
 															: item.expand?.author?.social ===
-																'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-																? `${social}`
-																: item.expand?.author?.id &&
-																	item.expand?.author?.social
-																	? item.expand?.author?.social
-																	: `${noImage}`
+															  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+															? `${social}`
+															: item.expand?.author?.id &&
+															  item.expand?.author?.social
+															? item.expand?.author?.social
+															: `${noImage}`
 													}
-													alt={item.expand?.author?.nickName}
+													alt={item.expand?.author?.nickName ? item.expand?.author?.nickName : item.expand?.author?.social ? "소셜회원" : "탈퇴회원"}
 													nickName={
 														item.expand?.author?.id &&
-															item.expand?.author?.nickName
+														item.expand?.author?.nickName
 															? item.expand?.author?.nickName
 															: item.expand?.author?.id
-																? '소셜계정'
-																: '탈퇴회원'
+															? '소셜계정'
+															: '탈퇴회원'
 													}
 													comment={item.content}
 													userId={item.expand?.author?.id}

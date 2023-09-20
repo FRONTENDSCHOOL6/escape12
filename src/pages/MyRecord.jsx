@@ -69,23 +69,27 @@ function MyRecord() {
 
 		const recordSearch = async () => {
 			const recordList = await pb.collection('record').getList(1, 200, {
-				filter: `(author = "${userUId?.model.id}" && theme ~ "${e.target.value
-					}") || (author = "${userUId?.model.id}" && store ~ "${e.target.value
-					}") || (author = "${userUId?.model.id}" && grade = "${e.target.value === '꽃길'
+				filter: `(author = "${userUId?.model.id}" && theme ~ "${
+					e.target.value
+				}") || (author = "${userUId?.model.id}" && store ~ "${
+					e.target.value
+				}") || (author = "${userUId?.model.id}" && grade = "${
+					e.target.value === '꽃길'
 						? 8 && 9 && 10
 						: e.target.value === '풀길'
-							? 4 && 5 && 6 && 7
-							: e.target.value === '흙길'
-								? 0 && 1 && 2 && 3
-								: '없음'
-					}") || (author = "${userUId?.model.id}" && grade = "${e.target.value === '꽃'
+						? 4 && 5 && 6 && 7
+						: e.target.value === '흙길'
+						? 0 && 1 && 2 && 3
+						: '없음'
+				}") || (author = "${userUId?.model.id}" && grade = "${
+					e.target.value === '꽃'
 						? 8 && 9 && 10
 						: e.target.value === '풀'
-							? 4 && 5 && 6 && 7
-							: e.target.value === '흙'
-								? 0 && 1 && 2 && 3
-								: '없음'
-					}")`,
+						? 4 && 5 && 6 && 7
+						: e.target.value === '흙'
+						? 0 && 1 && 2 && 3
+						: '없음'
+				}")`,
 				expand: 'escapeList',
 			});
 
@@ -196,18 +200,18 @@ function MyRecord() {
 												item.image
 													? `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
 													: item.expand?.escapeList?.image
-														? item.expand?.escapeList?.image
-														: theme === 'dark' &&
-															!item.image &&
-															!item.expand?.escapeList?.image
-															? `${noImageLight}`
-															: theme === 'light' &&
-																!item.image &&
-																!item.expand?.escapeList?.image
-																? `${noImage}`
-																: ''
+													? item.expand?.escapeList?.image
+													: theme === 'dark'
+													? `${noImageLight}`
+													: `${noImage}`
 											}
-											alt={item.theme}
+											alt={
+												item.image
+													? item.theme
+													: item.expand?.escapeList?.image
+													? item.expand?.escapeList?.theme
+													: '사진없음'
+											}
 											theme={item.theme}
 											store={item.store}
 											grade={item.grade}

@@ -13,6 +13,7 @@ function ValueThemeStore({ theme, store }) {
 				name="theme"
 				value={theme}
 				maxLength="20"
+				readOnly
 				hidden="text-opacity dark:text-dark-red text-light-red"
 			>
 				테마명
@@ -21,6 +22,7 @@ function ValueThemeStore({ theme, store }) {
 				name="store"
 				value={store}
 				maxLength="20"
+				readOnly
 				hidden="text-opacity dark:text-dark-red text-light-red"
 			>
 				업체명
