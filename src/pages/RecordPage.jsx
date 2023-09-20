@@ -94,19 +94,20 @@ function RecordPage() {
 		};
 
 		try {
+			toast('등록되었습니다 :)', {
+				icon: '💛',
+				duration: 2000,
+			});
+
 			const result = await pb.collection('record').create(userRecord);
+
+			navigate(`/upload/${result.id}`);
 
 			const userRecord1 = {
 				record: [...data, `${result.id}`],
 			};
 
 			await pb.collection('users').update(`${userUId?.model.id}`, userRecord1);
-
-			toast('등록되었습니다 :)', {
-				icon: '💛',
-				duration: 2000,
-			});
-			navigate(`/upload/${result.id}`);
 		} catch (err) {
 			console.log(`등록하기 에러: ${err}`);
 		}
