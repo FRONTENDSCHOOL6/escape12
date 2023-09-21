@@ -74,8 +74,23 @@ function Mypage() {
 		}
 	};
 
-	//작성 기록 갯수
 	useEffect(() => {
+		//아이디, 닉네임 정보 불러오기 +사진
+		const datalist = async () => {
+			const resultList = await pb
+				.collection('users')
+				.getOne(`${userUId?.model.id}`, {
+					expand: 'email',
+				});
+			try {
+				setData(resultList);
+				setIsLoading(true);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+
+		//작성 기록 갯수
 		const getrecord = async () => {
 			const recordlist = await pb
 				.collection('record')
@@ -114,20 +129,6 @@ function Mypage() {
 				console.log(error);
 			}
 		};
-		//아이디, 닉네임 정보 불러오기 +사진
-		const datalist = async () => {
-			const resultList = await pb
-				.collection('users')
-				.getOne(`${userUId?.model.id}`, {
-					expand: 'email',
-				});
-			try {
-				setData(resultList);
-				setIsLoading(true);
-			} catch (error) {
-				console.log(error);
-			}
-		};
 		getcomment(), getrecord(), getcommunity(), datalist();
 	}, [userUId?.model.id]);
 
@@ -135,6 +136,17 @@ function Mypage() {
 		<>
 			<Helmet>
 				<title>마이페이지</title>
+				<meta name="description" content="방탈러 홈페이지-마이페이지" />
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="방탈러 마이페이지" />
+				<meta property="og:description" content="방탈러 마이페이지 페이지" />
+				<meta
+					property="og:image"
+					content="https://user-images.githubusercontent.com/126174401/269517444-8d9acc2b-cf90-430e-b9af-a248a7d679e1.png"
+				/>
+				<meta name="theme-color" content="#352F44" />
+				<meta name="apple-mobile-web-app-status-bar-style" content="#352F44" />
+				<meta property="og:url" content="https://escape12.netlify.app/mypage" />
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative mb-4 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				{/* header, headerback 맨 위 고정 */}
@@ -144,7 +156,7 @@ function Mypage() {
 						<Spinner />
 					</div>
 				)}
-				{isLoading && (
+				{isLoading && data && records && comment && community && (
 					<div className="flex-1 flex flex-col items-center">
 						<div className="w-40 h-40">
 							<img

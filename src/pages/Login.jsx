@@ -42,20 +42,12 @@ function Login() {
 
 	// 아이디비밀번호 찾기
 	const handleResetPw = async () => {
-		toast(`메일이 전송되었습니다`, {
+		toast(`해당 기능은 지원하지않습니다`, {
 			icon: '✉️',
-			duration: 1000,
+			duration: 2000,
 		});
 
 		handleClose();
-
-		await pb
-			.collection('users')
-			.requestPasswordReset(`${confirmEmailRef.current}`);
-
-		await pb
-			.collection('users')
-			.requestVerification(`${confirmEmailRef.current}`);
 	};
 
 	const handleClickOpen = () => {
@@ -115,6 +107,14 @@ function Login() {
 		<>
 			<Helmet>
 				<title>로그인</title>
+				<meta name="description" content="방탈러 홈페이지-로그인" />
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="방탈러 로그인" />
+				<meta property="og:description" content="방탈러 로그인 페이지" />
+				<meta property="og:image" content="https://user-images.githubusercontent.com/126174401/269517444-8d9acc2b-cf90-430e-b9af-a248a7d679e1.png" />
+				<meta name="theme-color" content="#352F44" />
+				<meta name="apple-mobile-web-app-status-bar-style" content="#352F44" />
+				<meta property="og:url" content="https://escape12.netlify.app/login" />
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center h-screen m-auto bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<KeyLogo />

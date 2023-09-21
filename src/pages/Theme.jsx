@@ -8,13 +8,13 @@ import UpNav from '@/components/nav/UpNav';
 import HeartButton from '@/components/theme/HeartButton';
 import LiButton from '@/components/theme/LiButton';
 import ThemeItem from '@/components/theme/ThemeItem';
+import { ThemeContext } from '@/contexts/ThemeContext';
+import useEscapeList from '@/hooks/useEscapeList';
 import debounce from '@/utils/debounce';
-import { useContext } from 'react';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { ThemeContext } from '@/contexts/ThemeContext';
 
 function Theme() {
 	const {
@@ -28,7 +28,7 @@ function Theme() {
 	const [levelSort, setLevelSort] = useState(false);
 	const [gradeSort, setGradeSort] = useState(false);
 	const [showPlusNav, setShowPlusNav] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoadingState, setIsLoadingState] = useState(false);
 	const [emptyData, setEmptyData] = useState(false);
 	const [gang, setGang] = useState(false);
 	const [hong, setHong] = useState(false);
@@ -38,6 +38,8 @@ function Theme() {
 	const [record, setRecord] = useState();
 	const [bookMark, setBookMark] = useState(null);
 	const [page, setPage] = useState(1);
+
+	const { data: escapeList, isLoading } = useEscapeList();
 
 	// 즐겨찾기 기능
 	const isClickHeart = async (item) => {
@@ -122,6 +124,7 @@ function Theme() {
 						});
 
 					try {
+						currentScrollY - 1000;
 						setPage(page + 1);
 						setData((prevData) => [...prevData, ...escape.items]);
 					} catch (err) {
@@ -141,7 +144,7 @@ function Theme() {
 
 	//인기순 정렬하기
 	const handleGradeSort = () => {
-		setIsLoading(false);
+		setIsLoadingState(false);
 		setGang(false);
 		setHong(false);
 		setKuk(false);
@@ -162,7 +165,7 @@ function Theme() {
 			try {
 				setTimeout(() => {
 					levelSort ? setData(down) : setData(up);
-					setIsLoading(true);
+					setIsLoadingState(true);
 				});
 			} catch (err) {
 				console.log(`인기순 정렬 에러: ${err}`);
@@ -174,7 +177,7 @@ function Theme() {
 
 	//난이도별 정리하기
 	const handleLevelSort = () => {
-		setIsLoading(false);
+		setIsLoadingState(false);
 		setGang(false);
 		setHong(false);
 		setKuk(false);
@@ -195,7 +198,7 @@ function Theme() {
 			try {
 				setTimeout(() => {
 					levelSort ? setData(down) : setData(up);
-					setIsLoading(true);
+					setIsLoadingState(true);
 				});
 			} catch (err) {
 				console.log(`난이도순 정렬 에러: ${err}`);
@@ -207,7 +210,7 @@ function Theme() {
 
 	//지역별 강남 정렬하기
 	const handleGangnam = () => {
-		setIsLoading(false);
+		setIsLoadingState(false);
 		setGang(true);
 		setHong(false);
 		setKuk(false);
@@ -222,7 +225,7 @@ function Theme() {
 			try {
 				setTimeout(() => {
 					setData(gangnam);
-					setIsLoading(true);
+					setIsLoadingState(true);
 				});
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
@@ -233,7 +236,7 @@ function Theme() {
 
 	//지역별 홍대 정렬하기
 	const handleHongDae = () => {
-		setIsLoading(false);
+		setIsLoadingState(false);
 		setGang(false);
 		setHong(true);
 		setKuk(false);
@@ -248,7 +251,7 @@ function Theme() {
 			try {
 				setTimeout(() => {
 					setData(hongdae);
-					setIsLoading(true);
+					setIsLoadingState(true);
 				});
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
@@ -259,7 +262,7 @@ function Theme() {
 
 	//지역별 건대 정렬하기
 	const handleKonkuk = () => {
-		setIsLoading(false);
+		setIsLoadingState(false);
 		setGang(false);
 		setHong(false);
 		setKuk(true);
@@ -274,7 +277,7 @@ function Theme() {
 			try {
 				setTimeout(() => {
 					setData(konkuk);
-					setIsLoading(true);
+					setIsLoadingState(true);
 				});
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
@@ -291,7 +294,7 @@ function Theme() {
 		setLevel(false);
 		setLike(false);
 
-		setIsLoading(false);
+		setIsLoadingState(false);
 		if (e.target.value.length !== 0) {
 			setSearch(e.target.value);
 		} else {
@@ -323,19 +326,19 @@ function Theme() {
 					setTimeout(() => {
 						setData(resultList.items);
 						setEmptyData(false);
-						setIsLoading(true);
+						setIsLoadingState(true);
 					});
 				} else if (e.target.value === 0) {
 					setTimeout(() => {
 						setData(data.items);
 						setEmptyData(false);
-						setIsLoading(true);
+						setIsLoadingState(true);
 					});
 				} else {
 					setTimeout(() => {
 						setEmptyData(true);
 						setData([]);
-						setIsLoading(true);
+						setIsLoadingState(true);
 					});
 				}
 			} catch (err) {
@@ -384,7 +387,7 @@ function Theme() {
 
 				try {
 					setData(escape.items);
-					setIsLoading(true);
+					setIsLoadingState(true);
 				} catch (err) {
 					console.log(`에러 내용: ${err}`);
 				}
@@ -397,6 +400,17 @@ function Theme() {
 		<>
 			<Helmet>
 				<title>인기 테마</title>
+				<meta name="description" content="방탈러 홈페이지-테마" />
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="방탈러 테마" />
+				<meta property="og:description" content="방탈러 테마 페이지" />
+				<meta
+					property="og:image"
+					content="https://user-images.githubusercontent.com/126174401/269534150-30234bad-4433-4d7b-968f-08a1680c3f84.png"
+				/>
+				<meta name="theme-color" content="#352F44" />
+				<meta name="apple-mobile-web-app-status-bar-style" content="#352F44" />
+				<meta property="og:url" content="https://escape12.netlify.app/theme" />
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<HeaderRecord
@@ -404,14 +418,16 @@ function Theme() {
 				>
 					인기 테마
 				</HeaderRecord>
-				<SearchInput
-					placeholder="검색어를 입력해주세요 😀"
-					value={search}
-					onChange={debounceSearch}
-					onSubmit={handleSubmitButton}
-				>
-					검색
-				</SearchInput>
+				<div className="w-full px-20">
+					<SearchInput
+						placeholder="검색어를 입력해주세요 😀"
+						value={search}
+						onChange={debounceSearch}
+						onSubmit={handleSubmitButton}
+					>
+						검색
+					</SearchInput>
+				</div>
 				<ul className="text-lg flex justify-center w-full gap-8 s:justify-center s:gap-[3%] px-20 s:px-12">
 					<li>
 						<LiButton
@@ -454,7 +470,7 @@ function Theme() {
 						</LiButton>
 					</li>
 				</ul>
-				{isLoading && emptyData && (
+				{isLoadingState && emptyData && (
 					<div className="absolute top-1/2 -translate-y-1/2">
 						<EmptyContents>
 							<span aria-label="검색결과가 없습니다 " tabIndex="0">
@@ -465,12 +481,12 @@ function Theme() {
 					</div>
 				)}
 
-				{!isLoading && (
+				{!isLoadingState && (
 					<div className="absolute top-1/2 -translate-y-1/2">
 						<Spinner />
 					</div>
 				)}
-				{isLoading && data && (
+				{isLoadingState && data && (
 					<ul className="w-full px-20 s:px-12">
 						{data.map((item) => {
 							return (
@@ -502,6 +518,7 @@ function Theme() {
 								</li>
 							);
 						})}
+						<li className="font-semibold text-center pb-10">불러오는 중...</li>
 					</ul>
 				)}
 			</div>

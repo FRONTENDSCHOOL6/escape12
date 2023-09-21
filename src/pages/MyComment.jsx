@@ -37,7 +37,15 @@ function MyCommentPage() {
 	return (
 		<>
 			<Helmet>
-				<title>내 댓글 목록</title>
+				<title>나의 댓글 목록</title>
+				<meta name="description" content="방탈러 홈페이지-나의 댓글 목록" />
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="방탈러 나의 댓글 목록" />
+				<meta property="og:description" content="방탈러 나의 댓글 목록 페이지" />
+				<meta property="og:image" content="https://user-images.githubusercontent.com/126174401/269517444-8d9acc2b-cf90-430e-b9af-a248a7d679e1.png" />
+				<meta name="theme-color" content="#352F44" />
+				<meta name="apple-mobile-web-app-status-bar-style" content="#352F44" />
+				<meta property="og:url" content="https://escape12.netlify.app/mycomment" />
 			</Helmet>
 
 			<div className="w-full max-w-[600px] min-w-[320px] text-lg bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 py-20 bg-ec4 flex flex-col items-center min-h-[100vh] m-auto gap-14">
@@ -55,6 +63,10 @@ function MyCommentPage() {
 					</div>
 				)}
 				<div className="s:px-12 w-full px-20">
+					<div className="flex justify-between pb-6">
+						<span>📕 커뮤니티 댓글</span>
+						<span>🎫 기록 댓글</span>
+					</div>
 					{isLoading &&
 						comment.map((item) => (
 							<MyCommentItem

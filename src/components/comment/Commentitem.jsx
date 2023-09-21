@@ -25,7 +25,7 @@ function CommentItem({
 			<div className="flex gap-2">
 				<img className="w-8 h-8 rounded-full" src={src} alt={alt} />
 				<span
-					className={`font-bold ${
+					className={`font-bold whitespace-nowrap ${
 						nickName === '탈퇴회원' ? 'dark:text-dark-gray text-light-gray' : ''
 					}`}
 					aria-label={'작성자 ' + nickName}

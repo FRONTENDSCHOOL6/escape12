@@ -18,7 +18,7 @@ function Post({ title, author, content, src, alt }) {
 				<div className="flex items-center">
 					<img className="w-6 h-6 rounded-full mr-2" src={src} alt={alt} />
 					<p
-						className="break-all font-bold whitespace-normal"
+						className="break-all font-bold whitespace-nowrap"
 						aria-label={'작성자 ' + author}
 						tabIndex="0"
 					>
