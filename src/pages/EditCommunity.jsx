@@ -87,7 +87,7 @@ function EditCommunity() {
 						onSubmit={handleEditPost}
 						className="flex flex-col items-center w-full"
 					>
-						<div className="text-lg pt-28 w-full px-20 s:px-12">
+						<div className="text-lg pt-4 w-full px-20 s:px-12">
 							<FormInput
 								value={title}
 								type="text"

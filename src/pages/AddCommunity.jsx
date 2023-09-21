@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import pb from '@/api/pockethost';
 
-
 function AddCommunity() {
 	const userUId = getUserInfoFromStorage();
 	const [title, setTitle] = useState('');
@@ -32,7 +31,7 @@ function AddCommunity() {
 		const data = {
 			title: title,
 			content: content,
-			author: `${userUId?.model.id}`
+			author: `${userUId?.model.id}`,
 		};
 
 		try {
@@ -62,8 +61,11 @@ function AddCommunity() {
 				>
 					글 작성
 				</Headerback>
-				<form onSubmit={handleDateCrate} className="flex flex-col items-center w-full">
-					<div className="text-lg pt-28 w-full px-20 s:px-12">
+				<form
+					onSubmit={handleDateCrate}
+					className="flex flex-col items-center w-full"
+				>
+					<div className="text-lg pt-4 w-full px-20 s:px-12">
 						{/* Title, Content */}
 						<FormInput
 							type="text"
