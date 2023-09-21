@@ -1,19 +1,47 @@
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import pb from '@/api/pockethost';
+import Spinner from '@/components/Spinner';
 import Headerback from '@/components/header/Headerback';
-import Nav from '@/components/nav/Nav';
+import MyCommentItem from '@/components/mycomment/MyCommentItem';
+import UpNav from '@/components/nav/UpNav';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
-import MyCommentItem from '@/components/mycomment/MyCommentItem';
-import Spinner from '@/components/Spinner';
-import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 function MyCommentPage() {
 	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const [comment, setComment] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
+	const [showPlusNav, setShowPlusNav] = useState(false);
+
+	//스크롤탑 버튼 이벤트
+	const handleTopButton = () => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
+	};
+
+	//스크롤 이벤트 감지
+	useEffect(() => {
+		const handleScroll = () => {
+			const currentScrollY = window.scrollY;
+			if (
+				(currentScrollY >= 500 && !showPlusNav) ||
+				(currentScrollY < 500 && showPlusNav)
+			) {
+				setShowPlusNav(currentScrollY >= 500);
+			}
+		};
+
+		window.addEventListener('scroll', handleScroll);
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, [showPlusNav]);
 
 	useEffect(() => {
 		const MyComment = async () => {
@@ -120,7 +148,7 @@ function MyCommentPage() {
 					</ul>
 				</div>
 			</div>
-			<Nav />
+			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
 		</>
 	);
 }
