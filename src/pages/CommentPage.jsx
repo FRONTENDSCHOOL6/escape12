@@ -187,9 +187,21 @@ function CommentPage() {
 												? `${noImageLight}`
 												: `${noImage}`
 										}
-										alt={data.expand?.author?.nickName || '탈퇴회원'}
+										alt={
+											data.expand?.author?.nickName
+												? data.expand?.author?.nickName
+												: data.expand?.author?.socail
+												? '소셜회원'
+												: '탈퇴회원'
+										}
 										title={data.title}
-										author={data.expand?.author?.nickName || '탈퇴회원'}
+										author={
+											data.expand?.author?.nickName
+												? data.expand?.author?.nickName
+												: data.expand?.author?.socail
+												? '소셜회원'
+												: '탈퇴회원'
+										}
 										content={data.content}
 									></Post>
 								</>
@@ -227,7 +239,7 @@ function CommentPage() {
 							)}
 						</div>
 						<div className="w-full border-t-2 pt-6 mt-4 border-ec1">
-							<div className="w-full s:px-20">
+							<div className="w-full s:px-20 m:px-20">
 								<SubmitInput
 									placeholder="댓글을 입력해주세요 😀"
 									value={commentInput}
