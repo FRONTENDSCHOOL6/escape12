@@ -152,7 +152,14 @@ function CommentPage() {
 	return (
 		<div>
 			<Helmet>
-				<title>게시글 상세</title>
+				<title>상세 게시글</title>
+				<meta name="description" content="방탈러 홈페이지-상세 게시글" />
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="방탈러 상세 게시글" />
+				<meta property="og:description" content="방탈러 상세 게시글 페이지" />
+				<meta property="og:image" content="https://user-images.githubusercontent.com/126174401/269517444-8d9acc2b-cf90-430e-b9af-a248a7d679e1.png" />
+				<meta name="theme-color" content="#352F44" />
+				<meta name="apple-mobile-web-app-status-bar-style" content="#352F44" />
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] text-lg flex flex-col gap-3 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 items-center min-h-[100vh] m-auto px-20 s:px-12 pt-24 pb-28 relative">
 				<Headerback
@@ -183,17 +190,17 @@ function CommentPage() {
 									<Post
 										src={
 											data.expand &&
-											data.expand.author &&
-											data.expand.author.avatar
+												data.expand.author &&
+												data.expand.author.avatar
 												? `https://refresh.pockethost.io/api/files/${data.expand.author.collectionId}/${data.expand.author.id}/${data.expand.author.avatar}`
 												: data.expand?.author?.social ===
-												  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-												? `${social}`
-												: data.expand?.author?.social
-												? data.expand?.author?.social
-												: theme === 'dark'
-												? `${noImageLight}`
-												: `${noImage}`
+													'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+													? `${social}`
+													: data.expand?.author?.social
+														? data.expand?.author?.social
+														: theme === 'dark'
+															? `${noImageLight}`
+															: `${noImage}`
 										}
 										alt={
 											data.expand?.author?.nickName
@@ -277,33 +284,33 @@ function CommentPage() {
 												<CommentItem
 													src={
 														item.expand &&
-														item.expand.author &&
-														item.expand.author.avatar
+															item.expand.author &&
+															item.expand.author.avatar
 															? `https://refresh.pockethost.io/api/files/${item.expand.author.collectionId}/${item.expand.author.id}/${item.expand.author.avatar}`
 															: item.expand?.author?.social ===
-															  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-															? `${social}`
-															: item.expand?.author?.social
-															? item.expand?.author?.social
-															: theme === 'dark'
-															? `${noImageLight}`
-															: `${noImage}`
+																'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+																? `${social}`
+																: item.expand?.author?.social
+																	? item.expand?.author?.social
+																	: theme === 'dark'
+																		? `${noImageLight}`
+																		: `${noImage}`
 													}
 													alt={
 														item.expand?.author?.nickName &&
-														item.expand?.author?.id
+															item.expand?.author?.id
 															? item.expand?.author?.nickName
 															: item.expand?.author?.id
-															? '소셜계정'
-															: '탈퇴회원'
+																? '소셜계정'
+																: '탈퇴회원'
 													}
 													nickName={
 														item.expand?.author?.nickName &&
-														item.expand?.author?.id
+															item.expand?.author?.id
 															? item.expand?.author?.nickName
 															: item.expand?.author?.id
-															? '소셜계정'
-															: '탈퇴회원'
+																? '소셜계정'
+																: '탈퇴회원'
 													}
 													comment={item.content}
 													userId={item.expand?.author?.id}
