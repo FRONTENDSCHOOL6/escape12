@@ -66,22 +66,29 @@ function MyCommunity() {
 
 		try {
 			const resultList = await pb.collection('community').getList(1, 200, {
-				filter: `(author ~ "${e.target.value}" || content ~ "${e.target.value}" || title ~ "${e.target.value}")`,
+				filter: `(author = "${userUId?.model.Id}" && content ~ "${e.target.value}" || title ~ "${e.target.value}")`,
+				expand: 'author',
+			});
+
+			const againCommunity = await pb.collection('community').getFullList({
+				filter: `author = "${userUId?.model.id}"`,
+				expand: 'author',
+				sort: '-created',
 			});
 
 			if (resultList.items.length > 0) {
 				setPosts(resultList.items);
+				console.log(posts);
 				setEmptyData(false);
 				setIsLoading(true);
 				setNoResult(false);
 			} else if (e.target.value === '') {
-				const data = await pb.collection('community').getList(1, 200);
-				setPosts(data.items);
+				setPosts(againCommunity);
 				setEmptyData(false);
 				setIsLoading(true);
 				setNoResult(false);
 			} else {
-				setEmptyData(false);
+				setEmptyData(true);
 				setIsLoading(true);
 				setNoResult(false);
 				setPosts(resultList.items);
@@ -97,7 +104,7 @@ function MyCommunity() {
 		const mycommunity = async () => {
 			const community = await pb.collection('community').getFullList({
 				filter: `author = "${userUId?.model.id}"`,
-				expand: 'author,',
+				expand: 'author',
 				sort: '-created',
 			});
 

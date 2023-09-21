@@ -11,7 +11,11 @@ function Grade({ grade, onChange }) {
 	return (
 		<div className="flex gap-5 text-ec1 relative px-2">
 			<label htmlFor="grade" className="w-32 s:min-w-fit">
-				<Sup>평점</Sup>
+				<Sup>
+					<span tabIndex="0" aria-label="평점">
+						평점
+					</span>
+				</Sup>
 			</label>
 			<Rating
 				id="grade"

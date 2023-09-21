@@ -168,9 +168,15 @@ function Mypage() {
 							></img>
 						</div>
 						<ul className="s:px-12 p-8 text-xl space-y-4">
-							<li>아이디 | {data.email} </li>
-							<li>비밀번호 | ******** </li>
-							<li>닉네임 | {data.nickName} </li>
+							<li aria-label={'아이디 ' + data.email} tabIndex="0">
+								아이디 | {data.email}{' '}
+							</li>
+							<li aria-label={'비밀번호 '} tabIndex="0">
+								비밀번호 | ********{' '}
+							</li>
+							<li aria-label={'닉네임 ' + data.nickName} tabIndex="0">
+								닉네임 | {data.nickName}{' '}
+							</li>
 						</ul>
 						<Button
 							onClick={() => {
@@ -180,7 +186,7 @@ function Mypage() {
 							정보수정
 						</Button>
 						<ul className="w-80 s:px-12 rounded-lg border-2 p-12 text-xl space-y-4 mt-8 text-center">
-							<li>
+							<li aria-label={'내가 작성한 기록 '} tabIndex="0">
 								내가 작성한 기록 :
 								<Link
 									to="/myrecord"
@@ -189,7 +195,7 @@ function Mypage() {
 									{records.length} 개
 								</Link>
 							</li>
-							<li>
+							<li aria-label={'내가 작성한 글 '} tabIndex="0">
 								내가 작성한 글 :
 								<Link
 									to="/mycommunity"
@@ -198,7 +204,7 @@ function Mypage() {
 									{community.length} 개
 								</Link>
 							</li>
-							<li>
+							<li aria-label={'내가 작성한 댓글 '} tabIndex="0">
 								내가 작성한 댓글 :
 								<Link
 									to="/mycomment"
@@ -212,7 +218,7 @@ function Mypage() {
 									to="/bookmark"
 									className="hover:dark:text-dark-ec5 hover:font-bold"
 								>
-									⭐ 즐겨찾기 바로가기
+									<span aria-hidden="true">⭐</span> 즐겨찾기 바로가기
 								</Link>
 							</li>
 						</ul>

@@ -38,7 +38,11 @@ function ThemeItem({
 			</div>
 			<figcaption className="flex flex-col justify-between s:justify-around w-[80%]">
 				<section className="flex items-end gap-4 s:gap-2 w-full">
-					<h2 className="s:max-w-[90px] max-w-[170px] whitespace-nowrap overflow-hidden text-ellipsis text-2xl s:text-lg font-semibold">
+					<h2
+						className="s:max-w-[90px] max-w-[170px] whitespace-nowrap overflow-hidden text-ellipsis text-2xl s:text-lg font-semibold"
+						aria-label={'테마 제목 ' + theme}
+						tabIndex="0"
+					>
 						{theme}
 					</h2>
 					<Span text="font-semibold">
@@ -51,22 +55,29 @@ function ThemeItem({
 				</section>
 				<section className="flex justify-between items-center s:w-[90%]">
 					<h3 className="s:max-w-[70%] overflow-hidden text-ellipsis whitespace-nowrap">
-						{store} <Span text="pl-1">{point}점</Span>
+						<span aria-label={'업체명 ' + store} tabIndex="0">
+							{store}
+						</span>
+						<Span text="pl-1" aria-label={'위치 ' + point} tabIndex="0">
+							{point}점
+						</Span>
 					</h3>
-					<Span text="font-semibold">{field}</Span>
+					<Span text="font-semibold" aria-label={'장르 ' + field} tabIndex="0">
+						{field}
+					</Span>
 				</section>
 				<section className="flex justify-between s:w-[90%]">
 					{level === 1 || level === 2 || level === 3 ? (
 						<SmallButton bg="dark:bg-dark-googleline bg-light-googleline text-light-ec4">
-							♣ 쉬움
+							<span aria-hidden="true">♣</span> 쉬움
 						</SmallButton>
 					) : level === 4 || level === 5 || level === 6 || level === 7 ? (
 						<SmallButton bg="dark:bg-dark-kakaoline bg-light-kakaoline text-light-ec4">
-							♣ 보통
+							<span aria-hidden="true">♣</span> 보통
 						</SmallButton>
 					) : (
 						<SmallButton bg="dark:bg-dark-sweetred bg-light-sweetred text-light-ec4">
-							♣ 어려움
+							<span aria-hidden="true">♣</span> 어려움
 						</SmallButton>
 					)}
 					{clear && clear.findIndex((item) => item.id === `${dataid}`) >= 0 && (

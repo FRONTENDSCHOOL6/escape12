@@ -174,7 +174,10 @@ function CommentPage() {
 					<>
 						<div className="min-w-[300px] w-full">
 							<div className="text-right mb-1">
-								<span>
+								<span
+									aria-label={'날짜 ' + data.created.slice(0, 10)}
+									tabIndex="0"
+								>
 									📅
 									{!data.created
 										? data.community.created
