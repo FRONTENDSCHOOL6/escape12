@@ -407,14 +407,16 @@ function Theme() {
 				>
 					인기 테마
 				</HeaderRecord>
-				<SearchInput
-					placeholder="검색어를 입력해주세요 😀"
-					value={search}
-					onChange={debounceSearch}
-					onSubmit={handleSubmitButton}
-				>
-					검색
-				</SearchInput>
+				<div className="w-full px-20 s:px-12">
+					<SearchInput
+						placeholder="검색어를 입력해주세요 😀"
+						value={search}
+						onChange={debounceSearch}
+						onSubmit={handleSubmitButton}
+					>
+						검색
+					</SearchInput>
+				</div>
 				<ul className="text-lg flex justify-center w-full gap-8 s:justify-center s:gap-[3%] px-20 s:px-12">
 					<li>
 						<LiButton
