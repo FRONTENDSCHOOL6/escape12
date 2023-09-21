@@ -106,13 +106,13 @@ function UploadRecord() {
 			await pb.collection('comment').create(commentData);
 
 			// 새로고침 후 다시 받아온 댓글 데이터
-			// const againCommentData = await pb.collection('comment').getList(1, 200, {
-			// 	filter: `record = "${dataId}"`,
-			// 	sort: '-created',
-			// 	expand: 'author, record',
-			// });
+			const againCommentData = await pb.collection('comment').getList(1, 200, {
+				filter: `record = "${dataId}"`,
+				sort: '-created',
+				expand: 'author, record',
+			});
 
-			// setComment(againCommentData.items);
+			setComment(againCommentData.items);
 			updateLikeInPb();
 		} catch (err) {
 			console.log(`댓글 등록 에러: ${err}`);
@@ -168,7 +168,7 @@ function UploadRecord() {
 		};
 
 		handleRecordData();
-	}, [dataId, comment]);
+	}, [dataId]);
 
 	// user에 저장된 escapeList 불러오기
 	useEffect(() => {
@@ -320,7 +320,7 @@ function UploadRecord() {
 							''
 						)}
 						<div className="w-full pt-3 border-t-2">
-							<div className="w-full s:px-20 m:px-20">
+							<div className="w-full s:px-20">
 								<SubmitInput
 									placeholder="댓글을 입력해주세요 ☺️"
 									value={commentInput}
