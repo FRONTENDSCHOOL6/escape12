@@ -406,7 +406,7 @@ function Theme() {
 				<meta property="og:description" content="방탈러 테마 페이지" />
 				<meta
 					property="og:image"
-					content="https://user-images.githubusercontent.com/126174401/269530370-906de05f-34d2-490e-847c-5d8754bc9500.png"
+					content="https://user-images.githubusercontent.com/126174401/269534150-30234bad-4433-4d7b-968f-08a1680c3f84.png"
 				/>
 				<meta name="theme-color" content="#352F44" />
 				<meta name="apple-mobile-web-app-status-bar-style" content="#352F44" />
