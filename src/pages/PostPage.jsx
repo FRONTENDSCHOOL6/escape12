@@ -124,7 +124,10 @@ function PostPage() {
 				<meta name="description" content="방탈러 홈페이지-커뮤니티 목록" />
 				<meta property="og:title" content="방탈러 커뮤니티 목록" />
 				<meta property="og:description" content="방탈러 커뮤니티 목록 페이지" />
-				<meta property="og:url" content="https://escape12.netlify.app/postpage" />
+				<meta
+					property="og:url"
+					content="https://escape12.netlify.app/postpage"
+				/>
 			</Helmet>
 
 			<div className="w-full max-w-[600px] min-w-[320px] text-lg py-20 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 flex flex-col items-center min-h-[100vh] m-auto gap-6">
@@ -144,7 +147,12 @@ function PostPage() {
 				<PostList posts={posts} />
 				{IsLoading && posts.length === 0 && !emptyData && !noResult && (
 					<div className="translate-y-1/3">
-						<EmptyContents>기록이 없습니다 : &#40;</EmptyContents>
+						<EmptyContents>
+							<span aria-label="기록이 없습니다 " tabIndex="0">
+								기록이 없습니다
+							</span>{' '}
+							: &#40;
+						</EmptyContents>
 					</div>
 				)}
 				{!IsLoading && (

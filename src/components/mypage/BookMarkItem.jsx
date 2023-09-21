@@ -31,7 +31,11 @@ function BookMarkItem({
 			</div>
 			<figcaption className="flex flex-col justify-between s:justify-around w-[80%]">
 				<section className="flex items-end gap-4 s:gap-2 w-full">
-					<h2 className="s:max-w-[90px] max-w-[170px] whitespace-nowrap overflow-hidden text-ellipsis text-2xl s:text-lg font-semibold">
+					<h2
+						className="s:max-w-[90px] max-w-[170px] whitespace-nowrap overflow-hidden text-ellipsis text-2xl s:text-lg font-semibold"
+						aria-label={'테마 제목 ' + theme}
+						tabIndex="0"
+					>
 						{theme}
 					</h2>
 					<Span text="font-semibold">
@@ -48,20 +52,31 @@ function BookMarkItem({
 							{store} <Span>{point}점</Span>
 						</h3>
 					</div>
-					<Span text="font-semibold">{field}</Span>
+					<Span text="font-semibold" aria-label={'장르 ' + field} tabIndex="0">
+						{field}
+					</Span>
 				</section>
 				<section className="flex justify-between">
 					{level === 1 || level === 2 || level === 3 ? (
-						<SmallButton bg="dark:bg-dark-googleline bg-light-googleline text-light-ec4 s:px-4 px-9">
-							♣ 쉬움
+						<SmallButton
+							bg="dark:bg-dark-googleline bg-light-googleline text-light-ec4 s:px-4 px-9"
+							ariaLabel="난이도 쉬움"
+						>
+							<span aria-hidden="true">♣</span> 쉬움
 						</SmallButton>
 					) : level === 4 || level === 5 || level === 6 || level === 7 ? (
-						<SmallButton bg="dark:bg-dark-kakaoline bg-light-kakaoline text-light-ec4 s:px-4 px-9">
-							♣ 보통
+						<SmallButton
+							bg="dark:bg-dark-kakaoline bg-light-kakaoline text-light-ec4 s:px-4 px-9"
+							ariaLabel="난이도 보통"
+						>
+							<span aria-hidden="true">♣</span> 보통
 						</SmallButton>
 					) : (
-						<SmallButton bg="dark:bg-dark-sweetred bg-light-sweetred text-light-ec4 s:px-2 px-7">
-							♣ 어려움
+						<SmallButton
+							bg="dark:bg-dark-sweetred bg-light-sweetred text-light-ec4 s:px-2 px-7"
+							ariaLabel="난이도 어려움"
+						>
+							<span aria-hidden="true">♣</span> 어려움
 						</SmallButton>
 					)}
 					<Link to={link} target="_blank" rel="noopenner noreferrer">

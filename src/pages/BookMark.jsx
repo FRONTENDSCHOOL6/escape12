@@ -113,7 +113,10 @@ function BookMark() {
 				<meta name="description" content="방탈러 홈페이지-즐겨찾기" />
 				<meta property="og:title" content="방탈러 즐겨찾기" />
 				<meta property="og:description" content="방탈러 즐겨찾기 페이지" />
-				<meta property="og:url" content="https://escape12.netlify.app/bookmark" />
+				<meta
+					property="og:url"
+					content="https://escape12.netlify.app/bookmark"
+				/>
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<Headerback
@@ -125,7 +128,12 @@ function BookMark() {
 				</Headerback>
 				{isLoading && !bookMark && (
 					<div className="absolute top-1/2 -translate-y-1/2">
-						<EmptyContents>즐겨찾기 목록이 없습니다 : &#40;</EmptyContents>
+						<EmptyContents>
+							<span aria-label="즐겨찾기 목록이 없습니다 " tabIndex="0">
+								즐겨찾기 목록이 없습니다
+							</span>
+							: &#40;
+						</EmptyContents>
 					</div>
 				)}
 				{!isLoading && (
@@ -154,9 +162,9 @@ function BookMark() {
 											theme === 'dark' && bookMarkId.indexOf(`${item.id}`) >= 0
 												? 'bg-hearttrue'
 												: theme === 'light' &&
-													bookMarkId.indexOf(`${item.id}`) >= 0
-													? 'bg-heartlike'
-													: 'bg-heartfalse'
+												  bookMarkId.indexOf(`${item.id}`) >= 0
+												? 'bg-heartlike'
+												: 'bg-heartfalse'
 										}
 									/>
 								</li>
