@@ -52,11 +52,64 @@ function PostPage() {
 			window.removeEventListener('scroll', handleScroll);
 		};
 	}, [showPlusNav]);
+
+	//검색 기능
+	const handleSearch = async (e) => {
+		if (e.target.value.length !== 0) {
+			setSearch(e.target.value);
+		} else {
+			setSearch('');
+		}
+
+		setIsLoading(false);
+
+		try {
+			const resultList = await pb.collection('community').getList(1, 200, {
+				filter: `(nickName ~ "${e.target.value}" || content ~ "${e.target.value}" || title ~ "${e.target.value}")`,
+				expand: 'author',
+				sort: '-created',
+			});
+
+			const againCommunitypost = await pb
+				.collection('community')
+				.getList(1, 200, {
+					expand: 'author',
+					sort: '-created',
+				});
+
+			if (resultList.items.length > 0) {
+				setPosts(resultList.items);
+				setEmptyData(false);
+				setIsLoading(true);
+				setNoResult(false);
+			} else if (e.target.value === '') {
+				setPosts(againCommunitypost);
+				setEmptyData(false);
+				setIsLoading(true);
+				setNoResult(false);
+			} else {
+				setPosts(resultList.items);
+				setEmptyData(false);
+				setIsLoading(true);
+				setNoResult(false);
+			}
+		} catch (err) {
+			console.log(`검색 에러 내용 : ${err}`);
+		}
+	};
+
+	const debounceSearch = debounce((e) => handleSearch(e));
+
+	// 검색 버튼
+	const handleSubmitButton = (e) => {
+		e.preventDefault();
+	};
+
 	// 포켓호스트 가져오기
 	useEffect(() => {
-		const Snslist = async () => {
+		const snsList = async () => {
 			const communitypost = await pb.collection('community').getList(1, 200, {
-				expand: 'comment,author',
+				expand: 'author',
 				sort: '-created',
 			});
 
@@ -68,54 +121,8 @@ function PostPage() {
 			}
 		};
 
-		Snslist();
+		snsList();
 	}, []);
-
-	//검색 기능
-	const handleSearch = async (e) => {
-		if (e.target.value.length !== 0) {
-			setSearch(e.target.value);
-		} else {
-			setSearch('');
-		}
-
-		setIsLoading(true);
-
-		try {
-			const resultList = await pb.collection('community').getList(1, 200, {
-				filter: `(author ~ "${e.target.value}" || content ~ "${e.target.value}" || title ~ "${e.target.value}")`,
-			});
-
-			if (resultList.items.length > 0) {
-				setPosts(resultList.items);
-				setEmptyData(false);
-				setIsLoading(true);
-				setNoResult(false);
-			} else if (e.target.value === '') {
-				const data = await pb.collection('community').getList(1, 200);
-				setPosts(data.items);
-				setEmptyData(false);
-				setIsLoading(true);
-				setNoResult(false);
-			} else {
-				setEmptyData(false);
-				setIsLoading(true);
-				setNoResult(false);
-				setPosts(resultList.items);
-			}
-		} catch (err) {
-			console.log(`검색 에러 내용 : ${err}`);
-
-			setIsLoading(false);
-		}
-	};
-
-	const debounceSearch = debounce((e) => handleSearch(e));
-
-	// 검색 버튼
-	const handleSubmitButton = (e) => {
-		e.preventDefault();
-	};
 
 	return (
 		<>
@@ -124,7 +131,10 @@ function PostPage() {
 				<meta name="description" content="방탈러 홈페이지-커뮤니티 목록" />
 				<meta property="og:title" content="방탈러 커뮤니티 목록" />
 				<meta property="og:description" content="방탈러 커뮤니티 목록 페이지" />
-				<meta property="og:url" content="https://escape12.netlify.app/postpage" />
+				<meta
+					property="og:url"
+					content="https://escape12.netlify.app/postpage"
+				/>
 			</Helmet>
 
 			<div className="w-full max-w-[600px] min-w-[320px] text-lg py-20 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 flex flex-col items-center min-h-[100vh] m-auto gap-6">
