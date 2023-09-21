@@ -320,7 +320,7 @@ function UploadRecord() {
 							''
 						)}
 						<div className="w-full pt-3 border-t-2">
-							<div className="w-full s:px-20">
+							<div className="w-full s:px-20 m:px-20">
 								<SubmitInput
 									placeholder="댓글을 입력해주세요 ☺️"
 									value={commentInput}
