@@ -6,12 +6,12 @@ DefaultnickName.propTypes = {
 	nickNameEvent: func,
 	email: string,
 	emailEvent: func,
-	password: string
+	password: string,
 };
 
 function DefaultnickName({ nickName, nickNameEvent, email, emailEvent }) {
 	return (
-		<div className="s:px-12 p-12 text-xl space-y-10">
+		<div className="py-12 space-y-10">
 			<FormInput
 				name="email"
 				palceholder="이메일"
@@ -25,7 +25,8 @@ function DefaultnickName({ nickName, nickNameEvent, email, emailEvent }) {
 				name="password"
 				placeholder="🥲 비밀번호는 변경할 수 없습니다"
 				readOnly
-			>비밀번호
+			>
+				비밀번호
 			</FormInput>
 			<FormInput
 				name="nickName"

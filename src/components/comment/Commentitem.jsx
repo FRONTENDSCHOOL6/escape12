@@ -22,7 +22,7 @@ function CommentItem({
 
 	return (
 		<>
-			<div className="flex gap-2">
+			<div className="flex gap-2 justify-between">
 				<img className="w-8 h-8 rounded-full" src={src} alt={alt} />
 				<span
 					className={`font-bold whitespace-nowrap ${

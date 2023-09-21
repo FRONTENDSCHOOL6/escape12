@@ -151,10 +151,10 @@ function PostPage() {
 						검색
 					</SearchInput>
 				</div>
-				<PostList posts={posts} />
+				{IsLoading && <PostList posts={posts} />}
 				{IsLoading && posts.length === 0 && !emptyData && !noResult && (
 					<div className="translate-y-1/3">
-						<EmptyContents>기록이 없습니다 : &#40;</EmptyContents>
+						<EmptyContents>게시글이 없습니다 : &#40;</EmptyContents>
 					</div>
 				)}
 				{!IsLoading && (

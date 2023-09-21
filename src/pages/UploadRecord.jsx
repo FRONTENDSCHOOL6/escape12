@@ -105,7 +105,6 @@ function UploadRecord() {
 			});
 			await pb.collection('comment').create(commentData);
 
-			// 새로고침 후 다시 받아온 댓글 데이터
 			const againCommentData = await pb.collection('comment').getList(1, 200, {
 				filter: `record = "${dataId}"`,
 				sort: '-created',
@@ -262,7 +261,13 @@ function UploadRecord() {
 											? `${noImageLight}`
 											: `${noImage}`
 									}
-									alt={data.expand?.author?.nickName}
+									alt={
+										data.expand?.author?.nickName
+											? data.expand?.author?.nickName
+											: data.expand?.author?.social
+											? '소셜회원'
+											: '탈퇴회원'
+									}
 									aria-hidden
 								/>
 							</div>
@@ -353,8 +358,22 @@ function UploadRecord() {
 											const result = confirm('댓글을 삭제하시겠습니까?');
 
 											if (result) {
+												toast('삭제되었습니다', {
+													icon: '🗑️',
+													duration: 800,
+												});
+
 												await pb.collection('comment').delete(`${item.id}`);
-												location.reload();
+
+												const againDeleteCommentData = await pb
+													.collection('comment')
+													.getList(1, 200, {
+														filter: `record = "${dataId}"`,
+														sort: '-created',
+														expand: 'author, record',
+													});
+
+												setComment(againDeleteCommentData.items);
 											}
 										};
 
