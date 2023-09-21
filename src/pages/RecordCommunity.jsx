@@ -154,6 +154,11 @@ function RecordCommunity() {
 		<div>
 			<Helmet>
 				<title>방탈러 기록</title>
+				<meta name="description" content="방탈러 홈페이지-기록" />
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="방탈러 기록" />
+				<meta property="og:description" content="방탈러 기록 페이지" />
+				<meta property="og:url" content="https://escape12.netlify.app/recordcommunity" />
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-screen m-auto relative pt-20 pb-28 gap-6 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<HeaderRecord

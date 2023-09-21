@@ -142,6 +142,10 @@ function ThemeRecord() {
 		<div>
 			<Helmet>
 				<title>테마 클리어</title>
+				<meta name="description" content="방탈러 홈페이지-테마 기록하기" />
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="방탈러 테마 기록하기" />
+				<meta property="og:description" content="방탈러 테마 기록하기 페이지" />
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto relative pt-16 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<Headerback

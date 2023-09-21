@@ -74,6 +74,10 @@ function EditCommunity() {
 		<>
 			<Helmet>
 				<title>글 작성</title>
+				<meta name="description" content="방탈러 홈페이지-커뮤니티 수정" />
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="방탈러 커뮤니티 수정" />
+				<meta property="og:description" content="방탈러 커뮤니티 수정 페이지" />
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative text-lg">
 				<Headerback onClick={() => navigate(-1)}>글 작성</Headerback>
@@ -87,7 +91,7 @@ function EditCommunity() {
 						onSubmit={handleEditPost}
 						className="flex flex-col items-center w-full"
 					>
-						<div className="text-lg pt-28 w-full px-20 s:px-12">
+						<div className="text-lg pt-4 w-full px-20 s:px-12">
 							<FormInput
 								value={title}
 								type="text"

@@ -301,17 +301,15 @@ function Theme() {
 		const escapeSearch = async () => {
 			const resultList = await pb.collection('escapeList').getList(1, 227, {
 				sort: 'theme',
-				filter: `(store ~ "${e.target.value}" || theme ~ "${
-					e.target.value
-				}" || field ~ "${e.target.value}" || grade ~ "${
-					e.target.value === '꽃길'
+				filter: `(store ~ "${e.target.value}" || theme ~ "${e.target.value
+					}" || field ~ "${e.target.value}" || grade ~ "${e.target.value === '꽃길'
 						? 8 || 9 || 10
 						: e.target.value === '풀길'
-						? 4 && 5 && 6 && 7
-						: e.target.value === '흙길'
-						? 1 && 2 && 3
-						: '없음'
-				}")`,
+							? 4 && 5 && 6 && 7
+							: e.target.value === '흙길'
+								? 1 && 2 && 3
+								: '없음'
+					}")`,
 			});
 
 			const data = await pb.collection('escapeList').getList(1, 227, {
@@ -397,6 +395,11 @@ function Theme() {
 		<>
 			<Helmet>
 				<title>인기 테마</title>
+				<meta name="description" content="방탈러 홈페이지-테마" />
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="방탈러 테마" />
+				<meta property="og:description" content="방탈러 테마 페이지" />
+				<meta property="og:url" content="https://escape12.netlify.app/theme" />
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<HeaderRecord
@@ -489,9 +492,9 @@ function Theme() {
 											theme === 'dark' && bookMark.indexOf(`${item.id}`) >= 0
 												? 'bg-hearttrue'
 												: theme === 'light' &&
-												  bookMark.indexOf(`${item.id}`) >= 0
-												? 'bg-heartlike'
-												: 'bg-heartfalse'
+													bookMark.indexOf(`${item.id}`) >= 0
+													? 'bg-heartlike'
+													: 'bg-heartfalse'
 										}
 									/>
 								</li>

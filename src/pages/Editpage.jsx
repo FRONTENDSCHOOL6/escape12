@@ -91,6 +91,10 @@ function Editpage() {
 		<>
 			<Helmet>
 				<title>정보 수정</title>
+				<meta name="description" content="방탈러 홈페이지-정보 수정" />
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="방탈러 정보 수정" />
+				<meta property="og:description" content="방탈러 정보 수정 페이지" />
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				{/* header, headerback 맨 위 고정 */}

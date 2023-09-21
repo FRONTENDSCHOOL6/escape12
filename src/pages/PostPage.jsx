@@ -121,6 +121,11 @@ function PostPage() {
 		<>
 			<Helmet>
 				<title>커뮤니티 목록</title>
+				<meta name="description" content="방탈러 홈페이지-커뮤니티 목록" />
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="방탈러 커뮤니티 목록" />
+				<meta property="og:description" content="방탈러 커뮤니티 목록 페이지" />
+				<meta property="og:url" content="https://escape12.netlify.app/postpage" />
 			</Helmet>
 
 			<div className="w-full max-w-[600px] min-w-[320px] text-lg py-20 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 flex flex-col items-center min-h-[100vh] m-auto gap-14">
