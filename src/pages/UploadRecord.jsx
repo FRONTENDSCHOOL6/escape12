@@ -10,8 +10,7 @@ import Headerback from '@/components/header/Headerback';
 import SubmitInput from '@/components/input/SubmitInput';
 import Nav from '@/components/nav/Nav';
 import { ThemeContext } from '@/contexts/ThemeContext';
-import { useContext } from 'react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -21,9 +20,9 @@ function UploadRecord() {
 	const userUId = getUserInfoFromStorage();
 	const { dataId } = useParams();
 	const navigate = useNavigate();
+	const [commentInput, setCommentInput] = useState('');
 	const [data, setData] = useState([]);
 	const [comment, setComment] = useState([]);
-	const [commentInput, setCommentInput] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [escapeList, setEscapeList] = useState([]);
 	const [likeUpdate, setLikeUpdate] = useState(0);
@@ -83,7 +82,7 @@ function UploadRecord() {
 	};
 
 	// 댓글 입력하기
-	const handleComment = async (e) => {
+	const handleComment = (e) => {
 		setCommentInput(e.target.value);
 	};
 
@@ -98,27 +97,22 @@ function UploadRecord() {
 			record: `${dataId}`,
 		};
 
-		// 새로고침 후 다시 받아온 댓글 데이터
-		const againCommentData = await pb.collection('comment').getList(1, 200, {
-			filter: `record = "${dataId}"`,
-			sort: '-created',
-			expand: 'author, record',
-		});
-
 		try {
+			setCommentInput('');
 			toast('등록되었습니다 :)', {
 				icon: '💛',
-				duration: 500,
+				duration: 1000,
 			});
-
-			setTimeout(() => {
-				location.reload();
-			}, 500);
-
 			await pb.collection('comment').create(commentData);
 
-			setCommentInput('');
-			setComment(againCommentData.items);
+			// 새로고침 후 다시 받아온 댓글 데이터
+			// const againCommentData = await pb.collection('comment').getList(1, 200, {
+			// 	filter: `record = "${dataId}"`,
+			// 	sort: '-created',
+			// 	expand: 'author, record',
+			// });
+
+			// setComment(againCommentData.items);
 			updateLikeInPb();
 		} catch (err) {
 			console.log(`댓글 등록 에러: ${err}`);
@@ -174,7 +168,7 @@ function UploadRecord() {
 		};
 
 		handleRecordData();
-	}, [dataId]);
+	}, [dataId, comment]);
 
 	// user에 저장된 escapeList 불러오기
 	useEffect(() => {
@@ -326,21 +320,22 @@ function UploadRecord() {
 							''
 						)}
 						<div className="w-full pt-3 border-t-2">
-							<SubmitInput
-								placeholder="댓글을 입력해주세요 ☺️"
-								value={commentInput}
-								onChange={handleComment}
-								onSubmit={handleSubmitComment}
-								text="my-4 dark:text-dark-ec4 text-light-ec4"
-							>
-								등록
-							</SubmitInput>
+							<div className="w-full s:px-20">
+								<SubmitInput
+									placeholder="댓글을 입력해주세요 ☺️"
+									value={commentInput}
+									onChange={handleComment}
+									onSubmit={handleSubmitComment}
+									text="my-4 dark:text-dark-ec4 text-light-ec4"
+								>
+									등록
+								</SubmitInput>
+							</div>
 
 							<ul className="flex flex-col gap-4 text-lg w-full">
 								{isLoading &&
 									comment &&
 									comment.map((item) => {
-										// 댓글 삭제하기
 										const handleDeleteComment = async () => {
 											const result = confirm('댓글을 삭제하시겠습니까?');
 
