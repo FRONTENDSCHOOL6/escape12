@@ -113,6 +113,9 @@ function CreateTheme() {
 				<meta property="og:type" content="website" />
 				<meta property="og:title" content="테마 등록" />
 				<meta property="og:description" content="테마 등록" />
+				<meta property="og:image" content="https://user-images.githubusercontent.com/126174401/269517444-8d9acc2b-cf90-430e-b9af-a248a7d679e1.png" />
+				<meta name="theme-color" content="#352F44" />
+				<meta name="apple-mobile-web-app-status-bar-style" content="#352F44" />
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] bg-ec4 text-ec1 flex flex-col justify-center items-center min-h-[100vh] m-auto bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg pt-16">
 				<Headerback
