@@ -209,8 +209,8 @@ function MyRecord() {
 											src={
 												item.image
 													? `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
-													: item.expand?.escapeList?.image
-													? item.expand?.escapeList?.image
+													: item.expand?.escapeList?.images
+													? `https://refresh.pockethost.io/api/files/${item.expand?.escapeList?.collectionId}/${item.expand?.escapeList?.id}/${item.expand?.escapeList?.images}`
 													: theme === 'dark'
 													? `${noImageLight}`
 													: `${noImage}`
