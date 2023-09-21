@@ -100,6 +100,14 @@ function CommentPage() {
 			});
 
 			await pb.collection('comment').create(commentData);
+
+			const againCommentData = await pb.collection('comment').getList(1, 200, {
+				filter: `community = "${dataId}"`,
+				expand: 'author, community',
+				sort: '-created',
+			});
+
+			setComment(againCommentData.items);
 		} catch (err) {
 			console.log(`댓글 등록 에러: ${err}`);
 		}
@@ -124,7 +132,7 @@ function CommentPage() {
 			}
 		};
 		dataList();
-	}, [dataId, comment]);
+	}, [dataId]);
 
 	useEffect(() => {
 		const handleUserCommunity = async () => {
@@ -239,7 +247,7 @@ function CommentPage() {
 							)}
 						</div>
 						<div className="w-full border-t-2 pt-6 mt-4 border-ec1">
-							<div className="w-full s:px-20 m:px-20">
+							<div className="w-full s:px-20">
 								<SubmitInput
 									placeholder="댓글을 입력해주세요 😀"
 									value={commentInput}
