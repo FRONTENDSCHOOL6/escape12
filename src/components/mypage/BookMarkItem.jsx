@@ -49,10 +49,11 @@ function BookMarkItem({
 				<section className="flex justify-between items-center">
 					<div className="flex gap-1">
 						<h3 className="s:max-w-[100px] whitespace-nowrap overflow-hidden text-ellipsis">
-							{store} <Span>{point}점</Span>
+							<Span ariaLabel={'업체명 ' + store}>{store}</Span>
+							<Span ariaLabel={'위치 ' + point}>{point}점</Span>
 						</h3>
 					</div>
-					<Span text="font-semibold" aria-label={'장르 ' + field} tabIndex="0">
+					<Span text="font-semibold" ariaLabel={'장르 ' + field} tabIndex="0">
 						{field}
 					</Span>
 				</section>

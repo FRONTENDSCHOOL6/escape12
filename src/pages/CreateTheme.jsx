@@ -140,7 +140,7 @@ function CreateTheme() {
 							defaultValue={point}
 							onChange={debouncePoint}
 						>
-							지점
+							<span aria-hidden="true">지점</span>
 						</FormInput>
 						<FormInput
 							name="link"
@@ -149,7 +149,7 @@ function CreateTheme() {
 							defaultValue={link}
 							onChange={debounceLink}
 						>
-							예약 링크
+							<span aria-hidden="true">예약 링크</span>
 						</FormInput>
 						<FormInput
 							name="image"
@@ -157,7 +157,7 @@ function CreateTheme() {
 							defaultValue={image}
 							onChange={debounceImage}
 						>
-							테마이미지
+							<span aria-hidden="true">테마 이미지</span>
 						</FormInput>
 						<div className="flex gap-5 text-ec1 relative px-2">
 							<label htmlFor="region" className="w-32 s:min-w-fit">

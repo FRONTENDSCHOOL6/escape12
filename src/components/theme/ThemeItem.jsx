@@ -58,11 +58,11 @@ function ThemeItem({
 						<span aria-label={'업체명 ' + store} tabIndex="0">
 							{store}
 						</span>
-						<Span text="pl-1" aria-label={'위치 ' + point} tabIndex="0">
+						<Span text="pl-1" ariaLabel={'위치 ' + point} tabIndex="0">
 							{point}점
 						</Span>
 					</h3>
-					<Span text="font-semibold" aria-label={'장르 ' + field} tabIndex="0">
+					<Span text="font-semibold" ariaLabel={'장르 ' + field} tabIndex="0">
 						{field}
 					</Span>
 				</section>
