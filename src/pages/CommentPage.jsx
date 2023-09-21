@@ -147,7 +147,7 @@ function CommentPage() {
 			<Helmet>
 				<title>게시글 상세</title>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] text-lg flex flex-col gap-3 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 items-center min-h-[100vh] m-auto px-20 s:px-12 py-24 relative">
+			<div className="max-w-[600px] min-w-[320px] text-lg flex flex-col gap-3 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 items-center min-h-[100vh] m-auto px-20 s:px-12 pt-24 pb-28 relative">
 				<Headerback
 					onClick={() => {
 						navigate(-1);
@@ -227,16 +227,18 @@ function CommentPage() {
 								''
 							)}
 						</div>
-						<div className="w-full border-t-2 pt-6 mt-2 border-ec1">
-							<SubmitInput
-								placeholder="댓글을 입력해주세요 😀"
-								value={commentInput}
-								onChange={handleComment}
-								onSubmit={handleSubmitComment}
-								text="px-0 dark:text-dark-ec4 my-4"
-							>
-								등록
-							</SubmitInput>
+						<div className="w-full border-t-2 pt-6 mt-4 border-ec1">
+							<div className="w-full s:px-12">
+								<SubmitInput
+									placeholder="댓글을 입력해주세요 😀"
+									value={commentInput}
+									onChange={handleComment}
+									onSubmit={handleSubmitComment}
+									text="dark:text-dark-ec4 my-4"
+								>
+									등록
+								</SubmitInput>
+							</div>
 
 							<ul className="flex flex-col gap-4 text-lg w-full text-ec1 ">
 								{comment &&

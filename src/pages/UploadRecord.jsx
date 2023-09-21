@@ -270,9 +270,17 @@ function UploadRecord() {
 							src={
 								data.image
 									? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.image}`
-									: data.expand?.escapeList?.image ? data.expand?.escapeList?.image : theme==='dark' ? `${noImageLight}` : `${noImage}`
+									: data.expand?.escapeList?.image
+									? data.expand?.escapeList?.image
+									: theme === 'dark'
+									? `${noImageLight}`
+									: `${noImage}`
 							}
-							alt={data.expand?.escapeList?.theme ? data.expand?.escapeList?.theme : "사진없음"}
+							alt={
+								data.expand?.escapeList?.theme
+									? data.expand?.escapeList?.theme
+									: '사진없음'
+							}
 						/>
 						<section className="w-full py-2">
 							<ul className="flex justify-between pb-4 font-semibold">
@@ -323,7 +331,7 @@ function UploadRecord() {
 								value={commentInput}
 								onChange={handleComment}
 								onSubmit={handleSubmitComment}
-								text="my-4 px-0"
+								text="my-4 dark:text-dark-ec4 text-light-ec4"
 							>
 								등록
 							</SubmitInput>
@@ -357,7 +365,13 @@ function UploadRecord() {
 															? item.expand?.author?.social
 															: `${noImage}`
 													}
-													alt={item.expand?.author?.nickName ? item.expand?.author?.nickName : item.expand?.author?.social ? "소셜회원" : "탈퇴회원"}
+													alt={
+														item.expand?.author?.nickName
+															? item.expand?.author?.nickName
+															: item.expand?.author?.social
+															? '소셜회원'
+															: '탈퇴회원'
+													}
 													nickName={
 														item.expand?.author?.id &&
 														item.expand?.author?.nickName
