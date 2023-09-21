@@ -96,6 +96,7 @@ function MyRecord() {
 			const data = await pb.collection('record').getFullList({
 				filter: `author = "${userUId?.model.id}"`,
 				expand: 'escapeList',
+				sort: '-created',
 			});
 
 			try {
@@ -160,7 +161,10 @@ function MyRecord() {
 				<meta name="description" content="방탈러 홈페이지-나의 기록" />
 				<meta property="og:title" content="방탈러 나의 기록" />
 				<meta property="og:description" content="방탈러 나의 기록 페이지" />
-				<meta property="og:url" content="https://escape12.netlify.app/myrecord" />
+				<meta
+					property="og:url"
+					content="https://escape12.netlify.app/myrecord"
+				/>
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-screen m-auto relative pt-20 pb-28 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg gap-6">
 				<HeaderBackRecord
