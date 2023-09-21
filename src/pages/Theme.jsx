@@ -2,6 +2,7 @@ import getUserInfo, { getUserInfoFromStorage } from '@/api/getUserInfo';
 import pb from '@/api/pockethost';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
+import ChatModal from '@/components/chat/ChatModal';
 import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
@@ -38,6 +39,7 @@ function Theme() {
 	const [record, setRecord] = useState();
 	const [bookMark, setBookMark] = useState(null);
 	const [page, setPage] = useState(1);
+	const [chat, setChat] = useState(false);
 
 	// const { data: escapeList, isLoading } = useEscapeList();
 
@@ -99,6 +101,11 @@ function Theme() {
 			top: 0,
 			behavior: 'smooth',
 		});
+	};
+
+	// 채팅하기 이벤트
+	const handleChat = () => {
+		setChat((chat) => !chat);
 	};
 
 	//스크롤 이벤트 감지
@@ -485,6 +492,8 @@ function Theme() {
 						<Spinner />
 					</div>
 				)}
+				{chat && <ChatModal />}
+
 				{isLoadingState && data && (
 					<ul className="w-full px-20 s:px-12">
 						{data.map((item) => {
@@ -521,7 +530,11 @@ function Theme() {
 					</ul>
 				)}
 			</div>
-			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
+			<UpNav
+				topClick={handleTopButton}
+				hidden={!showPlusNav ? 'hidden' : ''}
+				talkClick={handleChat}
+			/>
 		</>
 	);
 }

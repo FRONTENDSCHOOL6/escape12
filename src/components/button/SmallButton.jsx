@@ -14,7 +14,7 @@ SmallButton.propTypes = {
 function SmallButton({
 	type = 'button',
 	children,
-	bg = 'bg-ec1',
+	bg = '',
 	text = '',
 	onClick = null,
 }) {
