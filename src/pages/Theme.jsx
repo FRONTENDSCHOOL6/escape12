@@ -418,6 +418,7 @@ function Theme() {
 				<meta name="apple-mobile-web-app-status-bar-style" content="#352F44" />
 				<meta property="og:url" content="https://escape12.netlify.app/theme" />
 			</Helmet>
+			{chat && <ChatModal />}
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<HeaderRecord
 					pencilClick={userUId?.model.admin ? handleAdmin : handleRecordButton}
@@ -492,7 +493,6 @@ function Theme() {
 						<Spinner />
 					</div>
 				)}
-				{chat && <ChatModal />}
 
 				{isLoadingState && data && (
 					<ul className="w-full px-20 s:px-12">

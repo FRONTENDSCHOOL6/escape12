@@ -14,6 +14,7 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { ThemeContext } from '@/contexts/ThemeContext';
+import ChatModal from '@/components/chat/ChatModal';
 
 function MyRecord() {
 	const { theme } = useContext(ThemeContext);
@@ -25,6 +26,12 @@ function MyRecord() {
 	const [data, setData] = useState([]);
 	const [search, setSearch] = useState('');
 	const navigate = useNavigate();
+	const [chat, setChat] = useState(false);
+
+	// 채팅하기 이벤트
+	const handleChat = () => {
+		chat ? setChat(false) : setChat(true);
+	};
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
@@ -166,6 +173,7 @@ function MyRecord() {
 					content="https://escape12.netlify.app/myrecord"
 				/>
 			</Helmet>
+			{chat && <ChatModal />}
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-screen m-auto relative pt-20 pb-28 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg gap-6">
 				<HeaderBackRecord
 					onClick={() => {
@@ -232,7 +240,11 @@ function MyRecord() {
 					</ul>
 				</div>
 			</div>
-			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
+			<UpNav
+				topClick={handleTopButton}
+				hidden={!showPlusNav ? 'hidden' : ''}
+				talkClick={handleChat}
+			/>
 		</div>
 	);
 }

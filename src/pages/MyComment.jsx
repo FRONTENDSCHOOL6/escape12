@@ -1,6 +1,8 @@
 import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import pb from '@/api/pockethost';
+import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
+import ChatModal from '@/components/chat/ChatModal';
 import Headerback from '@/components/header/Headerback';
 import MyCommentItem from '@/components/mycomment/MyCommentItem';
 import UpNav from '@/components/nav/UpNav';
@@ -15,6 +17,12 @@ function MyCommentPage() {
 	const [comment, setComment] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [showPlusNav, setShowPlusNav] = useState(false);
+	const [chat, setChat] = useState(false);
+
+	// 채팅하기 이벤트
+	const handleChat = () => {
+		chat ? setChat(false) : setChat(true);
+	};
 
 	//스크롤탑 버튼 이벤트
 	const handleTopButton = () => {
@@ -54,6 +62,8 @@ function MyCommentPage() {
 				if (CommentList.items.length > 0) {
 					setComment(CommentList.items);
 					setIsLoading(true);
+				} else {
+					setIsLoading(true);
 				}
 			} catch (err) {
 				console.log(`데이터 불러오기 에러 : ${err}`);
@@ -78,7 +88,7 @@ function MyCommentPage() {
 					content="https://escape12.netlify.app/mycomment"
 				/>
 			</Helmet>
-
+			{chat && <ChatModal />}
 			<div className="w-full max-w-[600px] min-w-[320px] text-lg bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 py-20 bg-ec4 flex flex-col items-center min-h-[100vh] m-auto gap-14">
 				<Headerback
 					onClick={() => {
@@ -87,7 +97,6 @@ function MyCommentPage() {
 				>
 					내 댓글 목록
 				</Headerback>
-
 				{!isLoading && (
 					<div className="absolute top-1/2 -translate-y-1/2">
 						<Spinner />
@@ -98,6 +107,11 @@ function MyCommentPage() {
 						<span>📕 커뮤니티 댓글</span>
 						<span>🎫 기록 댓글</span>
 					</div>
+					{isLoading && comment.length === 0 && (
+						<div className="flex flex-col items-center justify-center translate-y-1/2">
+							<EmptyContents>댓글이 없습니다 : &#40;</EmptyContents>
+						</div>
+					)}
 					<ul>
 						{isLoading &&
 							comment.map((item) => {
@@ -148,7 +162,11 @@ function MyCommentPage() {
 					</ul>
 				</div>
 			</div>
-			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
+			<UpNav
+				topClick={handleTopButton}
+				hidden={!showPlusNav ? 'hidden' : ''}
+				talkClick={handleChat}
+			/>
 		</>
 	);
 }

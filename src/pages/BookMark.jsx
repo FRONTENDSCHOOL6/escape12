@@ -55,6 +55,14 @@ function BookMark() {
 				icon: '✖️',
 				duration: 2000,
 			});
+
+			const updateUserBookMark = await pb
+				.collection('users')
+				.getOne(`${userUId?.model.id}`, {
+					expand: 'bookmark, escapeList',
+				});
+
+			setBookMark(updateUserBookMark.expand?.bookmark);
 		}
 	};
 

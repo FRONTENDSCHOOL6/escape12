@@ -1,6 +1,7 @@
 import pb from '@/api/pockethost';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
+import ChatModal from '@/components/chat/ChatModal';
 import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
@@ -20,6 +21,12 @@ function PostPage() {
 	const navigate = useNavigate();
 	const [emptyData, setEmptyData] = useState(false);
 	const [noResult, setNoResult] = useState(false);
+	const [chat, setChat] = useState(false);
+
+	// 채팅하기 이벤트
+	const handleChat = () => {
+		chat ? setChat(false) : setChat(true);
+	};
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
@@ -136,7 +143,7 @@ function PostPage() {
 					content="https://escape12.netlify.app/postpage"
 				/>
 			</Helmet>
-
+			{chat && <ChatModal />}
 			<div className="w-full max-w-[600px] min-w-[320px] text-lg py-20 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 flex flex-col items-center min-h-[100vh] m-auto gap-6">
 				<HeaderRecord pencilClick={handleRecordButton}>
 					커뮤니티 목록
@@ -163,7 +170,11 @@ function PostPage() {
 					</div>
 				)}
 			</div>
-			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
+			<UpNav
+				topClick={handleTopButton}
+				hidden={!showPlusNav ? 'hidden' : ''}
+				talkClick={handleChat}
+			/>
 		</>
 	);
 }
