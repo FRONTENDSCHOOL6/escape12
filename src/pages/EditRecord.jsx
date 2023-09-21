@@ -155,12 +155,8 @@ function EditRecord() {
 					} 기록 수정`}
 				</title>
 				<meta name="description" content="방탈러 홈페이지-기록 수정" />
-				<meta property="og:type" content="website" />
 				<meta property="og:title" content="방탈러 기록 수정" />
 				<meta property="og:description" content="방탈러 기록 수정 페이지" />
-				<meta property="og:image" content="https://user-images.githubusercontent.com/126174401/269517444-8d9acc2b-cf90-430e-b9af-a248a7d679e1.png" />
-				<meta name="theme-color" content="#352F44" />
-				<meta name="apple-mobile-web-app-status-bar-style" content="#352F44" />
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto text-lg relative py-20 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1">
 				<Headerback
