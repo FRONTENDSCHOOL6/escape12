@@ -304,15 +304,17 @@ function Theme() {
 		const escapeSearch = async () => {
 			const resultList = await pb.collection('escapeList').getList(1, 227, {
 				sort: 'theme',
-				filter: `(store ~ "${e.target.value}" || theme ~ "${e.target.value
-					}" || field ~ "${e.target.value}" || grade ~ "${e.target.value === '꽃길'
+				filter: `(store ~ "${e.target.value}" || theme ~ "${
+					e.target.value
+				}" || field ~ "${e.target.value}" || grade ~ "${
+					e.target.value === '꽃길'
 						? 8 || 9 || 10
 						: e.target.value === '풀길'
-							? 4 && 5 && 6 && 7
-							: e.target.value === '흙길'
-								? 1 && 2 && 3
-								: '없음'
-					}")`,
+						? 4 && 5 && 6 && 7
+						: e.target.value === '흙길'
+						? 1 && 2 && 3
+						: '없음'
+				}")`,
 			});
 
 			const data = await pb.collection('escapeList').getList(1, 227, {
@@ -402,7 +404,10 @@ function Theme() {
 				<meta property="og:type" content="website" />
 				<meta property="og:title" content="방탈러 테마" />
 				<meta property="og:description" content="방탈러 테마 페이지" />
-				<meta property="og:image" content="https://user-images.githubusercontent.com/126174401/269517444-8d9acc2b-cf90-430e-b9af-a248a7d679e1.png" />
+				<meta
+					property="og:image"
+					content="https://user-images.githubusercontent.com/126174401/269530370-906de05f-34d2-490e-847c-5d8754bc9500.png"
+				/>
 				<meta name="theme-color" content="#352F44" />
 				<meta name="apple-mobile-web-app-status-bar-style" content="#352F44" />
 				<meta property="og:url" content="https://escape12.netlify.app/theme" />
@@ -500,9 +505,9 @@ function Theme() {
 											theme === 'dark' && bookMark.indexOf(`${item.id}`) >= 0
 												? 'bg-hearttrue'
 												: theme === 'light' &&
-													bookMark.indexOf(`${item.id}`) >= 0
-													? 'bg-heartlike'
-													: 'bg-heartfalse'
+												  bookMark.indexOf(`${item.id}`) >= 0
+												? 'bg-heartlike'
+												: 'bg-heartfalse'
 										}
 									/>
 								</li>
