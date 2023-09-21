@@ -16,7 +16,11 @@ function TextArea({
 }) {
 	return (
 		<div className="relative px-2">
+			<label htmlFor="review" hidden>
+				후기
+			</label>
 			<textarea
+				id="review"
 				value={value}
 				onChange={onChange}
 				className={`w-full p-4 rounded-lg dark:text-dark-ec4 ${style}`}

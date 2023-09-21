@@ -1,8 +1,12 @@
 import { string, func } from 'prop-types';
+import { PropTypes } from 'prop-types';
 
 SmallButton.propTypes = {
 	type: string,
-	children: string,
+	children: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.node),
+		PropTypes.node,
+	]),
 	bg: string,
 	text: string,
 	onClick: func,

@@ -39,7 +39,7 @@ function Theme() {
 	const [bookMark, setBookMark] = useState(null);
 	const [page, setPage] = useState(1);
 
-	const { data: escapeList, isLoading } = useEscapeList();
+	// const { data: escapeList, isLoading } = useEscapeList();
 
 	// 즐겨찾기 기능
 	const isClickHeart = async (item) => {
@@ -427,7 +427,7 @@ function Theme() {
 						검색
 					</SearchInput>
 				</div>
-				<ul className="text-lg flex justify-center w-full gap-8 s:justify-center s:gap-[3%] px-20 s:px-12">
+				<ul className="text-lg flex justify-between w-full gap-8 s:gap-[3%] px-20 s:px-12">
 					<li>
 						<LiButton
 							onClick={handleGangnam}
