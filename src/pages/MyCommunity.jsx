@@ -164,7 +164,7 @@ function MyCommunity() {
 				{isLoading && posts && <PostList posts={posts} />}
 				{isLoading && posts.length === 0 && !emptyData && !noResult && (
 					<div className="translate-y-1/3">
-						<EmptyContents>기록이 없습니다 : &#40;</EmptyContents>
+						<EmptyContents>게시물이 없습니다 : &#40;</EmptyContents>
 					</div>
 				)}
 				{!isLoading && (
