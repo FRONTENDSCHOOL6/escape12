@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import pb from '@/api/pockethost';
 import { toast } from 'react-hot-toast';
-import socialImg from '@/assets/socialImg.png'
+import socialImg from '@/assets/socialImg.png';
 
 function Mypage() {
 	const userUId = getUserInfoFromStorage();
@@ -63,7 +63,7 @@ function Mypage() {
 
 	//회원 탈퇴
 	const handleSecession = () => {
-		const result = confirm('😢 정말로 탈퇴하실 건가요....?')
+		const result = confirm('😢 정말로 탈퇴하실 건가요....?');
 
 		if (result) {
 			pb.collection('users').delete(`${userUId.model.id}`);
@@ -72,9 +72,7 @@ function Mypage() {
 				duration: 2000,
 			});
 		}
-
-	}
-
+	};
 
 	//작성 기록 갯수
 	useEffect(() => {
@@ -150,16 +148,30 @@ function Mypage() {
 					<div className="flex-1 flex flex-col items-center">
 						<div className="w-40 h-40">
 							<img
-								src={data.avatar ? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.avatar}` : !data.social || data.social === "http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg" ? `${socialImg}` : data.social}
+								src={
+									data.avatar
+										? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.avatar}`
+										: !data.social ||
+										  data.social ===
+												'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+										? `${socialImg}`
+										: data.social
+								}
 								alt={data.nickName}
 								aria-hidden
 								className="w-full h-full rounded-full"
 							></img>
 						</div>
 						<ul className="s:px-12 p-8 text-xl space-y-4">
-							<li>아이디 | {data.email} </li>
-							<li>비밀번호 | ******** </li>
-							<li>닉네임 | {data.nickName} </li>
+							<li aria-label={'아이디 ' + data.email} tabIndex="0">
+								아이디 | {data.email}{' '}
+							</li>
+							<li aria-label={'비밀번호 '} tabIndex="0">
+								비밀번호 | ********{' '}
+							</li>
+							<li aria-label={'닉네임 ' + data.nickName} tabIndex="0">
+								닉네임 | {data.nickName}{' '}
+							</li>
 						</ul>
 						<Button
 							onClick={() => {
@@ -169,43 +181,50 @@ function Mypage() {
 							정보수정
 						</Button>
 						<ul className="w-80 s:px-12 rounded-lg border-2 p-12 text-xl space-y-4 mt-8 text-center">
-							<li>
+							<li aria-label={'내가 작성한 기록 '} tabIndex="0">
 								내가 작성한 기록 :
-								<Link to="/myrecord" className="hover:dark:text-dark-ec5 hover:font-bold">
+								<Link
+									to="/myrecord"
+									className="hover:dark:text-dark-ec5 hover:font-bold"
+								>
 									{records.length} 개
 								</Link>
 							</li>
-							<li>
+							<li aria-label={'내가 작성한 글 '} tabIndex="0">
 								내가 작성한 글 :
-								<Link to="/mycommunity" className="hover:dark:text-dark-ec5 hover:font-bold">
+								<Link
+									to="/mycommunity"
+									className="hover:dark:text-dark-ec5 hover:font-bold"
+								>
 									{community.length} 개
 								</Link>
 							</li>
-							<li>
+							<li aria-label={'내가 작성한 댓글 '} tabIndex="0">
 								내가 작성한 댓글 :
-								<Link to="/mycomment" className="hover:dark:text-dark-ec5 hover:font-bold">
+								<Link
+									to="/mycomment"
+									className="hover:dark:text-dark-ec5 hover:font-bold"
+								>
 									{comment.length} 개
 								</Link>
 							</li>
 							<li>
-								<Link to="/bookmark" className="hover:dark:text-dark-ec5 hover:font-bold">
-									⭐ 즐겨찾기 바로가기
+								<Link
+									to="/bookmark"
+									className="hover:dark:text-dark-ec5 hover:font-bold"
+								>
+									<span aria-hidden="true">⭐</span> 즐겨찾기 바로가기
 								</Link>
 							</li>
 						</ul>
-						<Button
-							onClick={handleLogout}
-							bg="text-center mt-8"
-						>
+						<Button onClick={handleLogout} bg="text-center mt-8">
 							로그아웃
 						</Button>
 						<div className="flex flex-col items-center pt-4 flex-1 text-light-gray">
-              <button
-                type='button'
-                onClick={handleSecession}>
-                회원 탈퇴
-              </button>
-            </div>
+							<button type="button" onClick={handleSecession}>
+								회원 탈퇴
+							</button>
+						</div>
 					</div>
 				)}
 			</div>

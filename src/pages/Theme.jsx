@@ -456,7 +456,12 @@ function Theme() {
 				</ul>
 				{isLoading && emptyData && (
 					<div className="absolute top-1/2 -translate-y-1/2">
-						<EmptyContents>검색결과가 없습니다 : &#40;</EmptyContents>
+						<EmptyContents>
+							<span aria-label="검색결과가 없습니다 " tabIndex="0">
+								검색결과가 없습니다
+							</span>
+							: &#40;
+						</EmptyContents>
 					</div>
 				)}
 

@@ -45,7 +45,11 @@ function RecordCommunityItem({
 			</div>
 			<figcaption className="flex flex-col justify-between s:justify-around w-full">
 				<section className="flex w-full justify-between">
-					<h2 className="s:max-w-[90px] max-w-[170px] whitespace-nowrap overflow-hidden text-ellipsis text-2xl s:text-lg font-semibold">
+					<h2
+						className="s:max-w-[90px] max-w-[170px] whitespace-nowrap overflow-hidden text-ellipsis text-2xl s:text-lg font-semibold"
+						aria-label={'제목 ' + theme}
+						tabIndex="0"
+					>
 						{theme}
 					</h2>
 					<Span text="font-semibold">
@@ -57,10 +61,14 @@ function RecordCommunityItem({
 					</Span>
 				</section>
 				<section className="flex gap-3">
-					<h3>{store}</h3>
+					<h3 aria-label={'업체명 ' + store} tabIndex="0">
+						{store}
+					</h3>
 				</section>
 				<section className="flex justify-between">
 					<span
+						aria-label="작성자"
+						tabIndex="0"
 						className={`${
 							author === '탈퇴회원' ? 'dark:text-dark-gray text-light-gray' : ''
 						} s:max-w-fit whitespace-nowrap text-ellipsis overflow-hidden`}
@@ -73,10 +81,7 @@ function RecordCommunityItem({
 							? `🐔${author}`
 							: `${author}`}
 					</span>
-					<SmallButton
-						text="s:px-[5%] s:py-1 px-6 py-1"
-						onClick={handleLink}
-					>
+					<SmallButton text="s:px-[5%] s:py-1 px-6 py-1" onClick={handleLink}>
 						보러가기
 					</SmallButton>
 				</section>

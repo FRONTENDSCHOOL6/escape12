@@ -50,7 +50,9 @@ function Span({ children, text = '' }) {
 			placement="right-end"
 			arrow
 		>
-			<span className={`whitespace-nowrap ${text}`}>{children}</span>
+			<span tabIndex="0" className={`whitespace-nowrap ${text}`}>
+				{children}
+			</span>
 		</Tooltip>
 	);
 }

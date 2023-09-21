@@ -28,11 +28,15 @@ function CommentItem({
 					className={`font-bold ${
 						nickName === '탈퇴회원' ? 'dark:text-dark-gray text-light-gray' : ''
 					}`}
+					aria-label={'작성자 ' + nickName}
+					tabIndex="0"
 				>
 					{nickName}
 				</span>
 			</div>
-			<span className="pb-2 flex-1">{comment}</span>
+			<span className="pb-2 flex-1" aria-label={'댓글 ' + comment} tabIndex="0">
+				{comment}
+			</span>
 			{(userId === `${userUId?.model.id}` || userUId?.model.admin) && (
 				<button type="button" onClick={onClick}>
 					X
