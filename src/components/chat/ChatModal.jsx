@@ -1,16 +1,17 @@
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import pb from '@/api/pockethost';
+import { useEffect, useRef, useState } from 'react';
+import Spinner from '../Spinner';
 import ChatInput from './ChanInput';
 import ChatItem from './ChatItem';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { getUserInfoFromStorage } from '@/api/getUserInfo';
-import Spinner from '../Spinner';
+import EmptyContents from '../EmptyContents';
 
 function ChatModal() {
 	const userUId = getUserInfoFromStorage();
 	const [chat, setChat] = useState(null);
 	const [text, setText] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const chatListRef = useRef(null);
 
 	// 채팅 쓰기 이벤트
 	const handleChangeChat = (e) => {
@@ -41,6 +42,13 @@ function ChatModal() {
 		}
 	};
 
+	// 스크린위치 가장 아래 고정
+	useEffect(() => {
+		if (chatListRef.current) {
+			chatListRef.current.scrollTop = chatListRef.current.scrollHeight;
+		}
+	}, [chat]);
+
 	// 채팅데이터 가져오기
 	useEffect(() => {
 		const chatData = async () => {
@@ -62,7 +70,14 @@ function ChatModal() {
 
 	return (
 		<div className="fixed top-1/2 z-50 left-1/2 -translate-y-1/2 -translate-x-1/2 dark:bg-dark-ec1 dark:text-dark-ec4 text-light-ec4 bg-light-ec4 w-[500px] h-[600px] rounded-2xl">
-			<ul className="w-full h-[90%] overflow-auto p-5">
+			<ul className="w-full h-[90%] overflow-auto p-5" ref={chatListRef}>
+				{isLoading && chat.length === 0 && (
+					<div className="flex flex-col items-center translate-y-1/4">
+						<EmptyContents text="text-light-ec1 dark:text-dark-ec4">
+							채팅을 시작해주세요 : &#41;
+						</EmptyContents>
+					</div>
+				)}
 				{!isLoading && (
 					<div className="flex flex-col items-center translate-y-1/2">
 						<Spinner />
