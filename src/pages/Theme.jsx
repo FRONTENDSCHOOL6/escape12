@@ -407,7 +407,7 @@ function Theme() {
 				>
 					인기 테마
 				</HeaderRecord>
-				<div className="w-full px-20 s:px-12">
+				<div className="w-full px-20 s:px-16">
 					<SearchInput
 						placeholder="검색어를 입력해주세요 😀"
 						value={search}
