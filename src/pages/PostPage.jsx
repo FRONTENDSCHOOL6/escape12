@@ -131,18 +131,20 @@ function PostPage() {
 				<meta property="og:url" content="https://escape12.netlify.app/postpage" />
 			</Helmet>
 
-			<div className="w-full max-w-[600px] min-w-[320px] text-lg py-20 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 flex flex-col items-center min-h-[100vh] m-auto gap-14">
+			<div className="w-full max-w-[600px] min-w-[320px] text-lg py-20 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 flex flex-col items-center min-h-[100vh] m-auto gap-6">
 				<HeaderRecord pencilClick={handleRecordButton}>
 					커뮤니티 목록
 				</HeaderRecord>
-				<SearchInput
-					placeholder="검색어를 입력해주세요 😀"
-					value={search}
-					onChange={debounceSearch}
-					onSubmit={handleSubmitButton}
-				>
-					검색
-				</SearchInput>
+				<div className="w-full px-20">
+					<SearchInput
+						placeholder="검색어를 입력해주세요 😀"
+						value={search}
+						onChange={debounceSearch}
+						onSubmit={handleSubmitButton}
+					>
+						검색
+					</SearchInput>
+				</div>
 				<PostList posts={posts} />
 				{IsLoading && posts.length === 0 && !emptyData && !noResult && (
 					<div className="translate-y-1/3">

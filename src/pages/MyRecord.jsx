@@ -175,15 +175,17 @@ function MyRecord() {
 				>
 					나의 기록
 				</HeaderBackRecord>
-				<SearchInput
-					placeholder="검색어를 입력해주세요 😀"
-					value={search}
-					onChange={debounceSearch}
-					text="text-ec4"
-					onSubmit={handleSubmitButton}
-				>
-					검색
-				</SearchInput>
+				<div className="w-full px-20">
+					<SearchInput
+						placeholder="검색어를 입력해주세요 😀"
+						value={search}
+						onChange={debounceSearch}
+						text="text-ec4"
+						onSubmit={handleSubmitButton}
+					>
+						검색
+					</SearchInput>
+				</div>
 				<div className="flex flex-col items-center w-full">
 					{isLoading && data.length === 0 && !emptyData && !noResult && (
 						<div className="translate-y-1/3">

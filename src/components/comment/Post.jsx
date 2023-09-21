@@ -15,7 +15,7 @@ function Post({ title, author, content, src, alt }) {
 				<p className="font-semibold">{title}</p>
 				<div className="flex items-center">
 					<img className="w-6 h-6 rounded-full mr-2" src={src} alt={alt} />
-					<p className="break-all font-bold whitespace-normal">{author}</p>
+					<p className="break-all font-bold whitespace-nowrap">{author}</p>
 				</div>
 			</div>
 			<p className="break-all">{content}</p>

@@ -23,7 +23,7 @@ function SearchInput({
 	return (
 		<form
 			onSubmit={onSubmit}
-			className={`flex gap-4 w-full px-20 justify-center text-lg pb-4 ${text}`}
+			className={`flex gap-4 w-full justify-center text-lg pb-4 ${text}`}
 		>
 			<input
 				type={type}
@@ -32,7 +32,7 @@ function SearchInput({
 				maxLength={35}
 				defaultValue={value}
 				required
-				className="pl-3 py-1 rounded-full focus:outline-none  flex-1 text-light-ec4 dark:text-dark-ec4"
+				className="pl-3 py-1 rounded-full focus:outline-none grow text-light-ec4 dark:text-dark-ec4"
 			/>
 			<SmallButton type="submit">{children}</SmallButton>
 		</form>

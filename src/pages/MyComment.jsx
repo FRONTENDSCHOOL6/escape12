@@ -63,6 +63,10 @@ function MyCommentPage() {
 					</div>
 				)}
 				<div className="s:px-12 w-full px-20">
+					<div className="flex justify-between pb-6">
+						<span>📕 커뮤니티 댓글</span>
+						<span>🎫 기록 댓글</span>
+					</div>
 					{isLoading &&
 						comment.map((item) => (
 							<MyCommentItem
