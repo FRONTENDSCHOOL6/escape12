@@ -237,7 +237,9 @@ function UploadRecord() {
 											: '탈퇴회원'}
 									</p>
 									<span>
-										{!data.date ? data.expand?.escapeList.created : data.date}
+										{!data.date
+											? data.expand?.escapeList.created.slice(0, 10)
+											: data.date}
 									</span>
 								</div>
 							</div>
