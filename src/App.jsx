@@ -10,7 +10,6 @@ function App() {
 		<HelmetProvider>
 			<AuthProvider>
 				<ThemeProvider>
-					{''}
 					<RouterProvider router={router}>{router.routes}</RouterProvider>
 				</ThemeProvider>
 			</AuthProvider>

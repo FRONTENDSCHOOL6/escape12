@@ -8,13 +8,13 @@ import UpNav from '@/components/nav/UpNav';
 import HeartButton from '@/components/theme/HeartButton';
 import LiButton from '@/components/theme/LiButton';
 import ThemeItem from '@/components/theme/ThemeItem';
+import { ThemeContext } from '@/contexts/ThemeContext';
+import useEscapeList from '@/hooks/useEscapeList';
 import debounce from '@/utils/debounce';
-import { useContext } from 'react';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { ThemeContext } from '@/contexts/ThemeContext';
 
 function Theme() {
 	const {
@@ -28,7 +28,7 @@ function Theme() {
 	const [levelSort, setLevelSort] = useState(false);
 	const [gradeSort, setGradeSort] = useState(false);
 	const [showPlusNav, setShowPlusNav] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoadingState, setIsLoadingState] = useState(false);
 	const [emptyData, setEmptyData] = useState(false);
 	const [gang, setGang] = useState(false);
 	const [hong, setHong] = useState(false);
@@ -38,6 +38,8 @@ function Theme() {
 	const [record, setRecord] = useState();
 	const [bookMark, setBookMark] = useState(null);
 	const [page, setPage] = useState(1);
+
+	const { data: escapeList, isLoading } = useEscapeList();
 
 	// 즐겨찾기 기능
 	const isClickHeart = async (item) => {
@@ -122,6 +124,7 @@ function Theme() {
 						});
 
 					try {
+						currentScrollY - 1000;
 						setPage(page + 1);
 						setData((prevData) => [...prevData, ...escape.items]);
 					} catch (err) {
@@ -141,7 +144,7 @@ function Theme() {
 
 	//인기순 정렬하기
 	const handleGradeSort = () => {
-		setIsLoading(false);
+		setIsLoadingState(false);
 		setGang(false);
 		setHong(false);
 		setKuk(false);
@@ -162,7 +165,7 @@ function Theme() {
 			try {
 				setTimeout(() => {
 					levelSort ? setData(down) : setData(up);
-					setIsLoading(true);
+					setIsLoadingState(true);
 				});
 			} catch (err) {
 				console.log(`인기순 정렬 에러: ${err}`);
@@ -174,7 +177,7 @@ function Theme() {
 
 	//난이도별 정리하기
 	const handleLevelSort = () => {
-		setIsLoading(false);
+		setIsLoadingState(false);
 		setGang(false);
 		setHong(false);
 		setKuk(false);
@@ -195,7 +198,7 @@ function Theme() {
 			try {
 				setTimeout(() => {
 					levelSort ? setData(down) : setData(up);
-					setIsLoading(true);
+					setIsLoadingState(true);
 				});
 			} catch (err) {
 				console.log(`난이도순 정렬 에러: ${err}`);
@@ -207,7 +210,7 @@ function Theme() {
 
 	//지역별 강남 정렬하기
 	const handleGangnam = () => {
-		setIsLoading(false);
+		setIsLoadingState(false);
 		setGang(true);
 		setHong(false);
 		setKuk(false);
@@ -222,7 +225,7 @@ function Theme() {
 			try {
 				setTimeout(() => {
 					setData(gangnam);
-					setIsLoading(true);
+					setIsLoadingState(true);
 				});
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
@@ -233,7 +236,7 @@ function Theme() {
 
 	//지역별 홍대 정렬하기
 	const handleHongDae = () => {
-		setIsLoading(false);
+		setIsLoadingState(false);
 		setGang(false);
 		setHong(true);
 		setKuk(false);
@@ -248,7 +251,7 @@ function Theme() {
 			try {
 				setTimeout(() => {
 					setData(hongdae);
-					setIsLoading(true);
+					setIsLoadingState(true);
 				});
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
@@ -259,7 +262,7 @@ function Theme() {
 
 	//지역별 건대 정렬하기
 	const handleKonkuk = () => {
-		setIsLoading(false);
+		setIsLoadingState(false);
 		setGang(false);
 		setHong(false);
 		setKuk(true);
@@ -274,7 +277,7 @@ function Theme() {
 			try {
 				setTimeout(() => {
 					setData(konkuk);
-					setIsLoading(true);
+					setIsLoadingState(true);
 				});
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
@@ -291,7 +294,7 @@ function Theme() {
 		setLevel(false);
 		setLike(false);
 
-		setIsLoading(false);
+		setIsLoadingState(false);
 		if (e.target.value.length !== 0) {
 			setSearch(e.target.value);
 		} else {
@@ -323,19 +326,19 @@ function Theme() {
 					setTimeout(() => {
 						setData(resultList.items);
 						setEmptyData(false);
-						setIsLoading(true);
+						setIsLoadingState(true);
 					});
 				} else if (e.target.value === 0) {
 					setTimeout(() => {
 						setData(data.items);
 						setEmptyData(false);
-						setIsLoading(true);
+						setIsLoadingState(true);
 					});
 				} else {
 					setTimeout(() => {
 						setEmptyData(true);
 						setData([]);
-						setIsLoading(true);
+						setIsLoadingState(true);
 					});
 				}
 			} catch (err) {
@@ -384,7 +387,7 @@ function Theme() {
 
 				try {
 					setData(escape.items);
-					setIsLoading(true);
+					setIsLoadingState(true);
 				} catch (err) {
 					console.log(`에러 내용: ${err}`);
 				}
@@ -454,20 +457,20 @@ function Theme() {
 						</LiButton>
 					</li>
 				</ul>
-				{isLoading && emptyData && (
+				{isLoadingState && emptyData && (
 					<div className="absolute top-1/2 -translate-y-1/2">
 						<EmptyContents>검색결과가 없습니다 : &#40;</EmptyContents>
 					</div>
 				)}
 
-				{!isLoading && (
+				{!isLoadingState && (
 					<div className="absolute top-1/2 -translate-y-1/2">
 						<Spinner />
 					</div>
 				)}
-				{isLoading && data && (
+				{isLoadingState && data && (
 					<ul className="w-full px-20 s:px-12">
-						{data.map((item) => {
+						{escapeList.map((item) => {
 							return (
 								<li key={item.id} className="relative">
 									<ThemeItem
@@ -497,6 +500,7 @@ function Theme() {
 								</li>
 							);
 						})}
+						<li className="font-semibold text-center pb-10">불러오는 중...</li>
 					</ul>
 				)}
 			</div>
