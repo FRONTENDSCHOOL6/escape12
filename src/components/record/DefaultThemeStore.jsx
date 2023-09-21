@@ -18,7 +18,7 @@ function DefaultThemeStore({ theme, themeEvent, store, storeEvent }) {
 				defaultValue={theme}
 				onChange={themeEvent}
 			>
-				테마명
+				<span aria-hidden="true">테마명</span>
 			</FormInput>
 			<FormInput
 				name="store"
@@ -27,7 +27,7 @@ function DefaultThemeStore({ theme, themeEvent, store, storeEvent }) {
 				defaultValue={store}
 				onChange={storeEvent}
 			>
-				업체명
+				<span aria-hidden="true">업체명</span>
 			</FormInput>
 		</>
 	);

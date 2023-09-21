@@ -140,7 +140,10 @@ function Mypage() {
 				<meta property="og:type" content="website" />
 				<meta property="og:title" content="방탈러 마이페이지" />
 				<meta property="og:description" content="방탈러 마이페이지 페이지" />
-				<meta property="og:image" content="https://user-images.githubusercontent.com/126174401/269517444-8d9acc2b-cf90-430e-b9af-a248a7d679e1.png" />
+				<meta
+					property="og:image"
+					content="https://user-images.githubusercontent.com/126174401/269517444-8d9acc2b-cf90-430e-b9af-a248a7d679e1.png"
+				/>
 				<meta name="theme-color" content="#352F44" />
 				<meta name="apple-mobile-web-app-status-bar-style" content="#352F44" />
 				<meta property="og:url" content="https://escape12.netlify.app/mypage" />
@@ -172,9 +175,15 @@ function Mypage() {
 							></img>
 						</div>
 						<ul className="s:px-12 p-8 text-xl space-y-4">
-							<li>아이디 | {data.email} </li>
-							<li>비밀번호 | ******** </li>
-							<li>닉네임 | {data.nickName} </li>
+							<li aria-label={'아이디 ' + data.email} tabIndex="0">
+								아이디 | {data.email}{' '}
+							</li>
+							<li aria-label={'비밀번호 '} tabIndex="0">
+								비밀번호 | ********{' '}
+							</li>
+							<li aria-label={'닉네임 ' + data.nickName} tabIndex="0">
+								닉네임 | {data.nickName}{' '}
+							</li>
 						</ul>
 						<Button
 							onClick={() => {
@@ -184,7 +193,7 @@ function Mypage() {
 							정보수정
 						</Button>
 						<ul className="w-80 s:px-12 rounded-lg border-2 p-12 text-xl space-y-4 mt-8 text-center">
-							<li>
+							<li aria-label={'내가 작성한 기록 '} tabIndex="0">
 								내가 작성한 기록 :
 								<Link
 									to="/myrecord"
@@ -193,7 +202,7 @@ function Mypage() {
 									{records.length} 개
 								</Link>
 							</li>
-							<li>
+							<li aria-label={'내가 작성한 글 '} tabIndex="0">
 								내가 작성한 글 :
 								<Link
 									to="/mycommunity"
@@ -202,7 +211,7 @@ function Mypage() {
 									{community.length} 개
 								</Link>
 							</li>
-							<li>
+							<li aria-label={'내가 작성한 댓글 '} tabIndex="0">
 								내가 작성한 댓글 :
 								<Link
 									to="/mycomment"
@@ -216,7 +225,7 @@ function Mypage() {
 									to="/bookmark"
 									className="hover:dark:text-dark-ec5 hover:font-bold"
 								>
-									⭐ 즐겨찾기 바로가기
+									<span aria-hidden="true">⭐</span> 즐겨찾기 바로가기
 								</Link>
 							</li>
 						</ul>

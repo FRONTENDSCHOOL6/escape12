@@ -20,7 +20,13 @@ function EditImage({ inputRef, onChange, imgRef, src, alt }) {
 				id="image"
 				accept="*.jpg,*.png,*.webp,*.avif"
 			/>
-				<img ref={imgRef} className="rounded-full w-40 h-40" src={src} alt={alt} />
+			<img
+				aria-label="개인 프로필 이미지"
+				ref={imgRef}
+				className="rounded-full w-40 h-40"
+				src={src}
+				alt={alt}
+			/>
 		</div>
 	);
 }

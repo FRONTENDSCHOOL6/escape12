@@ -8,7 +8,11 @@ Sup.propTypes = {
 function Sup({ children, hidden = 'dark:text-dark-red text-light-red' }) {
 	return (
 		<p>
-			{children} <sup className={`${hidden} text-lg`}> *</sup>
+			{children}{' '}
+			<sup className={`${hidden} text-lg`} aria-hidden="true">
+				{' '}
+				*
+			</sup>
 		</p>
 	);
 }

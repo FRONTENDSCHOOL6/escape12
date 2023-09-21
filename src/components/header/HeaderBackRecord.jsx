@@ -21,8 +21,12 @@ function HeaderBackRecord({
 					&lt;
 				</button>
 				<div className="mx-auto flex-grow">
-					<div className='flex items-center pl-5'>
-						<h2 className="mx-auto flex-grow">{children}
+					<div className="flex items-center pl-5">
+						<h2
+							className="mx-auto flex-grow"
+							aria-label={'현재 페이지 ' + children}
+						>
+							{children}
 						</h2>
 						<ThemeToggleButton />
 					</div>
@@ -34,7 +38,6 @@ function HeaderBackRecord({
 					/>
 				</div>
 			</div>
-
 		</header>
 	);
 }

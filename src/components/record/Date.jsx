@@ -13,6 +13,7 @@ function Date({ dateValue, onChange }) {
 				<Sup>날짜</Sup>
 			</label>
 			<input
+				tabIndex="0"
 				type="date"
 				id="date"
 				defaultValue={dateValue}
