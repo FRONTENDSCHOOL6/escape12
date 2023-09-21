@@ -66,22 +66,29 @@ function MyCommunity() {
 
 		try {
 			const resultList = await pb.collection('community').getList(1, 200, {
-				filter: `(author ~ "${e.target.value}" || content ~ "${e.target.value}" || title ~ "${e.target.value}")`,
+				filter: `(author = "${userUId?.model.Id}" && content ~ "${e.target.value}" || title ~ "${e.target.value}")`,
+				expand: 'author',
+			});
+
+			const againCommunity = await pb.collection('community').getFullList({
+				filter: `author = "${userUId?.model.id}"`,
+				expand: 'author',
+				sort: '-created',
 			});
 
 			if (resultList.items.length > 0) {
 				setPosts(resultList.items);
+				console.log(posts);
 				setEmptyData(false);
 				setIsLoading(true);
 				setNoResult(false);
 			} else if (e.target.value === '') {
-				const data = await pb.collection('community').getList(1, 200);
-				setPosts(data.items);
+				setPosts(againCommunity);
 				setEmptyData(false);
 				setIsLoading(true);
 				setNoResult(false);
 			} else {
-				setEmptyData(false);
+				setEmptyData(true);
 				setIsLoading(true);
 				setNoResult(false);
 				setPosts(resultList.items);
@@ -97,7 +104,7 @@ function MyCommunity() {
 		const mycommunity = async () => {
 			const community = await pb.collection('community').getFullList({
 				filter: `author = "${userUId?.model.id}"`,
-				expand: 'author,',
+				expand: 'author',
 				sort: '-created',
 			});
 
@@ -125,11 +132,20 @@ function MyCommunity() {
 				<meta name="description" content="방탈러 홈페이지-나의 게시물 목록" />
 				<meta property="og:type" content="website" />
 				<meta property="og:title" content="방탈러 나의 게시물 목록" />
-				<meta property="og:description" content="방탈러 나의 게시물 목록 페이지" />
-				<meta property="og:image" content="https://user-images.githubusercontent.com/126174401/269517444-8d9acc2b-cf90-430e-b9af-a248a7d679e1.png" />
+				<meta
+					property="og:description"
+					content="방탈러 나의 게시물 목록 페이지"
+				/>
+				<meta
+					property="og:image"
+					content="https://user-images.githubusercontent.com/126174401/269517444-8d9acc2b-cf90-430e-b9af-a248a7d679e1.png"
+				/>
 				<meta name="theme-color" content="#352F44" />
 				<meta name="apple-mobile-web-app-status-bar-style" content="#352F44" />
-				<meta property="og:url" content="https://escape12.netlify.app/mycommunity" />
+				<meta
+					property="og:url"
+					content="https://escape12.netlify.app/mycommunity"
+				/>
 			</Helmet>
 
 			<div className="w-full max-w-[600px] min-w-[320px] bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 py-20 flex flex-col items-center min-h-[100vh] m-auto text-lg gap-6">
