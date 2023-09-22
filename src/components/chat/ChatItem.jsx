@@ -1,12 +1,12 @@
-import { string } from 'prop-types';
+import { string, number } from 'prop-types';
 
 ChatItem.propTypes = {
 	src: string,
 	alt: string,
 	author: string,
 	content: string,
-	hour: string,
-	minute: string,
+	hour: number,
+	minute: number,
 	reverse: string,
 	bg: string,
 };
@@ -28,7 +28,7 @@ function ChatItem({
 				<span className="text-xs">{author}</span>
 				<span>{content}</span>
 			</div>
-			<span className="text-xs px-1">
+			<span className="text-xs px-1 text-light-ec1 dark:text-dark-ec4">
 				{hour < 13
 					? '오전 ' + hour.toString()
 					: '오후 ' + (hour - 12).toString()}

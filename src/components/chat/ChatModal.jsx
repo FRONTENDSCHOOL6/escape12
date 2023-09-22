@@ -77,20 +77,20 @@ function ChatModal() {
 				className="w-full h-[90%] overflow-y-scroll p-5 chatModal"
 				ref={chatListRef}
 			>
-				<p className="text-center pb-2 dark:text-dark-ec4 text-light-ec1 text-lg">
+				<li className="text-center pb-2 dark:text-dark-ec4 text-light-ec1 text-lg">
 					{year + '년 ' + month + '월 ' + day + '일'}
-				</p>
+				</li>
 				{chat && chat.length === 0 && (
-					<div className="flex flex-col items-center translate-y-1/4">
+					<li className="flex flex-col items-center translate-y-1/4">
 						<EmptyContents text="text-light-ec1 dark:text-dark-ec4">
 							채팅을 시작해주세요 : &#41;
 						</EmptyContents>
-					</div>
+					</li>
 				)}
 				{chatData.isLoading && (
-					<div className="flex flex-col items-center translate-y-1/2">
+					<li className="flex flex-col items-center translate-y-1/2">
 						<Spinner />
-					</div>
+					</li>
 				)}
 				{chat &&
 					chat.map((item) => {
