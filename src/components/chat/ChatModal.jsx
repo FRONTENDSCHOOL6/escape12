@@ -1,16 +1,16 @@
 import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import pb from '@/api/pockethost';
+import useChat from '@/hooks/useChat';
 import { useEffect, useRef, useState } from 'react';
+import EmptyContents from '../EmptyContents';
 import Spinner from '../Spinner';
 import ChatInput from './ChanInput';
 import ChatItem from './ChatItem';
-import EmptyContents from '../EmptyContents';
 
 function ChatModal() {
 	const userUId = getUserInfoFromStorage();
 	const [chat, setChat] = useState(null);
 	const [text, setText] = useState('');
-	const [isLoading, setIsLoading] = useState(false);
 	const chatListRef = useRef(null);
 
 	// 채팅 쓰기 이벤트
@@ -49,42 +49,32 @@ function ChatModal() {
 		}
 	}, [chat]);
 
-	// 채팅데이터 가져오기
+	// 데이터가져오기
+	const chatData = useChat();
+
+	// 데이터 가져온 후, data 업데이트
 	useEffect(() => {
-		const chatData = async () => {
-			const records = await pb.collection('chat').getFullList({
-				sort: 'created',
-				expand: 'author',
-			});
-
-			try {
-				setChat(records);
-				setIsLoading(true);
-			} catch (err) {
-				console.log(err);
-			}
-		};
-
-		chatData();
-	}, []);
+		if (chatData.data) {
+			setChat(chatData.data);
+		}
+	}, [chatData.data]);
 
 	return (
 		<div className="fixed top-1/2 z-50 left-1/2 -translate-y-1/2 -translate-x-1/2 dark:bg-dark-ec1 dark:text-dark-ec4 text-light-ec4 bg-light-ec4 w-[500px] h-[600px] rounded-2xl">
 			<ul className="w-full h-[90%] overflow-auto p-5" ref={chatListRef}>
-				{isLoading && chat.length === 0 && (
+				{chat && chat.length === 0 && (
 					<div className="flex flex-col items-center translate-y-1/4">
 						<EmptyContents text="text-light-ec1 dark:text-dark-ec4">
 							채팅을 시작해주세요 : &#41;
 						</EmptyContents>
 					</div>
 				)}
-				{!isLoading && (
+				{chatData.isLoading && (
 					<div className="flex flex-col items-center translate-y-1/2">
 						<Spinner />
 					</div>
 				)}
-				{isLoading &&
-					chat &&
+				{chat &&
 					chat.map((item) => {
 						return (
 							<li key={item.id}>
