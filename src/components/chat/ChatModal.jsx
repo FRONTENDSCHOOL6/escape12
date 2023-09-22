@@ -1,17 +1,27 @@
 import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import pb from '@/api/pockethost';
+import noImage from '@/assets/noImage.png';
+import noImageLight from '@/assets/noImageLight.png';
+import social from '@/assets/socialImg.png';
+import { ThemeContext } from '@/contexts/ThemeContext';
 import useChat from '@/hooks/useChat';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import EmptyContents from '../EmptyContents';
 import Spinner from '../Spinner';
 import ChatInput from './ChanInput';
 import ChatItem from './ChatItem';
 
 function ChatModal() {
+	const { theme } = useContext(ThemeContext);
 	const userUId = getUserInfoFromStorage();
 	const [chat, setChat] = useState(null);
 	const [text, setText] = useState('');
 	const chatListRef = useRef(null);
+	const year = new Date().getFullYear();
+	const month = new Date().getMonth() + 1;
+	const day = new Date().getDate();
+	const hour = new Date().getHours();
+	const minute = new Date().getMinutes();
 
 	// 채팅 쓰기 이벤트
 	const handleChangeChat = (e) => {
@@ -23,6 +33,8 @@ function ChatModal() {
 		e.preventDefault();
 		const data = {
 			content: text,
+			hour: hour,
+			minute: minute,
 			author: `${userUId?.model.id}`,
 		};
 
@@ -61,7 +73,13 @@ function ChatModal() {
 
 	return (
 		<div className="fixed top-1/2 z-50 left-1/2 -translate-y-1/2 -translate-x-1/2 dark:bg-dark-ec1 dark:text-dark-ec4 text-light-ec4 bg-light-ec4 w-[500px] h-[600px] rounded-2xl s:hidden">
-			<ul className="w-full h-[90%] overflow-auto p-5" ref={chatListRef}>
+			<ul
+				className="w-full h-[90%] overflow-y-scroll p-5 chatModal"
+				ref={chatListRef}
+			>
+				<p className="text-center pb-2 dark:text-dark-ec4 text-light-ec1 text-lg">
+					{year + '년 ' + month + '월 ' + day + '일'}
+				</p>
 				{chat && chat.length === 0 && (
 					<div className="flex flex-col items-center translate-y-1/4">
 						<EmptyContents text="text-light-ec1 dark:text-dark-ec4">
@@ -79,10 +97,23 @@ function ChatModal() {
 						return (
 							<li key={item.id}>
 								<ChatItem
-									src={`https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`}
+									src={
+										item.expand?.author?.id && item.expand?.author?.avatar
+											? `https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`
+											: item.expand?.author?.social ===
+											  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+											? `${social}`
+											: item.expand?.author?.social
+											? item.expand?.author?.social
+											: theme == 'dark'
+											? `${noImageLight}`
+											: `${noImage}`
+									}
 									alt={item.expand?.author?.nickName}
 									author={item.expand?.author?.nickName}
 									content={item.content}
+									hour={item.hour}
+									minute={item.minute}
 									reverse={
 										item.expand?.author?.id === `${userUId?.model.id}`
 											? 'flex-row-reverse'
