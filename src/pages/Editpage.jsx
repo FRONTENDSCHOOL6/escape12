@@ -95,7 +95,7 @@ function Editpage() {
 				<meta property="og:title" content="방탈러 정보 수정" />
 				<meta property="og:description" content="방탈러 정보 수정 페이지" />
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto pt-20 pb-28 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
+			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto pt-16 pb-24 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				{/* header, headerback 맨 위 고정 */}
 				<Headerback
 					onClick={() => {
@@ -124,10 +124,10 @@ function Editpage() {
 										data.avatar
 											? `https://refresh.pockethost.io/api/files/${collectionId}/${id}/${avatar}`
 											: !data.social ||
-											  data.social ===
-													'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-											? `${socialImg}`
-											: data.social
+												data.social ===
+												'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+												? `${socialImg}`
+												: data.social
 									}
 									alt={data.nickName}
 								/>
@@ -142,7 +142,7 @@ function Editpage() {
 								저장
 							</Button>
 						</form>
-						<footer className="mt-auto pt-5 text-center">
+						<footer className="mt-auto pt-0 text-center">
 							<em>
 								<Link
 									to="https://github.com/FRONTENDSCHOOL6/escape12/"

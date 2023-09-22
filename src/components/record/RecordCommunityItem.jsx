@@ -69,9 +69,7 @@ function RecordCommunityItem({
 					<span
 						aria-label="작성자"
 						tabIndex="0"
-						className={`${
-							author === '탈퇴회원' ? 'dark:text-dark-gray text-light-gray' : ''
-						} s:max-w-[60%] whitespace-nowrap text-ellipsis overflow-hidden`}
+						className={`s:max-w-[60%] whitespace-nowrap text-ellipsis overflow-hidden`}
 					>
 						{record.length < 6 && record.length > 0
 							? `🥚${author}`
