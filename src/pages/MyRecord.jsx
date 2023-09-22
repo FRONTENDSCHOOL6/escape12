@@ -147,22 +147,6 @@ function MyRecord() {
 
 	//데이터 불러오기
 	useEffect(() => {
-		// const myRecord = async () => {
-		// 	const records = await pb.collection('record').getFullList({
-		// 		filter: `author = "${userUId?.model.id}"`,
-		// 		expand: 'escapeList',
-		// 		sort: '-created',
-		// 	});
-
-		// 	try {
-		// 		setData(records);
-		// 		setIsLoading(true);
-		// 	} catch (err) {
-		// 		console.log(`데이터 불러오기 에러 : ${err}`);
-		// 	}
-		// };
-
-		// myRecord();
 		if (myRecordData.data) {
 			setData(myRecordData.data);
 			setIsLoading(true);
@@ -181,7 +165,7 @@ function MyRecord() {
 					content="https://escape12.netlify.app/myrecord"
 				/>
 			</Helmet>
-			{chat && <ChatModal onClick={() => setChat(false)}/>}
+			{chat && <ChatModal onClick={() => setChat(false)} />}
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-screen m-auto relative pt-20 pb-28 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg gap-6">
 				<HeaderBackRecord
 					onClick={() => {
@@ -208,11 +192,12 @@ function MyRecord() {
 							<EmptyContents>기록이 없습니다 : &#40;</EmptyContents>
 						</div>
 					)}
-					{myRecordData.isLoading ||!isLoading && (
-						<div className="translate-y-1/2">
-							<Spinner />
-						</div>
-					)}
+					{myRecordData.isLoading ||
+						(!isLoading && (
+							<div className="translate-y-1/2">
+								<Spinner />
+							</div>
+						))}
 					<ul className="w-full px-20 s:px-12">
 						{!emptyData &&
 							isLoading &&

@@ -1,17 +1,15 @@
-import { Link } from 'react-router-dom';
-import LoginSeleteButton from '@/components/loginsignup/LoginSeleteButton';
+import pb from '@/api/pockethost';
 import KeyLogo from '@/components/KeyLogo';
+import LoginSeleteButton from '@/components/loginsignup/LoginSeleteButton';
+import gsap from 'gsap';
+import { useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
-import pb from '@/api/pockethost';
-import { useNavigate } from 'react-router-dom';
-import gsap from 'gsap';
-import { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 function LoginSelete() {
 	const navigate = useNavigate();
 	const containerRef = useRef(null);
-	const [isMounted, setIsMounted] = useState(true);
 
 	useEffect(() => {
 		gsap.fromTo(
@@ -19,7 +17,6 @@ function LoginSelete() {
 			{ opacity: 0 },
 			{ opacity: 1, duration: 0.5 }
 		);
-		return () => setIsMounted(false);
 	}, []);
 
 	// 카카오톡 로그인
@@ -38,29 +35,27 @@ function LoginSelete() {
 		};
 
 		await pb.collection('users').update(kakao.record.id, updateUser);
-		if (isMounted) {
-			try {
-				if (kakao.record.id) {
-					toast(`${kakao.record.nickName}님 환영합니다`, {
-						icon: '🧸',
-						duration: 2000,
-					});
-				} else {
-					toast(`로그인되었습니다`, {
-						icon: '🧸',
-						duration: 2000,
-					});
-				}
-
-				navigate('/theme');
-			} catch (err) {
-				console.log(`카카오톡 에러: ${err}`);
-
-				toast('로그인에 실패하셨습니다.', {
-					icon: '😭',
+		try {
+			if (kakao.record.id) {
+				toast(`${kakao.record.nickName}님 환영합니다`, {
+					icon: '🧸',
+					duration: 2000,
+				});
+			} else {
+				toast(`로그인되었습니다`, {
+					icon: '🧸',
 					duration: 2000,
 				});
 			}
+
+			navigate('/theme');
+		} catch (err) {
+			console.log(`카카오톡 에러: ${err}`);
+
+			toast('로그인에 실패하셨습니다.', {
+				icon: '😭',
+				duration: 2000,
+			});
 		}
 	};
 
