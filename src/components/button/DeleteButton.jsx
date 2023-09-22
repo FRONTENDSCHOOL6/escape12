@@ -1,13 +1,13 @@
 import { string, func } from 'prop-types';
 
-SmallButton.propTypes = {
+DeleteButton.propTypes = {
 	type: string,
 	children: string,
 	bg: string,
 	text: string,
 	onClick: func,
 };
-function SmallButton({
+function DeleteButton({
 	type = 'button',
 	children,
 	bg = 'bg-ec1',
@@ -25,4 +25,4 @@ function SmallButton({
 	);
 }
 
-export default SmallButton;
+export default DeleteButton;
