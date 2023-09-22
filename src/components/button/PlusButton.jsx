@@ -26,7 +26,7 @@ function PlusButton({ onClick, src, alt, location, hidden = {} }) {
 				} border-1 rounded-full text-6xl font-semibold absolute ${location} ${hidden}`}
 				onClick={onClick}
 			>
-				<img className="w-8" src={src} alt={alt} aria-hidden />
+				<img className="w-8 h-10" src={src} alt={alt} aria-hidden />
 			</button>
 		</Tooltip>
 	);

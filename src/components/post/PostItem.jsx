@@ -34,11 +34,7 @@ function PostItem({ id, title, author, content, src, alt }) {
 							aria-hidden="true"
 						/>
 						<p
-							className={`break-all font-bold whitespace-normal ${
-								author === '탈퇴회원'
-									? 'dark:text-dark-gray text-light-gray'
-									: ''
-							}`}
+							className={`break-all font-bold whitespace-normal`}
 							aria-label={'작성자 ' + author}
 							tabIndex="0"
 						>

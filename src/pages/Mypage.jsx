@@ -157,10 +157,10 @@ function Mypage() {
 									data.avatar
 										? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.avatar}`
 										: !data.social ||
-										  data.social ===
-												'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-										? `${socialImg}`
-										: data.social
+											data.social ===
+											'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+											? `${socialImg}`
+											: data.social
 								}
 								alt={data.nickName}
 								aria-hidden
@@ -225,7 +225,7 @@ function Mypage() {
 						<Button onClick={handleLogout} bg="text-center mt-8">
 							로그아웃
 						</Button>
-						<div className="flex flex-col items-center pt-4 flex-1 text-light-gray">
+						<div className="flex flex-col items-center pt-4 flex-1">
 							<button type="button" onClick={handleSecession}>
 								회원 탈퇴
 							</button>

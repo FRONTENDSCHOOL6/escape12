@@ -82,25 +82,22 @@ function RecordCommunity() {
 			const recordList = await pb.collection('record').getList(1, 200, {
 				sort: '-created',
 				expand: 'escapeList,author',
-				filter: `theme ~ "${e.target.value}" || nickName = "${
-					e.target.value
-				}" || store ~ "${e.target.value}"|| grade = "${
-					e.target.value === '꽃길'
+				filter: `theme ~ "${e.target.value}" || nickName = "${e.target.value
+					}" || store ~ "${e.target.value}"|| grade = "${e.target.value === '꽃길'
 						? 8 && 9 && 10
 						: e.target.value === '풀길'
-						? 4 && 5 && 6 && 7
-						: e.target.value === '흙길'
-						? 0 && 1 && 2 && 3
-						: '없음'
-				}" || grade = "${
-					e.target.value === '꽃'
+							? 4 && 5 && 6 && 7
+							: e.target.value === '흙길'
+								? 0 && 1 && 2 && 3
+								: '없음'
+					}" || grade = "${e.target.value === '꽃'
 						? 8 && 9 && 10
 						: e.target.value === '풀'
-						? 4 && 5 && 6 && 7
-						: e.target.value === '흙'
-						? 0 && 1 && 2 && 3
-						: '없음'
-				}"`,
+							? 4 && 5 && 6 && 7
+							: e.target.value === '흙'
+								? 0 && 1 && 2 && 3
+								: '없음'
+					}"`,
 			});
 
 			const records = await pb.collection('record').getFullList({
@@ -224,23 +221,23 @@ function RecordCommunity() {
 												item.image
 													? `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
 													: item.expand?.escapeList?.images
-													? `https://refresh.pockethost.io/api/files/${item.expand?.escapeList?.collectionId}/${item.expand?.escapeList?.id}/${item.expand?.escapeList?.images}`
-													: theme === 'dark' &&
-													  !item.image &&
-													  !item.expand?.escapeList?.image
-													? `${noImageLight}`
-													: theme === 'light' &&
-													  !item.image &&
-													  !item.expand?.escapeList?.image
-													? `${noImage}`
-													: ''
+														? `https://refresh.pockethost.io/api/files/${item.expand?.escapeList?.collectionId}/${item.expand?.escapeList?.id}/${item.expand?.escapeList?.images}`
+														: theme === 'dark' &&
+															!item.image &&
+															!item.expand?.escapeList?.image
+															? `${noImageLight}`
+															: theme === 'light' &&
+																!item.image &&
+																!item.expand?.escapeList?.image
+																? `${noImage}`
+																: ''
 											}
 											author={
 												item.expand?.author?.nickName && item.expand?.author?.id
 													? item.expand?.author?.nickName
 													: item.expand?.author?.id
-													? '소셜계정'
-													: '탈퇴회원'
+														? '소셜계정'
+														: '탈퇴회원'
 											}
 											link={item.id}
 											record={item.expand?.author?.record}

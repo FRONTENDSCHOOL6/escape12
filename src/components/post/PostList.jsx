@@ -32,8 +32,8 @@ function PostList({ posts }) {
 						post.expand?.author?.nickName && post.expand?.author?.id
 							? post.expand?.author?.nickName
 							: post.expand?.author?.id
-							? '소셜계정'
-							: '탈퇴회원'
+								? '소셜계정'
+								: '탈퇴회원'
 					}
 					date={post.date}
 					content={post.content}
@@ -41,20 +41,20 @@ function PostList({ posts }) {
 						post.expand && post.expand.author && post.expand.author.avatar
 							? `https://refresh.pockethost.io/api/files/${post.expand.author.collectionId}/${post.expand.author.id}/${post.expand.author.avatar}`
 							: post.expand?.author?.social ===
-							  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-							? `${social}`
-							: post.expand?.author?.social
-							? post.expand?.author?.social
-							: theme === 'dark'
-							? `${noImageLight}`
-							: `${noImage}`
+								'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+								? `${social}`
+								: post.expand?.author?.social
+									? post.expand?.author?.social
+									: theme === 'dark'
+										? `${noImageLight}`
+										: `${noImage}`
 					}
 					alt={
 						post.expand?.author?.nickName && post.expand?.author?.id
 							? post.expand?.author?.nickName
 							: post.expand?.author?.id
-							? '소셜계정'
-							: '탈퇴회원'
+								? '소셜계정'
+								: '탈퇴회원'
 					}
 				/>
 			))}
