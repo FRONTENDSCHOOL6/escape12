@@ -14,6 +14,8 @@ import { useContext } from 'react';
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
+import RecordPage from './RecordPage';
+import useRecordCommunity from '@/hooks/useRecordComuunity';
 
 function RecordCommunity() {
 	const navigate = useNavigate();
@@ -137,10 +139,13 @@ function RecordCommunity() {
 		() => debounce((e) => handleSearch(e), 500),
 		[handleSearch]
 	);
+		//데이터 가져오기
+		const recordCommunityData = useRecordCommunity();
+
 
 	// 데이터 불러오기
 	useEffect(() => {
-		const allRecord = async () => {
+		/* const allRecord = async () => {
 			const records = await pb.collection('record').getFullList({
 				sort: '-created',
 				expand: 'author, escapeList',
@@ -151,11 +156,13 @@ function RecordCommunity() {
 				setIsLoading(true);
 			} catch (err) {
 				console.log(`에러 내용: ${err}`);
+			} */
+			if(recordCommunityData.data){
+				setData(recordCommunityData.data)
+				setIsLoading(true);
 			}
-		};
-
-		allRecord();
-	}, []);
+		// allRecord();
+	}, [recordCommunityData.data]);
 
 	return (
 		<div>
@@ -201,7 +208,7 @@ function RecordCommunity() {
 							</EmptyContents>
 						</div>
 					)}
-					{!isLoading && (
+					{RecordPage.isLoading||!isLoading && (
 						<div className="absolute top-1/2 -translate-y-1/2">
 							<Spinner />
 						</div>
