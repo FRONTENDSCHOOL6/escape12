@@ -10,8 +10,7 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-
-import gsap from 'gsap';
+import useMyComment from '@/hooks/useMyComment';
 
 function MyCommentPage() {
 	const userUId = getUserInfoFromStorage();
@@ -53,27 +52,33 @@ function MyCommentPage() {
 		};
 	}, [showPlusNav]);
 
-	useEffect(() => {
-		const MyComment = async () => {
-			const CommentList = await pb.collection('comment').getList(1, 200, {
-				filter: `author="${userUId?.model.id}"`,
-				expand: 'author , community , record',
-				sort: '-created',
-			});
-			try {
-				if (CommentList.items.length > 0) {
-					setComment(CommentList.items);
-					setIsLoading(true);
-				} else {
-					setIsLoading(true);
-				}
-			} catch (err) {
-				console.log(`데이터 불러오기 에러 : ${err}`);
-			}
-		};
+	const MyCommentData = useMyComment();
 
-		MyComment();
-	}, [userUId?.model.id]);
+	useEffect(() => {
+		// const MyComment = async () => {
+		// 	const CommentList = await pb.collection('comment').getList(1, 200, {
+		// 		filter: `author="${userUId?.model.id}"`,
+		// 		expand: 'author , community , record',
+		// 		sort: '-created',
+		// 	});
+		// 	try {
+		// 		if (CommentList.items.length > 0) {
+		// 			setComment(CommentList.items);
+		// 			setIsLoading(true);
+		// 		} else {
+		// 			setIsLoading(true);
+		// 		}
+		// 	} catch (err) {
+		// 		console.log(`데이터 불러오기 에러 : ${err}`);
+		// 	}
+		// };
+
+		// MyComment();
+		if (MyCommentData.data) {
+			setComment(MyCommentData.data.items);
+			setIsLoading(true);
+		}
+	}, [MyCommentData.data]);
 
 	return (
 		<>

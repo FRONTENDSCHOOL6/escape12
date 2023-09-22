@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import ChatModal from '@/components/chat/ChatModal';
+import useMyCommunity from '@/hooks/useMyCommunity';
 
 pb.autoCancellation(false);
 
@@ -112,24 +113,14 @@ function MyCommunity() {
 		e.preventDefault();
 	};
 
+	const myCommunityData = useMyCommunity();
+
 	useEffect(() => {
-		const mycommunity = async () => {
-			const community = await pb.collection('community').getFullList({
-				filter: `author = "${userUId?.model.id}"`,
-				expand: 'author',
-				sort: '-created',
-			});
-
-			try {
-				setPosts(community);
-				setIsLoading(true);
-			} catch (err) {
-				console.log(`데이터 불러오기 에러 : ${err}`);
-			}
-		};
-
-		mycommunity();
-	}, []);
+		if (myCommunityData.data) {
+			setPosts(myCommunityData.data);
+			setIsLoading(true);
+		}
+	}, [myCommunityData.data]);
 
 	return (
 		<>
