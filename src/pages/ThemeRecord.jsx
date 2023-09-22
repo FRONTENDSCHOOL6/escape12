@@ -174,7 +174,10 @@ function ThemeRecord() {
 								minute={minute}
 								minuteEvent={handleRemainingTimeMinuteChange}
 							/>
-							<PhotoImage src={data.image} alt={data.theme} />
+							<PhotoImage
+								src={`https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.images}`}
+								alt={data.theme}
+							/>
 						</fieldset>
 						<TextArea
 							value={content}

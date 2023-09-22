@@ -1,8 +1,6 @@
-import { string } from 'prop-types';
-import DeleteButton from '../button/DeleteButton';
-import toast from 'react-hot-toast';
-import pb from '@/api/pockethost';
+import { func, string } from 'prop-types';
 import { Link } from 'react-router-dom';
+import DeleteButton from '../button/DeleteButton';
 
 MyCommentItem.propTypes = {
 	src: string,
@@ -13,29 +11,11 @@ MyCommentItem.propTypes = {
 	postId: string,
 	postTitle: string,
 	postType: string,
+	onClick: func,
 };
 
-function MyCommentItem({ comment, id, postId, postTitle, postType }) {
+function MyCommentItem({ comment, postId, postTitle, postType, onClick }) {
 	const maxLength = 25;
-	const handleDeletecomment = async (e) => {
-		e.preventDefault();
-		const deleteConfirm = confirm('정말로 삭제하시겠습니까?');
-
-		try {
-			if (deleteConfirm) {
-				await pb.collection('comment').delete(`${id}`);
-
-				toast('삭제되었습니다', {
-					icon: '🗑️',
-					duration: 2000,
-				});
-
-				location.reload();
-			}
-		} catch (err) {
-			console.log(`삭제 에러: ${err}`);
-		}
-	};
 
 	return (
 		<div className="border-2 justify-between max-h-[105px] items-center p-4 mb-6 rounded-xl flex m-auto transition-transform duration-500 ease-in-out transform hover:scale-105">
@@ -69,7 +49,7 @@ function MyCommentItem({ comment, id, postId, postTitle, postType }) {
 					</p>
 				</Link>
 			</div>
-			<DeleteButton className="ml-auto" onClick={handleDeletecomment}>
+			<DeleteButton className="ml-auto" onClick={onClick}>
 				삭제
 			</DeleteButton>
 		</div>

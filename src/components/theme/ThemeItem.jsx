@@ -32,11 +32,11 @@ function ThemeItem({
 	record,
 }) {
 	return (
-		<figure className="my-4 border-2 border-ec1 p-4 s:p-3 rounded-xl flex gap-3 s:gap-[5%] text-ec1 text-lg s:text-base relative h-[180px] w-full">
-			<div className=" bg-ec4 flex w-[25%] s:min-w-[25%]">
+		<figure className="my-4 border-2 border-ec1 p-4 s:p-3 rounded-xl flex gap-3 s:gap-2 text-lg s:text-base relative h-[180px] w-full">
+			<div className="flex w-[25%] s:min-w-[25%]">
 				<img src={image} alt={theme} aria-hidden className="w-full" />
 			</div>
-			<figcaption className="flex flex-col justify-between s:justify-around w-[80%]">
+			<figcaption className="flex flex-col justify-between s:justify-around w-[75%]">
 				<section className="flex items-end gap-4 s:gap-2 w-full">
 					<h2
 						className="s:max-w-[90px] max-w-[170px] whitespace-nowrap overflow-hidden text-ellipsis text-2xl s:text-lg font-semibold"
@@ -53,7 +53,7 @@ function ThemeItem({
 							: '🌸꽃길'}
 					</Span>
 				</section>
-				<section className="flex justify-between items-center s:w-[90%]">
+				<section className="flex justify-between items-center">
 					<h3 className="s:max-w-[70%] overflow-hidden text-ellipsis whitespace-nowrap">
 						<span aria-label={'업체명 ' + store} tabIndex="0">
 							{store}
@@ -66,7 +66,7 @@ function ThemeItem({
 						{field}
 					</Span>
 				</section>
-				<section className="flex justify-between s:w-[90%]">
+				<section className="flex justify-between">
 					{level === 1 || level === 2 || level === 3 ? (
 						<SmallButton
 							bg="dark:bg-dark-googleline bg-light-googleline text-light-ec4"
@@ -97,22 +97,18 @@ function ThemeItem({
 
 					{clear && clear.findIndex((item) => item.id === `${dataid}`) < 0 && (
 						<Link to={dataid}>
-							<SmallButton bg="bg-ec3" text="text-ec1">
-								기록하기
-							</SmallButton>
+							<SmallButton>기록하기</SmallButton>
 						</Link>
 					)}
 
 					{!clear && (
 						<Link to={dataid}>
-							<SmallButton bg="bg-ec3" text="text-ec1">
-								기록하기
-							</SmallButton>
+							<SmallButton>기록하기</SmallButton>
 						</Link>
 					)}
 
 					<Link to={link} target="_blank" rel="noopenner noreferrer">
-						<SmallButton bg="bg-ec1">예약하기</SmallButton>
+						<SmallButton>예약하기</SmallButton>
 					</Link>
 				</section>
 			</figcaption>

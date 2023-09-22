@@ -3,6 +3,7 @@ import noImage from '@/assets/noImage.png';
 import noImageLight from '@/assets/noImageLight.png';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
+import ChatModal from '@/components/chat/ChatModal';
 import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
@@ -23,6 +24,12 @@ function RecordCommunity() {
 	const [noResult, setNoResult] = useState(false);
 	const [data, setData] = useState([]);
 	const [search, setSearch] = useState('');
+	const [chat, setChat] = useState(false);
+
+	// 채팅하기 이벤트
+	const handleChat = () => {
+		chat ? setChat(false) : setChat(true);
+	};
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
@@ -165,6 +172,7 @@ function RecordCommunity() {
 					content="https://escape12.netlify.app/recordcommunity"
 				/>
 			</Helmet>
+			{chat && <ChatModal />}
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-screen m-auto relative pt-20 pb-28 gap-2 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<HeaderRecord
 					onClick={() => {
@@ -216,8 +224,8 @@ function RecordCommunity() {
 											image={
 												item.image
 													? `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
-													: item.expand?.escapeList?.image
-													? item.expand?.escapeList?.image
+													: item.expand?.escapeList?.images
+													? `https://refresh.pockethost.io/api/files/${item.expand?.escapeList?.collectionId}/${item.expand?.escapeList?.id}/${item.expand?.escapeList?.images}`
 													: theme === 'dark' &&
 													  !item.image &&
 													  !item.expand?.escapeList?.image
@@ -244,7 +252,11 @@ function RecordCommunity() {
 					</ul>
 				</div>
 			</div>
-			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
+			<UpNav
+				topClick={handleTopButton}
+				hidden={!showPlusNav ? 'hidden' : ''}
+				talkClick={handleChat}
+			/>
 		</div>
 	);
 }

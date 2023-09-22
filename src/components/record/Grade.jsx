@@ -10,15 +10,14 @@ Grade.propTypes = {
 function Grade({ grade, onChange }) {
 	return (
 		<div className="flex gap-5 text-ec1 relative px-2">
-			<label htmlFor="grade" className="w-32 s:min-w-fit">
+			<div className="w-32 s:min-w-fit">
 				<Sup>
 					<span tabIndex="0" aria-label="평점">
 						평점
 					</span>
 				</Sup>
-			</label>
+			</div>
 			<Rating
-				id="grade"
 				name="half-rating"
 				defaultValue={0}
 				precision={0.5}

@@ -26,6 +26,7 @@ function SearchInput({
 			className={`flex gap-4 w-full justify-center text-lg pb-4 ${text}`}
 		>
 			<input
+				name="search"
 				type={type}
 				placeholder={placeholder}
 				onChange={onChange}

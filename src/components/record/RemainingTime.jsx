@@ -26,7 +26,7 @@ function RemainingTime({ hour, hourEvent, minute, minuteEvent }) {
 				<span>:</span>
 				<Select
 					label="분"
-					id="clearTime"
+					id="clearMinute"
 					name="minute"
 					defaultValue={minute}
 					onChange={minuteEvent}

@@ -31,7 +31,7 @@ function RecordCommunityItem({
 	};
 	return (
 		<figure className="my-4 border-2 border-ec1 p-4 s:p-3 rounded-xl flex gap-3 s:gap-[5%] text-lg s:text-base relative h-[180px]">
-			<div className="flex w-[50%]">
+			<div className="flex w-[45%] s:min-w-[35%]">
 				<img
 					src={image}
 					alt={
@@ -43,7 +43,7 @@ function RecordCommunityItem({
 					className="w-full"
 				/>
 			</div>
-			<figcaption className="flex flex-col justify-between s:justify-around w-full">
+			<figcaption className="flex flex-col justify-between s:justify-around w-full s:w-[63%]">
 				<section className="flex w-full justify-between">
 					<h2
 						className="s:max-w-[90px] max-w-[170px] whitespace-nowrap overflow-hidden text-ellipsis text-2xl s:text-lg font-semibold"
@@ -71,7 +71,7 @@ function RecordCommunityItem({
 						tabIndex="0"
 						className={`${
 							author === '탈퇴회원' ? 'dark:text-dark-gray text-light-gray' : ''
-						} s:max-w-fit whitespace-nowrap text-ellipsis overflow-hidden`}
+						} s:max-w-[60%] whitespace-nowrap text-ellipsis overflow-hidden`}
 					>
 						{record.length < 6 && record.length > 0
 							? `🥚${author}`

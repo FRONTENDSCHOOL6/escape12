@@ -1,14 +1,21 @@
+import talk from '@/assets/plusbutton-talk.png';
+import dark from '@/assets/plusbutton-talkDark.png';
 import top from '@/assets/plusbutton-top.png';
+import { ThemeContext } from '@/contexts/ThemeContext';
 import { func, string } from 'prop-types';
-import Nav from './Nav';
+import { useContext } from 'react';
 import PlusButton from '../button/PlusButton';
+import Nav from './Nav';
 
 UpNav.propTypes = {
 	topClick: func,
 	hidden: string,
+	talkClick: func,
 };
 
-function UpNav({ topClick, hidden }) {
+function UpNav({ topClick, hidden, talkClick }) {
+	const { theme } = useContext(ThemeContext);
+
 	return (
 		<div className="m-auto fixed bottom-0 left-0 right-0 max-w-[600px] min-w-[320px]">
 			<PlusButton
@@ -16,7 +23,13 @@ function UpNav({ topClick, hidden }) {
 				src={top}
 				alt="위로가기"
 				hidden={hidden}
-				location="right-4 bottom-24"
+				location="right-4 bottom-40 s:bottom-24"
+			/>
+			<PlusButton
+				onClick={talkClick}
+				src={theme === 'dark' ? talk : dark}
+				alt="채팅하기"
+				location="right-4 bottom-24 s:hidden"
 			/>
 			<Nav />
 		</div>
