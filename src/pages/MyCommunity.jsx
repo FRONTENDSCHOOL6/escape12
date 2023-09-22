@@ -146,7 +146,7 @@ function MyCommunity() {
 					content="https://escape12.netlify.app/mycommunity"
 				/>
 			</Helmet>
-			{chat && <ChatModal />}
+			{chat && <ChatModal onClick={() => setChat(false)}/>}
 			<div className="w-full max-w-[600px] min-w-[320px] bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 py-20 flex flex-col items-center min-h-[100vh] m-auto text-lg gap-6">
 				<HeaderBackRecord
 					pencilClick={handleRecordButton}
