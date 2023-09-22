@@ -7,6 +7,7 @@ import BookMarkItem from '@/components/mypage/BookMarkItem';
 import UpNav from '@/components/nav/UpNav';
 import HeartButton from '@/components/theme/HeartButton';
 import { ThemeContext } from '@/contexts/ThemeContext';
+import useBookMark from '@/hooks/useBookMark';
 import { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -93,25 +94,33 @@ function BookMark() {
 		};
 	}, [showPlusNav]);
 
+	// 데이터가져오기
+	const bookMarkData = useBookMark();
+
 	// 북마크 데이터 불러오기
 	useEffect(() => {
-		const userBookMarkData = async () => {
-			const userBookMark = await pb
-				.collection('users')
-				.getOne(`${userUId?.model.id}`, {
-					expand: 'bookmark, escapeList',
-				});
+		// const userBookMarkData = async () => {
+		// 	const userBookMark = await pb
+		// 		.collection('users')
+		// 		.getOne(`${userUId?.model.id}`, {
+		// 			expand: 'bookmark, escapeList',
+		// 		});
 
-			try {
-				setBookMark(userBookMark.expand?.bookmark);
-				setBookMarkId(userBookMark.bookmark);
-				setIsLoading(true);
-			} catch (err) {
-				console.log(`북마크 불러오기 에러: ${err}`);
-			}
-		};
+		// 	try {
+		// 		setBookMark(userBookMark.expand?.bookmark);
+		// 		setBookMarkId(userBookMark.bookmark);
+		// 		setIsLoading(true);
+		// 	} catch (err) {
+		// 		console.log(`북마크 불러오기 에러: ${err}`);
+		// 	}
+		// };
 
-		userBookMarkData();
+		// userBookMarkData();
+		if (bookMarkData.data) {
+			setBookMark(bookMarkData.data.expand?.bookmark);
+			setBookMarkId(bookMarkData.data.bookmark);
+			setIsLoading(true);
+		}
 	}, [userUId?.model.id]);
 
 	return (
@@ -139,11 +148,12 @@ function BookMark() {
 						<EmptyContents>즐겨찾기 목록이 없습니다 : &#40;</EmptyContents>
 					</div>
 				)}
-				{!isLoading && (
-					<div className="absolute top-1/2 -translate-y-1/2">
-						<Spinner />
-					</div>
-				)}
+				{bookMarkData.isLoading ||
+					(!isLoading && (
+						<div className="absolute top-1/2 -translate-y-1/2">
+							<Spinner />
+						</div>
+					))}
 				{isLoading && bookMark && bookMarkId && (
 					<ul className="w-full px-20 s:px-12">
 						{bookMark.map((item) => {
