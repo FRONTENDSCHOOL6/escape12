@@ -2,7 +2,7 @@ import pb from '@/api/pockethost';
 import { useQuery } from '@tanstack/react-query';
 
 const getEscapeList = async (options = {}) => {
-	const data = await pb.collection('escapeList').getFullList({ options });
+	const data = await pb.collection('escapeList').getList(1, 300, { options });
 	return data;
 };
 

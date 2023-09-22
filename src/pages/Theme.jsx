@@ -366,7 +366,7 @@ function Theme() {
 	useEffect(() => {
 		if (record || bookMark) {
 			const dataList = async () => {
-				const escape = await pb.collection('escapeList').getList(1, 10, {
+				const escape = await pb.collection('escapeList').getList(1, 300, {
 					sort: 'theme',
 					expand: 'record, users',
 				});
