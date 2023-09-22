@@ -22,7 +22,7 @@ function MyPage() {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const KAKAO_CLIENT_ID = '7e2f5729e497d2295073a752a34b20c2';
-	const KAKAO_LOGOUT_REDIRECT_URI = 'https://escape12.netlify.app';
+	const KAKAO_LOGOUT_REDIRECT_URI = 'https://escape12.netlify.app/';
 
 	//로그아웃
 	const handleLogout = async () => {
@@ -75,13 +75,13 @@ function MyPage() {
 		}
 	};
 
-// 데이터 가져오기
+	// 데이터 가져오기
 	const myPageData = useMyPage();
 
 	useEffect(() => {
 		//아이디, 닉네임 정보 불러오기 +사진
 		if (myPageData.data) {
-			setData(myPageData.data)
+			setData(myPageData.data);
 			setIsLoading(true);
 		}
 
@@ -139,11 +139,12 @@ function MyPage() {
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative mb-4 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				{/* header, headerback 맨 위 고정 */}
 				<Header>마이페이지</Header>
-				{myPageData.isLoading||!isLoading && (
-					<div className="absolute top-1/2 -translate-y-1/2">
-						<Spinner />
-					</div>
-				)}
+				{myPageData.isLoading ||
+					(!isLoading && (
+						<div className="absolute top-1/2 -translate-y-1/2">
+							<Spinner />
+						</div>
+					))}
 				{isLoading && data && records && comment && community && (
 					<div className="flex-1 flex flex-col items-center">
 						<div className="w-40 h-40">
