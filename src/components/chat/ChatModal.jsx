@@ -10,8 +10,13 @@ import EmptyContents from '../EmptyContents';
 import Spinner from '../Spinner';
 import ChatInput from './ChanInput';
 import ChatItem from './ChatItem';
+import { func } from 'prop-types';
 
-function ChatModal() {
+ChatModal.propTypes = {
+	onClick: func,
+};
+
+function ChatModal({ onClick }) {
 	const { theme } = useContext(ThemeContext);
 	const userUId = getUserInfoFromStorage();
 	const [chat, setChat] = useState(null);
@@ -72,14 +77,27 @@ function ChatModal() {
 	}, [chatData.data]);
 
 	return (
-		<div className="fixed top-1/2 z-50 left-1/2 -translate-y-1/2 -translate-x-1/2 dark:bg-dark-ec1 dark:text-dark-ec4 text-light-ec4 bg-light-ec4 w-[500px] h-[600px] rounded-2xl s:hidden">
+		<div className="chatModalBox fixed top-1/2 z-50 left-1/2 -translate-y-1/2 -translate-x-1/2 dark:bg-dark-ec1 dark:text-dark-ec4 text-light-ec4 bg-light-ec4 w-[500px] h-[600px] rounded-2xl s:hidden">
+			<div className="chatModalTitle flex relative justify-center bg-light-lightgreen">
+				<p
+					className="text-center py-1 text-lg"
+					aria-label={`${year}년${month}월${day}일`}
+				>
+					{year + '년 ' + month + '월 ' + day + '일'}
+				</p>
+				<button
+					type="button"
+					className="w-8 py-1 absolute top-0 right-0 hover:font-semibold"
+					aria-label="채팅닫기"
+					onClick={onClick}
+				>
+					X
+				</button>
+			</div>
 			<ul
-				className="w-full h-[90%] overflow-y-scroll p-5 chatModal"
+				className="w-full h-[90%] overflow-y-scroll px-5 pt-5 pb-10 chatModal"
 				ref={chatListRef}
 			>
-				<li className="text-center pb-2 dark:text-dark-ec4 text-light-ec1 text-lg">
-					{year + '년 ' + month + '월 ' + day + '일'}
-				</li>
 				{chat && chat.length === 0 && (
 					<li className="flex flex-col items-center translate-y-1/4">
 						<EmptyContents text="text-light-ec1 dark:text-dark-ec4">
@@ -101,13 +119,13 @@ function ChatModal() {
 										item.expand?.author?.id && item.expand?.author?.avatar
 											? `https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`
 											: item.expand?.author?.social ===
-												'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-												? `${social}`
-												: item.expand?.author?.social
-													? item.expand?.author?.social
-													: theme == 'dark'
-														? `${noImageLight}`
-														: `${noImage}`
+											  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+											? `${social}`
+											: item.expand?.author?.social
+											? item.expand?.author?.social
+											: theme == 'dark'
+											? `${noImageLight}`
+											: `${noImage}`
 									}
 									alt={item.expand?.author?.nickName}
 									author={item.expand?.author?.nickName}

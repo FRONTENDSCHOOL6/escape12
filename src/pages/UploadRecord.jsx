@@ -191,14 +191,26 @@ function UploadRecord() {
 				<title>
 					{`${!data.theme ? data.expand?.escapeList?.theme : data.theme} 기록`}
 				</title>
+				<meta
+					name="description"
+					content={`방탈러 홈페이지-${
+						!data.theme ? data.expand?.escapeList?.theme : data.theme
+					} 기록`}
+				/>
+				<meta
+					property="og:title"
+					content={`방탈러 ${
+						!data.theme ? data.expand?.escapeList?.theme : data.theme
+					} 기록`}
+				/>
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center justify-center min-h-[100vh] m-auto relative pt-20 pb-28 gap-5 px-20 s:px-12 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<Headerback onClick={handleBack}>
 					{!isLoading
 						? '로딩중'
 						: !data.theme
-							? data.expand?.escapeList?.theme
-							: data.theme}
+						? data.expand?.escapeList?.theme
+						: data.theme}
 				</Headerback>
 				{!isLoading && (
 					<div className="absolute top-1/2 -translate-y-1/2">
@@ -223,22 +235,23 @@ function UploadRecord() {
 								</h3>
 								<div className="flex justify-between">
 									<p
-										className={`flex max-w-fit whitespace-nowrap overflow-hidden text-ellipsis ${data.expand?.author?.nickName || data.expand?.author?.id
+										className={`flex max-w-fit whitespace-nowrap overflow-hidden text-ellipsis ${
+											data.expand?.author?.nickName || data.expand?.author?.id
 												? ''
 												: 'dark:text-dark-ec1 text-light-ec4'
-											}`}
+										}`}
 										tabIndex="0"
 										aria-label="작성자"
 									>
 										{data.expand?.author?.record.length < 6 &&
-											data.expand?.author?.record.length > 0
+										data.expand?.author?.record.length > 0
 											? `🥚${data.expand?.author?.nickName || '소셜계정'}`
 											: data.expand?.author?.record.length > 5 &&
-												data.expand?.author?.record.length < 11
-												? `🐤${data.expand?.author?.nickName || '소셜계정'}`
-												: data.expand?.author?.record.length > 10
-													? `🐔${data.expand?.author?.nickName || '소셜계정'}`
-													: '탈퇴회원'}
+											  data.expand?.author?.record.length < 11
+											? `🐤${data.expand?.author?.nickName || '소셜계정'}`
+											: data.expand?.author?.record.length > 10
+											? `🐔${data.expand?.author?.nickName || '소셜계정'}`
+											: '탈퇴회원'}
 									</p>
 									<span tabIndex="0">
 										{!data.date
@@ -266,8 +279,8 @@ function UploadRecord() {
 										data.expand?.author?.nickName
 											? data.expand?.author?.nickName
 											: data.expand?.author?.social
-												? '소셜회원'
-												: '탈퇴회원'
+											? '소셜회원'
+											: '탈퇴회원'
 									}
 									aria-hidden
 								/>
@@ -279,10 +292,10 @@ function UploadRecord() {
 								data.image
 									? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.image}`
 									: data.expand?.escapeList?.images
-										? `https://refresh.pockethost.io/api/files/${data.expand?.escapeList?.collectionId}/${data.expand?.escapeList?.id}/${data.expand?.escapeList?.images}`
-										: theme === 'dark'
-											? `${noImageLight}`
-											: `${noImage}`
+									? `https://refresh.pockethost.io/api/files/${data.expand?.escapeList?.collectionId}/${data.expand?.escapeList?.id}/${data.expand?.escapeList?.images}`
+									: theme === 'dark'
+									? `${noImageLight}`
+									: `${noImage}`
 							}
 							alt={
 								data.expand?.escapeList?.theme
@@ -383,7 +396,7 @@ function UploadRecord() {
 												<CommentItem
 													src={
 														item.expand?.author?.id &&
-															item.expand?.author?.avatar
+														item.expand?.author?.avatar
 															? `https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`
 															: item.expand?.author?.social ===
 															  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
@@ -399,16 +412,16 @@ function UploadRecord() {
 														item.expand?.author?.nickName
 															? item.expand?.author?.nickName
 															: item.expand?.author?.social
-																? '소셜회원'
-																: '탈퇴회원'
+															? '소셜회원'
+															: '탈퇴회원'
 													}
 													nickName={
 														item.expand?.author?.id &&
-															item.expand?.author?.nickName
+														item.expand?.author?.nickName
 															? item.expand?.author?.nickName
 															: item.expand?.author?.id
-																? '소셜계정'
-																: '탈퇴회원'
+															? '소셜계정'
+															: '탈퇴회원'
 													}
 													comment={item.content}
 													userId={item.expand?.author?.id}

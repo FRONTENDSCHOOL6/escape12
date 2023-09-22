@@ -25,6 +25,7 @@ export default {
 				googleline: '#BCF0AB',
 				opacity: 'transparent',
 				white: '#FFFFFF',
+				lightgreen: '#c5d5aa',
 			},
 			dark: {
 				ec1: '#FAF0E6',
@@ -40,6 +41,7 @@ export default {
 				googleline: '#BCF0AB',
 				opacity: 'transparent',
 				white: '#FFFFFF',
+				lightgreen: '#c5d5aa',
 			},
 		},
 		backgroundImage: {
