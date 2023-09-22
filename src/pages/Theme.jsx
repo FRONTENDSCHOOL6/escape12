@@ -12,7 +12,6 @@ import ThemeItem from '@/components/theme/ThemeItem';
 import { ThemeContext } from '@/contexts/ThemeContext';
 import useEscapeList from '@/hooks/useEscapeList';
 import debounce from '@/utils/debounce';
-import { useRef } from 'react';
 import { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
@@ -39,7 +38,6 @@ function Theme() {
 	const [like, setLike] = useState(false);
 	const [record, setRecord] = useState();
 	const [bookMark, setBookMark] = useState(null);
-	const [page, setPage] = useState(1);
 	const [chat, setChat] = useState(false);
 
 	// const { data: escapeList, isLoading } = useEscapeList();
@@ -113,33 +111,12 @@ function Theme() {
 	useEffect(() => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
-			const totalPageHeight = document.documentElement.scrollHeight;
-			const windowHeight = window.innerHeight;
 
 			if (
 				(currentScrollY >= 500 && !showPlusNav) ||
 				(currentScrollY < 500 && showPlusNav)
 			) {
 				setShowPlusNav(currentScrollY >= 500);
-			}
-
-			if (currentScrollY + windowHeight >= totalPageHeight) {
-				const dataUpdate = async () => {
-					const escape = await pb
-						.collection('escapeList')
-						.getList(page + 1, 10, {
-							sort: 'theme',
-						});
-
-					try {
-						currentScrollY - 1000;
-						setPage(page + 1);
-						setData((prevData) => [...prevData, ...escape.items]);
-					} catch (err) {
-						console.log(`에러 내용: ${err}`);
-					}
-				};
-				dataUpdate();
 			}
 		};
 
@@ -148,7 +125,7 @@ function Theme() {
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
 		};
-	}, [page, showPlusNav]);
+	}, [showPlusNav]);
 
 	//인기순 정렬하기
 	const handleGradeSort = () => {
@@ -372,7 +349,7 @@ function Theme() {
 				});
 
 				const usersEscape = await pb.collection('users').getOne(userId, {
-					expand: 'escapeList',
+					expand: 'escapeList, record',
 				});
 
 				if (usersLike || usersEscape) {
@@ -391,6 +368,7 @@ function Theme() {
 			const dataList = async () => {
 				const escape = await pb.collection('escapeList').getList(1, 10, {
 					sort: 'theme',
+					expand: 'record, users',
 				});
 
 				try {
@@ -511,7 +489,6 @@ function Theme() {
 										field={item.field}
 										dataid={item.id}
 										clear={record}
-										record={item.record}
 									/>
 									<HeartButton
 										onClick={() => isClickHeart(item)}
@@ -527,7 +504,6 @@ function Theme() {
 								</li>
 							);
 						})}
-						<li className="font-semibold text-center pb-10">불러오는 중...</li>
 					</ul>
 				)}
 			</div>

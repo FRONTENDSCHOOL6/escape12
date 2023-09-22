@@ -1,4 +1,4 @@
-/* eslint-disable no-mixed-spaces-and-tabs */
+
 
 import toast from 'react-hot-toast';
 import { Helmet } from 'react-helmet-async';
@@ -12,7 +12,6 @@ import {
 } from 'react';
 
 import pb from '@/api/pockethost';
-import getUserInfo, { getUserInfoFromStorage } from '@/api/getUserInfo';
 
 import debounce from '@/utils/debounce';
 import { ThemeContext } from '@/contexts/ThemeContext';
@@ -26,6 +25,7 @@ import SearchInput from '@/components/input/SearchInput';
 import HeartButton from '@/components/theme/HeartButton';
 import HeaderRecord from '@/components/header/HeaderRecord';
 import useQueryEscapeList from '@/hooks/useEscapeList';
+import ChatModal from '@/components/chat/ChatModal';
 
 /* -------------------------------------------------------------------------- */
 
@@ -70,6 +70,7 @@ function Theme() {
 	const [data, setData] = useState([]);
 	const [search, setSearch] = useState('');
 	const [showPlusNav, setShowPlusNav] = useState(false);
+	const [chat, setChat] = useState(false);
 
 	const [levelSort, setLevelSort] = useState(false);
 	const [gradeSort, setGradeSort] = useState(false);
@@ -87,11 +88,6 @@ function Theme() {
 	// ---------------------------------------------------------
 
 	const escapeListQueryData = useQueryEscapeList({
-		// 페이지
-		page,
-		// 페이지당 갯수
-		perPage,
-		// 쿼리 키에 병합
 		// [정렬 키, 강남, 홍대, 건대, 난이도순, 인기순]
 		keys: [sortKey, gang, hong, kuk, levelSort, gradeSort],
 		// 옵션
@@ -207,6 +203,11 @@ function Theme() {
 		e.preventDefault();
 	};
 
+	// 채팅하기 이벤트
+	const handleChat = () => {
+		setChat((chat) => !chat);
+	};
+
 	/* -------------------------------------------------------------------------- */
 
 	// 즐겨찾기 기능
@@ -319,8 +320,18 @@ function Theme() {
 	return (
 		<>
 			<Helmet>
-				<title>인기 테마</title>
+				<meta name="description" content="방탈러 홈페이지-테마" />
+				<meta property="og:title" content="방탈러 테마" />
+				<meta property="og:description" content="방탈러 테마 페이지" />
+				<meta
+					property="og:image"
+					content="https://user-images.githubusercontent.com/126174401/269534150-30234bad-4433-4d7b-968f-08a1680c3f84.png"
+				/>
+				<meta name="theme-color" content="#352F44" />
+				<meta name="apple-mobile-web-app-status-bar-style" content="#352F44" />
+				<meta property="og:url" content="https://escape12.netlify.app/theme" />
 			</Helmet>
+			{chat && <ChatModal onClick={() => setChat(false)} />}
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<HeaderRecord
 					pencilClick={userUId?.model.admin ? handleAdmin : handleRecordButton}
@@ -428,7 +439,11 @@ function Theme() {
 					</ul>
 				)}
 			</div>
-			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
+			<UpNav
+				topClick={handleTopButton}
+				hidden={!showPlusNav ? 'hidden' : ''}
+				talkClick={handleChat}
+			/>
 		</>
 	);
 }
