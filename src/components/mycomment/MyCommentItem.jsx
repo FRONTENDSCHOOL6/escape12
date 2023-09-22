@@ -19,17 +19,17 @@ function MyCommentItem({ comment, postId, postTitle, postType, onClick }) {
 
 	return (
 		<div className="border-2 justify-between max-h-[105px] items-center p-4 mb-6 rounded-xl flex m-auto transition-transform duration-500 ease-in-out transform hover:scale-105">
-			<div className="flex-grow flex">
+			<div className="flex grow w-[90%]">
 				<Link
 					to={
 						postType === 'community'
 							? `/postpage/${postId}`
 							: `/upload/${postId}`
 					}
-					className="flex-grow pr-4"
+					className="grow w-full pr-4"
 				>
 					<h3
-						className="text-lg font-semibold mb-2 border-b-2 whitespace-nowrap overflow-hidden text-ellipsis s:max-w-[190px]"
+						className="text-lg font-semibold mb-2 border-b-2 whitespace-nowrap overflow-hidden text-ellipsis "
 						aria-label={'제목 ' + postTitle}
 						tabIndex="0"
 					>
@@ -49,7 +49,7 @@ function MyCommentItem({ comment, postId, postTitle, postType, onClick }) {
 					</p>
 				</Link>
 			</div>
-			<DeleteButton className="ml-auto" onClick={onClick}>
+			<DeleteButton bg="w-[10%]" onClick={onClick}>
 				삭제
 			</DeleteButton>
 		</div>

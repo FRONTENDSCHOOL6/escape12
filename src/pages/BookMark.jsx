@@ -125,7 +125,7 @@ function BookMark() {
 					content="https://escape12.netlify.app/bookmark"
 				/>
 			</Helmet>
-			{chat && <ChatModal />}
+			{chat && <ChatModal onClick={() => setChat(false)}/>}
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto pt-20 pb-28 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<Headerback
 					onClick={() => {

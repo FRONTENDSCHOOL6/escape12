@@ -22,7 +22,7 @@ function MyPage() {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const KAKAO_CLIENT_ID = '7e2f5729e497d2295073a752a34b20c2';
-	const KAKAO_LOGOUT_REDIRECT_URI = 'http://localhost:5173';
+	const KAKAO_LOGOUT_REDIRECT_URI = 'https://escape12.netlify.app';
 
 	//로그아웃
 	const handleLogout = async () => {
@@ -152,10 +152,10 @@ function MyPage() {
 									data.avatar
 										? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.avatar}`
 										: !data.social ||
-											data.social ===
-											'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-											? `${socialImg}`
-											: data.social
+										  data.social ===
+												'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+										? `${socialImg}`
+										: data.social
 								}
 								alt={data.nickName}
 								aria-hidden

@@ -12,6 +12,7 @@ import ThemeItem from '@/components/theme/ThemeItem';
 import { ThemeContext } from '@/contexts/ThemeContext';
 import useEscapeList from '@/hooks/useEscapeList';
 import debounce from '@/utils/debounce';
+import { useRef } from 'react';
 import { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
@@ -42,6 +43,11 @@ function Theme() {
 	const [chat, setChat] = useState(false);
 
 	// const { data: escapeList, isLoading } = useEscapeList();
+
+	// 채팅하기 이벤트
+	const handleChat = () => {
+		setChat((chat) => !chat);
+	};
 
 	// 즐겨찾기 기능
 	const isClickHeart = async (item) => {
@@ -101,11 +107,6 @@ function Theme() {
 			top: 0,
 			behavior: 'smooth',
 		});
-	};
-
-	// 채팅하기 이벤트
-	const handleChat = () => {
-		setChat((chat) => !chat);
 	};
 
 	//스크롤 이벤트 감지
@@ -418,7 +419,7 @@ function Theme() {
 				<meta name="apple-mobile-web-app-status-bar-style" content="#352F44" />
 				<meta property="og:url" content="https://escape12.netlify.app/theme" />
 			</Helmet>
-			{chat && <ChatModal />}
+			{chat && <ChatModal onClick={() => setChat(false)} />}
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<HeaderRecord
 					pencilClick={userUId?.model.admin ? handleAdmin : handleRecordButton}
