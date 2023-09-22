@@ -17,7 +17,7 @@ pb.autoCancellation(false);
 function PostPage() {
 	const [posts, setPosts] = useState([]);
 	const [search, setSearch] = useState('');
-	const [IsLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const navigate = useNavigate();
 	const [emptyData, setEmptyData] = useState(false);
@@ -119,7 +119,7 @@ function PostPage() {
 	// 포켓호스트 가져오기
 	useEffect(() => {
 		if (myPostPageData.data) {
-			setPosts(myPostPageData.data.items);
+			setPosts(myPostPageData.data);
 			setIsLoading(true);
 		}
 	}, [myPostPageData.data]);
@@ -136,7 +136,7 @@ function PostPage() {
 					content="https://escape12.netlify.app/postpage"
 				/>
 			</Helmet>
-			{chat && <ChatModal onClick={() => setChat(false)}/>}
+			{chat && <ChatModal onClick={() => setChat(false)} />}
 			<div className="w-full max-w-[600px] min-w-[320px] text-lg py-20 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 flex flex-col items-center min-h-[100vh] m-auto gap-6">
 				<HeaderRecord pencilClick={handleRecordButton}>
 					커뮤니티 목록
@@ -151,8 +151,8 @@ function PostPage() {
 						검색
 					</SearchInput>
 				</div>
-				{IsLoading && <PostList posts={posts} />}
-				{IsLoading && posts.length === 0 && !emptyData && !noResult && (
+				{isLoading && posts && <PostList posts={posts} />}
+				{isLoading && posts.length === 0 && !emptyData && !noResult && (
 					<div className="translate-y-1/3">
 						<EmptyContents>
 							<span aria-label="게시물이 없습니다 " tabIndex="0">
@@ -162,11 +162,12 @@ function PostPage() {
 						</EmptyContents>
 					</div>
 				)}
-				{!IsLoading && (
-					<div className="absolute top-1/2 -translate-y-1/2">
-						<Spinner />
-					</div>
-				)}
+				{myPostPageData.isLoading ||
+					(!isLoading && (
+						<div className="absolute top-1/2 -translate-y-1/2">
+							<Spinner />
+						</div>
+					))}
 			</div>
 			<UpNav
 				topClick={handleTopButton}
