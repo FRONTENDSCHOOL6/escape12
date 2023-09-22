@@ -29,7 +29,7 @@ function FormInput({
 }) {
 	return (
 		<>
-			<fieldset className="flex gap-5 justify-between text-ec1 relative px-2">
+			<fieldset className="flex gap-5 justify-between relative px-2">
 				<label htmlFor={name} className={`w-34 s:min-w-fit ${bold}`}>
 					<Sup hidden={hidden}>{children}</Sup>
 				</label>

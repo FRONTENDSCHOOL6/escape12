@@ -10,18 +10,25 @@ import { debounce } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
+import ChatModal from '@/components/chat/ChatModal';
 
 pb.autoCancellation(false);
 
 function MyCommunity() {
 	const [posts, setPosts] = useState([]);
 	const [search, setSearch] = useState('');
-	const [IsLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const [emptyData, setEmptyData] = useState(false);
 	const [noResult, setNoResult] = useState(false);
+	const [chat, setChat] = useState(false);
+
+	// 채팅하기 이벤트
+	const handleChat = () => {
+		chat ? setChat(false) : setChat(true);
+	};
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
@@ -55,6 +62,7 @@ function MyCommunity() {
 		};
 	}, [showPlusNav]);
 
+	// 검색 기능
 	const handleSearch = async (e) => {
 		if (e.target.value.length !== 0) {
 			setSearch(e.target.value);
@@ -62,23 +70,22 @@ function MyCommunity() {
 			setSearch('');
 		}
 
-		setIsLoading(true);
+		setIsLoading(false);
 
+		const resultList = await pb.collection('community').getList(1, 200, {
+			filter: `(author = "${userUId?.model.id}" && content ~ "${e.target.value}") || (author = "${userUId?.model.id}" && title ~ "${e.target.value}")`,
+			expand: 'author',
+			sort: '-created',
+		});
+
+		const againCommunity = await pb.collection('community').getFullList({
+			filter: `author = "${userUId?.model.id}"`,
+			expand: 'author',
+			sort: '-created',
+		});
 		try {
-			const resultList = await pb.collection('community').getList(1, 200, {
-				filter: `(author = "${userUId?.model.Id}" && content ~ "${e.target.value}" || title ~ "${e.target.value}")`,
-				expand: 'author',
-			});
-
-			const againCommunity = await pb.collection('community').getFullList({
-				filter: `author = "${userUId?.model.id}"`,
-				expand: 'author',
-				sort: '-created',
-			});
-
 			if (resultList.items.length > 0) {
 				setPosts(resultList.items);
-				console.log(posts);
 				setEmptyData(false);
 				setIsLoading(true);
 				setNoResult(false);
@@ -88,16 +95,21 @@ function MyCommunity() {
 				setIsLoading(true);
 				setNoResult(false);
 			} else {
-				setEmptyData(true);
+				setPosts(resultList.items);
+				setEmptyData(false);
 				setIsLoading(true);
 				setNoResult(false);
-				setPosts(resultList.items);
 			}
 		} catch (err) {
 			console.log(`검색 에러 내용 : ${err}`);
-
-			setIsLoading(false);
 		}
+	};
+
+	const debounceSearch = debounce((e) => handleSearch(e));
+
+	// 검색 버튼
+	const handleSubmitButton = (e) => {
+		e.preventDefault();
 	};
 
 	useEffect(() => {
@@ -117,13 +129,7 @@ function MyCommunity() {
 		};
 
 		mycommunity();
-	}, [userUId?.model.id]);
-
-	const debounceSearch = debounce((e) => handleSearch(e));
-	// 검색 버튼
-	const handleSubmitButton = (e) => {
-		e.preventDefault();
-	};
+	}, []);
 
 	return (
 		<>
@@ -131,10 +137,16 @@ function MyCommunity() {
 				<title>나의 게시물 목록</title>
 				<meta name="description" content="방탈러 홈페이지-나의 게시물 목록" />
 				<meta property="og:title" content="방탈러 나의 게시물 목록" />
-				<meta property="og:description" content="방탈러 나의 게시물 목록 페이지" />
-				<meta property="og:url" content="https://escape12.netlify.app/mycommunity" />
+				<meta
+					property="og:description"
+					content="방탈러 나의 게시물 목록 페이지"
+				/>
+				<meta
+					property="og:url"
+					content="https://escape12.netlify.app/mycommunity"
+				/>
 			</Helmet>
-
+			{chat && <ChatModal />}
 			<div className="w-full max-w-[600px] min-w-[320px] bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 py-20 flex flex-col items-center min-h-[100vh] m-auto text-lg gap-6">
 				<HeaderBackRecord
 					pencilClick={handleRecordButton}
@@ -145,32 +157,34 @@ function MyCommunity() {
 					내 게시물 목록
 				</HeaderBackRecord>
 
-				{IsLoading && (
-					<div className="w-full px-20">
-						<SearchInput
-							placeholder="검색어를 입력해주세요 😀"
-							value={search}
-							onChange={debounceSearch}
-							onSubmit={handleSubmitButton}
-						>
-							검색
-						</SearchInput>
-					</div>
-				)}
+				<div className="w-full px-20">
+					<SearchInput
+						placeholder="검색어를 입력해주세요 😀"
+						value={search}
+						onChange={debounceSearch}
+						onSubmit={handleSubmitButton}
+					>
+						검색
+					</SearchInput>
+				</div>
 
-				{posts && <PostList posts={posts} />}
-				{IsLoading && posts.length === 0 && !emptyData && !noResult && (
+				{isLoading && posts && <PostList posts={posts} />}
+				{isLoading && posts.length === 0 && !emptyData && !noResult && (
 					<div className="translate-y-1/3">
-						<EmptyContents>기록이 없습니다 : &#40;</EmptyContents>
+						<EmptyContents>게시물이 없습니다 : &#40;</EmptyContents>
 					</div>
 				)}
-				{!IsLoading && (
+				{!isLoading && (
 					<div className="absolute top-1/2 -translate-y-1/2">
 						<Spinner />
 					</div>
 				)}
 			</div>
-			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
+			<UpNav
+				topClick={handleTopButton}
+				hidden={!showPlusNav ? 'hidden' : ''}
+				talkClick={handleChat}
+			/>
 		</>
 	);
 }

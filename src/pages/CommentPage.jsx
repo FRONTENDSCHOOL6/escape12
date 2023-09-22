@@ -189,17 +189,17 @@ function CommentPage() {
 									<Post
 										src={
 											data.expand &&
-												data.expand.author &&
-												data.expand.author.avatar
+											data.expand.author &&
+											data.expand.author.avatar
 												? `https://refresh.pockethost.io/api/files/${data.expand.author.collectionId}/${data.expand.author.id}/${data.expand.author.avatar}`
 												: data.expand?.author?.social ===
-													'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-													? `${social}`
-													: data.expand?.author?.social
-														? data.expand?.author?.social
-														: theme === 'dark'
-															? `${noImageLight}`
-															: `${noImage}`
+												  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+												? `${social}`
+												: data.expand?.author?.social
+												? data.expand?.author?.social
+												: theme === 'dark'
+												? `${noImageLight}`
+												: `${noImage}`
 										}
 										alt={
 											data.expand?.author?.nickName
@@ -273,8 +273,22 @@ function CommentPage() {
 											const result = confirm('댓글을 삭제하시겠습니까?');
 
 											if (result) {
+												toast('삭제되었습니다', {
+													icon: '🗑️',
+													duration: 800,
+												});
+
 												await pb.collection('comment').delete(`${item.id}`);
-												location.reload();
+
+												const againDeleteCommentData = await pb
+													.collection('comment')
+													.getList(1, 200, {
+														filter: `community = "${dataId}"`,
+														expand: 'author, community',
+														sort: '-created',
+													});
+
+												setComment(againDeleteCommentData.items);
 											}
 										};
 
@@ -283,33 +297,33 @@ function CommentPage() {
 												<CommentItem
 													src={
 														item.expand &&
-															item.expand.author &&
-															item.expand.author.avatar
+														item.expand.author &&
+														item.expand.author.avatar
 															? `https://refresh.pockethost.io/api/files/${item.expand.author.collectionId}/${item.expand.author.id}/${item.expand.author.avatar}`
 															: item.expand?.author?.social ===
-																'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-																? `${social}`
-																: item.expand?.author?.social
-																	? item.expand?.author?.social
-																	: theme === 'dark'
-																		? `${noImageLight}`
-																		: `${noImage}`
+															  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+															? `${social}`
+															: item.expand?.author?.social
+															? item.expand?.author?.social
+															: theme === 'dark'
+															? `${noImageLight}`
+															: `${noImage}`
 													}
 													alt={
 														item.expand?.author?.nickName &&
-															item.expand?.author?.id
+														item.expand?.author?.id
 															? item.expand?.author?.nickName
 															: item.expand?.author?.id
-																? '소셜계정'
-																: '탈퇴회원'
+															? '소셜계정'
+															: '탈퇴회원'
 													}
 													nickName={
 														item.expand?.author?.nickName &&
-															item.expand?.author?.id
+														item.expand?.author?.id
 															? item.expand?.author?.nickName
 															: item.expand?.author?.id
-																? '소셜계정'
-																: '탈퇴회원'
+															? '소셜계정'
+															: '탈퇴회원'
 													}
 													comment={item.content}
 													userId={item.expand?.author?.id}

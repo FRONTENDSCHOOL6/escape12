@@ -324,7 +324,7 @@ function SignUp() {
 								<div className="h-[140px] min-w-[70%]">
 									<img
 										ref={uploadPhotoRef}
-										className="h-full rounded-full -translate-x-1/5 m-auto"
+										className="h-full w-[140px] rounded-full"
 										src={thumnail}
 										alt="썸네일"
 									/>

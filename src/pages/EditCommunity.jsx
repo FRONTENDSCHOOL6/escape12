@@ -78,7 +78,7 @@ function EditCommunity() {
 				<meta property="og:title" content="방탈러 커뮤니티 수정" />
 				<meta property="og:description" content="방탈러 커뮤니티 수정 페이지" />
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 flex flex-col items-center min-h-[100vh] m-auto py-20 relative text-lg">
+			<div className="max-w-[600px] min-w-[320px] bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 flex flex-col items-center min-h-[100vh] m-auto pt-20 pb-28 relative text-lg">
 				<Headerback onClick={() => navigate(-1)}>글 작성</Headerback>
 				{!isLoading && (
 					<div className="absolute top-1/2 -translate-y-1/2">

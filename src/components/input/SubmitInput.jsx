@@ -27,6 +27,7 @@ function SubmitInput({
 		>
 			<input
 				type={type}
+				name="comment"
 				placeholder={placeholder}
 				onChange={onChange}
 				maxLength={35}

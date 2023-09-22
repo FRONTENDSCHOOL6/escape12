@@ -3,6 +3,7 @@ import noImage from '@/assets/noImage.png';
 import noImageLight from '@/assets/noImageLight.png';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
+import ChatModal from '@/components/chat/ChatModal';
 import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
@@ -23,6 +24,12 @@ function RecordCommunity() {
 	const [noResult, setNoResult] = useState(false);
 	const [data, setData] = useState([]);
 	const [search, setSearch] = useState('');
+	const [chat, setChat] = useState(false);
+
+	// 채팅하기 이벤트
+	const handleChat = () => {
+		chat ? setChat(false) : setChat(true);
+	};
 
 	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
@@ -75,22 +82,25 @@ function RecordCommunity() {
 			const recordList = await pb.collection('record').getList(1, 200, {
 				sort: '-created',
 				expand: 'escapeList,author',
-				filter: `theme ~ "${e.target.value}" || nickName = "${e.target.value
-					}" || store ~ "${e.target.value}"|| grade = "${e.target.value === '꽃길'
+				filter: `theme ~ "${e.target.value}" || nickName = "${
+					e.target.value
+				}" || store ~ "${e.target.value}"|| grade = "${
+					e.target.value === '꽃길'
 						? 8 && 9 && 10
 						: e.target.value === '풀길'
-							? 4 && 5 && 6 && 7
-							: e.target.value === '흙길'
-								? 0 && 1 && 2 && 3
-								: '없음'
-					}" || grade = "${e.target.value === '꽃'
+						? 4 && 5 && 6 && 7
+						: e.target.value === '흙길'
+						? 0 && 1 && 2 && 3
+						: '없음'
+				}" || grade = "${
+					e.target.value === '꽃'
 						? 8 && 9 && 10
 						: e.target.value === '풀'
-							? 4 && 5 && 6 && 7
-							: e.target.value === '흙'
-								? 0 && 1 && 2 && 3
-								: '없음'
-					}"`,
+						? 4 && 5 && 6 && 7
+						: e.target.value === '흙'
+						? 0 && 1 && 2 && 3
+						: '없음'
+				}"`,
 			});
 
 			const records = await pb.collection('record').getFullList({
@@ -157,8 +167,12 @@ function RecordCommunity() {
 				<meta name="description" content="방탈러 홈페이지-기록" />
 				<meta property="og:title" content="방탈러 기록" />
 				<meta property="og:description" content="방탈러 기록 페이지" />
-				<meta property="og:url" content="https://escape12.netlify.app/recordcommunity" />
+				<meta
+					property="og:url"
+					content="https://escape12.netlify.app/recordcommunity"
+				/>
 			</Helmet>
+			{chat && <ChatModal />}
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-screen m-auto relative pt-20 pb-28 gap-2 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<HeaderRecord
 					onClick={() => {
@@ -204,24 +218,24 @@ function RecordCommunity() {
 											image={
 												item.image
 													? `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
-													: item.expand?.escapeList?.image
-														? item.expand?.escapeList?.image
-														: theme === 'dark' &&
-															!item.image &&
-															!item.expand?.escapeList?.image
-															? `${noImageLight}`
-															: theme === 'light' &&
-																!item.image &&
-																!item.expand?.escapeList?.image
-																? `${noImage}`
-																: ''
+													: item.expand?.escapeList?.images
+													? `https://refresh.pockethost.io/api/files/${item.expand?.escapeList?.collectionId}/${item.expand?.escapeList?.id}/${item.expand?.escapeList?.images}`
+													: theme === 'dark' &&
+													  !item.image &&
+													  !item.expand?.escapeList?.image
+													? `${noImageLight}`
+													: theme === 'light' &&
+													  !item.image &&
+													  !item.expand?.escapeList?.image
+													? `${noImage}`
+													: ''
 											}
 											author={
 												item.expand?.author?.nickName && item.expand?.author?.id
 													? item.expand?.author?.nickName
 													: item.expand?.author?.id
-														? '소셜계정'
-														: '탈퇴회원'
+													? '소셜계정'
+													: '탈퇴회원'
 											}
 											link={item.id}
 											record={item.expand?.author?.record}
@@ -232,7 +246,11 @@ function RecordCommunity() {
 					</ul>
 				</div>
 			</div>
-			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
+			<UpNav
+				topClick={handleTopButton}
+				hidden={!showPlusNav ? 'hidden' : ''}
+				talkClick={handleChat}
+			/>
 		</div>
 	);
 }

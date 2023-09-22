@@ -2,6 +2,7 @@ import getUserInfo, { getUserInfoFromStorage } from '@/api/getUserInfo';
 import pb from '@/api/pockethost';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
+import ChatModal from '@/components/chat/ChatModal';
 import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
@@ -38,8 +39,9 @@ function Theme() {
 	const [record, setRecord] = useState();
 	const [bookMark, setBookMark] = useState(null);
 	const [page, setPage] = useState(1);
+	const [chat, setChat] = useState(false);
 
-	const { data: escapeList, isLoading } = useEscapeList();
+	// const { data: escapeList, isLoading } = useEscapeList();
 
 	// 즐겨찾기 기능
 	const isClickHeart = async (item) => {
@@ -99,6 +101,11 @@ function Theme() {
 			top: 0,
 			behavior: 'smooth',
 		});
+	};
+
+	// 채팅하기 이벤트
+	const handleChat = () => {
+		setChat((chat) => !chat);
 	};
 
 	//스크롤 이벤트 감지
@@ -304,15 +311,17 @@ function Theme() {
 		const escapeSearch = async () => {
 			const resultList = await pb.collection('escapeList').getList(1, 227, {
 				sort: 'theme',
-				filter: `(store ~ "${e.target.value}" || theme ~ "${e.target.value
-					}" || field ~ "${e.target.value}" || grade ~ "${e.target.value === '꽃길'
+				filter: `(store ~ "${e.target.value}" || theme ~ "${
+					e.target.value
+				}" || field ~ "${e.target.value}" || grade ~ "${
+					e.target.value === '꽃길'
 						? 8 || 9 || 10
 						: e.target.value === '풀길'
-							? 4 && 5 && 6 && 7
-							: e.target.value === '흙길'
-								? 1 && 2 && 3
-								: '없음'
-					}")`,
+						? 4 && 5 && 6 && 7
+						: e.target.value === '흙길'
+						? 1 && 2 && 3
+						: '없음'
+				}")`,
 			});
 
 			const data = await pb.collection('escapeList').getList(1, 227, {
@@ -409,6 +418,7 @@ function Theme() {
 				<meta name="apple-mobile-web-app-status-bar-style" content="#352F44" />
 				<meta property="og:url" content="https://escape12.netlify.app/theme" />
 			</Helmet>
+			{chat && <ChatModal />}
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<HeaderRecord
 					pencilClick={userUId?.model.admin ? handleAdmin : handleRecordButton}
@@ -425,7 +435,7 @@ function Theme() {
 						검색
 					</SearchInput>
 				</div>
-				<ul className="text-lg flex justify-center w-full gap-8 s:justify-center s:gap-[3%] px-20 s:px-12">
+				<ul className="text-lg flex justify-between w-full gap-8 s:gap-[3%] px-20 s:px-12">
 					<li>
 						<LiButton
 							onClick={handleGangnam}
@@ -483,6 +493,7 @@ function Theme() {
 						<Spinner />
 					</div>
 				)}
+
 				{isLoadingState && data && (
 					<ul className="w-full px-20 s:px-12">
 						{data.map((item) => {
@@ -494,7 +505,7 @@ function Theme() {
 										theme={item.theme}
 										grade={item.grade}
 										level={item.level}
-										image={item.image}
+										image={`https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.images}`}
 										link={item.link}
 										field={item.field}
 										dataid={item.id}
@@ -507,9 +518,9 @@ function Theme() {
 											theme === 'dark' && bookMark.indexOf(`${item.id}`) >= 0
 												? 'bg-hearttrue'
 												: theme === 'light' &&
-													bookMark.indexOf(`${item.id}`) >= 0
-													? 'bg-heartlike'
-													: 'bg-heartfalse'
+												  bookMark.indexOf(`${item.id}`) >= 0
+												? 'bg-heartlike'
+												: 'bg-heartfalse'
 										}
 									/>
 								</li>
@@ -519,7 +530,11 @@ function Theme() {
 					</ul>
 				)}
 			</div>
-			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
+			<UpNav
+				topClick={handleTopButton}
+				hidden={!showPlusNav ? 'hidden' : ''}
+				talkClick={handleChat}
+			/>
 		</>
 	);
 }
