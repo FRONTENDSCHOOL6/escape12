@@ -2,6 +2,7 @@ import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import pb from '@/api/pockethost';
 import EmptyContents from '@/components/EmptyContents';
 import Spinner from '@/components/Spinner';
+import ChatModal from '@/components/chat/ChatModal';
 import Headerback from '@/components/header/Headerback';
 import BookMarkItem from '@/components/mypage/BookMarkItem';
 import UpNav from '@/components/nav/UpNav';
@@ -22,6 +23,12 @@ function BookMark() {
 	const navigate = useNavigate();
 	const userUId = getUserInfoFromStorage();
 	const { theme } = useContext(ThemeContext);
+	const [chat, setChat] = useState(false);
+
+	// 채팅하기 이벤트
+	const handleChat = () => {
+		chat ? setChat(false) : setChat(true);
+	};
 
 	// 즐겨찾기 기능
 	const isClickHeart = async (item) => {
@@ -99,29 +106,12 @@ function BookMark() {
 
 	// 북마크 데이터 불러오기
 	useEffect(() => {
-		// const userBookMarkData = async () => {
-		// 	const userBookMark = await pb
-		// 		.collection('users')
-		// 		.getOne(`${userUId?.model.id}`, {
-		// 			expand: 'bookmark, escapeList',
-		// 		});
-
-		// 	try {
-		// 		setBookMark(userBookMark.expand?.bookmark);
-		// 		setBookMarkId(userBookMark.bookmark);
-		// 		setIsLoading(true);
-		// 	} catch (err) {
-		// 		console.log(`북마크 불러오기 에러: ${err}`);
-		// 	}
-		// };
-
-		// userBookMarkData();
 		if (bookMarkData.data) {
 			setBookMark(bookMarkData.data.expand?.bookmark);
 			setBookMarkId(bookMarkData.data.bookmark);
 			setIsLoading(true);
 		}
-	}, [userUId?.model.id]);
+	}, [bookMarkData.data]);
 
 	return (
 		<>
@@ -135,6 +125,7 @@ function BookMark() {
 					content="https://escape12.netlify.app/bookmark"
 				/>
 			</Helmet>
+			{chat && <ChatModal />}
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto pt-20 pb-28 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<Headerback
 					onClick={() => {
@@ -186,7 +177,11 @@ function BookMark() {
 					</ul>
 				)}
 			</div>
-			<UpNav topClick={handleTopButton} hidden={!showPlusNav ? 'hidden' : ''} />
+			<UpNav
+				topClick={handleTopButton}
+				hidden={!showPlusNav ? 'hidden' : ''}
+				talkClick={handleChat}
+			/>
 		</>
 	);
 }

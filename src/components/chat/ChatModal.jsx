@@ -60,7 +60,7 @@ function ChatModal() {
 	}, [chatData.data]);
 
 	return (
-		<div className="fixed top-1/2 z-50 left-1/2 -translate-y-1/2 -translate-x-1/2 dark:bg-dark-ec1 dark:text-dark-ec4 text-light-ec4 bg-light-ec4 w-[500px] h-[600px] rounded-2xl">
+		<div className="fixed top-1/2 z-50 left-1/2 -translate-y-1/2 -translate-x-1/2 dark:bg-dark-ec1 dark:text-dark-ec4 text-light-ec4 bg-light-ec4 w-[500px] h-[600px] rounded-2xl s:hidden">
 			<ul className="w-full h-[90%] overflow-auto p-5" ref={chatListRef}>
 				{chat && chat.length === 0 && (
 					<div className="flex flex-col items-center translate-y-1/4">
