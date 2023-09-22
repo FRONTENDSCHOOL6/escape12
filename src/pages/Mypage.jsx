@@ -157,10 +157,10 @@ function Mypage() {
 									data.avatar
 										? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.avatar}`
 										: !data.social ||
-											data.social ===
-											'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-											? `${socialImg}`
-											: data.social
+										  data.social ===
+												'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+										? `${socialImg}`
+										: data.social
 								}
 								alt={data.nickName}
 								aria-hidden

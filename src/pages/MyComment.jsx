@@ -11,6 +11,8 @@ import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
+import gsap from 'gsap';
+
 function MyCommentPage() {
 	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();

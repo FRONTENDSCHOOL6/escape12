@@ -58,25 +58,34 @@ function ThemeItem({
 						<span aria-label={'업체명 ' + store} tabIndex="0">
 							{store}
 						</span>
-						<Span text="pl-1" aria-label={'위치 ' + point} tabIndex="0">
+						<Span text="pl-1" ariaLabel={'위치 ' + point} tabIndex="0">
 							{point}점
 						</Span>
 					</h3>
-					<Span text="font-semibold" aria-label={'장르 ' + field} tabIndex="0">
+					<Span text="font-semibold" ariaLabel={'장르 ' + field} tabIndex="0">
 						{field}
 					</Span>
 				</section>
 				<section className="flex justify-between">
 					{level === 1 || level === 2 || level === 3 ? (
-						<SmallButton bg="dark:bg-dark-googleline bg-light-googleline text-light-ec4">
+						<SmallButton
+							bg="dark:bg-dark-googleline bg-light-googleline text-light-ec4"
+							ariaLabel="난이도 쉬움"
+						>
 							<span aria-hidden="true">♣</span> 쉬움
 						</SmallButton>
 					) : level === 4 || level === 5 || level === 6 || level === 7 ? (
-						<SmallButton bg="dark:bg-dark-kakaoline bg-light-kakaoline text-light-ec4">
+						<SmallButton
+							bg="dark:bg-dark-kakaoline bg-light-kakaoline text-light-ec4"
+							ariaLabel="난이도 보통"
+						>
 							<span aria-hidden="true">♣</span> 보통
 						</SmallButton>
 					) : (
-						<SmallButton bg="dark:bg-dark-sweetred bg-light-sweetred text-light-ec4">
+						<SmallButton
+							bg="dark:bg-dark-sweetred bg-light-sweetred text-light-ec4"
+							ariaLabel="난이도 어려움"
+						>
 							<span aria-hidden="true">♣</span> 어려움
 						</SmallButton>
 					)}

@@ -7,9 +7,10 @@ Span.propTypes = {
 		PropTypes.arrayOf(PropTypes.node),
 		PropTypes.node,
 	]),
+	ariaLabel: string,
 };
 
-function Span({ children, text = '' }) {
+function Span({ children, text = '', ariaLabel }) {
 	return (
 		<Tooltip
 			title={
@@ -50,7 +51,11 @@ function Span({ children, text = '' }) {
 			placement="right-end"
 			arrow
 		>
-			<span tabIndex="0" className={`whitespace-nowrap ${text}`}>
+			<span
+				tabIndex="0"
+				aria-label={ariaLabel}
+				className={`whitespace-nowrap ${text}`}
+			>
 				{children}
 			</span>
 		</Tooltip>

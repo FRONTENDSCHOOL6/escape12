@@ -196,7 +196,13 @@ function RecordCommunity() {
 				<div className="flex flex-col items-center w-full">
 					{isLoading && data.length === 0 && !emptyData && !noResult && (
 						<div className="translate-y-1/3">
-							<EmptyContents>기록이 없습니다 : &#40;</EmptyContents>
+							<EmptyContents>
+								{' '}
+								<span aria-label="기록이 없습니다 " tabIndex="0">
+									기록이 없습니다
+								</span>{' '}
+								: &#40;
+							</EmptyContents>
 						</div>
 					)}
 					{!isLoading && (

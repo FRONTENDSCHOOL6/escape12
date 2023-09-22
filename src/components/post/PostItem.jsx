@@ -11,7 +11,7 @@ PostItem.propTypes = {
 	alt: string,
 };
 
-function PostItem({ id, title, author, content, src }) {
+function PostItem({ id, title, author, content, src, alt }) {
 	const shortContent =
 		content.length > 85 ? `${content.substring(0, 85)}...` : content;
 
@@ -27,7 +27,12 @@ function PostItem({ id, title, author, content, src }) {
 						{title}
 					</p>
 					<div className="flex items-center">
-						<img className="w-6 h-6 rounded-full mr-2" src={src} alt="" />
+						<img
+							className="w-6 h-6 rounded-full mr-2"
+							src={src}
+							alt={alt}
+							aria-hidden="true"
+						/>
 						<p
 							className={`break-all font-bold whitespace-normal ${
 								author === '탈퇴회원'
