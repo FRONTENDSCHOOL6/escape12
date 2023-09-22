@@ -5,9 +5,22 @@ import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
 import pb from '@/api/pockethost';
 import { useNavigate } from 'react-router-dom';
+import gsap from 'gsap';
+import { useEffect, useRef, useState } from 'react';
 
 function LoginSelete() {
 	const navigate = useNavigate();
+	const containerRef = useRef(null);
+	const [isMounted, setIsMounted] = useState(true);
+
+	useEffect(() => {
+		gsap.fromTo(
+			containerRef.current,
+			{ opacity: 0 },
+			{ opacity: 1, duration: 0.5 }
+		);
+		return () => setIsMounted(false);
+	}, []);
 
 	// 카카오톡 로그인
 	const handleKakaoLogin = async () => {
@@ -25,28 +38,29 @@ function LoginSelete() {
 		};
 
 		await pb.collection('users').update(kakao.record.id, updateUser);
+		if (isMounted) {
+			try {
+				if (kakao.record.id) {
+					toast(`${kakao.record.nickName}님 환영합니다`, {
+						icon: '🧸',
+						duration: 2000,
+					});
+				} else {
+					toast(`로그인되었습니다`, {
+						icon: '🧸',
+						duration: 2000,
+					});
+				}
 
-		try {
-			if (kakao.record.id) {
-				toast(`${kakao.record.nickName}님 환영합니다`, {
-					icon: '🧸',
-					duration: 2000,
-				});
-			} else {
-				toast(`로그인되었습니다`, {
-					icon: '🧸',
+				navigate('/theme');
+			} catch (err) {
+				console.log(`카카오톡 에러: ${err}`);
+
+				toast('로그인에 실패하셨습니다.', {
+					icon: '😭',
 					duration: 2000,
 				});
 			}
-
-			navigate('/theme');
-		} catch (err) {
-			console.log(`카카오톡 에러: ${err}`);
-
-			toast('로그인에 실패하셨습니다.', {
-				icon: '😭',
-				duration: 2000,
-			});
 		}
 	};
 
@@ -98,9 +112,15 @@ function LoginSelete() {
 				<meta name="description" content="방탈러 홈페이지-로그인 선택" />
 				<meta property="og:title" content="방탈러 로그인 선택" />
 				<meta property="og:description" content="방탈러 로그인 선택 페이지" />
-				<meta property="og:url" content="https://escape12.netlify.app/loginselete" />
+				<meta
+					property="og:url"
+					content="https://escape12.netlify.app/loginselete"
+				/>
 			</Helmet>
-			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center h-screen m-auto bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
+			<div
+				ref={containerRef}
+				className="max-w-[600px] min-w-[320px] flex flex-col items-center h-screen m-auto bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg"
+			>
 				<KeyLogo />
 				<div className="flex flex-col gap-7 mt-[20%] l:mt-[25%]">
 					<LoginSeleteButton
