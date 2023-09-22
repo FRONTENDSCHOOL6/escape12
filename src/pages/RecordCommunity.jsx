@@ -145,23 +145,10 @@ function RecordCommunity() {
 
 	// 데이터 불러오기
 	useEffect(() => {
-		/* const allRecord = async () => {
-			const records = await pb.collection('record').getFullList({
-				sort: '-created',
-				expand: 'author, escapeList',
-			});
-
-			try {
-				setData(records);
-				setIsLoading(true);
-			} catch (err) {
-				console.log(`에러 내용: ${err}`);
-			} */
 			if(recordCommunityData.data){
 				setData(recordCommunityData.data)
 				setIsLoading(true);
 			}
-		// allRecord();
 	}, [recordCommunityData.data]);
 
 	return (

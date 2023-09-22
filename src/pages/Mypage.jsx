@@ -80,25 +80,10 @@ function MyPage() {
 
 	useEffect(() => {
 		//아이디, 닉네임 정보 불러오기 +사진
-		/*const datalist = async () => {
-			const resultList = await pb
-				.collection('users')
-				.getOne(`${userUId?.model.id}`, {
-					expand: 'email',
-				});
-			try {
-				setData(resultList);
-				setIsLoading(true);
-			} catch (error) {
-				console.log(error);
-			}
-		};*/
 		if (myPageData.data) {
 			setData(myPageData.data)
 			setIsLoading(true);
-
 		}
-
 
 		//작성 기록 갯수
 		const getrecord = async () => {
