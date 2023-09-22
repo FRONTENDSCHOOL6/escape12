@@ -17,7 +17,7 @@ function ChatInput({ value = '', onChange, onSubmit = null }) {
 				name="comment"
 				placeholder="채팅을 등록해주세요 😀"
 				onChange={onChange}
-				maxLength={35}
+				maxLength={100}
 				value={value}
 				required
 				className="px-3 py-1 grow rounded-full focus:outline-none"

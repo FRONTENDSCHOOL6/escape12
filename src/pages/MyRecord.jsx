@@ -181,7 +181,7 @@ function MyRecord() {
 					content="https://escape12.netlify.app/myrecord"
 				/>
 			</Helmet>
-			{chat && <ChatModal />}
+			{chat && <ChatModal onClick={() => setChat(false)}/>}
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-screen m-auto relative pt-20 pb-28 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg gap-6">
 				<HeaderBackRecord
 					onClick={() => {
