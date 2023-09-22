@@ -166,7 +166,7 @@ function MyRecord() {
 				/>
 			</Helmet>
 			{chat && <ChatModal onClick={() => setChat(false)} />}
-			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-screen m-auto relative pt-20 pb-28 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg gap-6">
+			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-screen m-auto relative pt-20 pb-28 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg gap-1">
 				<HeaderBackRecord
 					onClick={() => {
 						navigate(-1);
@@ -199,6 +199,9 @@ function MyRecord() {
 							</div>
 						))}
 					<ul className="w-full px-20 s:px-12">
+						{isLoading && data && emptyData && noResult && (
+							<p className="text-right w-full">총 기록 {data.length}개</p>
+						)}
 						{!emptyData &&
 							isLoading &&
 							!noResult &&
