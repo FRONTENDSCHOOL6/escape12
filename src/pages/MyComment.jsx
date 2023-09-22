@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import MyCommentItem from '@/components/mycomment/MyCommentItem';
 import Spinner from '@/components/Spinner';
 import { getUserInfoFromStorage } from '@/api/getUserInfo';
+import gsap from 'gsap';
 
 function MyCommentPage() {
 	const userUId = getUserInfoFromStorage();
