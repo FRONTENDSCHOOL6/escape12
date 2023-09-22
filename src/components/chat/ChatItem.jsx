@@ -12,14 +12,14 @@ ChatItem.propTypes = {
 };
 
 function ChatItem({
-	src,
-	alt,
-	author,
-	content,
-	hour,
-	minute,
-	reverse = '',
-	bg = 'dark:bg-dark-kakaoline bg-light-white',
+    src,
+    alt,
+    author,
+    content,
+    hour,
+    minute,
+    reverse = '',
+    bg = 'dark:bg-dark-kakaoline bg-light-white',
 }) {
 	return (
 		<div className={`flex items-end mb-3 ${reverse}`}>
