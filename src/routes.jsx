@@ -13,7 +13,7 @@ import LoginSelete from '@/pages/LoginSelete';
 import MyComment from '@/pages/MyComment';
 import MyCommunity from '@/pages/MyCommunity';
 import MyRecord from '@/pages/MyRecord';
-import Mypage from '@/pages/Mypage';
+import MyPage from '@/pages/MyPage';
 import PostPage from '@/pages/PostPage';
 import RecordCommunity from '@/pages/RecordCommunity';
 import RecordPage from '@/pages/RecordPage';
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
 			{ path: '/postpage', element: <PostPage /> },
 			{ path: '/addcommunity', element: <AddCommunity /> },
 			{ path: '/postpage/:dataId', element: <CommentPage /> },
-			{ path: '/mypage', element: <Mypage /> },
+			{ path: '/mypage', element: <MyPage /> },
 			{ path: '/editpage', element: <Editpage /> },
 			{ path: '/myrecord', element: <MyRecord /> },
 			{ path: '/mycommunity/:dataId', element: <MyCommunity /> },

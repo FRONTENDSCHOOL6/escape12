@@ -10,8 +10,9 @@ import { useEffect } from 'react';
 import pb from '@/api/pockethost';
 import { toast } from 'react-hot-toast';
 import socialImg from '@/assets/socialImg.png';
+import useMyPage from '@/hooks/useMyPage';
 
-function Mypage() {
+function MyPage() {
 	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
 	const [data, setData] = useState('');
@@ -74,21 +75,15 @@ function Mypage() {
 		}
 	};
 
+// 데이터 가져오기
+	const myPageData = useMyPage();
+
 	useEffect(() => {
 		//아이디, 닉네임 정보 불러오기 +사진
-		const datalist = async () => {
-			const resultList = await pb
-				.collection('users')
-				.getOne(`${userUId?.model.id}`, {
-					expand: 'email',
-				});
-			try {
-				setData(resultList);
-				setIsLoading(true);
-			} catch (error) {
-				console.log(error);
-			}
-		};
+		if (myPageData.data) {
+			setData(myPageData.data)
+			setIsLoading(true);
+		}
 
 		//작성 기록 갯수
 		const getrecord = async () => {
@@ -129,8 +124,8 @@ function Mypage() {
 				console.log(error);
 			}
 		};
-		getcomment(), getrecord(), getcommunity(), datalist();
-	}, [userUId?.model.id]);
+		getcomment(), getrecord(), getcommunity();
+	}, [myPageData.data, userUId?.model.id]);
 
 	return (
 		<>
@@ -144,7 +139,7 @@ function Mypage() {
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative mb-4 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				{/* header, headerback 맨 위 고정 */}
 				<Header>마이페이지</Header>
-				{!isLoading && (
+				{myPageData.isLoading||!isLoading && (
 					<div className="absolute top-1/2 -translate-y-1/2">
 						<Spinner />
 					</div>
@@ -238,4 +233,4 @@ function Mypage() {
 	);
 }
 
-export default Mypage;
+export default MyPage;
