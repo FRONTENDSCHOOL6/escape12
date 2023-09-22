@@ -11,7 +11,13 @@ EditImage.propTypes = {
 function EditImage({ inputRef, onChange, imgRef, src, alt }) {
 	return (
 		<div className="flex flex-col gap-5 relative">
-			<label htmlFor='image' hidden aria-label='프로필 사진 변경'>사진 변경</label>
+			<label 
+				htmlFor="image"
+				className="sr-only"
+				aria-label="프로필 사진 변경"
+			>
+				프로필 사진 변경
+			</label>
 			<input
 				ref={inputRef}
 				onChange={onChange}
