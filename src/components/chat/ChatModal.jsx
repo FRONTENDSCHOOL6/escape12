@@ -17,6 +17,11 @@ function ChatModal() {
 	const [chat, setChat] = useState(null);
 	const [text, setText] = useState('');
 	const chatListRef = useRef(null);
+	const year = new Date().getFullYear();
+	const month = new Date().getMonth() + 1;
+	const day = new Date().getDate();
+	const hour = new Date().getHours();
+	const minute = new Date().getMinutes();
 
 	// 채팅 쓰기 이벤트
 	const handleChangeChat = (e) => {
@@ -28,6 +33,8 @@ function ChatModal() {
 		e.preventDefault();
 		const data = {
 			content: text,
+			hour: hour,
+			minute: minute,
 			author: `${userUId?.model.id}`,
 		};
 
@@ -70,6 +77,9 @@ function ChatModal() {
 				className="w-full h-[90%] overflow-y-scroll p-5 chatModal"
 				ref={chatListRef}
 			>
+				<p className="text-center pb-2 dark:text-dark-ec4 text-light-ec1 text-lg">
+					{year + '년 ' + month + '월 ' + day + '일'}
+				</p>
 				{chat && chat.length === 0 && (
 					<div className="flex flex-col items-center translate-y-1/4">
 						<EmptyContents text="text-light-ec1 dark:text-dark-ec4">
@@ -102,6 +112,8 @@ function ChatModal() {
 									alt={item.expand?.author?.nickName}
 									author={item.expand?.author?.nickName}
 									content={item.content}
+									hour={item.hour}
+									minute={item.minute}
 									reverse={
 										item.expand?.author?.id === `${userUId?.model.id}`
 											? 'flex-row-reverse'
