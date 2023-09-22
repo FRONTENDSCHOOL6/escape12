@@ -6,6 +6,7 @@ import HeaderRecord from '@/components/header/HeaderRecord';
 import SearchInput from '@/components/input/SearchInput';
 import UpNav from '@/components/nav/UpNav';
 import PostList from '@/components/post/PostList';
+import usePostPage from '@/hooks/usePostPage';
 import debounce from '@/utils/debounce';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -112,24 +113,16 @@ function PostPage() {
 		e.preventDefault();
 	};
 
+	//데이터 가져오기
+	const myPostPageData = usePostPage();
+
 	// 포켓호스트 가져오기
 	useEffect(() => {
-		const snsList = async () => {
-			const communitypost = await pb.collection('community').getList(1, 200, {
-				expand: 'author',
-				sort: '-created',
-			});
-
-			try {
-				setPosts(communitypost.items);
-				setIsLoading(true);
-			} catch (err) {
-				console.log(`에러 내용: ${err}`);
-			}
-		};
-
-		snsList();
-	}, []);
+		if (myPostPageData.data) {
+			setPosts(myPostPageData.data.items);
+			setIsLoading(true);
+		}
+	}, [myPostPageData.data]);
 
 	return (
 		<>
