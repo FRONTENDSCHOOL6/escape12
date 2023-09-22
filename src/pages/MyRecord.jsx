@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { ThemeContext } from '@/contexts/ThemeContext';
 import ChatModal from '@/components/chat/ChatModal';
+import useMyRecord from '@/hooks/useMyRecord';
 
 function MyRecord() {
 	const { theme } = useContext(ThemeContext);
@@ -141,25 +142,32 @@ function MyRecord() {
 		e.preventDefault();
 	};
 
+	// 데이터가져오기
+	const myRecordData = useMyRecord();
+
 	//데이터 불러오기
 	useEffect(() => {
-		const myRecord = async () => {
-			const records = await pb.collection('record').getFullList({
-				filter: `author = "${userUId?.model.id}"`,
-				expand: 'escapeList',
-				sort: '-created',
-			});
+		// const myRecord = async () => {
+		// 	const records = await pb.collection('record').getFullList({
+		// 		filter: `author = "${userUId?.model.id}"`,
+		// 		expand: 'escapeList',
+		// 		sort: '-created',
+		// 	});
 
-			try {
-				setData(records);
-				setIsLoading(true);
-			} catch (err) {
-				console.log(`데이터 불러오기 에러 : ${err}`);
-			}
-		};
+		// 	try {
+		// 		setData(records);
+		// 		setIsLoading(true);
+		// 	} catch (err) {
+		// 		console.log(`데이터 불러오기 에러 : ${err}`);
+		// 	}
+		// };
 
-		myRecord();
-	}, [userUId?.model.id]);
+		// myRecord();
+		if (myRecordData.data) {
+			setData(myRecordData.data);
+			setIsLoading(true);
+		}
+	}, [myRecordData.data]);
 
 	return (
 		<div>
@@ -200,7 +208,7 @@ function MyRecord() {
 							<EmptyContents>기록이 없습니다 : &#40;</EmptyContents>
 						</div>
 					)}
-					{!isLoading && (
+					{myRecordData.isLoading ||!isLoading && (
 						<div className="translate-y-1/2">
 							<Spinner />
 						</div>
