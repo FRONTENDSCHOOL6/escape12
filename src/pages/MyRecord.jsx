@@ -199,12 +199,14 @@ function MyRecord() {
 							</div>
 						))}
 					<ul className="w-full px-20 s:px-12">
-						{isLoading && data && emptyData && noResult && (
+						{/* {isLoading && data && !emptyData && !noResult && (
 							<p className="text-right w-full">총 기록 {data.length}개</p>
-						)}
+						)} */}
 						{!emptyData &&
 							isLoading &&
-							!noResult &&
+							!noResult && (
+								<p className="text-right w-full">총 기록 {data.length}개</p>
+							) &&
 							data.map((item) => {
 								return (
 									<li key={item.id}>
