@@ -8,7 +8,7 @@ import useChat from '@/hooks/useChat';
 import { useContext, useEffect, useRef, useState } from 'react';
 import EmptyContents from '../EmptyContents';
 import Spinner from '../Spinner';
-import ChatInput from './ChanInput';
+import ChatInput from './ChatInput';
 import ChatItem from './ChatItem';
 import { func } from 'prop-types';
 

@@ -33,6 +33,7 @@ function SearchInput({
 				maxLength={35}
 				defaultValue={value}
 				required
+				autoComplete="off"
 				className="pl-3 py-1 rounded-full focus:outline-none grow text-light-ec4 dark:text-dark-ec4"
 			/>
 			<SmallButton type="submit">{children}</SmallButton>

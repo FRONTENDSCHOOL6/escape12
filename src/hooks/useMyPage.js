@@ -18,7 +18,6 @@ const useMyPage = ({ keys = [] } = {}) => {
 	const queryData = useQuery({
 		queryKey,
 		queryFn: () => getMyPage(),
-		keepPreviousData: true,
 	});
 
 	return queryData;
