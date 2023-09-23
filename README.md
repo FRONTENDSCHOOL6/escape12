@@ -55,11 +55,16 @@
 ---
 ### ERD (Entity Relationship Diagram)
 
-![방탈러ERD 2](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/112d0ccf-8abb-4df7-a584-716d2a5e59ad)
+![1](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/5bd15d16-1cce-4580-b172-a213d65d8712)
+### 피그마 시안
+![3](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/6133e25f-0eeb-46bd-acf5-3006a1e15cc6)
+
+![4](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/dbf5d774-1f85-41be-b89a-163c3a4267b9)
+f00)
 
 
 ### 전체 UI
-- 페이지 별 사진 첨부
+![5](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/e4322c24-52b6-48e4-a7c1-9be05ba5df30)
 
 ### 페이지 기능
 - 페이지 별 사진 첨부 및 기능 설명
@@ -70,10 +75,8 @@
 ![theme](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/85b0fbff-ec31-4d5c-905f-cd4dc852a731)
 이전 theme의 Lighthouse의 결과는 이러함.
 
-####개선한 페이지성능 및 접근성
-![1](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/b62dca0b-08e5-489e-b169-395c9b7dbdb9)
-![2](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/c94cf97a-d1b0-4b86-b496-e93ebe9fb96e)
-![3](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/13e60682-0982-4e29-9de7-2e7ed697f09f)
+#### 개선한 페이지성능 및 접근성
+![2](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/a697cc73-de6f-416e-8a1a-523ff77d55cf)
 
 #### 성능
 - 각 페이지 별 메타 태그를 추가함.
