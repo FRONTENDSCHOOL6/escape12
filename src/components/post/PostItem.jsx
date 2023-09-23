@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 PostItem.propTypes = {
 	title: string,
 	author: string,
-	date: string,
 	id: string,
 	content: string,
 	src: string,
