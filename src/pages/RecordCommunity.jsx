@@ -213,7 +213,7 @@ function RecordCommunity() {
 										<RecordCommunityItem
 											store={item.store}
 											theme={item.theme}
-											grade={Number(item.grade)}
+											grade={Number(item.grade) * 2}
 											image={
 												item.image
 													? `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
