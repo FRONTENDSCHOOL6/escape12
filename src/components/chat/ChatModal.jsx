@@ -8,7 +8,7 @@ import useChat from '@/hooks/useChat';
 import { useContext, useEffect, useRef, useState } from 'react';
 import EmptyContents from '../EmptyContents';
 import Spinner from '../Spinner';
-import ChatInput from './ChanInput';
+import ChatInput from './ChatInput';
 import ChatItem from './ChatItem';
 import { func } from 'prop-types';
 
@@ -77,7 +77,7 @@ function ChatModal({ onClick }) {
 	}, [chatData.data]);
 
 	return (
-		<div className="chatModalBox fixed top-1/2 z-50 left-1/2 -translate-y-1/2 -translate-x-1/2 dark:bg-dark-ec1 dark:text-dark-ec4 text-light-ec4 bg-light-ec4 w-[500px] h-[600px] rounded-2xl s:hidden">
+		<div className="chatModalBox fixed top-1/2 z-50 left-1/2 -translate-y-1/2 -translate-x-1/2 dark:bg-dark-ec1 dark:text-dark-ec4 text-light-ec4 bg-light-ec4 w-[500px] h-[600px] rounded-2xl s:max-w-[90%] s:max-h-[70%]">
 			<div className="chatModalTitle flex relative justify-center bg-light-lightgreen">
 				<p
 					className="text-center py-1 text-lg"
@@ -95,7 +95,7 @@ function ChatModal({ onClick }) {
 				</button>
 			</div>
 			<ul
-				className="w-full h-[90%] overflow-y-scroll px-5 pt-5 pb-10 chatModal"
+				className="w-full h-[90%] overflow-y-scroll px-5 pt-5 pb-12 chatModal"
 				ref={chatListRef}
 			>
 				{chat && chat.length === 0 && (

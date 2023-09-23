@@ -141,7 +141,7 @@ function PostPage() {
 				<HeaderRecord pencilClick={handleRecordButton}>
 					커뮤니티 목록
 				</HeaderRecord>
-				<div className="w-full px-20">
+				<div className="w-full px-20 s:px-12">
 					<SearchInput
 						placeholder="검색어를 입력해주세요 😀"
 						value={search}
@@ -154,12 +154,7 @@ function PostPage() {
 				{isLoading && posts && <PostList posts={posts} />}
 				{isLoading && posts.length === 0 && !emptyData && !noResult && (
 					<div className="translate-y-1/3">
-						<EmptyContents>
-							<span aria-label="게시물이 없습니다 " tabIndex="0">
-								게시물이 없습니다
-							</span>
-							: &#40;
-						</EmptyContents>
+						<EmptyContents>게시물이 없습니다 : &#40;</EmptyContents>
 					</div>
 				)}
 				{myPostPageData.isLoading ||

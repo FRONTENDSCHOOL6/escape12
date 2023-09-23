@@ -19,7 +19,6 @@ const useMyCommunity = ({ keys = [] } = {}) => {
 	const queryData = useQuery({
 		queryKey,
 		queryFn: () => getMyCommunity(),
-		keepPreviousData: true,
 	});
 
 	return queryData;

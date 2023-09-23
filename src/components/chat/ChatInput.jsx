@@ -10,7 +10,7 @@ function ChatInput({ value = '', onChange, onSubmit = null }) {
 	return (
 		<form
 			onSubmit={onSubmit}
-			className={`flex gap-4 w-full justify-center text-lg pb-4 absolute bottom-0 left-0 right-0 px-5`}
+			className={`flex gap-4 w-full justify-center text-lg pb-4 absolute bottom-0 left-0 right-0 px-5 s:px-12`}
 		>
 			<input
 				type="text"
@@ -20,6 +20,7 @@ function ChatInput({ value = '', onChange, onSubmit = null }) {
 				maxLength={100}
 				value={value}
 				required
+				autoComplete="off"
 				className="px-3 py-1 grow rounded-full focus:outline-none"
 			/>
 			<button

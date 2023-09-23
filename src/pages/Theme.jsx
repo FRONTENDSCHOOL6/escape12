@@ -10,9 +10,7 @@ import HeartButton from '@/components/theme/HeartButton';
 import LiButton from '@/components/theme/LiButton';
 import ThemeItem from '@/components/theme/ThemeItem';
 import { ThemeContext } from '@/contexts/ThemeContext';
-import useEscapeList from '@/hooks/useEscapeList';
 import debounce from '@/utils/debounce';
-import { useRef } from 'react';
 import { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
@@ -41,8 +39,6 @@ function Theme() {
 	const [bookMark, setBookMark] = useState(null);
 	const [page, setPage] = useState(1);
 	const [chat, setChat] = useState(false);
-
-	// const { data: escapeList, isLoading } = useEscapeList();
 
 	// 채팅하기 이벤트
 	const handleChat = () => {
@@ -123,7 +119,14 @@ function Theme() {
 				setShowPlusNav(currentScrollY >= 500);
 			}
 
-			if (currentScrollY + windowHeight >= totalPageHeight) {
+			if (
+				!gang &&
+				!hong &&
+				!kuk &&
+				!level &&
+				!like &&
+				currentScrollY + windowHeight >= totalPageHeight
+			) {
 				const dataUpdate = async () => {
 					const escape = await pb
 						.collection('escapeList')
@@ -132,7 +135,6 @@ function Theme() {
 						});
 
 					try {
-						currentScrollY - 1000;
 						setPage(page + 1);
 						setData((prevData) => [...prevData, ...escape.items]);
 					} catch (err) {
@@ -420,13 +422,13 @@ function Theme() {
 				<meta property="og:url" content="https://escape12.netlify.app/theme" />
 			</Helmet>
 			{chat && <ChatModal onClick={() => setChat(false)} />}
-			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
+			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto pt-20 pb-24 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<HeaderRecord
 					pencilClick={userUId?.model.admin ? handleAdmin : handleRecordButton}
 				>
 					인기 테마
 				</HeaderRecord>
-				<div className="w-full px-20">
+				<div className="w-full px-20 s:px-12">
 					<SearchInput
 						placeholder="검색어를 입력해주세요 😀"
 						value={search}
@@ -527,7 +529,11 @@ function Theme() {
 								</li>
 							);
 						})}
-						<li className="font-semibold text-center pb-10">불러오는 중...</li>
+						{!gang && !hong && !kuk && !like && !level && (
+							<li className="font-semibold text-center pb-10">
+								{page < 23 ? '불러오는 중...' : '더이상 데이터가 없습니다'}
+							</li>
+						)}
 					</ul>
 				)}
 			</div>

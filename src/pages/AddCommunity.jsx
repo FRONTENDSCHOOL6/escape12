@@ -36,13 +36,13 @@ function AddCommunity() {
 		};
 
 		try {
-			await pb.collection('community').create(data);
+			const uploadCommunity = await pb.collection('community').create(data);
 
 			toast('글이 등록되었습니다 :)', {
 				icon: '💛',
 				duration: 2000,
 			});
-			navigate('/postpage');
+			navigate(`/postpage/${uploadCommunity.id}`);
 		} catch (err) {
 			console.log(err);
 		}

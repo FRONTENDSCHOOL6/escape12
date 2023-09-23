@@ -102,7 +102,7 @@ function ThemeRecord() {
 				theme: `${data.theme}`,
 				store: `${data.store}`,
 				date: date,
-				grade: grade * 2,
+				grade: grade,
 				hour: hour,
 				minute: minute,
 				content: content,
@@ -121,7 +121,7 @@ function ThemeRecord() {
 			navigate(`/upload/${result.id}`);
 
 			const themeClear = {
-				users: [...users, `${userUId?.model.id}`],
+				// users: [...users, `${userUId?.model.id}`],
 				record: [...escapeListRecord, `${result.id}`],
 			};
 

@@ -23,13 +23,13 @@ function UpNav({ topClick, hidden, talkClick }) {
 				src={top}
 				alt="위로가기"
 				hidden={hidden}
-				location="right-4 bottom-40 s:bottom-24"
+				location="right-4 bottom-40"
 			/>
 			<PlusButton
 				onClick={talkClick}
 				src={theme === 'dark' ? talk : dark}
 				alt="채팅하기"
-				location="right-4 bottom-24 s:hidden"
+				location="right-4 bottom-24"
 			/>
 			<Nav />
 		</div>

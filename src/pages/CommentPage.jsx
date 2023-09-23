@@ -27,7 +27,6 @@ function CommentPage() {
 	const [comment, setComment] = useState([]);
 	const [commentInput, setCommentInput] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
-	const [community, setCommunity] = useState([]);
 
 	const handleDeleteRecord = async () => {
 		const deleteConfirm = confirm('정말로 삭제하시겠습니까?');
@@ -38,17 +37,8 @@ function CommentPage() {
 			deleteConfirm &&
 			(currentUserID === postAuthorID || userUId?.model.admin)
 		) {
-			const array = community.filter(
-				(i) => i !== `${data.expand?.community?.id}`
-			);
-
-			const updateCommunity = { escapeList: array };
-
 			try {
 				await pb.collection('community').delete(`${dataId}`);
-				await pb
-					.collection('users')
-					.update(`${userUId.model.id}`, updateCommunity);
 
 				comment.map(async (item) => {
 					await pb.collection('comment').delete(`${item.id}`);
@@ -134,20 +124,20 @@ function CommentPage() {
 		dataList();
 	}, [dataId]);
 
-	useEffect(() => {
-		const handleUserCommunity = async () => {
-			const userCommunityData = await pb
-				.collection('users')
-				.getOne(`${userUId.model.id}`);
-			try {
-				setCommunity(userCommunityData.community);
-			} catch (err) {
-				console.log(`userCommunity 불러오기 에러: ${err}`);
-			}
-		};
+	// useEffect(() => {
+	// 	const handleUserCommunity = async () => {
+	// 		const userCommunityData = await pb
+	// 			.collection('users')
+	// 			.getOne(`${userUId.model.id}`);
+	// 		try {
+	// 			setCommunity(userCommunityData.community);
+	// 		} catch (err) {
+	// 			console.log(`userCommunity 불러오기 에러: ${err}`);
+	// 		}
+	// 	};
 
-		handleUserCommunity();
-	}, [userUId.model.id]);
+	// 	handleUserCommunity();
+	// }, [userUId.model.id]);
 
 	return (
 		<div>
@@ -160,7 +150,7 @@ function CommentPage() {
 			<div className="max-w-[600px] min-w-[320px] text-lg flex flex-col gap-3 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 items-center min-h-[100vh] m-auto px-20 s:px-12 pt-24 pb-28 relative">
 				<Headerback
 					onClick={() => {
-						navigate(-1);
+						navigate('/postpage');
 					}}
 				>
 					게시글
@@ -335,7 +325,6 @@ function CommentPage() {
 									})}
 							</ul>
 						</div>
-						{''}
 					</>
 				)}
 			</div>

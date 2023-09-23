@@ -8,7 +8,6 @@ import BookMarkItem from '@/components/mypage/BookMarkItem';
 import UpNav from '@/components/nav/UpNav';
 import HeartButton from '@/components/theme/HeartButton';
 import { ThemeContext } from '@/contexts/ThemeContext';
-import useBookMark from '@/hooks/useBookMark';
 import { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -101,17 +100,25 @@ function BookMark() {
 		};
 	}, [showPlusNav]);
 
-	// 데이터가져오기
-	const bookMarkData = useBookMark();
-
 	// 북마크 데이터 불러오기
 	useEffect(() => {
-		if (bookMarkData.data) {
-			setBookMark(bookMarkData.data.expand?.bookmark);
-			setBookMarkId(bookMarkData.data.bookmark);
-			setIsLoading(true);
-		}
-	}, [bookMarkData.data]);
+		const bookMarkData = async () => {
+			const likeData = await pb
+				.collection('users')
+				.getOne(`${userUId?.model.id}`, {
+					expand: 'bookmark, escapeList',
+				});
+
+			try {
+				setBookMark(likeData.expand?.bookmark);
+				setBookMarkId(likeData.bookmark);
+				setIsLoading(true);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		bookMarkData();
+	}, [userUId?.model.id]);
 
 	return (
 		<>
@@ -125,7 +132,7 @@ function BookMark() {
 					content="https://escape12.netlify.app/bookmark"
 				/>
 			</Helmet>
-			{chat && <ChatModal onClick={() => setChat(false)}/>}
+			{chat && <ChatModal onClick={() => setChat(false)} />}
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto pt-20 pb-28 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<Headerback
 					onClick={() => {
@@ -136,20 +143,14 @@ function BookMark() {
 				</Headerback>
 				{isLoading && !bookMark && (
 					<div className="absolute top-1/2 -translate-y-1/2">
-						<EmptyContents>
-							<span aria-label="즐겨찾기 목록이 없습니다 " tabIndex="0">
-								즐겨찾기 목록이 없습니다
-							</span>
-							: &#40;
-						</EmptyContents>
+						<EmptyContents>즐겨찾기 목록이 없습니다 : &#40;</EmptyContents>
 					</div>
 				)}
-				{bookMarkData.isLoading ||
-					(!isLoading && (
-						<div className="absolute top-1/2 -translate-y-1/2">
-							<Spinner />
-						</div>
-					))}
+				{!isLoading && (
+					<div className="absolute top-1/2 -translate-y-1/2">
+						<Spinner />
+					</div>
+				)}
 				{isLoading && bookMark && bookMarkId && (
 					<ul className="w-full px-20 s:px-12">
 						{bookMark.map((item) => {

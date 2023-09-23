@@ -26,6 +26,7 @@ function SubmitInput({
 			className={`flex gap-4 w-full justify-center text-lg pb-4 ${text}`}
 		>
 			<input
+				autoComplete="off"
 				type={type}
 				name="comment"
 				placeholder={placeholder}
