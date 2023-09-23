@@ -46,6 +46,12 @@ function Span({ children, text = '', ariaLabel }) {
 					? '장르'
 					: children === '활동'
 					? '장르'
+					: children === '드라마'
+					? '장르'
+					: children === '문제방'
+					? '장르'
+					: children === '미스테리'
+					? '장르'
 					: ''
 			}
 			placement="right-end"
