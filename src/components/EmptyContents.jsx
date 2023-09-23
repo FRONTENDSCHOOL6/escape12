@@ -13,7 +13,11 @@ function EmptyContents({
 	return (
 		<>
 			<NotCogi alt="검색결과가 없습니다" />
-			<p className={`text-center text-[30px] text-xl mt-6 ${text}`}>
+			<p
+				tabIndex="0"
+				aria-label={children}
+				className={`text-center text-[30px] text-xl mt-6 ${text}`}
+			>
 				{children}
 			</p>
 		</>

@@ -154,12 +154,7 @@ function PostPage() {
 				{isLoading && posts && <PostList posts={posts} />}
 				{isLoading && posts.length === 0 && !emptyData && !noResult && (
 					<div className="translate-y-1/3">
-						<EmptyContents>
-							<span aria-label="게시물이 없습니다 " tabIndex="0">
-								게시물이 없습니다
-							</span>
-							: &#40;
-						</EmptyContents>
+						<EmptyContents>게시물이 없습니다 : &#40;</EmptyContents>
 					</div>
 				)}
 				{myPostPageData.isLoading ||

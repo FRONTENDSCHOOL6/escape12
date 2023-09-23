@@ -143,12 +143,7 @@ function BookMark() {
 				</Headerback>
 				{isLoading && !bookMark && (
 					<div className="absolute top-1/2 -translate-y-1/2">
-						<EmptyContents>
-							<span aria-label="즐겨찾기 목록이 없습니다 " tabIndex="0">
-								즐겨찾기 목록이 없습니다
-							</span>
-							: &#40;
-						</EmptyContents>
+						<EmptyContents>즐겨찾기 목록이 없습니다 : &#40;</EmptyContents>
 					</div>
 				)}
 				{!isLoading && (
