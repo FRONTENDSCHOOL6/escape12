@@ -40,8 +40,6 @@ function Theme() {
 	const [bookMark, setBookMark] = useState(null);
 	const [chat, setChat] = useState(false);
 
-	// const { data: escapeList, isLoading } = useEscapeList();
-
 	// 채팅하기 이벤트
 	const handleChat = () => {
 		setChat((chat) => !chat);
@@ -349,7 +347,7 @@ function Theme() {
 				});
 
 				const usersEscape = await pb.collection('users').getOne(userId, {
-					expand: 'escapeList, record',
+					expand: 'escapeList',
 				});
 
 				if (usersLike || usersEscape) {
@@ -362,25 +360,17 @@ function Theme() {
 		fetchUserBookmarks();
 	}, [userId]);
 
+	const escapeListData = useEscapeList();
+
 	//데이터 불러오기
 	useEffect(() => {
 		if (record || bookMark) {
-			const dataList = async () => {
-				const escape = await pb.collection('escapeList').getList(1, 300, {
-					sort: 'theme',
-					expand: 'record, users',
-				});
-
-				try {
-					setData(escape.items);
-					setIsLoadingState(true);
-				} catch (err) {
-					console.log(`에러 내용: ${err}`);
-				}
-			};
-			dataList();
+			if (escapeListData.data) {
+				setData(escapeListData.data);
+				setIsLoadingState(true);
+			}
 		}
-	}, [record, bookMark]);
+	}, [escapeListData.data, record, bookMark]);
 
 	return (
 		<>
@@ -489,6 +479,7 @@ function Theme() {
 										field={item.field}
 										dataid={item.id}
 										clear={record}
+										record={item.record}
 									/>
 									<HeartButton
 										onClick={() => isClickHeart(item)}
