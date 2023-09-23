@@ -119,7 +119,14 @@ function Theme() {
 				setShowPlusNav(currentScrollY >= 500);
 			}
 
-			if (currentScrollY + windowHeight >= totalPageHeight) {
+			if (
+				!gang &&
+				!hong &&
+				!kuk &&
+				!level &&
+				!like &&
+				currentScrollY + windowHeight >= totalPageHeight
+			) {
 				const dataUpdate = async () => {
 					const escape = await pb
 						.collection('escapeList')
@@ -415,7 +422,7 @@ function Theme() {
 				<meta property="og:url" content="https://escape12.netlify.app/theme" />
 			</Helmet>
 			{chat && <ChatModal onClick={() => setChat(false)} />}
-			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
+			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto pt-20 pb-24 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
 				<HeaderRecord
 					pencilClick={userUId?.model.admin ? handleAdmin : handleRecordButton}
 				>
@@ -522,9 +529,11 @@ function Theme() {
 								</li>
 							);
 						})}
-						<li className="font-semibold text-center pb-10">
-							{page < 23 ? '불러오는 중...' : '더이상 데이터가 없습니다'}
-						</li>
+						{!gang && !hong && !kuk && !like && !level && (
+							<li className="font-semibold text-center pb-10">
+								{page < 23 ? '불러오는 중...' : '더이상 데이터가 없습니다'}
+							</li>
+						)}
 					</ul>
 				)}
 			</div>
