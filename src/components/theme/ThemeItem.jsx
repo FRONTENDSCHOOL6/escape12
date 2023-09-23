@@ -3,6 +3,10 @@ import { array, number, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import MedalButton from '../button/MedalButton';
 import Span from './Span';
+import { useEffect } from 'react';
+import pb from '@/api/pockethost';
+import { getUserInfoFromStorage } from '@/api/getUserInfo';
+import { useState } from 'react';
 
 ThemeItem.propTypes = {
 	store: string,
@@ -15,7 +19,6 @@ ThemeItem.propTypes = {
 	field: string,
 	dataid: string,
 	clear: array,
-	record: array,
 };
 
 function ThemeItem({
@@ -29,8 +32,29 @@ function ThemeItem({
 	field,
 	dataid,
 	clear,
-	record,
 }) {
+	const userUId = getUserInfoFromStorage();
+	const [recordId, setRecordId] = useState('');
+
+	useEffect(() => {
+		const handleRecordId = async () => {
+			const user = await pb.collection('escapeList').getOne(`${dataid}`, {
+				expand: 'author,record',
+				sort: 'theme',
+			});
+
+			try {
+				const userRecord = user.expand?.record.find(
+					(item) => item.nickName === `${userUId?.model.nickName}`
+				);
+
+				setRecordId(userRecord?.id);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		handleRecordId();
+	}, []);
 	return (
 		<figure className="my-4 border-2 border-ec1 p-4 s:p-3 rounded-xl flex gap-3 s:gap-2 text-lg s:text-base relative h-[180px] w-full">
 			<div className="flex w-[25%] s:min-w-[25%]">
@@ -90,7 +114,7 @@ function ThemeItem({
 						</SmallButton>
 					)}
 					{clear && clear.findIndex((item) => item.id === `${dataid}`) >= 0 && (
-						<Link to={`/upload/${record}`}>
+						<Link to={`/upload/${recordId}`}>
 							<MedalButton theme={theme} />
 						</Link>
 					)}

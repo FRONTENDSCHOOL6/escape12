@@ -18,7 +18,6 @@ const useMyRecord = ({ keys = [] } = {}) => {
 	const queryData = useQuery({
 		queryKey,
 		queryFn: () => getMyRecord(),
-		keepPreviousData: true,
 	});
 
 	return queryData;

@@ -53,7 +53,7 @@ function UploadRecord() {
 
 			updateLikeInPb();
 
-			navigate('/theme');
+			navigate('/recordCommunity');
 
 			if (deleteConfirm) {
 				await pb.collection('record').delete(`${dataId}`);

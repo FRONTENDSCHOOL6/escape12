@@ -1,25 +1,17 @@
 import pb from '@/api/pockethost';
 import { useQuery } from '@tanstack/react-query';
 
-const getEscapeList = async (page = 1, perPage = 10, options = {}) => {
-	const data = await pb
-		.collection('escapeList')
-		.getList(page, perPage, options);
+const getEscapeList = async () => {
+	const data = await pb.collection('escapeList').getFullList({ sort: 'theme' });
 	return data;
 };
 
-const useEscapeList = ({
-	page = 1,
-	perPage = 10,
-	keys = [],
-	options = {},
-} = {}) => {
-	const queryKey = ['escapeList', page, perPage, ...keys];
+const useEscapeList = ({ keys = [] } = {}) => {
+	const queryKey = ['escapeList', ...keys];
 
 	const queryData = useQuery({
 		queryKey,
-		queryFn: () => getEscapeList(page, perPage, options),
-		keepPreviousData: true,
+		queryFn: () => getEscapeList(),
 	});
 
 	return queryData;

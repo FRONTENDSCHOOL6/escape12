@@ -15,7 +15,6 @@ const usePostPage = ({ keys = [] } = {}) => {
 	const queryData = useQuery({
 		queryKey,
 		queryFn: () => getPostPage(),
-		keepPreviousData: true,
 	});
 
 	return queryData;

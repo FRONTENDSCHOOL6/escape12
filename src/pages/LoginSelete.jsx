@@ -36,7 +36,7 @@ function LoginSelete() {
 
 		await pb.collection('users').update(kakao.record.id, updateUser);
 		try {
-			if (kakao.record.id) {
+			if (kakao.record.nickName && kakao.record.nickName !== '') {
 				toast(`${kakao.record.nickName}님 환영합니다`, {
 					icon: '🧸',
 					duration: 2000,
@@ -77,7 +77,7 @@ function LoginSelete() {
 		await pb.collection('users').update(google.record.id, updateUserGoogle);
 
 		try {
-			if (google.record.id) {
+			if (google.record.nickName && google.record.nickName !== '') {
 				toast(`${google.record.nickName}님 환영합니다`, {
 					icon: '🌍',
 					duration: 2000,

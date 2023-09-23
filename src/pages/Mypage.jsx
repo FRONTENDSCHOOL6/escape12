@@ -22,7 +22,7 @@ function MyPage() {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const KAKAO_CLIENT_ID = '7e2f5729e497d2295073a752a34b20c2';
-	const KAKAO_LOGOUT_REDIRECT_URI = 'https://escape12.netlify.app/';
+	const KAKAO_LOGOUT_REDIRECT_URI = 'https://escape12.netlify.app';
 
 	//로그아웃
 	const handleLogout = async () => {
@@ -79,12 +79,6 @@ function MyPage() {
 	const myPageData = useMyPage();
 
 	useEffect(() => {
-		//아이디, 닉네임 정보 불러오기 +사진
-		if (myPageData.data) {
-			setData(myPageData.data);
-			setIsLoading(true);
-		}
-
 		//작성 기록 갯수
 		const getrecord = async () => {
 			const recordlist = await pb
@@ -124,6 +118,11 @@ function MyPage() {
 				console.log(error);
 			}
 		};
+		//아이디, 닉네임 정보 불러오기 +사진
+		if (myPageData.data) {
+			setData(myPageData.data);
+			setIsLoading(true);
+		}
 		getcomment(), getrecord(), getcommunity();
 	}, [myPageData.data, userUId?.model.id]);
 
