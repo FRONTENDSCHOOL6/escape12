@@ -238,7 +238,7 @@ function UploadRecord() {
 								}
 								author={
 									data.expand?.author?.record.length < 6 &&
-									data.expand?.author?.record.length > 0
+									data.expand?.author?.record.length >= 0
 										? `🥚${data.expand?.author?.nickName || '소셜계정'}`
 										: data.expand?.author?.record.length > 5 &&
 										  data.expand?.author?.record.length < 11
