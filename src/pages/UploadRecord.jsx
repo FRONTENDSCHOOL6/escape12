@@ -9,6 +9,10 @@ import CommentItem from '@/components/comment/Commentitem';
 import Headerback from '@/components/header/Headerback';
 import SubmitInput from '@/components/input/SubmitInput';
 import Nav from '@/components/nav/Nav';
+import UploadInfoImage from '@/components/record/UploadInfoImage';
+import UploadInfoProfile from '@/components/record/UploadInfoProfile';
+import UploadInfoTitle from '@/components/record/UploadInfoTitle';
+import UploadInfo from '@/components/record/uploadInfo';
 import { ThemeContext } from '@/contexts/ThemeContext';
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -220,74 +224,58 @@ function UploadRecord() {
 				{isLoading && data && (
 					<>
 						<section className="flex flex-row-reverse items-center gap-4 w-full">
-							<div className="flex flex-col gap-3 s:gap-1 whitespace-nowrap flex-1">
-								<h3
-									className="text-2xl font-semibold"
-									tabIndex="0"
-									aria-label="테마명"
-								>
-									{!data.store ? data.expand?.escapeList?.store : data.store}
-									<span className="ml-3 s:ml-2">
-										{data.point
-											? `${data.expand?.escapeList.point}점`
-											: data.point}
-									</span>
-								</h3>
-								<div className="flex justify-between">
-									<p
-										className={`flex max-w-fit whitespace-nowrap overflow-hidden text-ellipsis ${
-											data.expand?.author?.nickName || data.expand?.author?.id
-												? ''
-												: 'dark:text-dark-ec1 text-light-ec4'
-										}`}
-										tabIndex="0"
-										aria-label="작성자"
-									>
-										{data.expand?.author?.record.length < 6 &&
-										data.expand?.author?.record.length > 0
-											? `🥚${data.expand?.author?.nickName || '소셜계정'}`
-											: data.expand?.author?.record.length > 5 &&
-											  data.expand?.author?.record.length < 11
-											? `🐤${data.expand?.author?.nickName || '소셜계정'}`
-											: data.expand?.author?.record.length > 10
-											? `🐔${data.expand?.author?.nickName || '소셜계정'}`
-											: '탈퇴회원'}
-									</p>
-									<span tabIndex="0">
-										{!data.date
-											? data.expand?.escapeList.created.slice(0, 10)
-											: data.date}
-									</span>
-								</div>
-							</div>
-							<div className="w-20 h-20 s:w-14 s:h-14">
-								<img
-									className="w-full h-full rounded-full"
-									src={
-										data.expand?.author?.id && data.expand?.author?.avatar
-											? `https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`
-											: data.expand?.author?.social ===
-											  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-											? `${social}`
-											: data.expand?.author?.social
-											? data.expand?.author?.social
-											: theme == 'dark'
-											? `${noImageLight}`
-											: `${noImage}`
-									}
-									alt={
-										data.expand?.author?.nickName
-											? data.expand?.author?.nickName
-											: data.expand?.author?.social
-											? '소셜회원'
-											: '탈퇴회원'
-									}
-									aria-hidden
-								/>
-							</div>
+							<UploadInfoTitle
+								store={
+									!data.store ? data.expand?.escapeList?.store : data.store
+								}
+								point={
+									data.point ? `${data.expand?.escapeList.point}점` : data.point
+								}
+								style={
+									data.expand?.author?.nickName || data.expand?.author?.id
+										? ''
+										: 'dark:text-dark-ec1 text-light-ec4'
+								}
+								author={
+									data.expand?.author?.record.length < 6 &&
+									data.expand?.author?.record.length > 0
+										? `🥚${data.expand?.author?.nickName || '소셜계정'}`
+										: data.expand?.author?.record.length > 5 &&
+										  data.expand?.author?.record.length < 11
+										? `🐤${data.expand?.author?.nickName || '소셜계정'}`
+										: data.expand?.author?.record.length > 10
+										? `🐔${data.expand?.author?.nickName || '소셜계정'}`
+										: '탈퇴회원'
+								}
+								date={
+									!data.date
+										? data.expand?.escapeList.created.slice(0, 10)
+										: data.date
+								}
+							/>
+							<UploadInfoProfile
+								src={
+									data.expand?.author?.id && data.expand?.author?.avatar
+										? `https://refresh.pockethost.io/api/files/${data.expand?.author?.collectionId}/${data.expand?.author?.id}/${data.expand?.author?.avatar}`
+										: data.expand?.author?.social ===
+										  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+										? `${social}`
+										: data.expand?.author?.social
+										? data.expand?.author?.social
+										: theme == 'dark'
+										? `${noImageLight}`
+										: `${noImage}`
+								}
+								alt={
+									data.expand?.author?.nickName
+										? data.expand?.author?.nickName
+										: data.expand?.author?.social
+										? '소셜회원'
+										: '탈퇴회원'
+								}
+							/>
 						</section>
-						<img
-							className="w-[50%]"
+						<UploadInfoImage
 							src={
 								data.image
 									? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.image}`
@@ -304,32 +292,17 @@ function UploadRecord() {
 							}
 						/>
 						<section className="w-full py-2">
-							<ul className="flex justify-between pb-4 font-semibold">
-								<li aria-label="즐겨찾기" tabIndex="0">
-									⭐
-									{!data.grade && data.grade !== 0
+							<UploadInfo
+								grade={
+									!data.grade && data.grade !== 0
 										? data.expand?.escapeList.grade * 2
-										: data.grade * 2}
-								</li>
-								<li aria-label="남은시간 " tabIndex="0">
-									{!data.hour ? '0' : data.hour}
-									<span className="px-2">:</span>
-									<span className="pr-2">
-										{!data.minute ? '00' : data.minute}
-									</span>
-									LEFT
-								</li>
-								<li>
-									<button
-										type="button"
-										onClick={handleLike}
-										className="bg-heartlike bg-no-repeat w-fit pl-7 bg-[left_top_0.3rem]"
-										aria-label="좋아요"
-									>
-										좋아요 {likeUpdate}
-									</button>
-								</li>
-							</ul>
+										: data.grade * 2
+								}
+								hour={!data.hour ? '0' : data.hour}
+								minute={!data.minute ? '00' : data.minute}
+								likeUpdate={likeUpdate}
+								onClick={handleLike}
+							/>
 							<div
 								className="min-h-[160px] w-full bg-opacity border-2 p-4 rounded-lg"
 								aria-label={'게시글 ' + data.content}

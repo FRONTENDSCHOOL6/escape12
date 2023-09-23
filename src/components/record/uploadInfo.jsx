@@ -1,6 +1,6 @@
 import { number, func } from 'prop-types';
 
-uploadInfo.propTypes = {
+UploadInfo.propTypes = {
 	grade: number,
 	hour: number,
 	minute: number,
@@ -8,7 +8,7 @@ uploadInfo.propTypes = {
 	likeUpdate: number,
 };
 
-function uploadInfo({ grade, hour, minute, onClick, likeUpdate }) {
+function UploadInfo({ grade, hour, minute, onClick, likeUpdate }) {
 	return (
 		<ul className="flex justify-between pb-4 font-semibold">
 			<li aria-label="즐겨찾기" tabIndex="0">
@@ -34,4 +34,4 @@ function uploadInfo({ grade, hour, minute, onClick, likeUpdate }) {
 	);
 }
 
-export default uploadInfo;
+export default UploadInfo;
