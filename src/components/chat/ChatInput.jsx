@@ -20,6 +20,7 @@ function ChatInput({ value = '', onChange, onSubmit = null }) {
 				maxLength={100}
 				value={value}
 				required
+				autoComplete="off"
 				className="px-3 py-1 grow rounded-full focus:outline-none"
 			/>
 			<button
