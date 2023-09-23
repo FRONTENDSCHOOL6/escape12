@@ -19,7 +19,7 @@ function EditGrade({ grade, onChange }) {
 				max={5}
 				value={grade}
 				name="half-rating grade"
-				defaultValue={5}
+				defaultValue={grade}
 				precision={0.5}
 				required
 				sx={{ '& .MuiRating-iconEmpty': { color: '#868e96' } }}

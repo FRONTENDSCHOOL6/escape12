@@ -120,7 +120,7 @@ function EditRecord() {
 			theme: themeData,
 			store: store,
 			date: date,
-			grade: grade * 2,
+			grade: grade,
 			hour: hour,
 			minute: minute,
 			content: content,

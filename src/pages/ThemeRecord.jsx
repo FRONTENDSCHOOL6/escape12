@@ -102,7 +102,7 @@ function ThemeRecord() {
 				theme: `${data.theme}`,
 				store: `${data.store}`,
 				date: date,
-				grade: grade * 2,
+				grade: grade,
 				hour: hour,
 				minute: minute,
 				content: content,

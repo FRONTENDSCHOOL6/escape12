@@ -228,7 +228,7 @@ function MyRecord() {
 											}
 											theme={item.theme}
 											store={item.store}
-											grade={item.grade}
+											grade={item.grade * 2}
 										/>
 									</li>
 								);
