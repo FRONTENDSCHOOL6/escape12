@@ -50,9 +50,7 @@ input::-webkit-autofill:active {
 	transition: background-color 5000s ease-in-out 0s;
 }
 
-input,
-textarea,
-button {
+input {
 	appearance: none;
 	-moz-appearance: none;
 	-webkit-appearance: none;
