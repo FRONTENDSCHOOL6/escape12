@@ -73,7 +73,8 @@ f00)
 
 ### Lighthouse
 ![theme](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/85b0fbff-ec31-4d5c-905f-cd4dc852a731)
-이전 theme의 Lighthouse의 결과는 이러함.
+
+- 이전 theme의 Lighthouse의 결과는 이러함.
 
 #### 개선한 페이지성능 및 접근성
 ![2](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/a697cc73-de6f-416e-8a1a-523ff77d55cf)
