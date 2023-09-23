@@ -30,7 +30,7 @@ function UploadRecord() {
 	// 뒤로가기
 	const handleBack = () => {
 		updateLikeInPb();
-		navigate(-1);
+		navigate('/recordcommunity');
 	};
 
 	//게시글 삭제 기능
@@ -53,7 +53,7 @@ function UploadRecord() {
 
 			updateLikeInPb();
 
-			navigate('/recordCommunity');
+			navigate('/recordcommunity');
 
 			if (deleteConfirm) {
 				await pb.collection('record').delete(`${dataId}`);
