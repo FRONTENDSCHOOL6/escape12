@@ -3,7 +3,7 @@ import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import Button from '@/components/button/Button';
 import Nav from '@/components/nav/Nav';
 import Header from '@/components/header/Header';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Spinner from '@/components/Spinner';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -11,6 +11,10 @@ import pb from '@/api/pockethost';
 import { toast } from 'react-hot-toast';
 import socialImg from '@/assets/socialImg.png';
 import useMyPage from '@/hooks/useMyPage';
+import MyPageImage from '@/components/mypage/MyPageImage';
+import MyPageInfo from '@/components/mypage/MyPageInfo';
+import MyPageData from '@/components/mypage/MyPageData';
+
 
 function MyPage() {
 	const userUId = getUserInfoFromStorage();
@@ -146,33 +150,18 @@ function MyPage() {
 					))}
 				{isLoading && data && records && comment && community && (
 					<div className="flex-1 flex flex-col items-center">
-						<div className="w-40 h-40">
-							<img
-								src={
-									data.avatar
-										? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.avatar}`
-										: !data.social ||
-										  data.social ===
-												'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-										? `${socialImg}`
-										: data.social
-								}
-								alt={data.nickName}
-								aria-hidden
-								className="w-full h-full rounded-full"
-							></img>
-						</div>
-						<ul className="s:px-12 p-8 text-xl space-y-4">
-							<li aria-label={'아이디 ' + data.email} tabIndex="0">
-								아이디 | {data.email}{' '}
-							</li>
-							<li aria-label={'비밀번호 '} tabIndex="0">
-								비밀번호 | ********{' '}
-							</li>
-							<li aria-label={'닉네임 ' + data.nickName} tabIndex="0">
-								닉네임 | {data.nickName}{' '}
-							</li>
-						</ul>
+						<MyPageImage src={
+							data.avatar
+								? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.avatar}`
+								: !data.social ||
+									data.social ===
+									'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+									? `${socialImg}`
+									: data.social
+						}
+							alt={data.nickName} />
+						<MyPageInfo email={data.email} nickName={data.nickName} />
+
 						<Button
 							onClick={() => {
 								navigate('/editpage');
@@ -180,43 +169,11 @@ function MyPage() {
 						>
 							정보수정
 						</Button>
-						<ul className="w-80 s:px-12 rounded-lg border-2 p-12 text-xl space-y-4 mt-8 text-center">
-							<li aria-label={'내가 작성한 기록 '} tabIndex="0">
-								내가 작성한 기록 :
-								<Link
-									to="/myrecord"
-									className="hover:dark:text-dark-ec5 hover:font-bold"
-								>
-									{records.length} 개
-								</Link>
-							</li>
-							<li aria-label={'내가 작성한 글 '} tabIndex="0">
-								내가 작성한 글 :
-								<Link
-									to="/mycommunity"
-									className="hover:dark:text-dark-ec5 hover:font-bold"
-								>
-									{community.length} 개
-								</Link>
-							</li>
-							<li aria-label={'내가 작성한 댓글 '} tabIndex="0">
-								내가 작성한 댓글 :
-								<Link
-									to="/mycomment"
-									className="hover:dark:text-dark-ec5 hover:font-bold"
-								>
-									{comment.length} 개
-								</Link>
-							</li>
-							<li>
-								<Link
-									to="/bookmark"
-									className="hover:dark:text-dark-ec5 hover:font-bold"
-								>
-									<span aria-hidden="true">⭐</span> 즐겨찾기 바로가기
-								</Link>
-							</li>
-						</ul>
+						<MyPageData
+							records={records.length}
+							community={community.length}
+							comment={comment.length}
+						/>
 						<Button onClick={handleLogout} bg="text-center mt-8">
 							로그아웃
 						</Button>
