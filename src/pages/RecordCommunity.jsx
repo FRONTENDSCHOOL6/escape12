@@ -192,7 +192,7 @@ function RecordCommunity() {
 							<EmptyContents>기록이 없습니다 : &#40;</EmptyContents>
 						</div>
 					)}
-					{RecordPage.isLoading ||
+					{recordCommunityData.isLoading ||
 						(!isLoading && (
 							<div className="absolute top-1/2 -translate-y-1/2">
 								<Spinner />
