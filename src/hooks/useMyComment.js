@@ -18,7 +18,6 @@ const useMyComment = ({ keys = [] } = {}) => {
 	const queryData = useQuery({
 		queryKey,
 		queryFn: () => getMyComment(),
-		keepPreviousData: true,
 	});
 
 	return queryData;

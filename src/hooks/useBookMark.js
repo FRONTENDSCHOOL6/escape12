@@ -16,7 +16,6 @@ const useBookMark = ({ keys = [] } = {}) => {
 	const queryData = useQuery({
 		queryKey,
 		queryFn: () => getBookMark(),
-		keepPreviousData: true,
 	});
 
 	return queryData;

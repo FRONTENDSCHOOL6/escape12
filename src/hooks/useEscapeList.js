@@ -12,7 +12,6 @@ const useEscapeList = ({ keys = [] } = {}) => {
 	const queryData = useQuery({
 		queryKey,
 		queryFn: () => getEscapeList(),
-		keepPreviousData: true,
 	});
 
 	return queryData;
