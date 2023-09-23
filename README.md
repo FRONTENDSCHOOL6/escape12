@@ -31,6 +31,8 @@
    <img alt="html5" src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img alt="css" src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img alt="tailwind" src ="https://img.shields.io/badge/Tailwind-06B6D4.svg?&style=for-the-badge&logo=TailwindCSS&logoColor=white"/> <img alt="javascript" src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img alt="react" src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img alt="reactrouter" src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white"> <img alt="reactquery" src="https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=react-query&logoColor=white"> 
 </div>
 
+##### 사용 라이브러리: MUI, GSAP
+
 ## 🔖 역할 분담
 - 김건주 (스크럼마스터) : 로그인, 회원가입, 테마, 즐겨찾기, 내가 쓴 기록
 - 김남진 : 커뮤니티(글, 작성자, 댓글), 내가 쓴 커뮤글, 내가 쓴 댓글
@@ -65,6 +67,10 @@
 
 
 ### Lighthouse
+![theme](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/85b0fbff-ec31-4d5c-905f-cd4dc852a731)
+이전 theme의 Lighthouse의 결과는 이러함.
+
+####개선한 페이지성능 및 접근성
 ![1](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/b62dca0b-08e5-489e-b169-395c9b7dbdb9)
 ![2](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/c94cf97a-d1b0-4b86-b496-e93ebe9fb96e)
 ![3](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/13e60682-0982-4e29-9de7-2e7ed697f09f)
