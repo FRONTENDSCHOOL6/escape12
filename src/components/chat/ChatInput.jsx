@@ -10,7 +10,7 @@ function ChatInput({ value = '', onChange, onSubmit = null }) {
 	return (
 		<form
 			onSubmit={onSubmit}
-			className={`flex gap-4 w-full justify-center text-lg pb-4 absolute bottom-0 left-0 right-0 px-5 s:px-12`}
+			className={`flex gap-4 w-full justify-center text-lg pb-4 absolute bottom-0 left-0 right-0 px-5`}
 		>
 			<input
 				type="text"
