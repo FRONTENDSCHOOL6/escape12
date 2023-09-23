@@ -129,7 +129,6 @@ function Theme() {
 
 					try {
 						setPage(page + 1);
-						console.log(page);
 						setData((prevData) => [...prevData, ...escape.items]);
 					} catch (err) {
 						console.log(`에러 내용: ${err}`);
