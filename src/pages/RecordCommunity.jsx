@@ -10,12 +10,9 @@ import UpNav from '@/components/nav/UpNav';
 import RecordCommunityItem from '@/components/record/RecordCommunityItem';
 import { ThemeContext } from '@/contexts/ThemeContext';
 import debounce from '@/utils/debounce';
-import { useContext } from 'react';
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import RecordPage from './RecordPage';
-import useRecordCommunity from '@/hooks/useRecordComuunity';
 
 function RecordCommunity() {
 	const navigate = useNavigate();
@@ -142,16 +139,25 @@ function RecordCommunity() {
 		() => debounce((e) => handleSearch(e), 500),
 		[handleSearch]
 	);
-	//데이터 가져오기
-	const recordCommunityData = useRecordCommunity();
 
 	// 데이터 불러오기
 	useEffect(() => {
-		if (recordCommunityData.data) {
-			setData(recordCommunityData.data);
-			setIsLoading(true);
-		}
-	}, [recordCommunityData.data]);
+		const allRecord = async () => {
+			const records = await pb.collection('record').getFullList({
+				sort: '-created',
+				expand: 'author, escapeList',
+			});
+
+			try {
+				setData(records);
+				setIsLoading(true);
+			} catch (err) {
+				console.log(`에러 내용: ${err}`);
+			}
+		};
+
+		allRecord();
+	}, []);
 
 	return (
 		<div>
@@ -192,12 +198,11 @@ function RecordCommunity() {
 							<EmptyContents>기록이 없습니다 : &#40;</EmptyContents>
 						</div>
 					)}
-					{recordCommunityData.isLoading ||
-						(!isLoading && (
-							<div className="absolute top-1/2 -translate-y-1/2">
-								<Spinner />
-							</div>
-						))}
+					{!isLoading && (
+						<div className="absolute top-1/2 -translate-y-1/2">
+							<Spinner />
+						</div>
+					)}
 					<ul className="w-full px-20 s:px-12">
 						{!emptyData &&
 							isLoading &&

@@ -121,7 +121,7 @@ function ThemeRecord() {
 			navigate(`/upload/${result.id}`);
 
 			const themeClear = {
-				users: [...users, `${userUId?.model.id}`],
+				// users: [...users, `${userUId?.model.id}`],
 				record: [...escapeListRecord, `${result.id}`],
 			};
 
