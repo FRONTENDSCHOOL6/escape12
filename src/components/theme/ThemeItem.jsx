@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import pb from '@/api/pockethost';
 import { getUserInfoFromStorage } from '@/api/getUserInfo';
 import { useState } from 'react';
+import { Tooltip } from '@mui/material';
 
 ThemeItem.propTypes = {
 	store: string,
@@ -78,14 +79,16 @@ function ThemeItem({
 					</Span>
 				</section>
 				<section className="flex justify-between items-center">
-					<h3 className="s:max-w-[70%] overflow-hidden text-ellipsis whitespace-nowrap">
-						<span aria-label={'업체명 ' + store} tabIndex="0">
-							{store}
-						</span>
-						<Span text="pl-1" ariaLabel={'위치 ' + point} tabIndex="0">
-							{point}점
-						</Span>
-					</h3>
+					<Tooltip title={`업체명 ${store}`} placement="right">
+						<h3 className="s:max-w-[70%] overflow-hidden text-ellipsis whitespace-nowrap">
+							<span aria-label={'업체명 ' + store} tabIndex="0">
+								{store}
+							</span>
+							<Span text="pl-1" ariaLabel={'위치 ' + point} tabIndex="0">
+								{point}점
+							</Span>
+						</h3>
+					</Tooltip>
 					<Span text="font-semibold" ariaLabel={'장르 ' + field} tabIndex="0">
 						{field}
 					</Span>
