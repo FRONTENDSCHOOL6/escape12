@@ -10,7 +10,6 @@ import HeartButton from '@/components/theme/HeartButton';
 import LiButton from '@/components/theme/LiButton';
 import ThemeItem from '@/components/theme/ThemeItem';
 import { ThemeContext } from '@/contexts/ThemeContext';
-import useEscapeList from '@/hooks/useEscapeList';
 import debounce from '@/utils/debounce';
 import { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -38,6 +37,7 @@ function Theme() {
 	const [like, setLike] = useState(false);
 	const [record, setRecord] = useState();
 	const [bookMark, setBookMark] = useState(null);
+	const [page, setPage] = useState(1);
 	const [chat, setChat] = useState(false);
 
 	// 채팅하기 이벤트
@@ -109,12 +109,32 @@ function Theme() {
 	useEffect(() => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
+			const totalPageHeight = document.documentElement.scrollHeight;
+			const windowHeight = window.innerHeight;
 
 			if (
 				(currentScrollY >= 500 && !showPlusNav) ||
 				(currentScrollY < 500 && showPlusNav)
 			) {
 				setShowPlusNav(currentScrollY >= 500);
+			}
+
+			if (currentScrollY + windowHeight >= totalPageHeight) {
+				const dataUpdate = async () => {
+					const escape = await pb
+						.collection('escapeList')
+						.getList(page + 1, 10, {
+							sort: 'theme',
+						});
+
+					try {
+						setPage(page + 1);
+						setData((prevData) => [...prevData, ...escape.items]);
+					} catch (err) {
+						console.log(`에러 내용: ${err}`);
+					}
+				};
+				dataUpdate();
 			}
 		};
 
@@ -123,7 +143,7 @@ function Theme() {
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
 		};
-	}, [showPlusNav]);
+	}, [page, showPlusNav]);
 
 	//인기순 정렬하기
 	const handleGradeSort = () => {
@@ -360,17 +380,24 @@ function Theme() {
 		fetchUserBookmarks();
 	}, [userId]);
 
-	const escapeListData = useEscapeList();
-
 	//데이터 불러오기
 	useEffect(() => {
 		if (record || bookMark) {
-			if (escapeListData.data) {
-				setData(escapeListData.data);
-				setIsLoadingState(true);
-			}
+			const dataList = async () => {
+				const escape = await pb.collection('escapeList').getList(1, 10, {
+					sort: 'theme',
+				});
+
+				try {
+					setData(escape.items);
+					setIsLoadingState(true);
+				} catch (err) {
+					console.log(`에러 내용: ${err}`);
+				}
+			};
+			dataList();
 		}
-	}, [escapeListData.data, record, bookMark]);
+	}, [record, bookMark]);
 
 	return (
 		<>
@@ -495,6 +522,9 @@ function Theme() {
 								</li>
 							);
 						})}
+						<li className="font-semibold text-center pb-10">
+							{page < 23 ? '불러오는 중...' : '더이상 데이터가 없습니다'}
+						</li>
 					</ul>
 				)}
 			</div>

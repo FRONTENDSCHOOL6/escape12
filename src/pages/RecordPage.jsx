@@ -83,7 +83,7 @@ function RecordPage() {
 			theme: theme,
 			store: store,
 			date: date,
-			grade: Number(grade) * 2,
+			grade: Number(grade),
 			hour: Number(hour),
 			minute: Number(minute),
 			content: content,
@@ -136,7 +136,10 @@ function RecordPage() {
 				<meta name="description" content="방탈러 홈페이지-클리어" />
 				<meta property="og:title" content="방탈러 클리어" />
 				<meta property="og:description" content="방탈러 클리어 페이지" />
-				<meta property="og:url" content="https://escape12.netlify.app/recordpage" />
+				<meta
+					property="og:url"
+					content="https://escape12.netlify.app/recordpage"
+				/>
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto text-lg pt-16 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1">
 				<Headerback

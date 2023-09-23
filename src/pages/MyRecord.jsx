@@ -187,6 +187,9 @@ function MyRecord() {
 					</SearchInput>
 				</div>
 				<div className="flex flex-col items-center w-full">
+					{isLoading && data && !emptyData && !noResult && (
+						<p className="text-right w-full px-20">총 기록 {data.length}개</p>
+					)}
 					{isLoading && data.length === 0 && !emptyData && !noResult && (
 						<div className="translate-y-1/3">
 							<EmptyContents>기록이 없습니다 : &#40;</EmptyContents>
@@ -199,9 +202,6 @@ function MyRecord() {
 							</div>
 						))}
 					<ul className="w-full px-20 s:px-12">
-						{isLoading && data && !emptyData && !noResult && (
-							<p className="text-right w-full">총 기록 {data.length}개</p>
-						)}
 						{!emptyData &&
 							isLoading &&
 							!noResult &&
@@ -228,7 +228,7 @@ function MyRecord() {
 											}
 											theme={item.theme}
 											store={item.store}
-											grade={item.grade}
+											grade={item.grade * 2}
 										/>
 									</li>
 								);

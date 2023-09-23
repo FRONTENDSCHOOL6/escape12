@@ -37,14 +37,14 @@ function BookMark() {
 				bookmark: [...bookMarkId, `${item.id}`],
 			};
 
+			await pb
+				.collection('users')
+				.update(`${userUId?.model.id}`, userBookMarkSelete);
+
 			toast('즐겨찾기에 추가되었습니다', {
 				icon: '⭐',
 				duration: 2000,
 			});
-
-			await pb
-				.collection('users')
-				.update(`${userUId?.model.id}`, userBookMarkSelete);
 		} else {
 			const userBookMarkCancle = bookMarkId.filter(
 				(value) => value !== `${item.id}`
@@ -52,16 +52,16 @@ function BookMark() {
 
 			setBookMarkId(userBookMarkCancle);
 
-			toast('즐겨찾기에 삭제되었습니다', {
-				icon: '✖️',
-				duration: 2000,
-			});
-
 			const updateBookMark = { bookmark: userBookMarkCancle };
 
 			await pb
 				.collection('users')
 				.update(`${userUId?.model.id}`, updateBookMark);
+
+			toast('즐겨찾기에 삭제되었습니다', {
+				icon: '✖️',
+				duration: 2000,
+			});
 
 			const updateUserBookMark = await pb
 				.collection('users')

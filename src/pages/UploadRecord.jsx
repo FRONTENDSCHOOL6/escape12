@@ -30,7 +30,7 @@ function UploadRecord() {
 	// 뒤로가기
 	const handleBack = () => {
 		updateLikeInPb();
-		navigate(-1);
+		navigate('/recordcommunity');
 	};
 
 	//게시글 삭제 기능
@@ -53,7 +53,7 @@ function UploadRecord() {
 
 			updateLikeInPb();
 
-			navigate('/recordCommunity');
+			navigate('/recordcommunity');
 
 			if (deleteConfirm) {
 				await pb.collection('record').delete(`${dataId}`);
@@ -308,8 +308,8 @@ function UploadRecord() {
 								<li aria-label="즐겨찾기" tabIndex="0">
 									⭐
 									{!data.grade && data.grade !== 0
-										? data.expand?.escapeList.grade
-										: data.grade}
+										? data.expand?.escapeList.grade * 2
+										: data.grade * 2}
 								</li>
 								<li aria-label="남은시간 " tabIndex="0">
 									{!data.hour ? '0' : data.hour}
