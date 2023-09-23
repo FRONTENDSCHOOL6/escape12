@@ -4,7 +4,6 @@ import noImage from '@/assets/noImage.png';
 import noImageLight from '@/assets/noImageLight.png';
 import social from '@/assets/socialImg.png';
 import { ThemeContext } from '@/contexts/ThemeContext';
-import useChat from '@/hooks/useChat';
 import { useContext, useEffect, useRef, useState } from 'react';
 import EmptyContents from '../EmptyContents';
 import Spinner from '../Spinner';
@@ -21,6 +20,7 @@ function ChatModal({ onClick }) {
 	const userUId = getUserInfoFromStorage();
 	const [chat, setChat] = useState(null);
 	const [text, setText] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 	const chatListRef = useRef(null);
 	const year = new Date().getFullYear();
 	const month = new Date().getMonth() + 1;
@@ -51,6 +51,11 @@ function ChatModal({ onClick }) {
 			const resultChat = await pb.collection('chat').getFullList({
 				sort: 'created',
 				expand: 'author',
+				filter: `created ~ "${year}-${
+					month < 10 ? '0' + month : month.toString()
+				}-${day < 10 ? '0' + day : day.toString()}" || created ~ "${year}-${
+					month < 10 ? '0' + month : month.toString()
+				}-${day < 10 ? '0' + day - 1 : day.toString() - 1}"`,
 			});
 
 			setChat(resultChat);
@@ -66,15 +71,27 @@ function ChatModal({ onClick }) {
 		}
 	}, [chat]);
 
-	// 데이터가져오기
-	const chatData = useChat();
-
-	// 데이터 가져온 후, data 업데이트
 	useEffect(() => {
-		if (chatData.data) {
-			setChat(chatData.data);
-		}
-	}, [chatData.data]);
+		const chatData = async () => {
+			const chatAllData = await pb.collection('chat').getFullList({
+				sort: 'created',
+				expand: 'author',
+				filter: `created ~ "${year}-${
+					month < 10 ? '0' + month : month.toString()
+				}-${day < 10 ? '0' + day : day.toString()}" || created ~ "${year}-${
+					month < 10 ? '0' + month : month.toString()
+				}-${day < 10 ? '0' + day - 1 : day.toString() - 1}"`,
+			});
+
+			try {
+				setChat(chatAllData);
+				setIsLoading(true);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		chatData();
+	}, [day, month, year]);
 
 	return (
 		<div className="chatModalBox fixed top-1/2 z-50 left-1/2 -translate-y-1/2 -translate-x-1/2 dark:bg-dark-ec1 dark:text-dark-ec4 text-light-ec4 bg-light-ec4 w-[500px] h-[600px] rounded-2xl s:max-w-[90%] s:max-h-[70%]">
@@ -98,19 +115,20 @@ function ChatModal({ onClick }) {
 				className="w-full h-[90%] overflow-y-scroll px-5 pt-5 pb-12 chatModal"
 				ref={chatListRef}
 			>
-				{chat && chat.length === 0 && (
-					<li className="flex flex-col items-center translate-y-1/4">
+				{isLoading && chat && chat.length === 0 && (
+					<li className="flex flex-col items-center translate-y-1/4 s:translate-y-0">
 						<EmptyContents text="text-light-ec1 dark:text-dark-ec4">
 							채팅을 시작해주세요 : &#41;
 						</EmptyContents>
 					</li>
 				)}
-				{chatData.isLoading && (
+				{!isLoading && (
 					<li className="flex flex-col items-center translate-y-1/2">
 						<Spinner />
 					</li>
 				)}
-				{chat &&
+				{isLoading &&
+					chat &&
 					chat.map((item) => {
 						return (
 							<li key={item.id}>
