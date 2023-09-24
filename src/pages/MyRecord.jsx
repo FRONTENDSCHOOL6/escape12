@@ -29,17 +29,14 @@ function MyRecord() {
 	const navigate = useNavigate();
 	const [chat, setChat] = useState(false);
 
-	// 채팅하기 이벤트
 	const handleChat = () => {
 		chat ? setChat(false) : setChat(true);
 	};
 
-	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
 		navigate('/recordpage');
 	};
 
-	//스크롤탑 버튼 이벤트
 	const handleTopButton = () => {
 		window.scrollTo({
 			top: 0,
@@ -47,7 +44,6 @@ function MyRecord() {
 		});
 	};
 
-	//스크롤 이벤트 감지
 	useEffect(() => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
@@ -66,7 +62,6 @@ function MyRecord() {
 		};
 	}, [showPlusNav]);
 
-	// 검색 기능
 	const handleSearch = (e) => {
 		setIsLoading(false);
 		if (e.target.value.length !== 0) {
@@ -77,23 +72,27 @@ function MyRecord() {
 
 		const recordSearch = async () => {
 			const recordList = await pb.collection('record').getList(1, 200, {
-				filter: `(author = "${userUId?.model.id}" && theme ~ "${e.target.value
-					}") || (author = "${userUId?.model.id}" && store ~ "${e.target.value
-					}") || (author = "${userUId?.model.id}" && grade = "${e.target.value === '꽃길'
+				filter: `(author = "${userUId?.model.id}" && theme ~ "${
+					e.target.value
+				}") || (author = "${userUId?.model.id}" && store ~ "${
+					e.target.value
+				}") || (author = "${userUId?.model.id}" && grade = "${
+					e.target.value === '꽃길'
 						? 8 && 9 && 10
 						: e.target.value === '풀길'
-							? 4 && 5 && 6 && 7
-							: e.target.value === '흙길'
-								? 0 && 1 && 2 && 3
-								: '없음'
-					}") || (author = "${userUId?.model.id}" && grade = "${e.target.value === '꽃'
+						? 4 && 5 && 6 && 7
+						: e.target.value === '흙길'
+						? 0 && 1 && 2 && 3
+						: '없음'
+				}") || (author = "${userUId?.model.id}" && grade = "${
+					e.target.value === '꽃'
 						? 8 && 9 && 10
 						: e.target.value === '풀'
-							? 4 && 5 && 6 && 7
-							: e.target.value === '흙'
-								? 0 && 1 && 2 && 3
-								: '없음'
-					}")`,
+						? 4 && 5 && 6 && 7
+						: e.target.value === '흙'
+						? 0 && 1 && 2 && 3
+						: '없음'
+				}")`,
 				expand: 'escapeList',
 			});
 
@@ -133,15 +132,12 @@ function MyRecord() {
 	};
 	const debounceSearch = debounce((e) => handleSearch(e), 500);
 
-	// 검색 버튼 누르기
 	const handleSubmitButton = (e) => {
 		e.preventDefault();
 	};
 
-	// 데이터가져오기
 	const myRecordData = useMyRecord();
 
-	//데이터 불러오기
 	useEffect(() => {
 		if (myRecordData.data) {
 			setData(myRecordData.data);
@@ -210,17 +206,17 @@ function MyRecord() {
 												item.image
 													? `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
 													: item.expand?.escapeList?.images
-														? `https://refresh.pockethost.io/api/files/${item.expand?.escapeList?.collectionId}/${item.expand?.escapeList?.id}/${item.expand?.escapeList?.images}`
-														: theme === 'dark'
-															? `${noImageLight}`
-															: `${noImage}`
+													? `https://refresh.pockethost.io/api/files/${item.expand?.escapeList?.collectionId}/${item.expand?.escapeList?.id}/${item.expand?.escapeList?.images}`
+													: theme === 'dark'
+													? `${noImageLight}`
+													: `${noImage}`
 											}
 											alt={
 												item.image
 													? item.theme
 													: item.expand?.escapeList?.image
-														? item.expand?.escapeList?.theme
-														: '사진없음'
+													? item.expand?.escapeList?.theme
+													: '사진없음'
 											}
 											theme={item.theme}
 											store={item.store}
