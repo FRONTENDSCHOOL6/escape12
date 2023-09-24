@@ -124,21 +124,6 @@ function CommentPage() {
 		dataList();
 	}, [dataId]);
 
-	// useEffect(() => {
-	// 	const handleUserCommunity = async () => {
-	// 		const userCommunityData = await pb
-	// 			.collection('users')
-	// 			.getOne(`${userUId.model.id}`);
-	// 		try {
-	// 			setCommunity(userCommunityData.community);
-	// 		} catch (err) {
-	// 			console.log(`userCommunity 불러오기 에러: ${err}`);
-	// 		}
-	// 	};
-
-	// 	handleUserCommunity();
-	// }, [userUId.model.id]);
-
 	return (
 		<div>
 			<Helmet>
@@ -258,7 +243,6 @@ function CommentPage() {
 							<ul className="flex flex-col gap-4 text-lg w-full text-ec1 ">
 								{comment &&
 									comment.map((item) => {
-										// 댓글 삭제하기
 										const handleDeleteComment = async () => {
 											const result = confirm('댓글을 삭제하시겠습니까?');
 

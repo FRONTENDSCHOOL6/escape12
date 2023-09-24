@@ -37,52 +37,43 @@ function EditRecord() {
 	const uploadPhotoRef = useRef(null);
 	const { theme } = useContext(ThemeContext);
 
-	// 테마명 상태 관리
 	const handleTheme = (e) => {
 		setThemeData(e.target.value);
 	};
 	const debounceTheme = debounce((e) => handleTheme(e), 2000);
 
-	// 업체명 상태 관리
 	const handleStore = (e) => {
 		setStore(e.target.value);
 	};
 	const debounceStore = debounce((e) => handleStore(e), 2000);
 
-	// 날짜 상태 관리
 	const handleDateChange = (e) => {
 		setDate(e.target.value);
 	};
 
-	// 평점 상태 관리
 	const handleRatingChange = (e) => {
 		setGrade(e.target.value);
 	};
 
-	// 남은시간 - Hour 상태 관리
 	const handleRemainingTimeChange = (e) => {
 		setHour(e.target.value);
 	};
 
-	// 남은시간 - Minute 상태 관리
 	const handleRemainingTimeMinuteChange = (e) => {
 		setMinute(e.target.value);
 	};
 
-	// 사진 상태 관리
 	const handleUploadPhoto = (e) => {
 		const photoFile = e.target.files[0];
 		const photoUrl = URL.createObjectURL(photoFile);
 		uploadPhotoRef.current.setAttribute('src', photoUrl);
 	};
 
-	// 후기 상태 관리
 	const handleContentChange = (e) => {
 		setContent(e.target.value);
 		setLength(e.target.value.length);
 	};
 
-	// 데이터 불러오기
 	useEffect(() => {
 		const viewRecord = async () => {
 			const record = await pb.collection('record').getOne(`${dataId}`, {
@@ -113,7 +104,6 @@ function EditRecord() {
 		viewRecord();
 	}, [dataId]);
 
-	// 기록 등록하기 이벤트
 	const handleEditRecord = async (e) => {
 		e.preventDefault();
 		const userRecord = {

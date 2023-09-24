@@ -18,17 +18,14 @@ function EditCommunity() {
 	const { dataId } = useParams();
 	const [isLoading, setIsLoading] = useState(false);
 
-	// 제목 상태 변경
 	const handleTitle = (e) => {
 		setTitle(e.target.value);
 	};
 
-	// 내용 상태 변경
 	const handleContent = (e) => {
 		setContent(e.target.value);
 	};
 
-	//기존 데이터 가져오기
 	useEffect(() => {
 		async function BeforePostData() {
 			const postData = await pb.collection('community').getOne(`${dataId}`, {
@@ -46,7 +43,6 @@ function EditCommunity() {
 		BeforePostData();
 	}, [dataId]);
 
-	// 수정 상태 변경
 	const handleEditPost = async (e) => {
 		e.preventDefault();
 		const data = {

@@ -31,18 +31,15 @@ function UploadRecord() {
 	const [escapeList, setEscapeList] = useState([]);
 	const [likeUpdate, setLikeUpdate] = useState(0);
 
-	// 뒤로가기
+
 	const handleBack = () => {
 		updateLikeInPb();
 		navigate('/recordcommunity');
 	};
 
-	//게시글 삭제 기능
 	const handleDeleteRecord = async () => {
 		const deleteConfirm = confirm('정말로 삭제하시겠습니까?');
 
-		//user에 escapeList에 연결된 값 삭제하기
-		// 해당 테마의 아이디값을 제외한 배열로 업데이트하기
 		const array = escapeList.filter(
 			(i) => i !== `${data.expand?.escapeList?.id}`
 		);
@@ -75,7 +72,6 @@ function UploadRecord() {
 		}
 	};
 
-	//게시글 수정 기능
 	const handleEditRecord = () => {
 		try {
 			updateLikeInPb();
@@ -85,16 +81,13 @@ function UploadRecord() {
 		}
 	};
 
-	// 댓글 입력하기
 	const handleComment = (e) => {
 		setCommentInput(e.target.value);
 	};
 
-	// 댓글 등록 버튼
 	const handleSubmitComment = async (e) => {
 		e.preventDefault();
 
-		// 등록할 댓글
 		const commentData = {
 			content: commentInput,
 			author: `${userUId?.model.id}`,
@@ -122,7 +115,6 @@ function UploadRecord() {
 		}
 	};
 
-	// 좋아요기능
 	const handleLike = () => {
 		setLikeUpdate(likeUpdate + 1);
 
@@ -132,7 +124,6 @@ function UploadRecord() {
 		});
 	};
 
-	// 좋아요 수 서버 업데이트
 	const updateLikeInPb = async () => {
 		try {
 			const likeData = {
@@ -145,15 +136,12 @@ function UploadRecord() {
 		}
 	};
 
-	//데이터 불러오기
 	useEffect(() => {
 		const handleRecordData = async () => {
-			// 기록데이터
 			const recordData = await pb.collection('record').getOne(`${dataId}`, {
 				expand: 'escapeList, author',
 			});
 
-			// 댓글데이터
 			const commentData = await pb.collection('comment').getList(1, 200, {
 				filter: `record = "${dataId}"`,
 				sort: '-created',
@@ -173,7 +161,6 @@ function UploadRecord() {
 		handleRecordData();
 	}, [dataId]);
 
-	// user에 저장된 escapeList 불러오기
 	useEffect(() => {
 		const handleUserEscapeList = async () => {
 			const userEscapeListData = await pb

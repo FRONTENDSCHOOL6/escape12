@@ -18,10 +18,8 @@ import { Helmet } from 'react-helmet-async';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 
-// 아이디 유효성 검사, 이메일 형식
 const regEmail =
 	/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]+$/i;
-// 비밀번호 유효성 검사, 최소 8자 이상, 최소 1개의 대소문자, 특수문자 포함
 const regPw =
 	/(?=(.*[0-9]))(?=.*[!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/;
 
@@ -35,12 +33,10 @@ function Login() {
 	const [open, setOpen] = useState(false);
 	const confirmEmailRef = useRef('');
 
-	// 이메일 비밀번호 확인 및 변경 요청 인풋
 	const handleEmail = (e) => {
 		confirmEmailRef.current = e.target.value;
 	};
 
-	// 아이디비밀번호 찾기
 	const handleResetPw = async () => {
 		toast(`해당 기능은 지원하지않습니다`, {
 			icon: '✉️',
@@ -58,12 +54,10 @@ function Login() {
 		setOpen(false);
 	};
 
-	//패스워드 보기
 	const isClickedPwView = () => {
 		pwView === false ? setPwView(true) : setPwView(false);
 	};
 
-	//아이디 정규식 검사
 	const handleIdValidEmail = (e) => {
 		const target = e.target.value;
 		setEmail(target);
@@ -71,7 +65,6 @@ function Login() {
 	};
 	const debounceEmailHandler = debounce((e) => handleIdValidEmail(e), 100);
 
-	//비밀번호 정규식 검사
 	const handlePwValid = (e) => {
 		const target = e.target.value;
 		setPassword(target);
@@ -79,7 +72,6 @@ function Login() {
 	};
 	const debouncePwHandler = debounce((e) => handlePwValid(e), 100);
 
-	//로그인 정보 확인 후 이동
 	const handleLogin = async (e) => {
 		e.preventDefault();
 
