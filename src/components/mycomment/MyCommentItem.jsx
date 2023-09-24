@@ -29,14 +29,11 @@ function MyCommentItem({ comment, postId, postTitle, postType, onClick }) {
 					className="grow w-full pr-4"
 				>
 					<h3
-						className="text-lg font-semibold mb-2 border-b-2 whitespace-nowrap overflow-hidden text-ellipsis "
+						className="text-lg font-semibold mb-2 border-b-2 whitespace-nowrap overflow-hidden text-ellipsis max-w-[90%]"
 						aria-label={'제목 ' + postTitle}
 						tabIndex="0"
 					>
-						{postType === 'community' ? '📕' : '🎫'}{' '}
-						{postTitle.length > maxLength
-							? `${postTitle.substring(0, maxLength)}...`
-							: postTitle}
+						{postType === 'community' ? '📕' : '🎫'} {postTitle}
 					</h3>
 					<p
 						className="break-all whitespace-nowrap overflow-hidden text-ellipsis text-base s:max-w-[150px] max-w-full"
