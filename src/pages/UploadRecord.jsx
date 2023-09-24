@@ -12,7 +12,7 @@ import Nav from '@/components/nav/Nav';
 import UploadInfoImage from '@/components/record/UploadInfoImage';
 import UploadInfoProfile from '@/components/record/UploadInfoProfile';
 import UploadInfoTitle from '@/components/record/UploadInfoTitle';
-import UploadInfo from '@/components/record/uploadInfo';
+import UploadInfo from '@/components/record/UploadInfo';
 import { ThemeContext } from '@/contexts/ThemeContext';
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -238,7 +238,7 @@ function UploadRecord() {
 								}
 								author={
 									data.expand?.author?.record.length < 6 &&
-									data.expand?.author?.record.length > 0
+									data.expand?.author?.record.length >= 0
 										? `🥚${data.expand?.author?.nickName || '소셜계정'}`
 										: data.expand?.author?.record.length > 5 &&
 										  data.expand?.author?.record.length < 11

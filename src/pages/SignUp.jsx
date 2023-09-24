@@ -192,13 +192,15 @@ function SignUp() {
 					className="flex flex-col gap-10 items-center my-14 s:px-3"
 				>
 					<fieldset className="flex flex-col gap-3 dark:text-dark-ec1 text-light-ec4">
-						<>
+						<div role="alert">
 							<FormInput
 								type="email"
 								name="id"
 								onChange={debounceEmailHandler}
 								defaultValue={email}
 								placeholder="example@naver.com"
+								aria-invalid={isValidEmail}
+								aria-errormessage="emailErr"
 							>
 								아이디(이메일)
 							</FormInput>
@@ -208,6 +210,7 @@ function SignUp() {
 										? 'dark:text-dark-red text-light-red'
 										: ''
 								}
+								id="emailErr"
 							>
 								{!email
 									? ' '
@@ -217,8 +220,8 @@ function SignUp() {
 									? '존재하는 이메일입니다'
 									: ' '}
 							</FormInputValid>
-						</>
-						<>
+						</div>
+						<div role="alert">
 							<FormInput
 								type={pwView ? 'text' : 'password'}
 								name="password"
@@ -235,11 +238,14 @@ function SignUp() {
 								onClick={isClickedPwView}
 								defaultValue={password}
 								placeholder="example123"
+								aria-invalid={isValidPw}
+								aria-errormessage="pwError"
 							>
 								비밀번호
 							</FormInput>
 							<FormInputValid
 								color={!isValidPw ? 'dark:text-dark-red text-light-red' : ''}
+								id="pwError"
 							>
 								{!password
 									? ''
@@ -247,8 +253,8 @@ function SignUp() {
 									? '비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다'
 									: ''}
 							</FormInputValid>
-						</>
-						<>
+						</div>
+						<div role="alert">
 							<FormInput
 								type={pwConfirmView ? 'text' : 'password'}
 								name="passwordConfirm"
@@ -265,6 +271,8 @@ function SignUp() {
 								onClick={isClickedPwConfirmView}
 								defaultValue={passwordConfirm}
 								placeholder="example123"
+								aria-invalid={password === passwordConfirm}
+								aria-errormessage="pwConfirmErr"
 							>
 								비밀번호 확인
 							</FormInput>
@@ -274,6 +282,7 @@ function SignUp() {
 										? 'dark:text-dark-googleline text-light-ec4'
 										: 'dark:text-dark-red text-light-red'
 								}
+								id="pwConfirmErr"
 							>
 								{passwordConfirm.length === 0
 									? ''
@@ -281,14 +290,16 @@ function SignUp() {
 									? '비밀번호가 일치합니다'
 									: '비밀번호가 일치하지 않습니다'}
 							</FormInputValid>
-						</>
-						<>
+						</div>
+						<div role="alert">
 							<FormInput
 								type="text"
 								name="nickName"
 								onChange={debounceNickNameHandler}
 								defaultValue={nickName}
 								placeholder="방탈러"
+								aria-invalid={isValidNickName}
+								aria-errormessage="nickNameErr"
 							>
 								닉네임
 							</FormInput>
@@ -299,6 +310,7 @@ function SignUp() {
 										? 'dark:text-dark-red text-light-red'
 										: ''
 								}
+								id="nickNameErr"
 							>
 								{nickName.length !== 0 && !regNickName.test(nickName)
 									? '공백 제외 두 자리 이상 입력해주세요'
@@ -330,7 +342,7 @@ function SignUp() {
 									/>
 								</div>
 							</div>
-						</>
+						</div>
 					</fieldset>
 					<div className="flex flex-col justify-center items-center">
 						<Button type="submit" bg="bg-ec1 mb-4">

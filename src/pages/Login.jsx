@@ -119,18 +119,21 @@ function Login() {
 					className="flex flex-col gap-10 items-center py-32 s:py-16 s:px-3"
 				>
 					<fieldset className="flex flex-col gap-3">
-						<div>
+						<div role="alert">
 							<FormInput
 								type="email"
 								name="id"
 								onChange={debounceEmailHandler}
 								defaultValue={email}
 								hidden="dark:text-dark-ec4 text-light-ec1"
+								aria-invalid={isValidId}
+								aria-errormessage="loginEmailErr"
 							>
 								아이디(이메일)
 							</FormInput>
 							<FormInputValid
 								color={!isValidId ? 'dark:text-dark-red text-light-red' : ''}
+								id="loginEmailErr"
 							>
 								{!email
 									? ' '
@@ -139,7 +142,7 @@ function Login() {
 									: ' '}
 							</FormInputValid>
 						</div>
-						<div>
+						<div role="alert">
 							<FormInput
 								type={pwView ? 'text' : 'password'}
 								name="password"
@@ -156,11 +159,14 @@ function Login() {
 								onClick={isClickedPwView}
 								defaultValue={password}
 								hidden="dark:text-dark-ec4 text-light-ec1"
+								aria-invalid={isValidPw}
+								aria-errormessage="loginPwErr"
 							>
 								비밀번호
 							</FormInput>
 							<FormInputValid
 								color={!isValidPw ? 'dark:text-dark-red text-light-red' : ''}
+								id="loginPwErr"
 							>
 								{!password
 									? ''
@@ -170,11 +176,9 @@ function Login() {
 							</FormInputValid>
 						</div>
 					</fieldset>
-					<Button type="submit" bg="bg-ec1">
-						로그인
-					</Button>
+					<Button type="submit">로그인</Button>
 				</form>
-				<div className="flex flex-col items-center gap-5 flex-1 text-ec1">
+				<div className="flex flex-col items-center gap-5 flex-1">
 					<Link to="" onClick={handleClickOpen}>
 						아이디/비밀번호 찾기
 					</Link>
