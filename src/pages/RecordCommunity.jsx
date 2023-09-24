@@ -83,21 +83,21 @@ function RecordCommunity() {
 				expand: 'escapeList,author',
 				filter: `theme ~ "${e.target.value}" || nickName = "${
 					e.target.value
-				}" || store ~ "${e.target.value}"|| grade = "${
+				}" || store ~ "${e.target.value}"|| grade ~ "${
 					e.target.value === '꽃길'
-						? 8 && 9 && 10
+						? 4 && 4.5 && 5
 						: e.target.value === '풀길'
-						? 4 && 5 && 6 && 7
+						? 2 && 2.5 && 3 && 3.5
 						: e.target.value === '흙길'
-						? 0 && 1 && 2 && 3
+						? 0 && 0.5 && 1 && 1.5
 						: '없음'
 				}" || grade = "${
 					e.target.value === '꽃'
-						? 8 && 9 && 10
-						: e.target.value === '풀'
-						? 4 && 5 && 6 && 7
-						: e.target.value === '흙'
-						? 0 && 1 && 2 && 3
+						? 4 && 4.5 && 5
+						: e.target.value === '풀길'
+						? 2 && 2.5 && 3 && 3.5
+						: e.target.value === '흙길'
+						? 0 && 0.5 && 1 && 1.5
 						: '없음'
 				}"`,
 			});
