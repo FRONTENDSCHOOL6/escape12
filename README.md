@@ -56,17 +56,16 @@
 ### ERD (Entity Relationship Diagram)
 
 ![1](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/5bd15d16-1cce-4580-b172-a213d65d8712)
-### 피그마 시안
+### 구현 예정 피그마 시안
 ![3](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/6133e25f-0eeb-46bd-acf5-3006a1e15cc6)
 
 ![4](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/dbf5d774-1f85-41be-b89a-163c3a4267b9)
-f00)
 
 
-### 전체 UI
+### 구현한 주요 UI
 ![5](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/e4322c24-52b6-48e4-a7c1-9be05ba5df30)
 
-### 페이지 기능
+### 각 페이지 별 기능
 - 페이지 별 사진 첨부 및 기능 설명
 
 
@@ -90,3 +89,8 @@ f00)
 - aria-label을 사용하여 스크린리더 사용자에게 정확한 정보를 전달하도록 함.
 
 ##### [📄 Wiki](https://github.com/FRONTENDSCHOOL6/escape12/wiki) - 코딩컨벤션, 커밋컨벤션, 자료 등을 확인할 수 있음.
+
+#### 💗 느낀점
+김건주: 
+김남진:
+조수연:
