@@ -20,8 +20,8 @@ function PlusButton({ onClick, src, alt, location, hidden = {} }) {
 			<button
 				type="button"
 				className={`s:w-14 w-14 h-14 flex items-center justify-center ${alt === '위로가기' || alt === '채팅하기'
-						? 'bg-light-ec4 dark:bg-dark-ec1'
-						: ''
+					? 'bg-light-ec4 dark:bg-dark-ec1'
+					: ''
 					} border-1 rounded-full text-6xl font-semibold absolute ${location} ${hidden}`}
 				onClick={onClick}
 			>

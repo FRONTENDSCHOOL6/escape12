@@ -36,8 +36,8 @@ function ChatItem({
 				{minute === 0
 					? '00'
 					: minute < 10
-					? '0' + minute.toString()
-					: minute.toString()}
+						? '0' + minute.toString()
+						: minute.toString()}
 			</span>
 		</div>
 	);

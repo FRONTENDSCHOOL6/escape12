@@ -22,7 +22,6 @@ function ThemeRecord() {
 	const navigate = useNavigate();
 	const { dataId } = useParams();
 	const [data, setData] = useState({});
-	const [users, setUsers] = useState([]);
 	const [date, setDate] = useState('');
 	const [grade, setGrade] = useState('');
 	const [length, setLength] = useState(0);
@@ -81,7 +80,6 @@ function ThemeRecord() {
 
 			try {
 				setData(record);
-				setUsers(record.users);
 				setRecord(userRecord.record);
 				setEscapeList(userEscapeList.escapeList);
 				setEscapeListRecord(record.record);
@@ -121,7 +119,6 @@ function ThemeRecord() {
 			navigate(`/upload/${result.id}`);
 
 			const themeClear = {
-				// users: [...users, `${userUId?.model.id}`],
 				record: [...escapeListRecord, `${result.id}`],
 			};
 

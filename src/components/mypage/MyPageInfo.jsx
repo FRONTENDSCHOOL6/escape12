@@ -6,7 +6,7 @@ MypageInfo.propTypes = {
 }
 
 
-function MypageInfo({email, nickName}) {
+function MypageInfo({ email, nickName }) {
 
   return (
     <ul className="s:px-12 p-8 text-xl space-y-4">

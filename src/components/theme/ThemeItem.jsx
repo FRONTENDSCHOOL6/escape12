@@ -74,8 +74,8 @@ function ThemeItem({
 						{grade === 0 || grade === 1 || grade === 2 || grade === 3
 							? '😱흙길'
 							: grade === 4 || grade === 5 || grade === 6 || grade === 7
-							? '🌿풀길'
-							: '🌸꽃길'}
+								? '🌿풀길'
+								: '🌸꽃길'}
 					</Span>
 				</section>
 				<section className="flex justify-between items-center">
