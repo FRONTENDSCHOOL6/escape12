@@ -125,6 +125,7 @@ function Theme() {
 				!kuk &&
 				!level &&
 				!like &&
+				!search &&
 				currentScrollY + windowHeight >= totalPageHeight
 			) {
 				const dataUpdate = async () => {
@@ -529,7 +530,7 @@ function Theme() {
 								</li>
 							);
 						})}
-						{!gang && !hong && !kuk && !like && !level && (
+						{!gang && !hong && !kuk && !like && !level && !search && (
 							<li className="font-semibold text-center pb-10">
 								{page < 23 ? '불러오는 중...' : '더이상 데이터가 없습니다'}
 							</li>
