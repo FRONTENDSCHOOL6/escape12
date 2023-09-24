@@ -25,22 +25,18 @@ function RecordCommunity() {
 	const [search, setSearch] = useState('');
 	const [chat, setChat] = useState(false);
 
-	// 채팅하기 이벤트
 	const handleChat = () => {
 		chat ? setChat(false) : setChat(true);
 	};
 
-	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
 		navigate('/recordpage');
 	};
 
-	// 검색 버튼 누르기
 	const handleSubmitButton = (e) => {
 		e.preventDefault();
 	};
 
-	//스크롤탑 버튼 이벤트
 	const handleTopButton = () => {
 		window.scrollTo({
 			top: 0,
@@ -48,7 +44,6 @@ function RecordCommunity() {
 		});
 	};
 
-	//스크롤 이벤트 감지
 	useEffect(() => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
@@ -67,7 +62,6 @@ function RecordCommunity() {
 		};
 	}, [showPlusNav]);
 
-	// 검색 기능
 	const handleSearch = useCallback((e) => {
 		setIsLoading(false);
 		if (e.target.value.length !== 0) {
@@ -76,7 +70,6 @@ function RecordCommunity() {
 			setSearch('');
 		}
 
-		// 테마명, 닉네임, 업체명, 평점으로 검색
 		const recordSearch = async () => {
 			const recordList = await pb.collection('record').getList(1, 200, {
 				sort: '-created',
@@ -137,7 +130,6 @@ function RecordCommunity() {
 		[handleSearch]
 	);
 
-	// 데이터 불러오기
 	useEffect(() => {
 		const allRecord = async () => {
 			const records = await pb.collection('record').getFullList({

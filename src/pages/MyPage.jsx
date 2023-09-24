@@ -15,7 +15,6 @@ import MyPageImage from '@/components/mypage/MyPageImage';
 import MyPageInfo from '@/components/mypage/MyPageInfo';
 import MyPageData from '@/components/mypage/MyPageData';
 
-
 function MyPage() {
 	const userUId = getUserInfoFromStorage();
 	const navigate = useNavigate();
@@ -28,7 +27,6 @@ function MyPage() {
 	const KAKAO_CLIENT_ID = '7e2f5729e497d2295073a752a34b20c2';
 	const KAKAO_LOGOUT_REDIRECT_URI = 'https://escape12.netlify.app';
 
-	//로그아웃
 	const handleLogout = async () => {
 		if (data.social.includes('kakao')) {
 			location.replace(
@@ -66,7 +64,6 @@ function MyPage() {
 		}
 	};
 
-	//회원 탈퇴
 	const handleSecession = () => {
 		const result = confirm('😢 정말로 탈퇴하실 건가요....?');
 
@@ -79,11 +76,9 @@ function MyPage() {
 		}
 	};
 
-	// 데이터 가져오기
 	const myPageData = useMyPage();
 
 	useEffect(() => {
-		//작성 기록 갯수
 		const getrecord = async () => {
 			const recordlist = await pb
 				.collection('record')
@@ -96,7 +91,7 @@ function MyPage() {
 				console.log(error);
 			}
 		};
-		//작성 글 갯수
+
 		const getcommunity = async () => {
 			const communitylist = await pb
 				.collection('community')
@@ -109,7 +104,7 @@ function MyPage() {
 				console.log(error);
 			}
 		};
-		//작성 댓글 갯수
+
 		const getcomment = async () => {
 			const commentlist = await pb
 				.collection('comment')
@@ -122,7 +117,7 @@ function MyPage() {
 				console.log(error);
 			}
 		};
-		//아이디, 닉네임 정보 불러오기 +사진
+
 		if (myPageData.data) {
 			setData(myPageData.data);
 			setIsLoading(true);
@@ -140,7 +135,6 @@ function MyPage() {
 				<meta property="og:url" content="https://escape12.netlify.app/mypage" />
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto py-20 relative mb-4 bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
-				{/* header, headerback 맨 위 고정 */}
 				<Header>마이페이지</Header>
 				{myPageData.isLoading ||
 					(!isLoading && (
@@ -150,16 +144,18 @@ function MyPage() {
 					))}
 				{isLoading && data && records && comment && community && (
 					<div className="flex-1 flex flex-col items-center">
-						<MyPageImage src={
-							data.avatar
-								? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.avatar}`
-								: !data.social ||
-									data.social ===
-									'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+						<MyPageImage
+							src={
+								data.avatar
+									? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.avatar}`
+									: !data.social ||
+									  data.social ===
+											'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
 									? `${socialImg}`
 									: data.social
-						}
-							alt={data.nickName} />
+							}
+							alt={data.nickName}
+						/>
 						<MyPageInfo email={data.email} nickName={data.nickName} />
 
 						<Button

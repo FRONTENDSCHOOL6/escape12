@@ -4,8 +4,7 @@ CustomInput.propTypes = {
 	type: string,
 	name: string,
 	children: string,
-	className: string, // className prop type 추가
-};
+	className: string,
 
 function CustomInput({ children, type, name, className }) {
 	return (
@@ -17,7 +16,7 @@ function CustomInput({ children, type, name, className }) {
 				<input
 					type={type}
 					placeholder="댓글을 입력하세요😀"
-					className={`w-[320px] ${className}`} // 이름 추가
+					className={`w-[320px] ${className}`}
 					name={name}
 					id={name}
 				/>

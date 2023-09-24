@@ -33,33 +33,27 @@ function ThemeRecord() {
 	const [escapeList, setEscapeList] = useState([]);
 	const [escapeListRecord, setEscapeListRecord] = useState([]);
 
-	// 날짜 상태 관리
 	const handleDateChange = (e) => {
 		setDate(e.target.value);
 	};
 
-	// 평점 상태 관리
 	const handleRatingChange = (e) => {
 		setGrade(e.target.value);
 	};
 
-	// 남은시간 - Hour 상태 관리
 	const handleRemainingTimeChange = (e) => {
 		setHour(e.target.value);
 	};
 
-	// 남은시간 - Minute 상태 관리
 	const handleRemainingTimeMinuteChange = (e) => {
 		setMinute(e.target.value);
 	};
 
-	// 후기 상태 관리
 	const handleContentChange = (e) => {
 		setContent(e.target.value);
 		setLength(e.target.value.length);
 	};
 
-	//테마 데이터 불러오기
 	useEffect(() => {
 		const dataList = async () => {
 			const record = await pb.collection('escapeList').getOne(`${dataId}`, {
@@ -91,7 +85,6 @@ function ThemeRecord() {
 		dataList();
 	}, [dataId, userUId?.model.id]);
 
-	// 기록 등록하기 이벤트
 	const handleSubmitRecord = async (e) => {
 		e.preventDefault();
 

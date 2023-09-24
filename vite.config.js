@@ -12,49 +12,52 @@ import { splitVendorChunkPlugin } from 'vite';
 
 const isDev = env.NODE_ENV === 'development';
 
-// https://vitejs.dev/config/
+ 
 export default defineConfig({
-	plugins: [
-		react(),
-		splitVendorChunkPlugin(),
-		viteImagemin({
-			plugins: {
-				jpg: imageminMozjpeg(),
-				png: imageminPngQuant(),
-				gif: imageminGifSicle(),
-				svg: imageminSvgo(),
-			},
-			makeWebp: {
-				plugins: {
-					jpg: imageminWebp(),
-					png: imageminWebp(),
-				},
-			},
-		}),
-	],
-	css: {
-		devSourcemap: true,
-		modules: {
-			generateScopedName: isDev
-				? '[name]_[local]__[hash:base64:5]'
-				: '[hash:base64:4]',
-		},
-	},
-	resolve: {
-		alias: {
-			'@': resolve(__dirname, './src'),
-		},
-	},
-	// 빌드 시, 청크 파일 생성 매뉴얼 구성
-	build: {
-		rollupOptions: {
-			output: {
-				manualChunks: {
-					react: ['react', 'react-dom'],
-					reactRouter: ['react-router-dom'],
-					animations: ['gsap'],
-				},
-			},
-		},
-	},
+   plugins: [
+      react(),
+      splitVendorChunkPlugin(),
+      viteImagemin({
+         plugins: {
+            jpg: imageminMozjpeg(),
+            png: imageminPngQuant(),
+            gif: imageminGifSicle(),
+            svg: imageminSvgo(),
+         },
+         makeWebp: {
+            plugins: {
+               jpg: imageminWebp(),
+               png: imageminWebp(),
+            },
+         },
+      }),
+   ],
+   css: {
+      devSourcemap: true,
+      modules: {
+         generateScopedName: isDev
+            ? '[name]_[local]__[hash:base64:5]'
+            : '[hash:base64:4]',
+      },
+   },
+   resolve: {
+      alias: {
+         '@': resolve(__dirname, './src'),
+      },
+   },
+    
+   build: {
+      rollupOptions: {
+         output: {
+            manualChunks: {
+               react: ['react', 'react-dom'],
+               reactRouter: ['react-router-dom'],
+               animations: ['gsap'],
+            },
+         },
+      },
+    terserOptions: {
+      comments: false,
+    },
+   },
 });

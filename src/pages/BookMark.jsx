@@ -24,12 +24,10 @@ function BookMark() {
 	const { theme } = useContext(ThemeContext);
 	const [chat, setChat] = useState(false);
 
-	// 채팅하기 이벤트
 	const handleChat = () => {
 		chat ? setChat(false) : setChat(true);
 	};
 
-	// 즐겨찾기 기능
 	const isClickHeart = async (item) => {
 		if (bookMarkId.indexOf(`${item.id}`) < 0) {
 			setBookMarkId((i) => [...i, `${item.id}`]);
@@ -73,7 +71,6 @@ function BookMark() {
 		}
 	};
 
-	//스크롤탑 버튼 이벤트
 	const handleTopButton = () => {
 		window.scrollTo({
 			top: 0,
@@ -81,7 +78,6 @@ function BookMark() {
 		});
 	};
 
-	//스크롤 이벤트 감지
 	useEffect(() => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
@@ -100,7 +96,6 @@ function BookMark() {
 		};
 	}, [showPlusNav]);
 
-	// 북마크 데이터 불러오기
 	useEffect(() => {
 		const bookMarkData = async () => {
 			const likeData = await pb

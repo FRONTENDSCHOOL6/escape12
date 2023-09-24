@@ -16,16 +16,15 @@ function AddCommunity() {
 	const currentDate = new Date();
 	const navigate = useNavigate();
 
-	//제목 상태 변경
 	const handleTitle = (e) => {
 		setTitle(e.target.value);
 	};
-	//내용 상태 변경
+
 	const handleContent = (e) => {
 		setContent(e.target.value);
 	};
 
-	//등록 이벤트
+
 	const handleDateCrate = async (e) => {
 		e.preventDefault();
 		const data = {
@@ -64,7 +63,6 @@ function AddCommunity() {
 				/>
 			</Helmet>
 			<div className="max-w-[600px] min-w-[320px] flex flex-col items-center min-h-[100vh] m-auto pt-20 pb-28 relative bg-light-ec1 dark:bg-dark-ec4 text-light-ec4 dark:text-dark-ec1 text-lg">
-				{/* Header */}
 				<Headerback
 					onClick={() => {
 						navigate(-1);
@@ -77,7 +75,7 @@ function AddCommunity() {
 					className="flex flex-col items-center w-full"
 				>
 					<div className="text-lg pt-4 w-full px-20 s:px-12">
-						{/* Title, Content */}
+
 						<FormInput
 							type="text"
 							id="title"

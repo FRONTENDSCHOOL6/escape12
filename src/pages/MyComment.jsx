@@ -20,12 +20,10 @@ function MyCommentPage() {
 	const [showPlusNav, setShowPlusNav] = useState(false);
 	const [chat, setChat] = useState(false);
 
-	// 채팅하기 이벤트
 	const handleChat = () => {
 		chat ? setChat(false) : setChat(true);
 	};
 
-	//스크롤탑 버튼 이벤트
 	const handleTopButton = () => {
 		window.scrollTo({
 			top: 0,
@@ -33,7 +31,6 @@ function MyCommentPage() {
 		});
 	};
 
-	//스크롤 이벤트 감지
 	useEffect(() => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
@@ -55,25 +52,6 @@ function MyCommentPage() {
 	const MyCommentData = useMyComment();
 
 	useEffect(() => {
-		// const MyComment = async () => {
-		// 	const CommentList = await pb.collection('comment').getList(1, 200, {
-		// 		filter: `author="${userUId?.model.id}"`,
-		// 		expand: 'author , community , record',
-		// 		sort: '-created',
-		// 	});
-		// 	try {
-		// 		if (CommentList.items.length > 0) {
-		// 			setComment(CommentList.items);
-		// 			setIsLoading(true);
-		// 		} else {
-		// 			setIsLoading(true);
-		// 		}
-		// 	} catch (err) {
-		// 		console.log(`데이터 불러오기 에러 : ${err}`);
-		// 	}
-		// };
-
-		// MyComment();
 		if (MyCommentData.data) {
 			setComment(MyCommentData.data.items);
 			setIsLoading(true);

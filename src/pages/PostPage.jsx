@@ -24,17 +24,14 @@ function PostPage() {
 	const [noResult, setNoResult] = useState(false);
 	const [chat, setChat] = useState(false);
 
-	// 채팅하기 이벤트
 	const handleChat = () => {
 		chat ? setChat(false) : setChat(true);
 	};
 
-	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
 		navigate('/addcommunity');
 	};
 
-	//스크롤탑 버튼 이벤트
 	const handleTopButton = () => {
 		window.scrollTo({
 			top: 0,
@@ -42,7 +39,6 @@ function PostPage() {
 		});
 	};
 
-	//스크롤 이벤트 감지
 	useEffect(() => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
@@ -61,7 +57,6 @@ function PostPage() {
 		};
 	}, [showPlusNav]);
 
-	//검색 기능
 	const handleSearch = async (e) => {
 		if (e.target.value.length !== 0) {
 			setSearch(e.target.value);
@@ -108,15 +103,12 @@ function PostPage() {
 
 	const debounceSearch = debounce((e) => handleSearch(e));
 
-	// 검색 버튼
 	const handleSubmitButton = (e) => {
 		e.preventDefault();
 	};
 
-	//데이터 가져오기
 	const myPostPageData = usePostPage();
 
-	// 포켓호스트 가져오기
 	useEffect(() => {
 		if (myPostPageData.data) {
 			setPosts(myPostPageData.data);

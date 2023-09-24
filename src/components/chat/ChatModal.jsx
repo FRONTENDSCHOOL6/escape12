@@ -28,12 +28,10 @@ function ChatModal({ onClick }) {
 	const hour = new Date().getHours();
 	const minute = new Date().getMinutes();
 
-	// 채팅 쓰기 이벤트
 	const handleChangeChat = (e) => {
 		setText(e.target.value);
 	};
 
-	// 채팅 보내기 이벤트
 	const handleSubmitChat = async (e) => {
 		e.preventDefault();
 		const data = {
@@ -62,7 +60,6 @@ function ChatModal({ onClick }) {
 		}
 	};
 
-	// 스크린위치 가장 아래 고정
 	useEffect(() => {
 		if (chatListRef.current) {
 			chatListRef.current.scrollTop = chatListRef.current.scrollHeight;
