@@ -19,7 +19,6 @@ function LoginSelete() {
 		);
 	}, []);
 
-	// 카카오톡 로그인
 	const handleKakaoLogin = async () => {
 		const kakao = await pb
 			.collection('users')
@@ -59,7 +58,6 @@ function LoginSelete() {
 		}
 	};
 
-	// 구글로그인
 	const handleGoogleLogin = async () => {
 		const google = await pb
 			.collection('users')

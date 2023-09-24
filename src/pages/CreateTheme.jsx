@@ -26,57 +26,47 @@ function CreateTheme() {
 	const [link, setLink] = useState('');
 	const [image, setImage] = useState('');
 
-	// 테마명 상태 관리
 	const handleTheme = (e) => {
 		setThemeName(e.target.value);
 	};
 	const debounceTheme = debounce((e) => handleTheme(e), 2000);
 
-	// 업체명 상태 관리
 	const handleStore = (e) => {
 		setStore(e.target.value);
 	};
 	const debounceStore = debounce((e) => handleStore(e), 2000);
 
-	// 지점 상태 관리
 	const pointEvent = (e) => {
 		setPoint(e.target.value);
 	};
 	const debouncePoint = debounce((e) => pointEvent(e), 2000);
 
-	// 예약 링크 상태 관리
 	const linkEvent = (e) => {
 		setLink(e.target.value);
 	};
 	const debounceLink = debounce((e) => linkEvent(e), 2000);
 
-	// 테마 이미지 상태 관리
 	const imageEvent = (e) => {
 		setImage(e.target.value);
 	};
 	const debounceImage = debounce((e) => imageEvent(e), 2000);
 
-	// 지역 상태 관리
 	const handleRegion = (e) => {
 		setRegion(e.target.value);
 	};
 
-	// 장르 상태 관리
 	const handleField = (e) => {
 		setField(e.target.value);
 	};
 
-	// 평점 상태 관리
 	const handleRatingChange = (e) => {
 		setGrade(e.target.value);
 	};
 
-	// 난이도 상태 관리
 	const handleLevel = (e) => {
 		setLevel(e.target.value);
 	};
 
-	// 테마 등록하기 이벤트
 	const handleSubmitRecord = async (e) => {
 		e.preventDefault();
 		const themeData = {
