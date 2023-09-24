@@ -1,5 +1,8 @@
    # 🔍ESCAPE 12
-#### 배포 URL:
+#### 배포 URL: https://escape12.netlify.app/
+#### 테스트 계정
+email: escape@naver.com
+pw: Escape12!
 
 ## 🗓️ 개발 기간
 - 2023.09.04 (MON)~ 2023.09.22 (FRI) 
