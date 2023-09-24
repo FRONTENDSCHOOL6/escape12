@@ -51,11 +51,9 @@ function ChatModal({ onClick }) {
 			const resultChat = await pb.collection('chat').getFullList({
 				sort: 'created',
 				expand: 'author',
-				filter: `created ~ "${year}-${
-					month < 10 ? '0' + month : month.toString()
-				}-${day < 10 ? '0' + day : day.toString()}" || created ~ "${year}-${
-					month < 10 ? '0' + month : month.toString()
-				}-${day < 10 ? '0' + day - 1 : day.toString() - 1}"`,
+				filter: `created ~ "${year}-${month < 10 ? '0' + month : month.toString()
+					}-${day < 10 ? '0' + day : day.toString()}" || created ~ "${year}-${month < 10 ? '0' + month : month.toString()
+					}-${day < 10 ? '0' + day - 1 : day.toString() - 1}"`,
 			});
 
 			setChat(resultChat);
@@ -76,11 +74,9 @@ function ChatModal({ onClick }) {
 			const chatAllData = await pb.collection('chat').getFullList({
 				sort: 'created',
 				expand: 'author',
-				filter: `created ~ "${year}-${
-					month < 10 ? '0' + month : month.toString()
-				}-${day < 10 ? '0' + day : day.toString()}" || created ~ "${year}-${
-					month < 10 ? '0' + month : month.toString()
-				}-${day < 10 ? '0' + day - 1 : day.toString() - 1}"`,
+				filter: `created ~ "${year}-${month < 10 ? '0' + month : month.toString()
+					}-${day < 10 ? '0' + day : day.toString()}" || created ~ "${year}-${month < 10 ? '0' + month : month.toString()
+					}-${day < 10 ? '0' + day - 1 : day.toString() - 1}"`,
 			});
 
 			try {
@@ -137,13 +133,13 @@ function ChatModal({ onClick }) {
 										item.expand?.author?.id && item.expand?.author?.avatar
 											? `https://refresh.pockethost.io/api/files/${item.expand?.author?.collectionId}/${item.expand?.author?.id}/${item.expand?.author?.avatar}`
 											: item.expand?.author?.social ===
-											  'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
-											? `${social}`
-											: item.expand?.author?.social
-											? item.expand?.author?.social
-											: theme == 'dark'
-											? `${noImageLight}`
-											: `${noImage}`
+												'http://k.kakaocdn.net/dn/dpk9l1/btqmGhA2lKL/Oz0wDuJn1YV2DIn92f6DVK/img_640x640.jpg'
+												? `${social}`
+												: item.expand?.author?.social
+													? item.expand?.author?.social
+													: theme == 'dark'
+														? `${noImageLight}`
+														: `${noImage}`
 									}
 									alt={item.expand?.author?.nickName}
 									author={item.expand?.author?.nickName}

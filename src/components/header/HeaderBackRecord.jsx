@@ -10,7 +10,7 @@ HeaderBackRecord.propTypes = {
 };
 
 function HeaderBackRecord({
-	onClick = () => {},
+	onClick = () => { },
 	children,
 	pencilClick = null,
 }) {

@@ -4,8 +4,8 @@ import pencil from '@/assets/plusbutton-pencil.png';
 import ThemeToggleButton from '../button/ThemeToggleButton';
 
 HeaderRecord.propTypes = {
-	pencilClick: func,
-	children: string,
+  pencilClick: func,
+  children: string,
 };
 
 function HeaderRecord({ pencilClick, children }) {

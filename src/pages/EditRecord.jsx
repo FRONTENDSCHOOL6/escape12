@@ -150,9 +150,8 @@ function EditRecord() {
 		<>
 			<Helmet>
 				<title>
-					{`${
-						!data.theme ? data.expand?.escapeList?.theme : data.theme
-					} 기록 수정`}
+					{`${!data.theme ? data.expand?.escapeList?.theme : data.theme
+						} 기록 수정`}
 				</title>
 				<meta name="description" content="방탈러 홈페이지-기록 수정" />
 				<meta property="og:title" content="방탈러 기록 수정" />
@@ -199,17 +198,17 @@ function EditRecord() {
 									data.image
 										? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.image}`
 										: data.expand?.escapeList?.images
-										? `https://refresh.pockethost.io/api/files/${data.expand?.escapeList.collectionId}/${data.expand?.escapeList.id}/${data.expand?.escapeList.images}`
-										: theme === 'dark'
-										? `${noImageLight}`
-										: `${noImage}`
+											? `https://refresh.pockethost.io/api/files/${data.expand?.escapeList.collectionId}/${data.expand?.escapeList.id}/${data.expand?.escapeList.images}`
+											: theme === 'dark'
+												? `${noImageLight}`
+												: `${noImage}`
 								}
 								alt={
 									data.theme
 										? data.theme
 										: data.expand?.escapeList?.theme
-										? data.expand?.escapeList?.theme
-										: '사진없음'
+											? data.expand?.escapeList?.theme
+											: '사진없음'
 								}
 							/>
 							<TextArea value={content} onChange={handleContentChange}>

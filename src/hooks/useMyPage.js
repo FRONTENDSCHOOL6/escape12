@@ -3,12 +3,10 @@ import pb from '@/api/pockethost';
 import { useQuery } from '@tanstack/react-query';
 
 const getMyPage = async () => {
-  const userUId = getUserInfoFromStorage();
-	const data = await pb
-		.collection('users')
-		.getOne(`${userUId?.model.id}`, {
-			expand: 'email',
-		});
+	const userUId = getUserInfoFromStorage();
+	const data = await pb.collection('users').getOne(`${userUId?.model.id}`, {
+		expand: 'email',
+	});
 	return data;
 };
 

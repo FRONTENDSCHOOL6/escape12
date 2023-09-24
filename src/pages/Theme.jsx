@@ -315,17 +315,15 @@ function Theme() {
 		const escapeSearch = async () => {
 			const resultList = await pb.collection('escapeList').getList(1, 227, {
 				sort: 'theme',
-				filter: `(store ~ "${e.target.value}" || theme ~ "${
-					e.target.value
-				}" || field ~ "${e.target.value}" || grade ~ "${
-					e.target.value === '꽃길'
+				filter: `(store ~ "${e.target.value}" || theme ~ "${e.target.value
+					}" || field ~ "${e.target.value}" || grade ~ "${e.target.value === '꽃길'
 						? 8 || 9 || 10
 						: e.target.value === '풀길'
-						? 4 && 5 && 6 && 7
-						: e.target.value === '흙길'
-						? 1 && 2 && 3
-						: '없음'
-				}")`,
+							? 4 && 5 && 6 && 7
+							: e.target.value === '흙길'
+								? 1 && 2 && 3
+								: '없음'
+					}")`,
 			});
 
 			const data = await pb.collection('escapeList').getList(1, 227, {
@@ -522,9 +520,9 @@ function Theme() {
 											theme === 'dark' && bookMark.indexOf(`${item.id}`) >= 0
 												? 'bg-hearttrue'
 												: theme === 'light' &&
-												  bookMark.indexOf(`${item.id}`) >= 0
-												? 'bg-heartlike'
-												: 'bg-heartfalse'
+													bookMark.indexOf(`${item.id}`) >= 0
+													? 'bg-heartlike'
+													: 'bg-heartfalse'
 										}
 									/>
 								</li>
