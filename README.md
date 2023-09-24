@@ -7,7 +7,7 @@
 ## 😎‍ 멤버 구성
 <table>
    <tr>
-      <td align="center"><img src="https://i.namu.wiki/i/9YwfSxeRDRic2gr7m6C3Vkrrx5_VqDLmUII6HuQpIfu6xdwIAh-l8Z3eId-b497s2RTyON2rKXBVXZbSfw5Vxg.webp" width="100"> </td>
+      <td align="center"><img src="https://i.pinimg.com/564x/7e/2e/55/7e2e55a38885bfe567085239eeeba9a1.jpg" width="100"> </td>
       <td align="center"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQepAOWhlxLBPdtWjT3QqweuSoJnAcm2uKK4g&usqp=CAU" width="100"> </td>
       <td align="center"><img src="https://e1.pxfuel.com/desktop-wallpaper/946/152/desktop-wallpaper-1600x1200-crayon-shin-chan-sinchan-cute.jpg" width="100"> </td>
    </tr>   
@@ -56,7 +56,7 @@
 ### ERD (Entity Relationship Diagram)
 
 ![1](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/5bd15d16-1cce-4580-b172-a213d65d8712)
-### 구현 예정 피그마 시안
+### 피그마 시안
 ![3](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/6133e25f-0eeb-46bd-acf5-3006a1e15cc6)
 
 ![4](https://github.com/FRONTENDSCHOOL6/escape12/assets/86372549/dbf5d774-1f85-41be-b89a-163c3a4267b9)
@@ -91,6 +91,15 @@
 ##### [📄 Wiki](https://github.com/FRONTENDSCHOOL6/escape12/wiki) - 코딩컨벤션, 커밋컨벤션, 자료 등을 확인할 수 있음.
 
 #### 💗 느낀점
-김건주: 
-김남진:
-조수연:
+- 김건주: 
+
+- 김남진: 이번 프로젝트를 진행하며, 저희 팀의 초기 목표가 '각자 맡은 부분에 최선을 다하고, 완성도와 함께 조원들이 성장할 수 있는 기술적 스킬 향상에 초점을 두자'였음을 잊지 않았습니다.
+각자가 맡은 역할에서 최선을 다하면서, 우리 모두가 새로운 기술 스택의 도입과 활용을 하면서 크게 성장할 수 있었습니다.
+ 또한 이 과정에서 서비스 완성도만큼 중요한 것이 '함께 성장하는 것'임을 깨닫게 되었습니다.
+이번 프로젝트는 단순한 작업 수행이 아니라, 새로운 기술 학습과 동료와의 협업 등 여러 방면에서 개발자로서 나아갈 수 있는 
+소중한 경험이었다고 생각합니다.
+
+- 조수연: 한 달 동안 오직 프로젝트에 몰두한 시간은 정말 값진 경험으로 남았습니다. 
+클론 코딩이 아닌, 기초부터 시작하여 팀원들과의 협업으로 프로젝트를 진행한 것은 큰 도전이었다고 생각합니다. 팀원 간 서로 배려하고 소통하는 과정을 통해 빠른 진행이 이뤄질 수 있었으며 매일매일 할 일을 체크리스트로 작성하고, 서로의 진행 상황을 공유하며 일정과 속도를 조율하는 것이 프로젝트를 성공적으로 마무리하는 핵심 요소가 되었다고 생각합니다.
+또한, 이전의 프로젝트 경험들을 바탕으로 깃을 사용하는 데 더욱 익숙해져 있어서 원활한 협업이 가능했습니다.
+프로젝트 기간 동안 많은 것을 배우고 느끼게 해준 팀원분들 감사합니다. 함께 마지막 프로젝트를 할 수 있어서 영광이었습니다.
