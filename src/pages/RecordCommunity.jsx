@@ -74,25 +74,22 @@ function RecordCommunity() {
 			const recordList = await pb.collection('record').getList(1, 200, {
 				sort: '-created',
 				expand: 'escapeList,author',
-				filter: `theme ~ "${e.target.value}" || nickName = "${
-					e.target.value
-				}" || store ~ "${e.target.value}"|| grade ~ "${
-					e.target.value === '꽃길'
+				filter: `theme ~ "${e.target.value}" || nickName = "${e.target.value
+					}" || store ~ "${e.target.value}"|| grade ~ "${e.target.value === '꽃길'
 						? 4 && 4.5 && 5
 						: e.target.value === '풀길'
-						? 2 && 2.5 && 3 && 3.5
-						: e.target.value === '흙길'
-						? 0 && 0.5 && 1 && 1.5
-						: '없음'
-				}" || grade = "${
-					e.target.value === '꽃'
+							? 2 && 2.5 && 3 && 3.5
+							: e.target.value === '흙길'
+								? 0 && 0.5 && 1 && 1.5
+								: '없음'
+					}" || grade = "${e.target.value === '꽃'
 						? 4 && 4.5 && 5
 						: e.target.value === '풀길'
-						? 2 && 2.5 && 3 && 3.5
-						: e.target.value === '흙길'
-						? 0 && 0.5 && 1 && 1.5
-						: '없음'
-				}"`,
+							? 2 && 2.5 && 3 && 3.5
+							: e.target.value === '흙길'
+								? 0 && 0.5 && 1 && 1.5
+								: '없음'
+					}"`,
 			});
 
 			const records = await pb.collection('record').getFullList({
@@ -210,23 +207,23 @@ function RecordCommunity() {
 												item.image
 													? `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
 													: item.expand?.escapeList?.images
-													? `https://refresh.pockethost.io/api/files/${item.expand?.escapeList?.collectionId}/${item.expand?.escapeList?.id}/${item.expand?.escapeList?.images}`
-													: theme === 'dark' &&
-													  !item.image &&
-													  !item.expand?.escapeList?.image
-													? `${noImageLight}`
-													: theme === 'light' &&
-													  !item.image &&
-													  !item.expand?.escapeList?.image
-													? `${noImage}`
-													: ''
+														? `https://refresh.pockethost.io/api/files/${item.expand?.escapeList?.collectionId}/${item.expand?.escapeList?.id}/${item.expand?.escapeList?.images}`
+														: theme === 'dark' &&
+															!item.image &&
+															!item.expand?.escapeList?.image
+															? `${noImageLight}`
+															: theme === 'light' &&
+																!item.image &&
+																!item.expand?.escapeList?.image
+																? `${noImage}`
+																: ''
 											}
 											author={
 												item.expand?.author?.nickName && item.expand?.author?.id
 													? item.expand?.author?.nickName
 													: item.expand?.author?.id
-													? '소셜계정'
-													: '탈퇴회원'
+														? '소셜계정'
+														: '탈퇴회원'
 											}
 											link={item.id}
 											record={item.expand?.author?.record}
