@@ -198,8 +198,8 @@ function EditRecord() {
 								src={
 									data.image
 										? `https://refresh.pockethost.io/api/files/${data.collectionId}/${data.id}/${data.image}`
-										: data.expand?.escapeList?.image
-										? data.expand?.escapeList?.image
+										: data.expand?.escapeList?.images
+										? `https://refresh.pockethost.io/api/files/${data.expand?.escapeList.collectionId}/${data.expand?.escapeList.id}/${data.expand?.escapeList.images}`
 										: theme === 'dark'
 										? `${noImageLight}`
 										: `${noImage}`
