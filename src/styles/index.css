@@ -3,21 +3,81 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'SDSamliphopangche_Outline';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff')
-    format('woff');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'SDSamliphopangche_Outline';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
-  font-family: 'SUITE-Regular';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2')
-    format('woff2');
-  font-weight: 400;
-  font-style: normal;
+	font-family: 'SUITE-Regular';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
 }
 
 body {
-  font-family: 'SUITE-Regular';
+	font-family: 'SUITE-Regular';
+	-ms-overflow-style: none;
+}
+
+body.light {
+	background-color: #352f44;
+}
+
+body.dark {
+	background-color: #faf0e6;
+}
+
+body::-webkit-scrollbar {
+	display: none;
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 1000px #352f44 inset;
+	box-shadow: 0 0 0 1000px #352f44 inset;
+	-webkit-text-fill-color: #faf0e6;
+	text-emphasis-color: #faf0e6;
+}
+
+input::-webkit-autofill,
+input::-webkit-autofill:hover,
+input::-webkit-autofill:focus,
+input::-webkit-autofill:active {
+	transition: background-color 5000s ease-in-out 0s;
+}
+
+input {
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	border-radius: 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+}
+
+input[type='file']::file-selector-button {
+	display: none;
+}
+
+input[type='file'] {
+	color: transparent;
+}
+
+.chatModalTitle {
+	border-radius: 14px 14px 0 0;
+}
+
+.chatModal::-webkit-scrollbar {
+	width: 15px;
+}
+
+.chatModal::-webkit-scrollbar-thumb {
+	background-color: rgb(197, 213, 170);
+}
+
+.chatModal::-webkit-scrollbar-track {
+	background-color: #cecece;
 }
