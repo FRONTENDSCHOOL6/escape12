@@ -24,7 +24,8 @@ function Nav({ onClick = null }) {
 	const isMyCommunityActive = useMatch('/mycommunity');
 	const isMyCommentActive = useMatch('/mycomment');
 	const isBookMarkActive = useMatch('/bookmark');
-	const isEditRecordActive = useMatch('//theme/edit/:dataId');
+	const isEditRecordActive = useMatch('/theme/edit/:dataId');
+	const isCreateThemeActive = useMatch('/createtheme');
 
 	return (
 		<nav
@@ -36,7 +37,7 @@ function Nav({ onClick = null }) {
 					<NavLink
 						to="/theme"
 						className={`text-light-ec1 hover:text-light-ec5 ${
-							isThemeActive ? 'text-light-ec5' : ''
+							isCreateThemeActive || isThemeActive ? 'text-light-ec5' : ''
 						}`}
 					>
 						<img className="w-12 h-12" src={list4} alt="테마" />

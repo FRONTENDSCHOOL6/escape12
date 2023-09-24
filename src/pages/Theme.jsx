@@ -40,12 +40,10 @@ function Theme() {
 	const [page, setPage] = useState(1);
 	const [chat, setChat] = useState(false);
 
-	// 채팅하기 이벤트
 	const handleChat = () => {
 		setChat((chat) => !chat);
 	};
 
-	// 즐겨찾기 기능
 	const isClickHeart = async (item) => {
 		const newHeartState = !item.heart;
 
@@ -87,17 +85,14 @@ function Theme() {
 		}
 	};
 
-	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
 		navigate('/recordpage');
 	};
 
-	// 관리자계정 이벤트
 	const handleAdmin = () => {
 		navigate('/createtheme');
 	};
 
-	//스크롤탑 버튼 이벤트
 	const handleTopButton = () => {
 		window.scrollTo({
 			top: 0,
@@ -105,7 +100,6 @@ function Theme() {
 		});
 	};
 
-	//스크롤 이벤트 감지
 	useEffect(() => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
@@ -153,7 +147,6 @@ function Theme() {
 		};
 	}, [page, showPlusNav]);
 
-	//인기순 정렬하기
 	const handleGradeSort = () => {
 		setIsLoadingState(false);
 		setGang(false);
@@ -186,7 +179,6 @@ function Theme() {
 		gradeDataSort();
 	};
 
-	//난이도별 정리하기
 	const handleLevelSort = () => {
 		setIsLoadingState(false);
 		setGang(false);
@@ -219,7 +211,6 @@ function Theme() {
 		levelDataSort();
 	};
 
-	//지역별 강남 정렬하기
 	const handleGangnam = () => {
 		setIsLoadingState(false);
 		setGang(true);
@@ -245,7 +236,6 @@ function Theme() {
 		regionGangNam();
 	};
 
-	//지역별 홍대 정렬하기
 	const handleHongDae = () => {
 		setIsLoadingState(false);
 		setGang(false);
@@ -271,7 +261,6 @@ function Theme() {
 		regionHongDae();
 	};
 
-	//지역별 건대 정렬하기
 	const handleKonkuk = () => {
 		setIsLoadingState(false);
 		setGang(false);
@@ -297,7 +286,6 @@ function Theme() {
 		regionHongDae();
 	};
 
-	//검색 기능
 	const handleSearch = (e) => {
 		setGang(false);
 		setHong(false);
@@ -315,15 +303,17 @@ function Theme() {
 		const escapeSearch = async () => {
 			const resultList = await pb.collection('escapeList').getList(1, 227, {
 				sort: 'theme',
-				filter: `(store ~ "${e.target.value}" || theme ~ "${e.target.value
-					}" || field ~ "${e.target.value}" || grade ~ "${e.target.value === '꽃길'
+				filter: `(store ~ "${e.target.value}" || theme ~ "${
+					e.target.value
+				}" || field ~ "${e.target.value}" || grade ~ "${
+					e.target.value === '꽃길'
 						? 8 || 9 || 10
 						: e.target.value === '풀길'
-							? 4 && 5 && 6 && 7
-							: e.target.value === '흙길'
-								? 1 && 2 && 3
-								: '없음'
-					}")`,
+						? 4 && 5 && 6 && 7
+						: e.target.value === '흙길'
+						? 1 && 2 && 3
+						: '없음'
+				}")`,
 			});
 
 			const data = await pb.collection('escapeList').getList(1, 227, {
@@ -359,12 +349,10 @@ function Theme() {
 	};
 	const debounceSearch = debounce((e) => handleSearch(e));
 
-	// 검색 버튼
 	const handleSubmitButton = (e) => {
 		e.preventDefault();
 	};
 
-	// 내 기록, 내 북마크 불러오기
 	useLayoutEffect(() => {
 		const fetchUserBookmarks = async () => {
 			if (userId) {
@@ -386,7 +374,6 @@ function Theme() {
 		fetchUserBookmarks();
 	}, [userId]);
 
-	//데이터 불러오기
 	useEffect(() => {
 		if (record || bookMark) {
 			const dataList = async () => {
@@ -520,9 +507,9 @@ function Theme() {
 											theme === 'dark' && bookMark.indexOf(`${item.id}`) >= 0
 												? 'bg-hearttrue'
 												: theme === 'light' &&
-													bookMark.indexOf(`${item.id}`) >= 0
-													? 'bg-heartlike'
-													: 'bg-heartfalse'
+												  bookMark.indexOf(`${item.id}`) >= 0
+												? 'bg-heartlike'
+												: 'bg-heartfalse'
 										}
 									/>
 								</li>

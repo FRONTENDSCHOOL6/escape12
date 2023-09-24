@@ -25,22 +25,18 @@ function RecordCommunity() {
 	const [search, setSearch] = useState('');
 	const [chat, setChat] = useState(false);
 
-	// 채팅하기 이벤트
 	const handleChat = () => {
 		chat ? setChat(false) : setChat(true);
 	};
 
-	//기록하기 버튼 이벤트
 	const handleRecordButton = () => {
 		navigate('/recordpage');
 	};
 
-	// 검색 버튼 누르기
 	const handleSubmitButton = (e) => {
 		e.preventDefault();
 	};
 
-	//스크롤탑 버튼 이벤트
 	const handleTopButton = () => {
 		window.scrollTo({
 			top: 0,
@@ -48,7 +44,6 @@ function RecordCommunity() {
 		});
 	};
 
-	//스크롤 이벤트 감지
 	useEffect(() => {
 		const handleScroll = () => {
 			const currentScrollY = window.scrollY;
@@ -67,7 +62,6 @@ function RecordCommunity() {
 		};
 	}, [showPlusNav]);
 
-	// 검색 기능
 	const handleSearch = useCallback((e) => {
 		setIsLoading(false);
 		if (e.target.value.length !== 0) {
@@ -76,27 +70,29 @@ function RecordCommunity() {
 			setSearch('');
 		}
 
-		// 테마명, 닉네임, 업체명, 평점으로 검색
 		const recordSearch = async () => {
 			const recordList = await pb.collection('record').getList(1, 200, {
 				sort: '-created',
 				expand: 'escapeList,author',
-				filter: `theme ~ "${e.target.value}" || nickName = "${e.target.value
-					}" || store ~ "${e.target.value}"|| grade ~ "${e.target.value === '꽃길'
+				filter: `theme ~ "${e.target.value}" || nickName = "${
+					e.target.value
+				}" || store ~ "${e.target.value}"|| grade ~ "${
+					e.target.value === '꽃길'
 						? 4 && 4.5 && 5
 						: e.target.value === '풀길'
-							? 2 && 2.5 && 3 && 3.5
-							: e.target.value === '흙길'
-								? 0 && 0.5 && 1 && 1.5
-								: '없음'
-					}" || grade = "${e.target.value === '꽃'
+						? 2 && 2.5 && 3 && 3.5
+						: e.target.value === '흙길'
+						? 0 && 0.5 && 1 && 1.5
+						: '없음'
+				}" || grade = "${
+					e.target.value === '꽃'
 						? 4 && 4.5 && 5
 						: e.target.value === '풀길'
-							? 2 && 2.5 && 3 && 3.5
-							: e.target.value === '흙길'
-								? 0 && 0.5 && 1 && 1.5
-								: '없음'
-					}"`,
+						? 2 && 2.5 && 3 && 3.5
+						: e.target.value === '흙길'
+						? 0 && 0.5 && 1 && 1.5
+						: '없음'
+				}"`,
 			});
 
 			const records = await pb.collection('record').getFullList({
@@ -137,7 +133,6 @@ function RecordCommunity() {
 		[handleSearch]
 	);
 
-	// 데이터 불러오기
 	useEffect(() => {
 		const allRecord = async () => {
 			const records = await pb.collection('record').getFullList({
@@ -215,23 +210,23 @@ function RecordCommunity() {
 												item.image
 													? `https://refresh.pockethost.io/api/files/${item.collectionId}/${item.id}/${item.image}`
 													: item.expand?.escapeList?.images
-														? `https://refresh.pockethost.io/api/files/${item.expand?.escapeList?.collectionId}/${item.expand?.escapeList?.id}/${item.expand?.escapeList?.images}`
-														: theme === 'dark' &&
-															!item.image &&
-															!item.expand?.escapeList?.image
-															? `${noImageLight}`
-															: theme === 'light' &&
-																!item.image &&
-																!item.expand?.escapeList?.image
-																? `${noImage}`
-																: ''
+													? `https://refresh.pockethost.io/api/files/${item.expand?.escapeList?.collectionId}/${item.expand?.escapeList?.id}/${item.expand?.escapeList?.images}`
+													: theme === 'dark' &&
+													  !item.image &&
+													  !item.expand?.escapeList?.image
+													? `${noImageLight}`
+													: theme === 'light' &&
+													  !item.image &&
+													  !item.expand?.escapeList?.image
+													? `${noImage}`
+													: ''
 											}
 											author={
 												item.expand?.author?.nickName && item.expand?.author?.id
 													? item.expand?.author?.nickName
 													: item.expand?.author?.id
-														? '소셜계정'
-														: '탈퇴회원'
+													? '소셜계정'
+													: '탈퇴회원'
 											}
 											link={item.id}
 											record={item.expand?.author?.record}

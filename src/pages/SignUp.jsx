@@ -13,13 +13,12 @@ import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-// 아이디 유효성 검사, 이메일 형식
 const regEmail =
 	/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]+$/i;
-// 비밀번호 유효성 검사, 최소 8자 이상, 최소 1개의 대소문자, 특수문자 포함
+
 const regPw =
 	/(?=(.*[0-9]))(?=.*[!@#$%^&*()\\[\]{}\-_+=~`|:;"'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}/;
-// 닉네임 유효성 검사
+
 const regNickName =
 	/^(?=.*[a-zA-Z0-9가-힣!@#$%^&*])[a-zA-Z0-9가-힣!@#$%^&*]{2,}$/;
 
@@ -38,50 +37,42 @@ function SignUp() {
 	const uploadPhotoRef = useRef(null);
 	const navigate = useNavigate();
 
-	//아이디 정규식 검사
 	const handleIdValidEmail = (e) => {
 		setEmail(e.target.value);
 		setIsValidEmail(regEmail.test(e.target.value));
 	};
 	const debounceEmailHandler = debounce((e) => handleIdValidEmail(e));
 
-	//비밀번호 정규식 검사
 	const handlePwValid = (e) => {
 		setPassword(e.target.value);
 		setIsValidPw(regPw.test(e.target.value));
 	};
 	const debouncePwHandler = debounce((e) => handlePwValid(e));
 
-	//비밀번호 확인 상태 변경
 	const handlePwCheck = (e) => {
 		setPasswordConfirm(e.target.value);
 	};
 	const debouncePwConfirmHandler = debounce((e) => handlePwCheck(e));
 
-	//닉네임 상태 변경
 	const handleNickName = (e) => {
 		setNickName(e.target.value);
 	};
 	const debounceNickNameHandler = debounce((e) => handleNickName(e));
 
-	//패스워드 보기
 	const isClickedPwView = () => {
 		pwView === false ? setPwView(true) : setPwView(false);
 	};
 
-	//패스워드 확인 보기
 	const isClickedPwConfirmView = () => {
 		pwConfirmView === false ? setPwConfirmView(true) : setPwConfirmView(false);
 	};
 
-	// 사진 상태 관리
 	const handleUploadPhoto = (e) => {
 		const photoFile = e.target.files[0];
 		const photoUrl = URL.createObjectURL(photoFile);
 		uploadPhotoRef.current.setAttribute('src', photoUrl);
 	};
 
-	//회원가입하기
 	const handleUserData = async (e) => {
 		e.preventDefault();
 		const data = {
@@ -125,7 +116,6 @@ function SignUp() {
 	};
 
 	useEffect(() => {
-		// 닉네임 중복검사
 		const sameNickName = async () => {
 			try {
 				const nickNameSameList = await pb.collection('users').getList(1, 10, {
@@ -144,7 +134,6 @@ function SignUp() {
 			}
 		};
 
-		// 이메일 중복검사
 		const sameEmail = async () => {
 			try {
 				const emailSameList = await pb.collection('users').getList(1, 10, {
@@ -163,7 +152,6 @@ function SignUp() {
 			}
 		};
 
-		//이메일 , 닉네임 중복검사 동시 진행
 		const checkDuplicates = async () => {
 			if (email.length !== 0 && regEmail.test(email)) {
 				await sameEmail();
@@ -215,10 +203,10 @@ function SignUp() {
 								{!email
 									? ' '
 									: !isValidEmail
-										? '이메일 형식으로 입력해주세요'
-										: isSameEmail === true
-											? '존재하는 이메일입니다'
-											: ' '}
+									? '이메일 형식으로 입력해주세요'
+									: isSameEmail === true
+									? '존재하는 이메일입니다'
+									: ' '}
 							</FormInputValid>
 						</div>
 						<div role="alert">
@@ -231,8 +219,8 @@ function SignUp() {
 											? 'bg-eyelight'
 											: 'bg-eyefalse'
 										: pwView
-											? 'bg-eyetrue'
-											: 'bg-eyefalse'
+										? 'bg-eyetrue'
+										: 'bg-eyefalse'
 								}
 								onChange={debouncePwHandler}
 								onClick={isClickedPwView}
@@ -250,8 +238,8 @@ function SignUp() {
 								{!password
 									? ''
 									: !isValidPw
-										? '비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다'
-										: ''}
+									? '비밀번호는 대소문자, 특수문자 포함 8자리 이상입니다'
+									: ''}
 							</FormInputValid>
 						</div>
 						<div role="alert">
@@ -264,8 +252,8 @@ function SignUp() {
 											? 'bg-eyelight'
 											: 'bg-eyefalse'
 										: pwConfirmView
-											? 'bg-eyetrue'
-											: 'bg-eyefalse'
+										? 'bg-eyetrue'
+										: 'bg-eyefalse'
 								}
 								onChange={debouncePwConfirmHandler}
 								onClick={isClickedPwConfirmView}
@@ -287,8 +275,8 @@ function SignUp() {
 								{passwordConfirm.length === 0
 									? ''
 									: password === passwordConfirm
-										? '비밀번호가 일치합니다'
-										: '비밀번호가 일치하지 않습니다'}
+									? '비밀번호가 일치합니다'
+									: '비밀번호가 일치하지 않습니다'}
 							</FormInputValid>
 						</div>
 						<div role="alert">
@@ -306,7 +294,7 @@ function SignUp() {
 							<FormInputValid
 								color={
 									(nickName.length !== 0 && !regNickName.test(nickName)) ||
-										isValidNickName
+									isValidNickName
 										? 'dark:text-dark-red text-light-red'
 										: ''
 								}
@@ -315,8 +303,8 @@ function SignUp() {
 								{nickName.length !== 0 && !regNickName.test(nickName)
 									? '공백 제외 두 자리 이상 입력해주세요'
 									: nickName.length !== 0 && isValidNickName === true
-										? '존재하는 닉네임입니다'
-										: ''}
+									? '존재하는 닉네임입니다'
+									: ''}
 							</FormInputValid>
 							<div className="flex justify-between text-ec1 relative px-2 gap-5">
 								<label htmlFor="image" className="whitespace-nowrap">

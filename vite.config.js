@@ -12,7 +12,7 @@ import { splitVendorChunkPlugin } from 'vite';
 
 const isDev = env.NODE_ENV === 'development';
 
-// https://vitejs.dev/config/
+ 
 export default defineConfig({
    plugins: [
       react(),
@@ -45,7 +45,7 @@ export default defineConfig({
          '@': resolve(__dirname, './src'),
       },
    },
-   // 빌드 시, 청크 파일 생성 매뉴얼 구성
+    
    build: {
       rollupOptions: {
          output: {
