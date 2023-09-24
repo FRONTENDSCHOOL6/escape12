@@ -1,4 +1,8 @@
    # 🔍ESCAPE 12
+![방탈러배너](https://github.com/FRONTENDSCHOOL6/escape12/assets/126174401/faeeac47-a1f1-4c64-a886-e8b6be7f9208)
+
+
+   
 #### 배포 URL: https://escape12.netlify.app/
 #### 테스트 계정
 email: escape@naver.com
