@@ -153,6 +153,7 @@ function Login() {
 								hidden="dark:text-dark-ec4 text-light-ec1"
 								aria-invalid={isValidPw}
 								aria-errormessage="loginPwErr"
+                pwView={pwView}
 							>
 								비밀번호
 							</FormInput>

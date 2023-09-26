@@ -1,4 +1,4 @@
-import { func, string } from 'prop-types';
+import { func, string, bool } from 'prop-types';
 import PropTypes from 'prop-types';
 import Sup from '../record/Sup';
 
@@ -14,6 +14,7 @@ FormInput.propTypes = {
 	onClick: func,
 	bold: string,
 	hidden: string,
+	pwView: bool,
 };
 
 function FormInput({
@@ -25,6 +26,7 @@ function FormInput({
 	onClick = null,
 	hidden = 'dark:text-dark-red text-light-red',
 	bold = '',
+	pwView,
 	...restProps
 }) {
 	return (
@@ -48,7 +50,7 @@ function FormInput({
 					type="button"
 					className={`${bg} bg-cover w-5 h-5 absolute right-1 top-0`}
 					onClick={onClick}
-					aria-label="비밀번호보기"
+					aria-label={pwView ? '비밀번호 안보이기' : '비밀번호 보기'}
 				/>
 			</fieldset>
 		</>

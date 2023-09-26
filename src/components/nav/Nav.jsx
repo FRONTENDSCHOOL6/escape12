@@ -40,7 +40,7 @@ function Nav({ onClick = null }) {
 							isCreateThemeActive || isThemeActive ? 'text-light-ec5' : ''
 						}`}
 					>
-						<img className="w-12 h-12" src={list4} alt="테마" />
+						<img className="w-12 h-12" src={list4} alt="" />
 						<span aria-hidden="true">테마</span>
 					</NavLink>
 				</li>
@@ -57,7 +57,7 @@ function Nav({ onClick = null }) {
 								: ''
 						} flex flex-col items-center`}
 					>
-						<img className="w-12 h-12" src={list3} alt="기록창고" />
+						<img className="w-12 h-12" src={list3} alt="" />
 						<span aria-hidden="true">기록창고</span>
 					</NavLink>
 				</li>
@@ -70,7 +70,7 @@ function Nav({ onClick = null }) {
 								: ''
 						}`}
 					>
-						<img className="w-12 h-12" src={list2} alt="커뮤니티" />
+						<img className="w-12 h-12" src={list2} alt="" />
 						<span aria-hidden="true">커뮤니티</span>
 					</NavLink>
 				</li>
@@ -88,7 +88,7 @@ function Nav({ onClick = null }) {
 								: ''
 						}`}
 					>
-						<img className="w-12 h-12" src={list1} alt="마이" />
+						<img className="w-12 h-12" src={list1} alt="" />
 						<span aria-hidden="true">마이</span>
 					</NavLink>
 				</li>
